@@ -10,20 +10,22 @@
 		1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9532AA4D895002C34A5 /* AppDelegate.swift */; };
 		1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */; };
 		1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9572AA4D895002C34A5 /* ViewController.swift */; };
-		1BADC95B2AA4D895002C34A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC9592AA4D895002C34A5 /* Main.storyboard */; };
 		1BADC95D2AA4D896002C34A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95C2AA4D896002C34A5 /* Assets.xcassets */; };
 		1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */; };
+		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
+		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1BADC9502AA4D895002C34A5 /* UnderWaterPhoyo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoyo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BADC9532AA4D895002C34A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1BADC9572AA4D895002C34A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1BADC95A2AA4D895002C34A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1BADC95C2AA4D896002C34A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BADC95F2AA4D896002C34A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BADC9612AA4D896002C34A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuildManager.swift; sourceTree = "<group>"; };
+		1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +42,7 @@
 		1BADC9472AA4D895002C34A5 = {
 			isa = PBXGroup;
 			children = (
-				1BADC9522AA4D895002C34A5 /* UnderWaterPhoyo */,
+				1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */,
 				1BADC9512AA4D895002C34A5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,31 +50,64 @@
 		1BADC9512AA4D895002C34A5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1BADC9502AA4D895002C34A5 /* UnderWaterPhoyo.app */,
+				1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1BADC9522AA4D895002C34A5 /* UnderWaterPhoyo */ = {
+		1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				1BADC96B2AA4DDD0002C34A5 /* Scenes */,
+				1BADC9672AA4DCE9002C34A5 /* Core */,
 				1BADC9532AA4D895002C34A5 /* AppDelegate.swift */,
 				1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */,
-				1BADC9572AA4D895002C34A5 /* ViewController.swift */,
-				1BADC9592AA4D895002C34A5 /* Main.storyboard */,
 				1BADC95C2AA4D896002C34A5 /* Assets.xcassets */,
 				1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */,
 				1BADC9612AA4D896002C34A5 /* Info.plist */,
 			);
-			path = UnderWaterPhoyo;
+			path = UnderWaterPhoto;
+			sourceTree = "<group>";
+		};
+		1BADC9672AA4DCE9002C34A5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1BADC9682AA4DCF6002C34A5 /* Managers */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1BADC9682AA4DCF6002C34A5 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		1BADC96B2AA4DDD0002C34A5 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				1BADC96C2AA4DDD6002C34A5 /* Test */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		1BADC96C2AA4DDD6002C34A5 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				1BADC9572AA4D895002C34A5 /* ViewController.swift */,
+				1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1BADC94F2AA4D895002C34A5 /* UnderWaterPhoyo */ = {
+		1BADC94F2AA4D895002C34A5 /* UnderWaterPhoto */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1BADC9642AA4D896002C34A5 /* Build configuration list for PBXNativeTarget "UnderWaterPhoyo" */;
+			buildConfigurationList = 1BADC9642AA4D896002C34A5 /* Build configuration list for PBXNativeTarget "UnderWaterPhoto" */;
 			buildPhases = (
 				1BADC94C2AA4D895002C34A5 /* Sources */,
 				1BADC94D2AA4D895002C34A5 /* Frameworks */,
@@ -82,9 +117,9 @@
 			);
 			dependencies = (
 			);
-			name = UnderWaterPhoyo;
+			name = UnderWaterPhoto;
 			productName = UnderWaterPhoyo;
-			productReference = 1BADC9502AA4D895002C34A5 /* UnderWaterPhoyo.app */;
+			productReference = 1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -102,7 +137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1BADC94B2AA4D895002C34A5 /* Build configuration list for PBXProject "UnderWaterPhoyo" */;
+			buildConfigurationList = 1BADC94B2AA4D895002C34A5 /* Build configuration list for PBXProject "UnderWaterPhoto" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -115,7 +150,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1BADC94F2AA4D895002C34A5 /* UnderWaterPhoyo */,
+				1BADC94F2AA4D895002C34A5 /* UnderWaterPhoto */,
 			);
 		};
 /* End PBXProject section */
@@ -127,7 +162,6 @@
 			files = (
 				1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */,
 				1BADC95D2AA4D896002C34A5 /* Assets.xcassets in Resources */,
-				1BADC95B2AA4D895002C34A5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,20 +175,14 @@
 				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
 				1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */,
+				1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */,
+				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1BADC9592AA4D895002C34A5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1BADC95A2AA4D895002C34A5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,10 +317,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = UnderWaterPhoyo/Info.plist;
+				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -300,7 +328,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoyo;
+				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -317,10 +345,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = UnderWaterPhoyo/Info.plist;
+				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -328,7 +356,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoyo;
+				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -339,7 +367,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1BADC94B2AA4D895002C34A5 /* Build configuration list for PBXProject "UnderWaterPhoyo" */ = {
+		1BADC94B2AA4D895002C34A5 /* Build configuration list for PBXProject "UnderWaterPhoto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1BADC9622AA4D896002C34A5 /* Debug */,
@@ -348,7 +376,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1BADC9642AA4D896002C34A5 /* Build configuration list for PBXNativeTarget "UnderWaterPhoyo" */ = {
+		1BADC9642AA4D896002C34A5 /* Build configuration list for PBXNativeTarget "UnderWaterPhoto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1BADC9652AA4D896002C34A5 /* Debug */,
