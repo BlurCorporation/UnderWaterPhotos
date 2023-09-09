@@ -18,35 +18,23 @@ class Presenter {
     //MARK: - PrivateProperties
     
     private let sceneBuildManager: Buildable
+    private let imageProcessingManager: ImageProcessingProtocol
     
     //MARK: - Initialize
     
-    init(sceneBuildManager: Buildable) {
+    init(sceneBuildManager: Buildable,
+         imageProcessingManager: ImageProcessingProtocol) {
         self.sceneBuildManager = sceneBuildManager
+        self.imageProcessingManager = imageProcessingManager
     }
     
-    func adjustWhiteBalance(image: UIImage) -> UIImage {
-        let ciImage = CIImage(image: image)
-        
-        let filter = CIFilter(name: "CITemperatureAndTint")
-        filter?.setValue(ciImage, forKey: kCIInputImageKey)
-        filter?.setValue(CIVector(x: 10000, y: 0), forKey: "inputTargetNeutral")
-        
-        if let outputImage = filter?.outputImage {
-            let context = CIContext(options: nil)
-            
-            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
-                return UIImage(cgImage: cgImage)
-            }
-        }
-        return UIImage(named: "emptyImage")!
-    }
+    
 }
 
 extension Presenter: PresenterProtocol {
     func changeImage(image: UIImage) {
         var newImage = UIImage()
-        newImage = adjustWhiteBalance(image: image)
+        newImage = imageProcessingManager.adjustWhiteBalance(image: image)
         
         viewController?.uploadImage(image: newImage)
     }
