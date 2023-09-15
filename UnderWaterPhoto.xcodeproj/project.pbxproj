@@ -10,6 +10,8 @@
 		1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF32AA8AC9700DD4E30 /* UIView.swift */; };
 		1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */; };
 		1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */; };
+		1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B27EB012AAD330500DD4E30 /* ScalingHeaderScrollView */; };
+		1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EB042AAD35B800DD4E30 /* MainViewController.swift */; };
 		1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9532AA4D895002C34A5 /* AppDelegate.swift */; };
 		1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */; };
 		1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9572AA4D895002C34A5 /* ViewController.swift */; };
@@ -23,6 +25,7 @@
 		1B27EAF32AA8AC9700DD4E30 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessingManager.swift; sourceTree = "<group>"; };
+		1B27EB042AAD35B800DD4E30 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BADC9532AA4D895002C34A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +56,14 @@
 				1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1B27EB032AAD35A800DD4E30 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1B27EB042AAD35B800DD4E30 /* MainViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		1BADC9472AA4D895002C34A5 = {
@@ -105,6 +117,7 @@
 		1BADC96B2AA4DDD0002C34A5 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				1B27EB032AAD35A800DD4E30 /* Main */,
 				1BADC96C2AA4DDD6002C34A5 /* Test */,
 			);
 			path = Scenes;
@@ -135,6 +148,9 @@
 			dependencies = (
 			);
 			name = UnderWaterPhoto;
+			packageProductDependencies = (
+				1B27EB012AAD330500DD4E30 /* ScalingHeaderScrollView */,
+			);
 			productName = UnderWaterPhoyo;
 			productReference = 1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +179,9 @@
 				Base,
 			);
 			mainGroup = 1BADC9472AA4D895002C34A5;
+			packageReferences = (
+				1B27EB002AAD330500DD4E30 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
+			);
 			productRefGroup = 1BADC9512AA4D895002C34A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -190,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
+				1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
 				1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */,
 				1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */,
@@ -406,6 +426,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1B27EB002AAD330500DD4E30 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/ScalingHeaderScrollView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1B27EB012AAD330500DD4E30 /* ScalingHeaderScrollView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B27EB002AAD330500DD4E30 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
+			productName = ScalingHeaderScrollView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1BADC9482AA4D895002C34A5 /* Project object */;
 }

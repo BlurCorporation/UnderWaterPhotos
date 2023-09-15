@@ -20,6 +20,7 @@ protocol ViewControllerProtocol: UIViewController {
 final class ViewController: UIViewController {
     
     var presenter: PresenterProtocol?
+    var defaultImage: UIImage?
     
     // MARK: PrivateProperties
     
@@ -68,18 +69,35 @@ final class ViewController: UIViewController {
         return stack
     }()
     
+    private lazy var slider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = -1
+        slider.maximumValue = 1
+        slider.value = 0
+        slider.addTarget(self, action: #selector(sliderChange(_ :)), for: .valueChanged)
+        return slider
+        
+    }()
+    
     // MARK: LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
+        defaultImage = mainImage.image
     }
     
     // MARK: Action
     
     @objc
     func changeButtonAction() {
-        presenter?.changeImage(image: self.mainImage.image!)
+        presenter?.changeImage(image: self.mainImage.image!, value: -3000)
+    }
+    
+    @objc
+    func sliderChange(_ sender: UISlider) {
+        print(sender.value)
+        presenter?.changeImage(image: self.defaultImage!, value: sender.value)
     }
     
 }
@@ -109,7 +127,7 @@ extension ViewController {
     }
     
     func addSubviews() {
-        view.addSubviews(commonStackView, buttonsStackView)
+        view.addSubviews(commonStackView, buttonsStackView, slider)
         
         commonStackView.addArrangedSubviews(mainImage)
         
@@ -127,7 +145,11 @@ extension ViewController {
             // buttonsStackView
             buttonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: buttonsStackView.trailingAnchor, constant: 16),
-            buttonsStackView.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 16)
+            buttonsStackView.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 16),
+            // slider
+            slider.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
         ])
     }
 }
@@ -153,6 +175,7 @@ extension ViewController: PHPickerViewControllerDelegate {
                  if let image = object as? UIImage {
                      DispatchQueue.main.async {
                          self.mainImage.image = image
+                         self.defaultImage = self.mainImage.image
                      }
                  }
               })
