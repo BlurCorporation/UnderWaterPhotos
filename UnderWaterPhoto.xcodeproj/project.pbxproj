@@ -12,6 +12,8 @@
 		1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */; };
 		1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B27EB012AAD330500DD4E30 /* ScalingHeaderScrollView */; };
 		1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EB042AAD35B800DD4E30 /* MainViewController.swift */; };
+		1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */; };
+		1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */; };
 		1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9532AA4D895002C34A5 /* AppDelegate.swift */; };
 		1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */; };
 		1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9572AA4D895002C34A5 /* ViewController.swift */; };
@@ -26,6 +28,8 @@
 		1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessingManager.swift; sourceTree = "<group>"; };
 		1B27EB042AAD35B800DD4E30 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
+		1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePresenter.swift; sourceTree = "<group>"; };
 		1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BADC9532AA4D895002C34A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +70,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		1B6FD6A52AB8B20D005F97B5 /* ОБРАЗЕЦ архитектуры мвп */ = {
+			isa = PBXGroup;
+			children = (
+				1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */,
+				1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */,
+			);
+			path = "ОБРАЗЕЦ архитектуры мвп";
+			sourceTree = "<group>";
+		};
 		1BADC9472AA4D895002C34A5 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +105,7 @@
 				1BADC95C2AA4D896002C34A5 /* Assets.xcassets */,
 				1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */,
 				1BADC9612AA4D896002C34A5 /* Info.plist */,
+				1B6FD6A52AB8B20D005F97B5 /* ОБРАЗЕЦ архитектуры мвп */,
 			);
 			path = UnderWaterPhoto;
 			sourceTree = "<group>";
@@ -210,8 +224,10 @@
 			files = (
 				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */,
+				1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
 				1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */,
+				1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */,
 				1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */,
 				1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */,
 				1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */,
