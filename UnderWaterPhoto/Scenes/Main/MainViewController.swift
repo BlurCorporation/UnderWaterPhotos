@@ -16,17 +16,13 @@ struct MainView: View {
             ScalingHeaderScrollView {
                 Color(UIColor(.blue))
                     .cornerRadius(40)
-                    .padding([.bottom], 20)
+                    .padding([.bottom], 36)
                 VStack {
                     Spacer()
                     ZStack {
-                        
-                        
                         addPhoto
                             .frame(alignment: .bottom)
-//                            .padding([.bottom], -20)
                             .ignoresSafeArea()
-                        
                     }
                 }
             } content: {
