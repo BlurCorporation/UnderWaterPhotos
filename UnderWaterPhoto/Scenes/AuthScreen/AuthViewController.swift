@@ -19,6 +19,30 @@ final class AuthViewController: UIViewController {
     
     // MARK: PrivateProperties
     
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var registrationButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(registrationButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var appleIdButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(appleIdButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var googleIdButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(googleIdButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: LifeCycle
 
     override func viewDidLoad() {
@@ -26,9 +50,29 @@ final class AuthViewController: UIViewController {
     }
     
     // MARK: Action
+    
+    @objc
+    func loginButtonPressed() {
+        presenter?.loginButtonPressed()
+    }
+    
+    @objc
+    func registrationButtonPressed() {
+        presenter?.registrationButtonPressed()
+    }
+    
+    @objc
+    func appleIdButtonPressed() {
+        presenter?.appleIdButtonPressed()
+    }
+    
+    @objc
+    func googleIdButtonPressed() {
+        presenter?.googleIdButtonPressed()
+    }
 }
 
-// MARK: - ExampleViewControllerProtocol Imp
+// MARK: - AuthViewControllerProtocol Imp
 
 extension AuthViewController: AuthViewControllerProtocol {}
 
