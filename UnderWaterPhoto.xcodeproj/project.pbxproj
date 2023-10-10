@@ -35,6 +35,8 @@
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
 		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
+		FB0EEA582ABAEABD007BC62C /* ViewControllerSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewControllerSubscription.swift */; };
+		FB0EEA5A2ABAEACC007BC62C /* PresenterSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* PresenterSubscription.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,8 @@
 		1BADC9612AA4D896002C34A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuildManager.swift; sourceTree = "<group>"; };
 		1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		FB0EEA572ABAEABD007BC62C /* ViewControllerSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSubscription.swift; sourceTree = "<group>"; };
+		FB0EEA592ABAEACC007BC62C /* PresenterSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterSubscription.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				1B6A98742AEFFA2A000C12A0 /* Settings */,
+				FB0EEA562ABAEA62007BC62C /* Subscription */,
 				1B27EB032AAD35A800DD4E30 /* Main */,
 				1BADC96C2AA4DDD6002C34A5 /* Test */,
 			);
@@ -243,6 +248,15 @@
 				1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		FB0EEA562ABAEA62007BC62C /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				FB0EEA572ABAEABD007BC62C /* ViewControllerSubscription.swift */,
+				FB0EEA592ABAEACC007BC62C /* PresenterSubscription.swift */,
+			);
+			path = Subscription;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,6 +344,8 @@
 				1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */,
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
+				1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */,
+				FB0EEA582ABAEABD007BC62C /* ViewControllerSubscription.swift in Sources */,
 				1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */,
 				1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */,
 				1BA7ED9A2AEA8914004CC70A /* HeaderView.swift in Sources */,
@@ -347,6 +363,7 @@
 				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
 				1B2759932AE1241800237167 /* MainViewModel.swift in Sources */,
 				1B6A98762AEFFA39000C12A0 /* SettingsView.swift in Sources */,
+				FB0EEA5A2ABAEACC007BC62C /* PresenterSubscription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
