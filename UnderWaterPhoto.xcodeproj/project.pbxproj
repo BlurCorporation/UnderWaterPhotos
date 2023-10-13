@@ -23,6 +23,7 @@
 		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
 		3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A72ABB675A00E624B2 /* AuthViewController.swift */; };
 		3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A92ABB678900E624B2 /* AuthPresenter.swift */; };
+		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */,
+				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +180,7 @@
 			name = UnderWaterPhoto;
 			packageProductDependencies = (
 				1B27EB012AAD330500DD4E30 /* ScalingHeaderScrollView */,
+				3AE95D812AD3EBD300166F23 /* SnapKit */,
 			);
 			productName = UnderWaterPhoyo;
 			productReference = 1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */;
@@ -209,6 +212,7 @@
 			mainGroup = 1BADC9472AA4D895002C34A5;
 			packageReferences = (
 				1B27EB002AAD330500DD4E30 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
+				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 1BADC9512AA4D895002C34A5 /* Products */;
 			projectDirPath = "";
@@ -470,6 +474,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -477,6 +489,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1B27EB002AAD330500DD4E30 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
 			productName = ScalingHeaderScrollView;
+		};
+		3AE95D812AD3EBD300166F23 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
