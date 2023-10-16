@@ -35,7 +35,7 @@ final class AuthViewController: UIViewController {
         label.backgroundColor = .blue
         return label
     }()
-    
+
     private let headTitle: UILabel = {
         let label = UILabel()
         label.text = "Создать аккаунт".localized
@@ -309,7 +309,7 @@ private extension AuthViewController {
         }
         
         restorePasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(8)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(8) //TODO: maybe  make.top.equalTo(repeatPasswordTextField.snp.bottom).offset(8)
             make.trailing.equalToSuperview()
             make.width.equalTo(210)
             make.height.equalTo(50)
