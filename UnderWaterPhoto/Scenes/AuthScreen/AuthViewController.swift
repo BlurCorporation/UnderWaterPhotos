@@ -96,6 +96,7 @@ final class AuthViewController: UIViewController {
         button.addTarget(self, action: #selector(appleIdButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 14
         button.backgroundColor = .white
+        button.setBackgroundImage(UIImage(named: "appleLogo"), for: .normal)
         return button
     }()
     
@@ -104,6 +105,7 @@ final class AuthViewController: UIViewController {
         button.addTarget(self, action: #selector(googleIdButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 14
         button.backgroundColor = .white
+        button.setBackgroundImage(UIImage(named: "googleLogo"), for: .normal)
         return button
     }()
     
