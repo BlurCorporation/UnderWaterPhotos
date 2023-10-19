@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import ScalingHeaderScrollView
 
 protocol SubscriptionViewControllerProtocol: UIViewController {
     
@@ -21,21 +22,37 @@ struct SubscriptionView: View {
             VStack {
                 // Header
                 HStack {
-                    Button(action: {
-                        // action
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                            .padding()
+//                    Button(action: {
+//                        // action
+//                    }) {
+//                        Image(systemName: "chevron.left")
+//                            .foregroundColor(.white)
+//                            .padding()
+//                    }
+//
+//                    Spacer()
+//
+//                    Text("Подписка")
+//                        .padding(.trailing, 50)
+//                        .font(.title2)
+//                        .foregroundColor(.white)
+//                        .frame(maxWidth: .infinity, maxHeight: 108)
+                    VStack {
+                        ScalingHeaderScrollView {
+                            Color(UIColor(.blue))
+                                .cornerRadius(40)
+                                .padding([.bottom], 36)
+                            VStack {
+                                Spacer()
+                            }
+                        } content: {
+                            scrollContent
+                                .padding()
+                        }
+                        .hideScrollIndicators()
+                        .height(min: 188)
+                        .ignoresSafeArea()
                     }
-
-                    Spacer()
-
-                    Text("Подписка")
-                        .padding(.trailing, 50)
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, maxHeight: 108)
                 }
                 .background(Color.blue)
                 .cornerRadius(30)
@@ -81,6 +98,21 @@ struct SubscriptionView: View {
             }
             .navigationBarHidden(true) // Скрыть стандартную навигационную строку
             .background(Color.brown)
+        }
+    }
+    
+    private var scrollContent: some View {
+        LazyVStack {
+            ForEach(0..<100) { _ in
+                HStack {
+                    Image("emptyImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    Image("emptyImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+            }
         }
     }
 }
