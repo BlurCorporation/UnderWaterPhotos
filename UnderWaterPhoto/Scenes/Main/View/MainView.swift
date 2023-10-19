@@ -11,6 +11,8 @@ import ScalingHeaderScrollView
 
 
 struct MainView: View {
+    @StateObject private var vm = MainViewModel()
+    
     var body: some View {
         VStack {
             ScalingHeaderScrollView {
@@ -20,13 +22,13 @@ struct MainView: View {
                 VStack {
                     Spacer()
                     ZStack {
-                        addPhoto
+                        addPhotoButtonView
                             .frame(alignment: .bottom)
                             .ignoresSafeArea()
                     }
                 }
             } content: {
-                scrollContent
+                scrollContentView
                     .padding()
             }
             .hideScrollIndicators()
@@ -35,7 +37,7 @@ struct MainView: View {
         }
     }
     
-    private var addPhoto: some View {
+    private var addPhotoButtonView: some View {
         LazyVStack {
             Button(action: {
 
@@ -51,19 +53,17 @@ struct MainView: View {
         }
     }
     
-    private var scrollContent: some View {
-        LazyVStack {
-            ForEach(0..<100) { _ in
-                HStack {
-                    Image("emptyImage")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                    Image("emptyImage")
+    private var scrollContentView: some View {
+            LazyVGrid(columns: [GridItem(), GridItem()]) {
+                ForEach(vm.images) { image in
+                    Image(image.imageName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
             }
-        }
+            .onAppear {
+                vm.fetch()
+            }
     }
 }
 
