@@ -13,6 +13,9 @@ protocol SubscriptionViewControllerProtocol: UIViewController {
 }
 
 struct SubscriptionView: View {
+    
+    @StateObject private var viewModel = SubscriptionViewModel()
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -89,24 +92,29 @@ struct SubscriptionView: View {
 
 final class SubscriptionViewController: UIViewController {
     
+    private var swiftUIViewController: UIHostingController<SubscriptionView>?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addSwiftUIViewToViewController()
     }
     
     func addSwiftUIViewToViewController() {
-            let swiftUIViewController = UIHostingController(rootView: SubscriptionView())
-            self.addChild(swiftUIViewController)
-            swiftUIViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addSubview(swiftUIViewController.view)
-            swiftUIViewController.didMove(toParent: self)
-            NSLayoutConstraint.activate([
-                swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-                swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
-                swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
-        }
+        let swiftUIViewController = UIHostingController(rootView: SubscriptionView())
+        self.addChild(swiftUIViewController)
+        swiftUIViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(swiftUIViewController.view)
+        swiftUIViewController.didMove(toParent: self)
+
+        NSLayoutConstraint.activate([
+            swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+            swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
+            swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        self.swiftUIViewController = swiftUIViewController
+    }
 }
 
 struct SubscriptionView_Previews: PreviewProvider {

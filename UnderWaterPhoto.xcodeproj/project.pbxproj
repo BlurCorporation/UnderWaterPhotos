@@ -37,6 +37,7 @@
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
 		FB0EEA582ABAEABD007BC62C /* ViewControllerSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewControllerSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* PresenterSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* PresenterSubscription.swift */; };
+		FB7F5F882AE11F29007E1808 /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		FB0EEA572ABAEABD007BC62C /* ViewControllerSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSubscription.swift; sourceTree = "<group>"; };
 		FB0EEA592ABAEACC007BC62C /* PresenterSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterSubscription.swift; sourceTree = "<group>"; };
+		FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +257,7 @@
 			children = (
 				FB0EEA572ABAEABD007BC62C /* ViewControllerSubscription.swift */,
 				FB0EEA592ABAEACC007BC62C /* PresenterSubscription.swift */,
+				FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */,
 			);
 			path = Subscription;
 			sourceTree = "<group>";
@@ -338,8 +341,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
+				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in  Sources */,
 				1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */,
+				FB7F5F882AE11F29007E1808 /* ModelSubscription.swift in Sources */,
 				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
 				1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */,
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,

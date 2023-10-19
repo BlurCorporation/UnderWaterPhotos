@@ -5,28 +5,15 @@
 //  Created by Андрей Барсуков on 20.09.2023.
 //
 
-// MARK: - SubscriptionPresenterProtocol
+import Combine
 
-protocol SubscriptionPresenterProtocol: AnyObject {
+// MARK: - SubscriptionViewModel
+
+final class SubscriptionViewModel: ObservableObject {
     
-}
-
-// MARK: - SubscriptionPresenter
-
-final class SubscriptionPresenter {
+    @Published private var subscriptionModel: SubscriptionModel
     
-    weak var viewController: SubscriptionViewControllerProtocol?
-    
-    //MARK: - PrivateProperties
-    private let sceneBuildManager: Buildable
-
-    //MARK: - Initialize
-    init(sceneBuildManager: Buildable) {
-        self.sceneBuildManager = sceneBuildManager
+    init(subscriptionModel: SubscriptionModel = SubscriptionModel()) {
+        self.subscriptionModel = subscriptionModel
     }
-}
-
-// MARK: - SubscriptionPresenterProtocol Imp
-extension SubscriptionPresenter: SubscriptionPresenterProtocol {
-    
 }
