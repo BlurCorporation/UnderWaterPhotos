@@ -18,20 +18,16 @@ class Presenter {
     //MARK: - PrivateProperties
     
     private let sceneBuildManager: Buildable
-    private let imageProcessingManager: ImageProcessingProtocol
     
     //MARK: - Initialize
     
-    init(sceneBuildManager: Buildable,
-         imageProcessingManager: ImageProcessingProtocol) {
+    init(sceneBuildManager: Buildable) {
         self.sceneBuildManager = sceneBuildManager
-        self.imageProcessingManager = imageProcessingManager
     }
 }
 
 extension Presenter: PresenterProtocol {
     func changeImage(image: UIImage, value: Float) {
-        
         Task {
             let newImage: UIImage = try await process(image: image)
             self.viewController?.uploadImage(image: newImage)

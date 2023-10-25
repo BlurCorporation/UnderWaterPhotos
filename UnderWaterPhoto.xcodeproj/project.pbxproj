@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF32AA8AC9700DD4E30 /* UIView.swift */; };
 		1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */; };
-		1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */; };
 		1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B27EB012AAD330500DD4E30 /* ScalingHeaderScrollView */; };
 		1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EB042AAD35B800DD4E30 /* MainViewController.swift */; };
 		1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */; };
@@ -33,7 +32,6 @@
 		1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.debug.xcconfig"; sourceTree = "<group>"; };
 		1B27EAF32AA8AC9700DD4E30 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
-		1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessingManager.swift; sourceTree = "<group>"; };
 		1B27EB042AAD35B800DD4E30 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1B4BD0672AE8F26500A56066 /* UnderWaterPhoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnderWaterPhoto-Bridging-Header.h"; sourceTree = "<group>"; };
 		1B4BD0692AE8F26500A56066 /* colorcorrection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorcorrection.h; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */,
-				1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -331,7 +328,6 @@
 				1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
 				1B4BD0752AE8F26500A56066 /* CVWrapper.mm in Sources */,
-				1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */,
 				1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */,
 				1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */,
 				1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */,
