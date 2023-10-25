@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF32AA8AC9700DD4E30 /* UIView.swift */; };
 		1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */; };
-		1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */; };
 		1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B27EB012AAD330500DD4E30 /* ScalingHeaderScrollView */; };
 		1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EB042AAD35B800DD4E30 /* MainViewController.swift */; };
+		1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */; };
+		1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */; };
+		1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */; };
+		1B4BD0752AE8F26500A56066 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD0712AE8F26500A56066 /* CVWrapper.mm */; };
 		1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */; };
 		1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */; };
 		1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9532AA4D895002C34A5 /* AppDelegate.swift */; };
@@ -22,13 +25,23 @@
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
 		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
+		AB64FEF113840871FA64F364 /* Pods_UnderWaterPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.debug.xcconfig"; sourceTree = "<group>"; };
 		1B27EAF32AA8AC9700DD4E30 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
-		1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessingManager.swift; sourceTree = "<group>"; };
 		1B27EB042AAD35B800DD4E30 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		1B4BD0672AE8F26500A56066 /* UnderWaterPhoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnderWaterPhoto-Bridging-Header.h"; sourceTree = "<group>"; };
+		1B4BD0692AE8F26500A56066 /* colorcorrection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorcorrection.h; sourceTree = "<group>"; };
+		1B4BD06A2AE8F26500A56066 /* contrastenhancement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contrastenhancement.h; sourceTree = "<group>"; };
+		1B4BD06B2AE8F26500A56066 /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
+		1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colorcorrection.cpp; sourceTree = "<group>"; };
+		1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contrastenhancement.cpp; sourceTree = "<group>"; };
+		1B4BD06F2AE8F26500A56066 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		1B4BD0712AE8F26500A56066 /* CVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CVWrapper.mm; sourceTree = "<group>"; };
 		1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePresenter.swift; sourceTree = "<group>"; };
 		1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +53,8 @@
 		1BADC9612AA4D896002C34A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuildManager.swift; sourceTree = "<group>"; };
 		1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnderWaterPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.release.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +64,7 @@
 			files = (
 				1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */,
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
+				AB64FEF113840871FA64F364 /* Pods_UnderWaterPhoto.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +88,38 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		1B4BD0662AE8F25500A56066 /* ImageProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				1B4BD06B2AE8F26500A56066 /* CVWrapper.h */,
+				1B4BD0712AE8F26500A56066 /* CVWrapper.mm */,
+				1B4BD0682AE8F26500A56066 /* include */,
+				1B4BD06C2AE8F26500A56066 /* src */,
+				1B4BD06F2AE8F26500A56066 /* UIImage+OpenCV.h */,
+				1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */,
+				1B4BD0672AE8F26500A56066 /* UnderWaterPhoto-Bridging-Header.h */,
+			);
+			path = ImageProcessing;
+			sourceTree = "<group>";
+		};
+		1B4BD0682AE8F26500A56066 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				1B4BD0692AE8F26500A56066 /* colorcorrection.h */,
+				1B4BD06A2AE8F26500A56066 /* contrastenhancement.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		1B4BD06C2AE8F26500A56066 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */,
+				1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		1B6FD6A52AB8B20D005F97B5 /* ОБРАЗЕЦ архитектуры мвп */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +134,8 @@
 			children = (
 				1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */,
 				1BADC9512AA4D895002C34A5 /* Products */,
+				332D93B886A8F1D8AA4C4FA7 /* Pods */,
+				36E34BF78490EC918F2C957F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +165,7 @@
 		1BADC9672AA4DCE9002C34A5 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1B4BD0662AE8F25500A56066 /* ImageProcessing */,
 				1B27EAF12AA8AC7900DD4E30 /* Extensions */,
 				1BADC9682AA4DCF6002C34A5 /* Managers */,
 			);
@@ -125,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */,
-				1B27EAFE2AAD2CE600DD4E30 /* ImageProcessingManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -148,6 +198,23 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
+		332D93B886A8F1D8AA4C4FA7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */,
+				8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		36E34BF78490EC918F2C957F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,6 +222,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BADC9642AA4D896002C34A5 /* Build configuration list for PBXNativeTarget "UnderWaterPhoto" */;
 			buildPhases = (
+				69466FC2FAF25917697438A4 /* [CP] Check Pods Manifest.lock */,
 				1BADC94C2AA4D895002C34A5 /* Sources */,
 				1BADC94D2AA4D895002C34A5 /* Frameworks */,
 				1BADC94E2AA4D895002C34A5 /* Resources */,
@@ -184,6 +252,7 @@
 				TargetAttributes = {
 					1BADC94F2AA4D895002C34A5 = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -199,6 +268,7 @@
 			packageReferences = (
 				1B27EB002AAD330500DD4E30 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				1B27EB002AAD330500DD4E30 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
 			productRefGroup = 1BADC9512AA4D895002C34A5 /* Products */;
 			projectDirPath = "";
@@ -221,18 +291,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		69466FC2FAF25917697438A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnderWaterPhoto-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1BADC94C2AA4D895002C34A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
 				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */,
 				1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */,
+				1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
-				1B27EAFF2AAD2CE600DD4E30 /* ImageProcessingManager.swift in Sources */,
+				1B4BD0752AE8F26500A56066 /* CVWrapper.mm in Sources */,
 				1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */,
 				1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */,
+				1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */,
 				1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */,
 				1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */,
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
@@ -370,9 +468,11 @@
 		};
 		1BADC9652AA4D896002C34A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
@@ -391,6 +491,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "UnderWaterPhoto/Core/ImageProcessing/UnderWaterPhoto-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -398,9 +500,11 @@
 		};
 		1BADC9662AA4D896002C34A5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
@@ -419,6 +523,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "UnderWaterPhoto/Core/ImageProcessing/UnderWaterPhoto-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
