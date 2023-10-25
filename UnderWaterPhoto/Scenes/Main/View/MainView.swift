@@ -16,9 +16,9 @@ struct MainView: View {
     var body: some View {
         VStack {
             ScalingHeaderScrollView {
-                Color(UIColor(.blue))
+                Color("blueDark")
                     .cornerRadius(40)
-                    .padding([.bottom], 36)
+                    .padding([.bottom], 62)
                 VStack {
                     Spacer()
                     ZStack {
@@ -30,11 +30,13 @@ struct MainView: View {
             } content: {
                 scrollContentView
                     .padding()
+                    
             }
             .hideScrollIndicators()
             .height(min: 188)
             .ignoresSafeArea()
         }
+        .background(Color("blue"))
     }
     
     private var addPhotoButtonView: some View {
@@ -46,9 +48,10 @@ struct MainView: View {
                     .foregroundColor(.white)
                     .frame(height: 80)
                     .frame(maxWidth: .infinity)
-                    .background(Color.gray)
+                    .background(Color("blue"))
                     .cornerRadius(24)
-                    .padding([.leading, .trailing], 16)
+                    .padding([.leading, .trailing, .bottom], 16)
+                    .shadow(color: .black, radius: 5)
             })
         }
     }
