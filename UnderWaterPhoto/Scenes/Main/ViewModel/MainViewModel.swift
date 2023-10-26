@@ -11,16 +11,19 @@ class MainViewModel: ObservableObject {
     @Published var images = [ImageModel]()
     
     func fetch() {
-        images = [ImageModel(id: UUID(), imageName: "emptyImage1"),
-                  ImageModel(id: UUID(), imageName: "emptyImage1"),
-                  ImageModel(id: UUID(), imageName: "emptyImage1"),
-                  ImageModel(id: UUID(), imageName: "emptyImage1"),
-                            ImageModel(id: UUID(), imageName: "emptyImage1"),
-                            ImageModel(id: UUID(), imageName: "emptyImage1"),
-                  ImageModel(id: UUID(), imageName: "emptyImage1"),
-                            ImageModel(id: UUID(), imageName: "emptyImage1"),
-                            ImageModel(id: UUID(), imageName: "emptyImage1"),                  ImageModel(id: UUID(), imageName: "emptyImage1"),
-                            ImageModel(id: UUID(), imageName: "emptyImage1"),
-                            ImageModel(id: UUID(), imageName: "emptyImage1")]
+        images = [
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1"),
+            ImageModel(id: UUID(), imageName: "emptyImage1")
+        ]
     }
 }

@@ -12,49 +12,60 @@ import ScalingHeaderScrollView
 
 struct MainView: View {
     @StateObject private var vm = MainViewModel()
+    @State var progress: CGFloat = 0
     
     var body: some View {
         VStack {
             ScalingHeaderScrollView {
-                Color("blueDark")
-                    .cornerRadius(40)
-                    .padding([.bottom], 62)
-                VStack {
+                ZStack {
+                    HeaderView(progress: progress)
                     Spacer()
-                    ZStack {
-                        addPhotoButtonView
-                            .frame(alignment: .bottom)
-                            .ignoresSafeArea()
-                    }
+                    mainHeaderTextView
+                        .padding([.leading, .trailing], 16)
                 }
             } content: {
-                scrollContentView
-                    .padding()
-                    
+                if vm.images.isEmpty {
+                    emptyView
+                        .padding()
+                } else {
+                    scrollContentView
+                        .padding()
+                }
             }
             .hideScrollIndicators()
-            .height(min: 188)
+            .height(min: 188, max: 318)
+            .collapseProgress($progress)
+            .allowsHeaderCollapse()
             .ignoresSafeArea()
+            .onAppear {
+                vm.fetch()
+            }
         }
         .background(Color("blue"))
     }
     
-    private var addPhotoButtonView: some View {
-        LazyVStack {
-            Button(action: {
-
-            }, label: {
-                Text("Редактировать Фото и Видео")
-                    .foregroundColor(.white)
-                    .frame(height: 80)
-                    .frame(maxWidth: .infinity)
-                    .background(Color("blue"))
-                    .cornerRadius(24)
-                    .padding([.leading, .trailing, .bottom], 16)
-                    .shadow(color: .black, radius: 5)
-            })
+    private var mainHeaderTextView: some View {
+        Text("Cделай свои подводные фотографии лучше вместе с нами!")
+            .foregroundColor(.white)
+            .opacity(1.0 - progress * 5)
+    }
+    
+    private var emptyView: some View {
+        Group {
+            Spacer()
+            Spacer()
+            Spacer()
+            Image(systemName: "photo")
+                .font(.system(size: 32, weight: .medium))
+                .foregroundColor(Color("grey"))
+            Text("Здесь буду загруженные тобой фото и видео")
+                .foregroundColor(Color("grey"))
+                .padding([.leading, .trailing], 36)
+                .multilineTextAlignment(.center)
+            Spacer()
         }
     }
+    
     
     private var scrollContentView: some View {
             LazyVGrid(columns: [GridItem(), GridItem()]) {
@@ -64,9 +75,7 @@ struct MainView: View {
                         .aspectRatio(contentMode: .fit)
                 }
             }
-            .onAppear {
-                vm.fetch()
-            }
+            
     }
 }
 
@@ -75,6 +84,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSwiftUIViewToViewController()
+        navigationController?.isNavigationBarHidden = true
     }
     
     func addSwiftUIViewToViewController() {
