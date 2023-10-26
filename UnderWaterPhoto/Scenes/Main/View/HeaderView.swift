@@ -10,6 +10,7 @@ import SwiftUI
 struct HeaderView: View {
     
     var progress: CGFloat
+    var userName: String
     
     @State private var isCross: Bool = false
     
@@ -31,7 +32,7 @@ struct HeaderView: View {
     
     var body: some View {
         Color("blueDark")
-            .cornerRadius(40)
+            .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
             .padding([.bottom], 62)
         VStack {
             navBar
@@ -48,8 +49,9 @@ struct HeaderView: View {
     
     private var navBar: some View {
         HStack {
-            Text("Привет!")
+            Text("Привет \(userName)!")
                 .foregroundColor(.white)
+                .font(.system(size: 20, weight: .medium))
             Spacer()
             CrossButtonView(isCross: isCross)
                 .onTapGesture {
@@ -64,14 +66,21 @@ struct HeaderView: View {
         Button(action: {
             
         }, label: {
-            Text("Редактировать Фото и Видео")
-                .foregroundColor(.white)
-                .frame(height: 80)
-                .frame(maxWidth: .infinity)
-                .background(Color("blue"))
-                .cornerRadius(24)
-                .padding([.leading, .trailing, .bottom], 16)
-                .shadow(color: .black, radius: 5)
+            HStack(spacing: 16) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 40))
+                    .padding([.leading], 20)
+                Text("Редактировать Фото и Видео")
+                    .font(.system(size: 17, weight: .semibold))
+                    .padding([.trailing], 20)
+            }
+            .foregroundColor(Color("white"))
+            .frame(height: 80)
+            .frame(maxWidth: .infinity)
+            .background(Color("blue"))
+            .cornerRadius(24)
+            .padding([.leading, .trailing, .bottom], 16)
+            .shadow(color: .black, radius: 5)
         })
     }
 }

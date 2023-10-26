@@ -18,7 +18,8 @@ struct MainView: View {
         VStack {
             ScalingHeaderScrollView {
                 ZStack {
-                    HeaderView(progress: progress)
+                    HeaderView(progress: progress,
+                               userName: vm.userName)
                     Spacer()
                     mainHeaderTextView
                         .padding([.leading, .trailing], 16)
@@ -47,6 +48,7 @@ struct MainView: View {
     private var mainHeaderTextView: some View {
         Text("Cделай свои подводные фотографии лучше вместе с нами!")
             .foregroundColor(.white)
+            .font(.system(size: 28, weight: .semibold))
             .opacity(1.0 - progress * 5)
     }
     

@@ -8,8 +8,8 @@
 import Foundation
 
 class MainViewModel: ObservableObject {
-    @Published var images = [ImageModel]()
-    
+    @Published var images: [ImageModel] = []
+    @Published var userName: String = "Александр"
     func fetch() {
         images = [
             ImageModel(id: UUID(), imageName: "emptyImage1"),
