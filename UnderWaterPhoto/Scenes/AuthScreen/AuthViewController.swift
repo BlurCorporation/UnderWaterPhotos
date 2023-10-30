@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Foundation
 
 // MARK: - AuthViewControllerProtocol
 
@@ -20,12 +21,19 @@ final class AuthViewController: UIViewController {
     
     // MARK: PrivateProperties
     
+    private lazy var logoLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .blue
+        return label
+    }()
+    
     private lazy var headTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "test text"
+        label.text = "Создать аккаунт"
         label.textAlignment = .center
         label.backgroundColor = .clear
+        label.textColor = UIColor(named: "backgroundColorRegistrationButton")
         return label
     }()
     
@@ -39,47 +47,45 @@ final class AuthViewController: UIViewController {
     }()
     
     private lazy var nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .red
-        textField.layer.cornerRadius = 20
+        let textField = CastomTextField()
+        textField.placeholder = "Имя".localized
         return textField
     }()
     
     private lazy var emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .red
-        textField.layer.cornerRadius = 20
+        let textField = CastomTextField()
+        textField.placeholder = "E-mail".localized
         return textField
     }()
     
     private lazy var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .red
-        textField.layer.cornerRadius = 20
+        let textField = CastomTextField()
+        textField.placeholder = "Пароль".localized
+        textField.isSecureTextEntry = true
         return textField
     }()
     
     private lazy var repeatPasswordTextField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .red
-        textField.layer.cornerRadius = 20
+        let textField = CastomTextField()
+        textField.placeholder = "Повторите пароль".localized
+        textField.isSecureTextEntry = true
+        
         return textField
     }()
     
-    private lazy var loginButton: UIButton = {
-        let button = UIButton()
+    private lazy var loginButton: CastomButton = {
+        let button = CastomButton(frame: .zero)
+        button.type = .loginButton
         button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         button.setTitle("Войти", for: .normal)
         return button
     }()
     
-    private lazy var registrationButton: UIButton = {
-        let button = UIButton()
+    private lazy var registrationButton: CastomButton = {
+        let button = CastomButton(frame: .zero)
+        button.type = .registrationButton
         button.addTarget(self, action: #selector(registrationButtonPressed), for: .touchUpInside)
         button.setTitle("Зарегистрироваться", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.blue, for: .normal)
-        button.layer.cornerRadius = 16
         return button
     }()
     
@@ -91,20 +97,18 @@ final class AuthViewController: UIViewController {
         return label
     }()
     
-    private lazy var appleIdButton: UIButton = {
-        let button = UIButton()
+    private lazy var appleIdButton: CastomButton = {
+        let button = CastomButton(frame: .zero)
+        button.type = .idBitton
         button.addTarget(self, action: #selector(appleIdButtonPressed), for: .touchUpInside)
-        button.layer.cornerRadius = 14
-        button.backgroundColor = .white
         button.setBackgroundImage(UIImage(named: "appleLogo"), for: .normal)
         return button
     }()
     
-    private lazy var googleIdButton: UIButton = {
-        let button = UIButton()
+    private lazy var googleIdButton: CastomButton = {
+        let button = CastomButton(frame: .zero)
+        button.type = .idBitton
         button.addTarget(self, action: #selector(googleIdButtonPressed), for: .touchUpInside)
-        button.layer.cornerRadius = 14
-        button.backgroundColor = .white
         button.setBackgroundImage(UIImage(named: "googleLogo"), for: .normal)
         return button
     }()
@@ -164,6 +168,7 @@ private extension AuthViewController {
         view.addSubview(loginUsinLabel)
         view.addSubview(appleIdButton)
         view.addSubview(googleIdButton)
+        view.addSubview(logoLabel)
         
         textFieldStackView.addArrangedSubview(nameTextField)
         textFieldStackView.addArrangedSubview(emailTextField)
@@ -172,8 +177,15 @@ private extension AuthViewController {
     }
     
     func setupConstraints() {
+        logoLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.height.equalTo(108)
+        }
+        
         headTitle.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(132)
+            make.top.equalTo(logoLabel.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
             make.height.equalTo(32)
             make.width.equalTo(343)
@@ -240,5 +252,11 @@ private extension AuthViewController {
             make.width.equalTo(62)
             make.height.equalTo(50)
         }
+    }
+}
+
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
     }
 }
