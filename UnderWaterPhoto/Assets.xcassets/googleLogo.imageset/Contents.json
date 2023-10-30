@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "googleLogo1x.pdf",
+      "filename" : "googleLogo.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "googleLogo2x.pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "googleLogo3x.pdf",
       "idiom" : "universal",
       "scale" : "3x"
     }
