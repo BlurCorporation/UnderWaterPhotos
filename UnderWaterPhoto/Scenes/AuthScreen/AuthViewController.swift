@@ -254,7 +254,6 @@ private extension AuthViewController {
     }
     
     func setupConstraints() {
-        
         logoLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
