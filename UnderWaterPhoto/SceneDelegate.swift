@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 // MARK: - Private methods
 private extension SceneDelegate {
-    
     func setupRootViewController(windowScene: UIWindowScene) {
         let window = UIWindow(windowScene: windowScene)
         let sceneBuildManager: Buildable = SceneBuildManager()
@@ -33,5 +32,4 @@ private extension SceneDelegate {
         window.overrideUserInterfaceStyle = .light
         self.window = window
     }
-    
 }

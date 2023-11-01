@@ -8,27 +8,11 @@
 import SwiftUI
 
 struct HeaderView: View {
-    
+    @StateObject var vm: MainViewModel
     var progress: CGFloat
     var userName: String
     
     @State private var isCross: Bool = false
-    
-    private var isCollapsed: Bool {
-        progress > 0.7
-    }
-    
-    private var balance: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        formatter.decimalSeparator = "."
-        formatter.groupingSeparator = " "
-        
-        let number = NSNumber(value: 56112.65)
-        let formattedValue = formatter.string(from: number)!
-        return "$\(formattedValue)"
-    }
     
     var body: some View {
         Color("blueDark")
@@ -43,13 +27,14 @@ struct HeaderView: View {
                 addPhotoButtonView
                     .frame(alignment: .bottom)
                     .ignoresSafeArea()
+                    .opacity(vm.state == .settings ? 0 : 1)
             }
         }
     }
     
     private var navBar: some View {
         HStack {
-            Text("Привет \(userName)!")
+            Text("Привет, \(userName)!")
                 .foregroundColor(.white)
                 .font(.system(size: 20, weight: .medium))
             Spacer()
@@ -57,6 +42,15 @@ struct HeaderView: View {
                 .onTapGesture {
                     withAnimation {
                         isCross.toggle()
+                        if isCross {
+                            vm.state = .settings
+                        } else {
+                            if vm.isEmpty() {
+                                vm.state = .clear
+                            } else {
+                                vm.state = .main
+                            }
+                        }
                     }
                 }
         }
@@ -93,7 +87,6 @@ struct Main_Previews: PreviewProvider {
 
 struct CrossButtonView: View {
     var isCross: Bool
-    
     var body: some View {
         ZStack {
             Rectangle()
@@ -106,14 +99,12 @@ struct CrossButtonView: View {
                     .cornerRadius(3)
                     .rotationEffect(.degrees(isCross ? 45 : 0), anchor: .center)
                     .offset(x: isCross ? 0 : -8, y: isCross ? 6 : 0)
-                    .animation(.easeIn, value: 1)
                 Rectangle()
                     .frame(width: 24, height: 4)
                     .foregroundColor(Color("white"))
                     .cornerRadius(3)
                     .rotationEffect(.degrees(isCross ? -45 : 0), anchor: .center)
                     .offset(x: isCross ? 0 : 8, y: isCross ? -6 : 0)
-                    .animation(.easeInOut, value: 1)
             }
         }
     }
