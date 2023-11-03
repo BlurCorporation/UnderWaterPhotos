@@ -19,9 +19,35 @@ struct HeaderView: View {
             .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
             .padding([.bottom], 62)
         VStack {
-            navBar
-                .padding([.top], 44)
-                .padding([.leading, .trailing], 16)
+            HStack {
+                switch vm.state {
+                case .settings:
+                    SettingsNavBarView(avatarImage: vm.avatarImage,
+                                       name: vm.userName,
+                                       mail: vm.mail)
+                default:
+                    navBar
+                }
+                Spacer()
+                CrossButtonView(isCross: isCross)
+                    .onTapGesture {
+                        withAnimation {
+                            isCross.toggle()
+                            if isCross {
+                                vm.state = .settings
+                                vm.ttoggle()
+                            } else {
+                                if vm.isEmpty() {
+                                    vm.state = .clear
+                                } else {
+                                    vm.state = .main
+                                }
+                            }
+                        }
+                    }
+            }
+            .padding([.top], 49)
+            .padding([.leading, .trailing], 16)
             Spacer()
             ZStack {
                 addPhotoButtonView
@@ -37,22 +63,6 @@ struct HeaderView: View {
             Text("Привет, \(userName)!")
                 .foregroundColor(.white)
                 .font(.system(size: 20, weight: .medium))
-            Spacer()
-            CrossButtonView(isCross: isCross)
-                .onTapGesture {
-                    withAnimation {
-                        isCross.toggle()
-                        if isCross {
-                            vm.state = .settings
-                        } else {
-                            if vm.isEmpty() {
-                                vm.state = .clear
-                            } else {
-                                vm.state = .main
-                            }
-                        }
-                    }
-                }
         }
     }
     

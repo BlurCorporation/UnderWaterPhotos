@@ -78,10 +78,6 @@ struct MainView: View {
             .foregroundColor(.white)
             .font(.system(size: 28, weight: .semibold))
             .opacity(3.0 - progress * 5)
-            .onChange(of: progress) { newValue in
-                print("\(newValue) - \(1.0 - newValue * 5)")
-                print(vm.state)
-            }
     }
     
     private var emptyView: some View {
@@ -92,7 +88,7 @@ struct MainView: View {
             Image(systemName: "photo")
                 .font(.system(size: 32, weight: .medium))
                 .foregroundColor(Color("white"))
-            Text("Здесь буду загруженные тобой фото и видео")
+            Text("Здесь будут загруженные тобой фото и видео")
                 .foregroundColor(Color("white"))
                 .font(.system(size: 20, weight: .medium))
                 .padding([.leading, .trailing], 36)
