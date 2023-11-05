@@ -70,7 +70,19 @@ struct MainView: View {
                    }
                }
            }
+           .onAppear {
+               switch vm.state {
+               case .main, .clear:
+                   progress = 0
+               case .settings:
+                   progress = 1
+               }
+           }
         }
+    }
+    
+    func changeProgress(progress: CGFloat) {
+        self.progress = progress
     }
     
     private var mainHeaderTextView: some View {

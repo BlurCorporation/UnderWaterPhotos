@@ -66,6 +66,14 @@ struct HeaderView: View {
                     .ignoresSafeArea()
                     .opacity(vm.state == .settings ? 0 : 1)
             }
+            .onAppear {
+                switch vm.state {
+                case .main, .clear:
+                    isCross = false
+                case .settings:
+                    isCross = true
+                }
+            }
         }
     }
 }
