@@ -7,13 +7,14 @@
 
 import UIKit
 
-enum TypeButton {
-    case registrationButton
-    case idBitton
-    case loginButton
-}
-
 final class CastomButton: UIButton {
+    
+    enum TypeButton {
+        case registrationButton
+        case idBitton
+        case loginButton
+    }
+    
     var type: TypeButton? {
         didSet {
             if let type = type {

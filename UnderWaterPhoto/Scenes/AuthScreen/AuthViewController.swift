@@ -11,7 +11,10 @@ import Foundation
 
 // MARK: - AuthViewControllerProtocol
 
-protocol AuthViewControllerProtocol: UIViewController {}
+protocol AuthViewControllerProtocol: UIViewController {
+    func expandLoginButton()
+    func restorePasswordExpand()
+}
 
 // MARK: - AuthViewController
 
@@ -20,6 +23,11 @@ final class AuthViewController: UIViewController {
     var presenter: AuthPresenterProtocol?
     
     // MARK: PrivateProperties
+    private var isExpandedLoginButton: Bool = false
+    private var passwordTextFieldCenterYConstraint: Constraint?
+    private var emailTextFieldCenterYConstraint: Constraint?
+    private var loginButtonCenterYConstraint: Constraint?
+    private var registrationButtonCenterYConstrain: Constraint?
     
     private lazy var logoLabel: UILabel = {
         let label = UILabel()
@@ -29,7 +37,6 @@ final class AuthViewController: UIViewController {
     
     private lazy var headTitle: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Создать аккаунт"
         label.textAlignment = .center
         label.backgroundColor = .clear
@@ -41,7 +48,6 @@ final class AuthViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .center
         return stackView
     }()
@@ -69,7 +75,6 @@ final class AuthViewController: UIViewController {
         let textField = CastomTextField()
         textField.placeholder = "Повторите пароль".localized
         textField.isSecureTextEntry = true
-        
         return textField
     }()
     
@@ -86,6 +91,15 @@ final class AuthViewController: UIViewController {
         button.type = .registrationButton
         button.addTarget(self, action: #selector(registrationButtonPressed), for: .touchUpInside)
         button.setTitle("Зарегистрироваться", for: .normal)
+        return button
+    }()
+    
+    private lazy var restorePasswordButton: CastomButton = {
+        let button = CastomButton(frame: .zero)
+        button.type = .loginButton
+        button.alpha = 0
+        button.addTarget(self, action: #selector(restorePasswordButtonPressed), for: .touchUpInside)
+        button.setTitle("Восстановить пароль", for: .normal)
         return button
     }()
     
@@ -114,7 +128,7 @@ final class AuthViewController: UIViewController {
     }()
     
     // MARK: LifeCycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
@@ -134,6 +148,11 @@ final class AuthViewController: UIViewController {
     }
     
     @objc
+    func restorePasswordButtonPressed() {
+        presenter?.restorePasswordButtonPressed()
+    }
+    
+    @objc
     func appleIdButtonPressed() {
         presenter?.appleIdButtonPressed()
     }
@@ -141,6 +160,53 @@ final class AuthViewController: UIViewController {
     @objc
     func googleIdButtonPressed() {
         presenter?.googleIdButtonPressed()
+    }
+    
+    func expandLoginButton() {
+        if isExpandedLoginButton {
+            UIView.animate(withDuration: 0.5) {
+                self.nameTextField.alpha = 1
+                self.passwordTextField.alpha = 1
+                self.repeatPasswordTextField.alpha = 1
+                self.restorePasswordButton.alpha = 0
+                self.emailTextFieldCenterYConstraint?.update(offset: 100)
+                self.passwordTextFieldCenterYConstraint?.update(offset: 160)
+                self.loginButtonCenterYConstraint?.update(offset: 272)
+                self.registrationButtonCenterYConstrain?.update(offset: 350)
+                self.view.layoutIfNeeded()
+            }
+            self.registrationButton.setTitle("Зарегестрироваться", for: .normal)
+            self.headTitle.text = "Создать аккаунт"
+            self.loginButton.setTitle("Войти", for: .normal)
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.nameTextField.alpha = 0
+                self.repeatPasswordTextField.alpha = 0
+                self.restorePasswordButton.alpha = 1
+                self.emailTextFieldCenterYConstraint?.update(offset: 40)
+                self.passwordTextFieldCenterYConstraint?.update(offset: 100)
+                self.loginButtonCenterYConstraint?.update(offset: 152)
+                self.registrationButtonCenterYConstrain?.update(offset: 230)
+                self.view.layoutIfNeeded()
+            }
+            self.registrationButton.setTitle("Войти", for: .normal)
+            self.headTitle.text = "Добро пожаловать"
+            self.loginButton.setTitle("Регистрация", for: .normal)
+            self.restorePasswordButton.setTitle("Восстановить пароль", for: .normal)
+        }
+        isExpandedLoginButton.toggle()
+    }
+    
+    func restorePasswordExpand() {
+        UIView.animate(withDuration: 0.5) {
+            self.passwordTextField.alpha = 0
+            self.restorePasswordButton.alpha = 0
+            self.loginButtonCenterYConstraint?.update(offset: 92)
+            self.registrationButtonCenterYConstrain?.update(offset: 170)
+            self.view.layoutIfNeeded()
+        }
+        self.registrationButton.setTitle("Восстановить пароль", for: .normal)
+        self.headTitle.text = "Восстановить пароль"
     }
 }
 
@@ -161,22 +227,22 @@ private extension AuthViewController {
     func setupNavigationController() {}
     
     func addSubviews() {
+        view.addSubview(logoLabel)
         view.addSubview(headTitle)
-        view.addSubview(textFieldStackView)
+        view.addSubview(nameTextField)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(repeatPasswordTextField)
         view.addSubview(loginButton)
+        view.addSubview(restorePasswordButton)
         view.addSubview(registrationButton)
         view.addSubview(loginUsinLabel)
         view.addSubview(appleIdButton)
         view.addSubview(googleIdButton)
-        view.addSubview(logoLabel)
-        
-        textFieldStackView.addArrangedSubview(nameTextField)
-        textFieldStackView.addArrangedSubview(emailTextField)
-        textFieldStackView.addArrangedSubview(passwordTextField)
-        textFieldStackView.addArrangedSubview(repeatPasswordTextField)
     }
     
     func setupConstraints() {
+        
         logoLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
@@ -191,42 +257,54 @@ private extension AuthViewController {
             make.width.equalTo(343)
         }
         
-        textFieldStackView.snp.makeConstraints { make in
+        nameTextField.snp.makeConstraints { make in
             make.top.equalTo(headTitle.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
-            make.width.equalTo(343)
-            
-        }
-        
-        nameTextField.snp.makeConstraints { make in
-            make.width.equalTo(343)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(44)
         }
         
         emailTextField.snp.makeConstraints { make in
-            make.width.equalTo(343)
+            emailTextFieldCenterYConstraint = make.top.equalTo(headTitle.snp.bottom).offset(100).constraint
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(44)
         }
         
         passwordTextField.snp.makeConstraints { make in
-            make.width.equalTo(343)
+            passwordTextFieldCenterYConstraint = make.top.equalTo(headTitle.snp.bottom).offset(160).constraint
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(44)
         }
         
         repeatPasswordTextField.snp.makeConstraints { make in
-            make.width.equalTo(343)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(44)
         }
         
         loginButton.snp.makeConstraints { make in
-            make.top.equalTo(repeatPasswordTextField.snp.bottom).offset(8)
+            loginButtonCenterYConstraint = make.top.equalTo(headTitle.snp.bottom).offset(272).constraint
             make.leading.equalToSuperview()
             make.width.equalTo(88)
             make.height.equalTo(50)
         }
         
+        restorePasswordButton.snp.makeConstraints { make in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(8)
+            make.trailing.equalToSuperview()
+            make.width.equalTo(210)
+            make.height.equalTo(50)
+        }
+        
         registrationButton.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(28)
+            registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(350).constraint
             make.centerX.equalToSuperview()
             make.width.equalTo(343)
             make.height.equalTo(50)

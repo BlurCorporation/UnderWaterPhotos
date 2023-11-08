@@ -11,6 +11,7 @@ import UIKit
 protocol AuthPresenterProtocol: AnyObject {
     func loginButtonPressed()
     func registrationButtonPressed()
+    func restorePasswordButtonPressed()
     func appleIdButtonPressed()
     func googleIdButtonPressed()
     
@@ -37,11 +38,15 @@ final class AuthPresenter {
 
 extension AuthPresenter: AuthPresenterProtocol {
     func loginButtonPressed() {
-        print("loginButtonPressed")
+        viewController?.expandLoginButton()
     }
     
     func registrationButtonPressed() {
         print("registrationButtonPressed")
+    }
+    
+    func restorePasswordButtonPressed() {
+        viewController?.restorePasswordExpand()
     }
     
     func appleIdButtonPressed() {
