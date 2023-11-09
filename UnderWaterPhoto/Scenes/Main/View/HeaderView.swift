@@ -112,7 +112,7 @@ private extension HeaderView {
 
 struct Main_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(languageSettingVC: {})
     }
 }
 

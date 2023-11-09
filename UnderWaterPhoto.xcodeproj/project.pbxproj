@@ -33,6 +33,7 @@
 		1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */; };
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
 		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
+		1BDC605E2AFAA13500F4E8BC /* LanguageSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDC605D2AFAA13500F4E8BC /* LanguageSettingViewController.swift */; };
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
 		FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */; };
@@ -77,6 +78,9 @@
 		FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSubscription.swift; sourceTree = "<group>"; };
 		FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
 		FB8DD26F2B0374FC0047B2AA /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		1BDC605D2AFAA13500F4E8BC /* LanguageSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingViewController.swift; sourceTree = "<group>"; };
+		73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnderWaterPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.release.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +240,7 @@
 		1BADC96B2AA4DDD0002C34A5 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				1BDC605C2AFAA11800F4E8BC /* LanguageSetting */,
 				1B6A98742AEFFA2A000C12A0 /* Settings */,
 				FB0EEA562ABAEA62007BC62C /* Subscription */,
 				1B27EB032AAD35A800DD4E30 /* Main */,
@@ -251,6 +256,14 @@
 				1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		1BDC605C2AFAA11800F4E8BC /* LanguageSetting */ = {
+			isa = PBXGroup;
+			children = (
+				1BDC605D2AFAA13500F4E8BC /* LanguageSettingViewController.swift */,
+			);
+			path = LanguageSetting;
 			sourceTree = "<group>";
 		};
 		FB0EEA562ABAEA62007BC62C /* Subscription */ = {
@@ -386,6 +399,7 @@
 				1B6A987A2AEFFB9D000C12A0 /* SettingsModel.swift in Sources */,
 				1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */,
 				1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */,
+				1BDC605E2AFAA13500F4E8BC /* LanguageSettingViewController.swift in Sources */,
 				1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */,
 				1B6A98782AEFFB92000C12A0 /* SettingsViewModel.swift in Sources */,
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,

@@ -16,6 +16,8 @@ struct MainView: View {
     @State private var isLoading: Bool = false
     @State var height: CGFloat = 0
     
+    var languageSettingVC: () -> Void
+    
     var body: some View {
         VStack {
             ScalingHeaderScrollView {
@@ -30,7 +32,7 @@ struct MainView: View {
             } content: {
                 switch vm.state {
                 case .settings:
-                    SettingsView()
+                    SettingsView(routeLanguageScreen: languageSettingVC)
                         .padding([.top], -32)
                 case .main:
                     scrollContentView
@@ -122,7 +124,6 @@ struct MainView: View {
 }
 
 final class MainViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSwiftUIViewToViewController()
@@ -130,7 +131,12 @@ final class MainViewController: UIViewController {
     }
     
     func addSwiftUIViewToViewController() {
-        let swiftUIViewController = UIHostingController(rootView: MainView())
+        let goLanguageScreen = {
+            let secondViewController = LanguageSettingViewController()
+            self.navigationController?.pushViewController(secondViewController, animated: true)
+        }
+        
+        let swiftUIViewController = UIHostingController(rootView: MainView(languageSettingVC: goLanguageScreen))
         self.addChild(swiftUIViewController)
         swiftUIViewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(swiftUIViewController.view)
@@ -146,6 +152,6 @@ final class MainViewController: UIViewController {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView( languageSettingVC: {})
     }
 }

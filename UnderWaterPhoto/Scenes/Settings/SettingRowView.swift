@@ -11,6 +11,7 @@ struct SettingRowView: View {
     var setting: String
     var additionalText: String?
     var symbol: String?
+    var routeLanguageScreen: () -> ()
     
     var body: some View {
         VStack {
@@ -26,6 +27,9 @@ struct SettingRowView: View {
                     .foregroundColor(Color("grey"))
                     .font(.system(size: 17, weight: .regular))
                     .padding([.trailing], 16)
+            }
+            .onTapGesture {
+                routeLanguageScreen()
             }
             Divider()
                 .background(Color.white)

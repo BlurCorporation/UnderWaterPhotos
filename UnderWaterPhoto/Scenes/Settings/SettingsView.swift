@@ -9,13 +9,18 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var vm = SettingsViewModel()
+    var routeLanguageScreen: () -> ()
     
     var body: some View {
         VStack {
             ForEach(vm.settings) { setting in
                 SettingRowView(setting: setting.settingName,
                                additionalText: setting.additionalName,
-                               symbol: setting.symbol)
+                               symbol: setting.symbol,
+                               routeLanguageScreen: routeLanguageScreen)
+                .onTapGesture {
+                    
+                }
             }
         }
     }
