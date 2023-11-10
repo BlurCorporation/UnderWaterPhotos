@@ -14,13 +14,11 @@ protocol AuthPresenterProtocol: AnyObject {
     func restorePasswordButtonPressed()
     func appleIdButtonPressed()
     func googleIdButtonPressed()
-    
 }
 
 // MARK: - AuthPresenter
 
 final class AuthPresenter {
-    
     weak var viewController: AuthViewControllerProtocol?
     
     //MARK: - PrivateProperties

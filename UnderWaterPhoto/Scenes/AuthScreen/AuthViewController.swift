@@ -83,6 +83,7 @@ final class AuthViewController: UIViewController {
         button.type = .loginButton
         button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         button.setTitle("Войти", for: .normal)
+        button.contentHorizontalAlignment = .left
         return button
     }()
     
@@ -291,8 +292,8 @@ private extension AuthViewController {
         
         loginButton.snp.makeConstraints { make in
             loginButtonCenterYConstraint = make.top.equalTo(headTitle.snp.bottom).offset(272).constraint
-            make.leading.equalToSuperview()
-            make.width.equalTo(88)
+            make.leading.equalToSuperview().offset(16)
+            make.width.equalTo(142)
             make.height.equalTo(50)
         }
         
