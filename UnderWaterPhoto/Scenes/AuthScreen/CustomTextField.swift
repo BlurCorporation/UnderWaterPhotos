@@ -1,5 +1,5 @@
 //
-//  CastomTextField.swift
+//  CustomTextField.swift
 //  UnderWaterPhoto
 //
 //  Created by Антон on 23.10.2023.
@@ -7,11 +7,13 @@
 
 import UIKit
 
-class CastomTextField: UITextField {
+class CustomTextField: UITextField {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupTextField()
+        layer.cornerRadius = 20
+        backgroundColor = UIColor(named: "backgroundColorIdButton")
+        attributedPlaceholder = placeholderText
     }
     
     required init(coder: NSCoder) {
@@ -34,14 +36,6 @@ class CastomTextField: UITextField {
     
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
-    }
-}
-
-extension CastomTextField {
-    func setupTextField() {
-        layer.cornerRadius = 20
-        backgroundColor = UIColor(named: "backgroundColorIdButton")
-        attributedPlaceholder = placeholderText
     }
 }
 

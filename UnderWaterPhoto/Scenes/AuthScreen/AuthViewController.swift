@@ -29,22 +29,22 @@ final class AuthViewController: UIViewController {
     private var loginButtonCenterYConstraint: Constraint?
     private var registrationButtonCenterYConstrain: Constraint?
     
-    private lazy var logoLabel: UILabel = {
+    private let logoLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .blue
         return label
     }()
     
-    private lazy var headTitle: UILabel = {
+    private let headTitle: UILabel = {
         let label = UILabel()
-        label.text = "Создать аккаунт"
+        label.text = "Создать аккаунт".localized
         label.textAlignment = .center
         label.backgroundColor = .clear
         label.textColor = UIColor(named: "backgroundColorRegistrationButton")
         return label
     }()
     
-    private lazy var textFieldStackView: UIStackView = {
+    private let textFieldStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 16
@@ -52,77 +52,77 @@ final class AuthViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var nameTextField: UITextField = {
-        let textField = CastomTextField()
+    private let nameTextField: UITextField = {
+        let textField = CustomTextField()
         textField.placeholder = "Имя".localized
         return textField
     }()
     
-    private lazy var emailTextField: UITextField = {
-        let textField = CastomTextField()
+    private let emailTextField: UITextField = {
+        let textField = CustomTextField()
         textField.placeholder = "E-mail".localized
         return textField
     }()
     
-    private lazy var passwordTextField: UITextField = {
-        let textField = CastomTextField()
+    private let passwordTextField: UITextField = {
+        let textField = CustomTextField()
         textField.placeholder = "Пароль".localized
         textField.isSecureTextEntry = true
         return textField
     }()
     
-    private lazy var repeatPasswordTextField: UITextField = {
-        let textField = CastomTextField()
+    private let repeatPasswordTextField: UITextField = {
+        let textField = CustomTextField()
         textField.placeholder = "Повторите пароль".localized
         textField.isSecureTextEntry = true
         return textField
     }()
     
-    private lazy var loginButton: CastomButton = {
-        let button = CastomButton(frame: .zero)
+    private lazy var loginButton: CustomButton = {
+        let button = CustomButton(frame: .zero)
         button.type = .loginButton
         button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-        button.setTitle("Войти", for: .normal)
+        button.setTitle("Войти".localized, for: .normal)
         button.contentHorizontalAlignment = .left
         return button
     }()
     
-    private lazy var registrationButton: CastomButton = {
-        let button = CastomButton(frame: .zero)
+    private lazy var registrationButton: CustomButton = {
+        let button = CustomButton(frame: .zero)
         button.type = .registrationButton
         button.addTarget(self, action: #selector(registrationButtonPressed), for: .touchUpInside)
-        button.setTitle("Зарегистрироваться", for: .normal)
+        button.setTitle("Зарегистрироваться".localized, for: .normal)
         return button
     }()
     
-    private lazy var restorePasswordButton: CastomButton = {
-        let button = CastomButton(frame: .zero)
+    private lazy var restorePasswordButton: CustomButton = {
+        let button = CustomButton(frame: .zero)
         button.type = .loginButton
         button.alpha = 0
         button.addTarget(self, action: #selector(restorePasswordButtonPressed), for: .touchUpInside)
-        button.setTitle("Восстановить пароль", for: .normal)
+        button.setTitle("Восстановить пароль".localized, for: .normal)
         return button
     }()
     
-    private lazy var loginUsinLabel: UILabel = {
+    private let loginUsinLabel: UILabel = {
         let label = UILabel()
-        label.text = "Войти с помощью"
+        label.text = "Войти с помощью".localized
         label.font = .systemFont(ofSize: 15)
         label.textColor = .white
         return label
     }()
     
-    private lazy var appleIdButton: CastomButton = {
-        let button = CastomButton(frame: .zero)
-        button.type = .idBitton
+    private lazy var appleIdButton: CustomButton = {
+        let button = CustomButton(frame: .zero)
+        button.type = .idButton
         button.addTarget(self, action: #selector(appleIdButtonPressed), for: .touchUpInside)
         button.setBackgroundImage(UIImage(named: "appleLogo"), for: .normal)
         return button
     }()
     
-    private lazy var googleIdButton: CastomButton = {
-        let button = CastomButton(frame: .zero)
-        button.type = .idBitton
+    private lazy var googleIdButton: CustomButton = {
+        let button = CustomButton(frame: .zero)
+        button.type = .idButton
         button.addTarget(self, action: #selector(googleIdButtonPressed), for: .touchUpInside)
         button.setBackgroundImage(UIImage(named: "googleLogo"), for: .normal)
         return button
@@ -176,9 +176,9 @@ final class AuthViewController: UIViewController {
                 self.registrationButtonCenterYConstrain?.update(offset: 350)
                 self.view.layoutIfNeeded()
             }
-            self.registrationButton.setTitle("Зарегестрироваться", for: .normal)
-            self.headTitle.text = "Создать аккаунт"
-            self.loginButton.setTitle("Войти", for: .normal)
+            self.registrationButton.setTitle("Зарегестрироваться".localized, for: .normal)
+            self.headTitle.text = "Создать аккаунт".localized
+            self.loginButton.setTitle("Войти".localized, for: .normal)
         } else {
             UIView.animate(withDuration: 0.5) {
                 self.nameTextField.alpha = 0
@@ -190,10 +190,10 @@ final class AuthViewController: UIViewController {
                 self.registrationButtonCenterYConstrain?.update(offset: 230)
                 self.view.layoutIfNeeded()
             }
-            self.registrationButton.setTitle("Войти", for: .normal)
-            self.headTitle.text = "Добро пожаловать"
-            self.loginButton.setTitle("Регистрация", for: .normal)
-            self.restorePasswordButton.setTitle("Восстановить пароль", for: .normal)
+            self.registrationButton.setTitle("Войти".localized, for: .normal)
+            self.headTitle.text = "Добро пожаловать".localized
+            self.loginButton.setTitle("Регистрация".localized, for: .normal)
+            self.restorePasswordButton.setTitle("Восстановить пароль".localized, for: .normal)
         }
         isExpandedLoginButton.toggle()
     }
@@ -206,8 +206,8 @@ final class AuthViewController: UIViewController {
             self.registrationButtonCenterYConstrain?.update(offset: 170)
             self.view.layoutIfNeeded()
         }
-        self.registrationButton.setTitle("Восстановить пароль", for: .normal)
-        self.headTitle.text = "Восстановить пароль"
+        self.registrationButton.setTitle("Восстановить пароль".localized, for: .normal)
+        self.headTitle.text = "Восстановить пароль".localized
     }
 }
 
