@@ -98,7 +98,7 @@ final class AuthViewController: UIViewController {
     private lazy var restorePasswordButton: CustomButton = {
         let button = CustomButton(frame: .zero)
         button.type = .loginButton
-        button.alpha = 0
+        button.alpha = .zero
         button.addTarget(self, action: #selector(restorePasswordButtonPressed), for: .touchUpInside)
         button.setTitle("Восстановить пароль".localized, for: .normal)
         return button
@@ -140,27 +140,37 @@ final class AuthViewController: UIViewController {
     
     @objc
     func loginButtonPressed() {
-        presenter?.loginButtonPressed()
+        loginButton.pushAnimate { [weak self] in
+            self?.presenter?.loginButtonPressed()
+        }
     }
     
     @objc
     func registrationButtonPressed() {
-        presenter?.registrationButtonPressed()
+        registrationButton.pushAnimate { [weak self] in
+            self?.presenter?.registrationButtonPressed()
+        }
     }
     
     @objc
     func restorePasswordButtonPressed() {
-        presenter?.restorePasswordButtonPressed()
+        restorePasswordButton.pushAnimate { [weak self] in
+            self?.presenter?.restorePasswordButtonPressed()
+        }
     }
     
     @objc
     func appleIdButtonPressed() {
-        presenter?.appleIdButtonPressed()
+        appleIdButton.pushAnimate { [weak self] in
+            self?.presenter?.appleIdButtonPressed()
+        }
     }
     
     @objc
     func googleIdButtonPressed() {
-        presenter?.googleIdButtonPressed()
+        googleIdButton.pushAnimate { [weak self] in
+            self?.presenter?.googleIdButtonPressed()
+        }
     }
     
     func expandLoginButton() {
@@ -228,18 +238,18 @@ private extension AuthViewController {
     func setupNavigationController() {}
     
     func addSubviews() {
-        view.addSubview(logoLabel)
-        view.addSubview(headTitle)
-        view.addSubview(nameTextField)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordTextField)
-        view.addSubview(repeatPasswordTextField)
-        view.addSubview(loginButton)
-        view.addSubview(restorePasswordButton)
-        view.addSubview(registrationButton)
-        view.addSubview(loginUsinLabel)
-        view.addSubview(appleIdButton)
-        view.addSubview(googleIdButton)
+        view.addSubviews(logoLabel,
+                         headTitle,
+                         nameTextField,
+                         emailTextField,
+                         passwordTextField,
+                         repeatPasswordTextField,
+                         loginButton,
+                         restorePasswordButton,
+                         registrationButton,
+                         loginUsinLabel,
+                         appleIdButton,
+                         googleIdButton)
     }
     
     func setupConstraints() {
@@ -331,11 +341,5 @@ private extension AuthViewController {
             make.width.equalTo(62)
             make.height.equalTo(50)
         }
-    }
-}
-
-extension String {
-    var localized: String {
-        return NSLocalizedString(self, comment: "")
     }
 }
