@@ -14,10 +14,21 @@ struct HeaderView: View {
     
     @State private var isCross: Bool = false
     
+    var headerBottomPadding: CGFloat {
+        switch vm.state {
+        case .main:
+            return 62
+        case .settings:
+            return 82
+        case .clear:
+            return 62
+        }
+    }
+    
     var body: some View {
         Color("blueDark")
             .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
-            .padding([.bottom], 62)
+            .padding([.bottom], headerBottomPadding)
         VStack {
             HStack {
                 switch vm.state {
@@ -55,10 +66,20 @@ struct HeaderView: View {
                     .ignoresSafeArea()
                     .opacity(vm.state == .settings ? 0 : 1)
             }
+            .onAppear {
+                switch vm.state {
+                case .main, .clear:
+                    isCross = false
+                case .settings:
+                    isCross = true
+                }
+            }
         }
     }
-    
-    private var navBar: some View {
+}
+
+private extension HeaderView {
+    var navBar: some View {
         HStack {
             Text("Привет, \(userName)!")
                 .foregroundColor(.white)
@@ -66,7 +87,7 @@ struct HeaderView: View {
         }
     }
     
-    private var addPhotoButtonView: some View {
+    var addPhotoButtonView: some View {
         Button(action: {
             
         }, label: {
