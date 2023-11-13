@@ -33,6 +33,7 @@ struct MainView: View {
                 switch vm.state {
                 case .settings:
                     SettingsView(routeLanguageScreen: languageSettingVC)
+                        .frame(height: 220)
                         .padding([.top], -32)
                 case .main:
                     scrollContentView
@@ -127,6 +128,9 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSwiftUIViewToViewController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
     }
     

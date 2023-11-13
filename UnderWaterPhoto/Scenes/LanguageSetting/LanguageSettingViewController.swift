@@ -12,6 +12,8 @@ final class LanguageSettingViewController: UIViewController {
     private var headerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "blueDark")
+//        view.layer.cornerRadius = 
+        
         return view
     }()
     
@@ -19,6 +21,7 @@ final class LanguageSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
+//        headerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 40)
     }
     
     

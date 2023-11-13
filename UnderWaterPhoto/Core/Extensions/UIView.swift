@@ -18,7 +18,9 @@ extension UIView {
             myAddSubview(view)
         }
     }
-    
+}
+
+extension UIView {
     func pushAnimate(_ completion: (() -> Void)?) {
         UIView.animate(
             withDuration: 0.1,
@@ -38,3 +40,11 @@ extension UIView {
     }
 }
 
+extension UIView {
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+}

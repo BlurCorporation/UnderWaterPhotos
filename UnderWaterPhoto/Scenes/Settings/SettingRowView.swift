@@ -17,7 +17,7 @@ struct SettingRowView: View {
         VStack {
             HStack {
                 Text(setting)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("white"))
                     .font(.system(size: 17, weight: .regular))
                 Spacer()
                 Text(additionalText ?? "")
@@ -28,13 +28,12 @@ struct SettingRowView: View {
                     .font(.system(size: 17, weight: .regular))
                     .padding([.trailing], 16)
             }
-            .onTapGesture {
-                routeLanguageScreen()
-            }
             Divider()
                 .background(Color.white)
         }
-        .padding([.leading], 16)
-        .frame(height: 44)
     }
+}
+
+#Preview {
+    MainView(languageSettingVC: {})
 }
