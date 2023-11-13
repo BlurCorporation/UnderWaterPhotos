@@ -302,8 +302,6 @@
 			children = (
 				3A9673A72ABB675A00E624B2 /* AuthViewController.swift */,
 				3A9673A92ABB678900E624B2 /* AuthPresenter.swift */,
-				3A0586D82AE6DC930047FC62 /* CustomTextField.swift */,
-				3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */,
 			);
 			path = AuthScreen;
 			sourceTree = "<group>";
