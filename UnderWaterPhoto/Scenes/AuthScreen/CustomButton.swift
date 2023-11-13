@@ -1,5 +1,5 @@
 //
-//  CastomButton.swift
+//  CustomButton.swift
 //  UnderWaterPhoto
 //
 //  Created by Антон on 23.10.2023.
@@ -13,7 +13,14 @@ enum TypeButton {
     case loginButton
 }
 
-final class CastomButton: UIButton {
+final class CustomButton: UIButton {
+    
+    enum TypeButton {
+        case registrationButton
+        case idButton
+        case loginButton
+    }
+    
     var type: TypeButton? {
         didSet {
             if let type = type {
@@ -32,7 +39,7 @@ final class CastomButton: UIButton {
             layer.cornerRadius = 16
             backgroundColor = UIColor(named: "backgroundColorRegistrationButton")
             setTitleColor(UIColor(named: "backgroundColorRegistrationTitle"), for: .normal)
-        case .idBitton:
+        case .idButton:
             layer.cornerRadius = 14
             backgroundColor = UIColor(named: "backgroundColorIdButton")
         case .loginButton:
