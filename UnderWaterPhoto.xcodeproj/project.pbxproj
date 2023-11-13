@@ -40,8 +40,8 @@
 		FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */; };
 		FB7F5F882AE11F29007E1808 /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */; };
-		3A0586D92AE6DC930047FC62 /* CastomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586D82AE6DC930047FC62 /* CastomTextField.swift */; };
-		3A0586DB2AE6E17E0047FC62 /* CastomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586DA2AE6E17E0047FC62 /* CastomButton.swift */; };
+		3A0586D92AE6DC930047FC62 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586D82AE6DC930047FC62 /* CustomTextField.swift */; };
+		3A0586DB2AE6E17E0047FC62 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */; };
 		3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A72ABB675A00E624B2 /* AuthViewController.swift */; };
 		3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A92ABB678900E624B2 /* AuthPresenter.swift */; };
 /* End PBXBuildFile section */
@@ -85,8 +85,8 @@
 		FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSubscription.swift; sourceTree = "<group>"; };
 		FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSubscription.swift; sourceTree = "<group>"; };
 		FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
-		3A0586D82AE6DC930047FC62 /* CastomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastomTextField.swift; sourceTree = "<group>"; };
-		3A0586DA2AE6E17E0047FC62 /* CastomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastomButton.swift; sourceTree = "<group>"; };
+		3A0586D82AE6DC930047FC62 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3A9673A72ABB675A00E624B2 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		3A9673A92ABB678900E624B2 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -314,8 +314,8 @@
 			children = (
 				3A9673A72ABB675A00E624B2 /* AuthViewController.swift */,
 				3A9673A92ABB678900E624B2 /* AuthPresenter.swift */,
-				3A0586D82AE6DC930047FC62 /* CastomTextField.swift */,
-				3A0586DA2AE6E17E0047FC62 /* CastomButton.swift */,
+				3A0586D82AE6DC930047FC62 /* CustomTextField.swift */,
+				3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */,
 			);
 			path = AuthScreen;
 			sourceTree = "<group>";
@@ -420,7 +420,7 @@
 				1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */,
 				1B6A987A2AEFFB9D000C12A0 /* SettingsModel.swift in Sources */,
 				1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */,
-				3A0586D92AE6DC930047FC62 /* CastomTextField.swift in Sources */,
+				3A0586D92AE6DC930047FC62 /* CustomTextField.swift in Sources */,
 				1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */,
 				1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */,
 				1B6A98782AEFFB92000C12A0 /* SettingsViewModel.swift in Sources */,
@@ -432,7 +432,7 @@
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
 				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,
-				3A0586DB2AE6E17E0047FC62 /* CastomButton.swift in Sources */,
+				3A0586DB2AE6E17E0047FC62 /* CustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
