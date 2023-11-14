@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0EA8052B036FF000C92D9A /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0EA8042B036FF000C92D9A /* opencv2.framework */; };
 		1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */; };
 		1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2119BD2AEAAA3700B3E1AF /* View.swift */; };
 		1B2759932AE1241800237167 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759922AE1241800237167 /* MainViewModel.swift */; };
@@ -34,11 +35,11 @@
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
 		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
-		AB64FEF113840871FA64F364 /* Pods_UnderWaterPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.debug.xcconfig"; sourceTree = "<group>"; };
+		1B0EA8042B036FF000C92D9A /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		1B0EA8062B036FF000C92D9A /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = UnderWaterPhoto.app; path = "/Users/maksimkosnikov/UnderWaterPhotos/build/Debug-iphoneos/UnderWaterPhoto.app"; sourceTree = "<absolute>"; };
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1B2759922AE1241800237167 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -62,7 +63,6 @@
 		1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePresenter.swift; sourceTree = "<group>"; };
 		1BA7ED992AEA8914004CC70A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BADC9532AA4D895002C34A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1BADC9572AA4D895002C34A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,8 +71,6 @@
 		1BADC9612AA4D896002C34A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuildManager.swift; sourceTree = "<group>"; };
 		1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
-		73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnderWaterPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.release.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0EA8052B036FF000C92D9A /* opencv2.framework in Frameworks */,
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
-				AB64FEF113840871FA64F364 /* Pods_UnderWaterPhoto.framework in Frameworks */,
 				1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,23 +189,13 @@
 			isa = PBXGroup;
 			children = (
 				1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */,
-				1BADC9512AA4D895002C34A5 /* Products */,
-				332D93B886A8F1D8AA4C4FA7 /* Pods */,
-				36E34BF78490EC918F2C957F /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		1BADC9512AA4D895002C34A5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				1B0EA8042B036FF000C92D9A /* opencv2.framework */,
 				1BADC96B2AA4DDD0002C34A5 /* Scenes */,
 				1BADC9672AA4DCE9002C34A5 /* Core */,
 				1BADC9532AA4D895002C34A5 /* AppDelegate.swift */,
@@ -257,23 +245,6 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
-		332D93B886A8F1D8AA4C4FA7 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */,
-				8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		36E34BF78490EC918F2C957F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,7 +252,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BADC9642AA4D896002C34A5 /* Build configuration list for PBXNativeTarget "UnderWaterPhoto" */;
 			buildPhases = (
-				69466FC2FAF25917697438A4 /* [CP] Check Pods Manifest.lock */,
 				1BADC94C2AA4D895002C34A5 /* Sources */,
 				1BADC94D2AA4D895002C34A5 /* Frameworks */,
 				1BADC94E2AA4D895002C34A5 /* Resources */,
@@ -296,7 +266,7 @@
 				1B4A4FBA2AF126DF00B35745 /* ScalingHeaderScrollView */,
 			);
 			productName = UnderWaterPhoyo;
-			productReference = 1BADC9502AA4D895002C34A5 /* UnderWaterPhoto.app */;
+			productReference = 1B0EA8062B036FF000C92D9A /* UnderWaterPhoto.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -325,10 +295,10 @@
 			);
 			mainGroup = 1BADC9472AA4D895002C34A5;
 			packageReferences = (
-				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */,
 				1B4A4FB92AF126DF00B35745 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
-			productRefGroup = 1BADC9512AA4D895002C34A5 /* Products */;
+			productRefGroup = 1BADC9472AA4D895002C34A5;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -348,31 +318,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		69466FC2FAF25917697438A4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-UnderWaterPhoto-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1BADC94C2AA4D895002C34A5 /* Sources */ = {
@@ -535,7 +480,6 @@
 		};
 		1BADC9652AA4D896002C34A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -543,6 +487,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UnderWaterPhoto",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -567,7 +515,6 @@
 		};
 		1BADC9662AA4D896002C34A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -575,6 +522,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UnderWaterPhoto",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -628,7 +579,7 @@
 				kind = branch;
 			};
 		};
-		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -646,7 +597,7 @@
 		};
 		3AE95D812AD3EBD300166F23 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
