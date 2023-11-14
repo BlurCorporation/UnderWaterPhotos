@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B102CC62B02836F009C7EB1 /* LanguageSettingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B102CC52B02836F009C7EB1 /* LanguageSettingPresenter.swift */; };
 		1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */; };
 		1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2119BD2AEAAA3700B3E1AF /* View.swift */; };
 		1B2759932AE1241800237167 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759922AE1241800237167 /* MainViewModel.swift */; };
@@ -42,6 +43,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.debug.xcconfig"; sourceTree = "<group>"; };
+		1B102CC52B02836F009C7EB1 /* LanguageSettingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingPresenter.swift; sourceTree = "<group>"; };
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1B24C08E2B0372B600152E75 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				1BDC605D2AFAA13500F4E8BC /* LanguageSettingViewController.swift */,
+				1B102CC52B02836F009C7EB1 /* LanguageSettingPresenter.swift */,
 			);
 			path = LanguageSetting;
 			sourceTree = "<group>";
@@ -404,6 +408,7 @@
 				1B6A98782AEFFB92000C12A0 /* SettingsViewModel.swift in Sources */,
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
 				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
+				1B102CC62B02836F009C7EB1 /* LanguageSettingPresenter.swift in Sources */,
 				1B2759932AE1241800237167 /* MainViewModel.swift in Sources */,
 				1B6A98762AEFFA39000C12A0 /* SettingsView.swift in Sources */,
 				FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */,

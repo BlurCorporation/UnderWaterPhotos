@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "addon_leftback.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

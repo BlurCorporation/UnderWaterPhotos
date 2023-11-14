@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol LanguageSettingViewProtocol {
+    
+}
+
 final class LanguageSettingViewController: UIViewController {
+    
+    var presenter: LanguageSettingPresenterProtocol?
     
     private var headerView: UIView = {
         let view = UIView()
@@ -17,6 +23,15 @@ final class LanguageSettingViewController: UIViewController {
         return view
     }()
     
+    private lazy var backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "back"),
+                        for: .normal)
+        button.addTarget(self,
+                         action: #selector(backButtonPressed),
+                         for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +39,14 @@ final class LanguageSettingViewController: UIViewController {
 //        headerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 40)
     }
     
+    
+    @objc private func backButtonPressed() {
+        presenter?.backButtonPressed()
+    }
+    
+}
+
+extension LanguageSettingViewController: LanguageSettingViewProtocol {
     
 }
 
@@ -36,6 +59,10 @@ extension LanguageSettingViewController {
     }
     
     func setupNavigationController() {
+        navigationItem.setHidesBackButton(true,
+                                          animated: true)
+        let backButton = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backButton
         title = "Язык приложения"
         navigationController?.isNavigationBarHidden = false
     }
