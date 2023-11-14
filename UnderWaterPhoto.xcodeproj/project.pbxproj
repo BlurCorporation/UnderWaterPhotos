@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B0EA8052B036FF000C92D9A /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0EA8042B036FF000C92D9A /* opencv2.framework */; };
 		1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */; };
 		1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2119BD2AEAAA3700B3E1AF /* View.swift */; };
+		1B24C0902B0372D300152E75 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B24C08F2B0372D300152E75 /* opencv2.framework */; };
 		1B2759932AE1241800237167 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759922AE1241800237167 /* MainViewModel.swift */; };
 		1B2759952AE1242F00237167 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759942AE1242F00237167 /* ImageModel.swift */; };
 		1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF32AA8AC9700DD4E30 /* UIView.swift */; };
@@ -35,18 +35,16 @@
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
 		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
-		FB0EEA582ABAEABD007BC62C /* ViewControllerSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewControllerSubscription.swift */; };
-		FB0EEA5A2ABAEACC007BC62C /* PresenterSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* PresenterSubscription.swift */; };
 		FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */; };
 		FB7F5F882AE11F29007E1808 /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1B0EA8042B036FF000C92D9A /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		1B0EA8062B036FF000C92D9A /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = UnderWaterPhoto.app; path = "/Users/maksimkosnikov/UnderWaterPhotos/build/Debug-iphoneos/UnderWaterPhoto.app"; sourceTree = "<absolute>"; };
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		1B24C08E2B0372B600152E75 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B24C08F2B0372D300152E75 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		1B2759922AE1241800237167 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1B2759942AE1242F00237167 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		1B27EAF32AA8AC9700DD4E30 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -86,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B0EA8052B036FF000C92D9A /* opencv2.framework in Frameworks */,
+				1B24C0902B0372D300152E75 /* opencv2.framework in Frameworks */,
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
 				1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */,
 			);
@@ -197,13 +195,14 @@
 			isa = PBXGroup;
 			children = (
 				1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */,
+				1B24C08E2B0372B600152E75 /* UnderWaterPhoto.app */,
 			);
 			sourceTree = "<group>";
 		};
 		1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				1B0EA8042B036FF000C92D9A /* opencv2.framework */,
+				1B24C08F2B0372D300152E75 /* opencv2.framework */,
 				1BADC96B2AA4DDD0002C34A5 /* Scenes */,
 				1BADC9672AA4DCE9002C34A5 /* Core */,
 				1BADC9532AA4D895002C34A5 /* AppDelegate.swift */,
@@ -309,7 +308,7 @@
 				1B4A4FBA2AF126DF00B35745 /* ScalingHeaderScrollView */,
 			);
 			productName = UnderWaterPhoyo;
-			productReference = 1B0EA8062B036FF000C92D9A /* UnderWaterPhoto.app */;
+			productReference = 1B24C08E2B0372B600152E75 /* UnderWaterPhoto.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -338,7 +337,7 @@
 			);
 			mainGroup = 1BADC9472AA4D895002C34A5;
 			packageReferences = (
-				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */,
+				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				1B4A4FB92AF126DF00B35745 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
 			productRefGroup = 1BADC9472AA4D895002C34A5;
@@ -367,14 +366,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in  Sources */,
+				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
 				1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */,
 				FB7F5F882AE11F29007E1808 /* ModelSubscription.swift in Sources */,
 				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
 				1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */,
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
-				1B27EB052AAD35B800DD4E30 /* MainViewController.swift in Sources */,
+				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
 				FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */,
 				1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */,
 				1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */,
@@ -393,7 +392,7 @@
 				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
 				1B2759932AE1241800237167 /* MainViewModel.swift in Sources */,
 				1B6A98762AEFFA39000C12A0 /* SettingsView.swift in Sources */,
-				FB0EEA5A2ABAEACC007BC62C /* PresenterSubscription.swift in Sources */,
+				FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */,
 				FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -627,7 +626,7 @@
 				kind = branch;
 			};
 		};
-		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
+		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -645,7 +644,7 @@
 		};
 		3AE95D812AD3EBD300166F23 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */;
+			package = 3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
