@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */; };
 		1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2119BD2AEAAA3700B3E1AF /* View.swift */; };
-		1B24C0902B0372D300152E75 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B24C08F2B0372D300152E75 /* opencv2.framework */; };
 		1B2759932AE1241800237167 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759922AE1241800237167 /* MainViewModel.swift */; };
 		1B2759952AE1242F00237167 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759942AE1242F00237167 /* ImageModel.swift */; };
 		1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF32AA8AC9700DD4E30 /* UIView.swift */; };
@@ -38,13 +37,13 @@
 		FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */; };
 		FB7F5F882AE11F29007E1808 /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */; };
+		FB8DD2702B0374FC0047B2AA /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8DD26F2B0374FC0047B2AA /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1B24C08E2B0372B600152E75 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B24C08F2B0372D300152E75 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		1B2759922AE1241800237167 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1B2759942AE1242F00237167 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		1B27EAF32AA8AC9700DD4E30 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -77,6 +76,7 @@
 		FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSubscription.swift; sourceTree = "<group>"; };
 		FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSubscription.swift; sourceTree = "<group>"; };
 		FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
+		FB8DD26F2B0374FC0047B2AA /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B24C0902B0372D300152E75 /* opencv2.framework in Frameworks */,
+				FB8DD2702B0374FC0047B2AA /* opencv2.framework in Frameworks */,
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
 				1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */,
 			);
@@ -202,7 +202,7 @@
 		1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				1B24C08F2B0372D300152E75 /* opencv2.framework */,
+				FB8DD26F2B0374FC0047B2AA /* opencv2.framework */,
 				1BADC96B2AA4DDD0002C34A5 /* Scenes */,
 				1BADC9672AA4DCE9002C34A5 /* Core */,
 				1BADC9532AA4D895002C34A5 /* AppDelegate.swift */,
@@ -447,6 +447,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -507,6 +508,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -533,7 +535,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B22MD3V3UZ;
+				DEVELOPMENT_TEAM = 6HH4TBW24N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnderWaterPhoto",
@@ -568,7 +570,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B22MD3V3UZ;
+				DEVELOPMENT_TEAM = 6HH4TBW24N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnderWaterPhoto",
