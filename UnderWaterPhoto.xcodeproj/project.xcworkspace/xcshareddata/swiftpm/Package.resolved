@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "scalingheaderscrollview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Maksim193/ScalingHeaderScrollView",
+      "state" : {
+        "branch" : "master",
+        "revision" : "cdfe75ca76d80921e277ca007dc2c3f59bf2b27f"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/swiftui-introspect",
+      "state" : {
+        "revision" : "9e1cc02a65b22e09a8251261cccbccce02731fc5",
+        "version" : "1.1.1"
+      }
+    }
+  ],
+  "version" : 2
+}

@@ -8,6 +8,7 @@
 protocol Buildable {
     func buildViewController() -> ViewController // тестовый vc
     func buildMainView() -> MainViewController // MainScreen на SwiftUI
+    func buildSubscriptionView() -> SubscriptionViewController
 }
 
 final class SceneBuildManager {
@@ -15,6 +16,12 @@ final class SceneBuildManager {
 
 
 extension SceneBuildManager: Buildable {
+    func buildSubscriptionView() -> SubscriptionViewController {
+        let viewController = SubscriptionViewController()
+        
+        return viewController
+    }
+    
     func buildViewController() -> ViewController {
         let viewController = ViewController()
         let presenter = Presenter(sceneBuildManager: self)
