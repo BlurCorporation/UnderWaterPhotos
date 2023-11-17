@@ -13,7 +13,6 @@ protocol LanguageSettingPresenterProtocol: AnyObject {
 
 final class LanguageSettingPresenter {
     weak var viewController:  LanguageSettingViewController?
-    
     private let sceneBuildManager: Buildable
     
     init(sceneBuildManager: Buildable) {

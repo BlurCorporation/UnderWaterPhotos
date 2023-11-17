@@ -35,5 +35,5 @@ struct SettingRowView: View {
 }
 
 #Preview {
-    MainView(languageSettingVC: {})
+    MainView(languageSettingVC: {}, routeProcessScreen: {})
 }

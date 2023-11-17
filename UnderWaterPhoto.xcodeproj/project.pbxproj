@@ -43,7 +43,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1843A2E04AE545775A376B16 /* Pods-UnderWaterPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.debug.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.debug.xcconfig"; sourceTree = "<group>"; };
 		1B102CC52B02836F009C7EB1 /* LanguageSettingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingPresenter.swift; sourceTree = "<group>"; };
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -82,8 +81,6 @@
 		FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
 		FB8DD26F2B0374FC0047B2AA /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		1BDC605D2AFAA13500F4E8BC /* LanguageSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingViewController.swift; sourceTree = "<group>"; };
-		73E44079A6A8F3B02E8C65E7 /* Pods_UnderWaterPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnderWaterPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8158F3673ECEFC38CCEC0EF7 /* Pods-UnderWaterPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnderWaterPhoto.release.xcconfig"; path = "Target Support Files/Pods-UnderWaterPhoto/Pods-UnderWaterPhoto.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +200,8 @@
 			children = (
 				1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */,
 				1B24C08E2B0372B600152E75 /* UnderWaterPhoto.app */,
+				1BADC9512AA4D895002C34A5 /* Products */,
+				332D93B886A8F1D8AA4C4FA7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -354,7 +353,7 @@
 			);
 			mainGroup = 1BADC9472AA4D895002C34A5;
 			packageReferences = (
-				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */,
 				1B4A4FB92AF126DF00B35745 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
 			productRefGroup = 1BADC9472AA4D895002C34A5;
@@ -647,7 +646,7 @@
 				kind = branch;
 			};
 		};
-		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -665,7 +664,7 @@
 		};
 		3AE95D812AD3EBD300166F23 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit.git" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */

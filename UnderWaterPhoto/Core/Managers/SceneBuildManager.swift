@@ -41,6 +41,10 @@ extension SceneBuildManager: Buildable {
     
     func buildLanguageScreen() -> LanguageSettingViewController {
         let viewController = LanguageSettingViewController()
+        let presenter = LanguageSettingPresenter(sceneBuildManager: self)
+        
+        viewController.presenter = presenter
+        presenter.viewController = viewController
         
         return viewController
     }

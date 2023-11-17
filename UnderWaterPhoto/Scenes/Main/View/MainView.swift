@@ -17,6 +17,7 @@ struct MainView: View {
     @State var height: CGFloat = 0
     
     var languageSettingVC: () -> Void
+    var routeProcessScreen: () -> Void
     
     var body: some View {
         VStack {
@@ -119,6 +120,9 @@ struct MainView: View {
                 Image(image.imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .onTapGesture {
+                        routeProcessScreen()
+                    }
             }
         }
     }
@@ -136,11 +140,17 @@ final class MainViewController: UIViewController {
     
     func addSwiftUIViewToViewController() {
         let goLanguageScreen = {
-            let secondViewController = LanguageSettingViewController()
+            let secondViewController = SceneBuildManager().buildLanguageScreen()
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
-        let swiftUIViewController = UIHostingController(rootView: MainView(languageSettingVC: goLanguageScreen))
+        let routeProcessScreen = {
+            let secondViewController = SceneBuildManager().buildViewController()
+            self.navigationController?.pushViewController(secondViewController, animated: true)
+        }
+        
+        let swiftUIViewController = UIHostingController(rootView: MainView(languageSettingVC: goLanguageScreen,
+                                                                           routeProcessScreen: routeProcessScreen))
         self.addChild(swiftUIViewController)
         swiftUIViewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(swiftUIViewController.view)
@@ -154,8 +164,6 @@ final class MainViewController: UIViewController {
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView( languageSettingVC: {})
-    }
+#Preview {
+    MainView( languageSettingVC: {}, routeProcessScreen: {})
 }
