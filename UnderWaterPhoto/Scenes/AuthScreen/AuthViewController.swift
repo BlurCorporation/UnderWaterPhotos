@@ -24,6 +24,7 @@ final class AuthViewController: UIViewController {
     
     // MARK: PrivateProperties
     private var isExpandedLoginButton: Bool = false
+    private let screenHeight = UIScreen.main.bounds.height
     private var passwordTextFieldCenterYConstraint: Constraint?
     private var emailTextFieldCenterYConstraint: Constraint?
     private var loginButtonCenterYConstraint: Constraint?
@@ -305,10 +306,14 @@ private extension AuthViewController {
         }
         
         registrationButton.snp.makeConstraints { make in
-            registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(350).constraint
             make.centerX.equalToSuperview()
             make.width.equalTo(343)
             make.height.equalTo(50)
+            if screenHeight < 700 {
+                registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(220).constraint
+            } else {
+                registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(350).constraint
+            }
         }
         
         loginUsinLabel.snp.makeConstraints { make in
