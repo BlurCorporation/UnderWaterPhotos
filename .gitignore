@@ -17,6 +17,7 @@ UnderWaterPhoto/opencv2.framework
 # it doesn't seem always identify rogue files
 #########################
  
+UnderWaterPhoto/opencv2.framework
 Wondr.xcodeproj/xcuserdata 
  
 #########################

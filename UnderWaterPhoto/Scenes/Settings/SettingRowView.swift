@@ -11,12 +11,13 @@ struct SettingRowView: View {
     var setting: String
     var additionalText: String?
     var symbol: String?
+    var routeLanguageScreen: () -> ()
     
     var body: some View {
         VStack {
             HStack {
                 Text(setting)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("white"))
                     .font(.system(size: 17, weight: .regular))
                 Spacer()
                 Text(additionalText ?? "")
@@ -30,7 +31,9 @@ struct SettingRowView: View {
             Divider()
                 .background(Color.white)
         }
-        .padding([.leading], 16)
-        .frame(height: 44)
     }
+}
+
+#Preview {
+    MainView(languageSettingVC: {}, routeProcessScreen: {})
 }
