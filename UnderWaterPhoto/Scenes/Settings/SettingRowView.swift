@@ -11,22 +11,24 @@ struct SettingRowView: View {
     var setting: String
     var additionalText: String?
     var symbol: String?
-    var routeLanguageScreen: () -> ()
     
     var body: some View {
         VStack {
-            HStack {
-                Text(setting)
-                    .foregroundColor(Color("white"))
-                    .font(.system(size: 17, weight: .regular))
-                Spacer()
-                Text(additionalText ?? "")
-                    .foregroundColor(Color("grey"))
-                    .font(.system(size: 17, weight: .regular))
-                Image(systemName: symbol ?? "")
-                    .foregroundColor(Color("grey"))
-                    .font(.system(size: 17, weight: .regular))
-                    .padding([.trailing], 16)
+            ZStack {
+                Color("blue")
+                HStack {
+                    Text(setting)
+                        .foregroundColor(Color("white"))
+                        .font(.system(size: 17, weight: .regular))
+                    Spacer()
+                    Text(additionalText ?? "")
+                        .foregroundColor(Color("grey"))
+                        .font(.system(size: 17, weight: .regular))
+                    Image(systemName: symbol ?? "")
+                        .foregroundColor(Color("grey"))
+                        .font(.system(size: 17, weight: .regular))
+                        .padding([.trailing], 16)
+                }
             }
             Divider()
                 .background(Color.white)
@@ -35,5 +37,5 @@ struct SettingRowView: View {
 }
 
 #Preview {
-    MainView(languageSettingVC: {}, routeProcessScreen: {})
+    LanguageSettingView()
 }

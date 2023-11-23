@@ -16,8 +16,7 @@ struct SettingsView: View {
             List(vm.settings) { setting in
                     SettingRowView(setting: setting.settingName,
                                    additionalText: setting.additionalName,
-                                   symbol: setting.symbol,
-                                   routeLanguageScreen: routeLanguageScreen)
+                                   symbol: setting.symbol)
                     .onTapGesture {
                         if setting.id == 0 {
                             routeLanguageScreen()
