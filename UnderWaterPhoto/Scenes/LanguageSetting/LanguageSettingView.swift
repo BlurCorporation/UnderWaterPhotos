@@ -104,6 +104,7 @@ class LanguageSettingViewController: UIViewController {
     }
 }
 
-#Preview {
-    LanguageSettingView()
-}
+
+//#Preview {
+//    LanguageSettingView()
+//}

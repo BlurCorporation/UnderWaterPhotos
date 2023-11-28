@@ -31,6 +31,6 @@ struct SettingsView: View {
     }
 }
 
-#Preview {
-    SettingsView(routeLanguageScreen: {})
-}
+//#Preview {
+//    SettingsView(routeLanguageScreen: {})
+//}
