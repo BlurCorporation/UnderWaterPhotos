@@ -36,6 +36,6 @@ struct SettingRowView: View {
     }
 }
 
-#Preview {
-    LanguageSettingView()
-}
+//#Preview {
+//    LanguageSettingView()
+//}

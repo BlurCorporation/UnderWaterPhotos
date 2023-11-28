@@ -164,6 +164,13 @@ final class MainViewController: UIViewController {
     }
 }
 
-#Preview {
-    MainView( languageSettingVC: {}, routeProcessScreen: {})
+struct MyPreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        Text("Hello, world!")
+    }
 }
+
+
+//#Preview {
+//    MainView( languageSettingVC: {}, routeProcessScreen: {})
+//}
