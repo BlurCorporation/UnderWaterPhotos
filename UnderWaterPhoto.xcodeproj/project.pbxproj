@@ -38,8 +38,6 @@
 		1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */; };
 		3A0586D92AE6DC930047FC62 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586D82AE6DC930047FC62 /* CustomTextField.swift */; };
 		3A0586DB2AE6E17E0047FC62 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */; };
-		3A65046B2B1674B200662B2B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A65046A2B1674B200662B2B /* opencv2.framework */; };
-		3A6504702B1675E600662B2B /* SubscriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65046F2B1675E600662B2B /* SubscriptionModel.swift */; };
 		3A48C85F2B053A2D00DD5A18 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C85E2B053A2D00DD5A18 /* FirebaseAnalytics */; };
 		3A48C8612B053A2D00DD5A18 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8602B053A2D00DD5A18 /* FirebaseAnalyticsOnDeviceConversion */; };
 		3A48C8632B053A2D00DD5A18 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8622B053A2D00DD5A18 /* FirebaseAnalyticsSwift */; };
@@ -67,6 +65,8 @@
 		3A48C88F2B053A2D00DD5A18 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C88E2B053A2D00DD5A18 /* FirebaseRemoteConfigSwift */; };
 		3A48C8912B053A2D00DD5A18 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8902B053A2D00DD5A18 /* FirebaseStorage */; };
 		3A48C8932B053A2D00DD5A18 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8922B053A2D00DD5A18 /* FirebaseStorageCombine-Community */; };
+		3A65046B2B1674B200662B2B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A65046A2B1674B200662B2B /* opencv2.framework */; };
+		3A6504702B1675E600662B2B /* SubscriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65046F2B1675E600662B2B /* SubscriptionModel.swift */; };
 		3A681B762B028CD50040DED4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A681B752B028CD40040DED4 /* GoogleService-Info.plist */; };
 		3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A72ABB675A00E624B2 /* AuthViewController.swift */; };
 		3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A92ABB678900E624B2 /* AuthPresenter.swift */; };
@@ -131,7 +131,6 @@
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
 				1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */,
 				3A48C8892B053A2D00DD5A18 /* FirebaseMessaging in Frameworks */,
-				1B27EB022AAD330500DD4E30 /* ScalingHeaderScrollView in Frameworks */,
 				3A48C87B2B053A2D00DD5A18 /* FirebaseFirestoreSwift in Frameworks */,
 				3A48C8652B053A2D00DD5A18 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				3A48C87D2B053A2D00DD5A18 /* FirebaseFunctions in Frameworks */,
@@ -674,7 +673,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 39KAPHXP88;
+				DEVELOPMENT_TEAM = B22MD3V3UZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnderWaterPhoto",
@@ -710,7 +709,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 39KAPHXP88;
+				DEVELOPMENT_TEAM = B22MD3V3UZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnderWaterPhoto",
@@ -774,7 +773,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				minimumVersion = 10.0.0;
 			};
 		};
 		3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */ = {

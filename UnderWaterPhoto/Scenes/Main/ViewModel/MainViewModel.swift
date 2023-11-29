@@ -22,24 +22,26 @@ class MainViewModel: ObservableObject {
     @Published var toggle: Bool = false
     
     func fetch() {
-        images = [
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1"),
-            ImageModel(id: UUID(), imageName: "emptyImage1")
-        ]
-        if images.isEmpty {
-            state = .clear
-        } else {
-            state = .main
+        if state != .settings {
+            images = [
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "emptyImage1")
+            ]
+            if images.isEmpty {
+                state = .clear
+            } else {
+                state = .main
+            }
         }
     }
     

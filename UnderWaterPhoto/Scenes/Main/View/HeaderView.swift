@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct HeaderView: View {
-    @StateObject var vm: MainViewModel
+    @ObservedObject var vm: MainViewModel
     var progress: CGFloat
     var userName: String
-    
     @State private var isCross: Bool = false
     
     var headerBottomPadding: CGFloat {
@@ -112,7 +111,7 @@ private extension HeaderView {
 
 struct Main_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(languageSettingVC: {}, routeProcessScreen: {})
+        MainView(vm: MainViewModel(), languageSettingVC: {}, routeProcessScreen: {})
     }
 }
 

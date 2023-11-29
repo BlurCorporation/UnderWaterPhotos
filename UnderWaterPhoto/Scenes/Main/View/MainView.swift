@@ -11,10 +11,10 @@ import ScalingHeaderScrollView
 
 
 struct MainView: View {
-    @StateObject private var vm = MainViewModel()
-    @State var progress: CGFloat = 0
+    @ObservedObject var vm: MainViewModel
+    @State private var progress: CGFloat = 0
     @State private var isLoading: Bool = false
-    @State var height: CGFloat = 0
+    @State private var height: CGFloat = 0
     
     var languageSettingVC: () -> Void
     var routeProcessScreen: () -> Void
@@ -26,7 +26,6 @@ struct MainView: View {
                     HeaderView(vm: vm,
                                progress: progress,
                                userName: vm.userName)
-                    Spacer()
                     mainHeaderTextView
                         .padding([.leading, .trailing], 16)
                 }
@@ -53,15 +52,15 @@ struct MainView: View {
                 switch vm.state {
                 case .main, .clear:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            vm.fetch()
-                            isLoading = false
-                            progress = 0
-                        }
+                        vm.fetch()
+                        progress = 0
+                        isLoading = false
                     }
                 case .settings:
-                    isLoading = false
+                    print(".setting")
+                        isLoading = false
                 }
+                
             }
            .background(Color("blue"))
            .ignoresSafeArea()
@@ -88,33 +87,37 @@ struct MainView: View {
     func changeProgress(progress: CGFloat) {
         self.progress = progress
     }
-    
-    private var mainHeaderTextView: some View {
+}
+
+private extension MainView {
+    var mainHeaderTextView: some View {
         Text("Cделай свои подводные фотографии лучше вместе с нами!")
             .foregroundColor(.white)
             .font(.system(size: 28, weight: .semibold))
             .opacity(3.0 - progress * 5)
     }
     
-    private var emptyView: some View {
+    var emptyView: some View {
         Group {
             Spacer()
             Spacer()
             Spacer()
-            Image(systemName: "photo")
-                .font(.system(size: 32, weight: .medium))
-                .foregroundColor(Color("white"))
-            Text("Здесь будут загруженные тобой фото и видео")
-                .foregroundColor(Color("white"))
-                .font(.system(size: 20, weight: .medium))
-                .padding([.leading, .trailing], 36)
-                .multilineTextAlignment(.center)
-            Spacer()
+            VStack {
+                Image(systemName: "photo")
+                    .font(.system(size: 32, weight: .medium))
+                    .foregroundColor(Color("white"))
+                Text("Здесь будут загруженные тобой фото и видео")
+                    .foregroundColor(Color("white"))
+                    .font(.system(size: 20, weight: .medium))
+                    .padding([.leading, .trailing], 36)
+                    .multilineTextAlignment(.center)
+            }
         }
+        
     }
     
     
-    private var scrollContentView: some View {
+    var scrollContentView: some View {
         LazyVGrid(columns: [GridItem(), GridItem()]) {
             ForEach(vm.images) { image in
                 Image(image.imageName)
@@ -129,6 +132,8 @@ struct MainView: View {
 }
 
 final class MainViewController: UIViewController {
+    let viewModel: MainViewModel
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSwiftUIViewToViewController()
@@ -136,6 +141,15 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func addSwiftUIViewToViewController() {
@@ -149,7 +163,8 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
-        let swiftUIViewController = UIHostingController(rootView: MainView(languageSettingVC: goLanguageScreen,
+        let swiftUIViewController = UIHostingController(rootView: MainView(vm: viewModel,
+                                                                           languageSettingVC: goLanguageScreen,
                                                                            routeProcessScreen: routeProcessScreen))
         self.addChild(swiftUIViewController)
         swiftUIViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -164,10 +179,8 @@ final class MainViewController: UIViewController {
     }
 }
 
-struct MyPreviewProvider_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("Hello, world!")
-    }
+#Preview {
+    MainView( vm: MainViewModel(), languageSettingVC: {}, routeProcessScreen: {})
 }
 
 

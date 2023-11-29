@@ -45,7 +45,8 @@ extension SceneBuildManager: Buildable {
     }
     
     func buildMainView() -> MainViewController {
-        let viewController = MainViewController()
+        let viewModel = MainViewModel()
+        let viewController = MainViewController(viewModel: viewModel)
         
         return viewController
     }
