@@ -18,13 +18,22 @@ struct SubscriptionView: View {
     @StateObject private var viewModel = SubscriptionViewModel()
     @State private var screenWidth: CGFloat = 0
     @State private var benefitsHeight: CGFloat = 0
-    
+    @State private var rulesText = "Oформляя подписку вы соглашаетесь на Условия использования и Политику конфиденциальности"
     @State var dragOffset: CGFloat = 0
     @State var activeBenefitsIndex = 0
     
     let arrayOfBenefits = ["benefits1", "benefits2", "benefits3"]
     let widthScale = 0.75
     let benefitsAspectRation = 1.5
+    
+    var attributedString: AttributedString {
+        var attrS = AttributedString(rulesText)
+        let range = attrS.range(of: "Условия использования и Политику конфиденциальности")!
+        
+        attrS[range].foregroundColor = .blue
+        
+        return attrS
+    }
     
     var body: some View {
         NavigationView {
@@ -94,22 +103,20 @@ struct SubscriptionView: View {
                 Spacer()
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(1..<4) { index in
-                            Rectangle()
-                                .fill(Color.green)
-                                .frame(width: 160, height: 200)
-                                .cornerRadius(16)
+                    HStack(spacing: 8) {
+                        ForEach(priceData) { item in
+                            PriceView(priceScroll: item)
                         }
                     }
-                    .padding()
+                    .padding(16)
+                    .padding(.top, 20)
                 }
                 
                 Spacer()
                 
-                Text("Oформляя подписку вы соглашаетесь на  и  ")
+                Text(attributedString)
                     .foregroundColor(.white)
-                    .font(.title3)
+                    .font(.callout)
                 
                 Spacer()
                 
@@ -120,13 +127,12 @@ struct SubscriptionView: View {
                         .frame(maxWidth: 344, maxHeight: 55)
                         .foregroundColor(.brown)
                         .background(Color.white)
-                        .padding(.bottom, 1)
                         .cornerRadius(16)
                 }
 
             }
             .navigationBarHidden(true) // Скрыть стандартную навигационную строку
-            .background(Color.brown)
+            .background(Color.mint)
         }
     }
     
@@ -172,12 +178,7 @@ struct SubscriptionView: View {
             }
         }
     }
-    
 }
-
-
-
-
 
 
 final class SubscriptionViewController: UIViewController {
@@ -210,6 +211,27 @@ final class SubscriptionViewController: UIViewController {
 struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
         SubscriptionView()
+    }
+}
+
+
+
+struct PriceView: View {
+    var priceScroll: PriceScroll
+    var body: some View {
+        VStack {
+            Text(priceScroll.title)
+                .foregroundStyle(.white)
+            Spacer()
+            Text(priceScroll.price)
+                .foregroundStyle(.white)
+            Spacer()
+            Text(priceScroll.priceForDay)
+                .foregroundStyle(.white)
+        }
+        .frame(width: 136, height: 170)
+        .background(Color(.blueDark))
+        .cornerRadius(20)
     }
 }
 

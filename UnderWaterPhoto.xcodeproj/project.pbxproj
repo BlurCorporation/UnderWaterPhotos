@@ -73,6 +73,8 @@
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
 		FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */; };
+		FB7F5F882AE11F29007E1808 /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */; };
+		FB87281F2B06985500912E28 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB87281E2B06985500912E28 /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,13 +122,15 @@
 		3A9673A92ABB678900E624B2 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSubscription.swift; sourceTree = "<group>"; };
 		FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSubscription.swift; sourceTree = "<group>"; };
+		FB7F5F872AE11F29007E1808 /* ModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
+		FB87281E2B06985500912E28 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1BADC94D2AA4D895002C34A5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
+            files = (
 				3A65046B2B1674B200662B2B /* opencv2.framework in Frameworks */,
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
 				1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */,
