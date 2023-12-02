@@ -6,9 +6,9 @@
 //
 
 protocol Buildable {
-    func buildViewController() -> ViewController // тестовый vc
-    func buildMainView() -> MainViewController // MainScreen на SwiftUI
-    func buildSubscriptionView() -> SubscriptionViewController // Экран подписок 
+    func buildProcessViewController() -> ProcessViewController
+    func buildMainView() -> MainViewController
+    func buildSubscriptionView() -> SubscriptionViewController
     func buildLanguageScreen() -> LanguageSettingViewController
     func buildAuthViewController() -> AuthViewController
 }
@@ -34,9 +34,9 @@ extension SceneBuildManager: Buildable {
         return viewController
     }
     
-    func buildViewController() -> ViewController {
-        let viewController = ViewController()
-        let presenter = Presenter(sceneBuildManager: self)
+    func buildProcessViewController() -> ProcessViewController {
+        let viewController = ProcessViewController()
+        let presenter = ProcessPresenter(sceneBuildManager: self)
         
         viewController.presenter = presenter
         presenter.viewController = viewController

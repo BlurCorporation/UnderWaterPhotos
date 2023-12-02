@@ -159,7 +159,7 @@ final class MainViewController: UIViewController {
         }
         
         let routeProcessScreen = {
-            let secondViewController = SceneBuildManager().buildViewController()
+            let secondViewController = SceneBuildManager().buildProcessViewController()
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         

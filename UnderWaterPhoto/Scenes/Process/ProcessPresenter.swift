@@ -8,12 +8,13 @@
 import CoreImage
 import UIKit
 
-protocol PresenterProtocol: AnyObject {
+protocol ProcessPresenterProtocol: AnyObject {
     func changeImage(image: UIImage, value: Float)
+    func backButtonPressed()
 }
 
-class Presenter {
-    weak var viewController: ViewControllerProtocol?
+class ProcessPresenter {
+    weak var viewController: ProcessViewControllerProtocol?
         
     //MARK: - PrivateProperties
     
@@ -26,7 +27,11 @@ class Presenter {
     }
 }
 
-extension Presenter: PresenterProtocol {
+extension ProcessPresenter: ProcessPresenterProtocol {
+    func backButtonPressed() {
+        viewController?.navigationController?.popViewController(animated: true)
+    }
+    
     func changeImage(image: UIImage, value: Float) {
         Task {
             let newImage: UIImage = try await process(image: image)

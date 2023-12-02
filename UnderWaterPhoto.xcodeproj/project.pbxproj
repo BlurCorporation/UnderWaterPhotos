@@ -29,11 +29,11 @@
 		1BA7ED9A2AEA8914004CC70A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7ED992AEA8914004CC70A /* HeaderView.swift */; };
 		1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9532AA4D895002C34A5 /* AppDelegate.swift */; };
 		1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */; };
-		1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9572AA4D895002C34A5 /* ViewController.swift */; };
+		1BADC9582AA4D895002C34A5 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */; };
 		1BADC95D2AA4D896002C34A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95C2AA4D896002C34A5 /* Assets.xcassets */; };
 		1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */; };
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
-		1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */; };
+		1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* ProcessPresenter.swift */; };
 		1BBDC5CF2B18EEB1004C80CE /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBDC5CE2B18EEB1004C80CE /* ModelSubscription.swift */; };
 		1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */; };
 		1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */; };
@@ -106,12 +106,12 @@
 		1BA7ED992AEA8914004CC70A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		1BADC9532AA4D895002C34A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1BADC9572AA4D895002C34A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
 		1BADC95C2AA4D896002C34A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BADC95F2AA4D896002C34A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BADC9612AA4D896002C34A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuildManager.swift; sourceTree = "<group>"; };
-		1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		1BADC96D2AA4DDEC002C34A5 /* ProcessPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessPresenter.swift; sourceTree = "<group>"; };
 		1BBDC5CE2B18EEB1004C80CE /* ModelSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
 		1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSettingView.swift; sourceTree = "<group>"; };
 		1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingViewModel.swift; sourceTree = "<group>"; };
@@ -332,18 +332,18 @@
 				FB0EEA562ABAEA62007BC62C /* SubscriptionScreen */,
 				3A9673A62ABB66BA00E624B2 /* AuthScreen */,
 				1B27EB032AAD35A800DD4E30 /* Main */,
-				1BADC96C2AA4DDD6002C34A5 /* Test */,
+				1BADC96C2AA4DDD6002C34A5 /* Process */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		1BADC96C2AA4DDD6002C34A5 /* Test */ = {
+		1BADC96C2AA4DDD6002C34A5 /* Process */ = {
 			isa = PBXGroup;
 			children = (
-				1BADC9572AA4D895002C34A5 /* ViewController.swift */,
-				1BADC96D2AA4DDEC002C34A5 /* Presenter.swift */,
+				1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */,
+				1BADC96D2AA4DDEC002C34A5 /* ProcessPresenter.swift */,
 			);
-			path = Test;
+			path = Process;
 			sourceTree = "<group>";
 		};
 		1BCC183B2B079CA800B763D8 /* LanguageSetting */ = {
@@ -513,7 +513,7 @@
 				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
 				1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */,
 				1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */,
-				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
+				1BADC9582AA4D895002C34A5 /* ProcessViewController.swift in Sources */,
 				1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */,
 				FB40DA1C2B1C8DF10007EA5F /* TextView.swift in Sources */,
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,
@@ -545,6 +545,7 @@
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
 				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
 				FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */,
+				1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */,
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,
 				14E941172B02965F00582CF0 /* String.swift in Sources */,
 				3A0586DB2AE6E17E0047FC62 /* CustomButton.swift in Sources */,
