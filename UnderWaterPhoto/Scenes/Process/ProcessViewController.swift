@@ -6,13 +6,12 @@
 //
 
 import UIKit
-import PhotosUI
-
 
 // MARK: - ProcessViewControllerProtocol
 
 protocol ProcessViewControllerProtocol: UIViewController {
     func uploadImage(image: UIImage)
+    func changeToProcess()
 }
 
 // MARK: - ProcessViewController
@@ -24,14 +23,11 @@ final class ProcessViewController: UIViewController {
     
     // MARK: PrivateProperties
     
-    private var imagePicker = UIImagePickerController()
-    
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(named: "back")
+        let image = UIImage(systemName: "chevron.left")
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(named: "white")
-        
         button.addTarget(self,
                          action: #selector(backButtonPressed),
                          for: .touchUpInside)
@@ -40,10 +36,23 @@ final class ProcessViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Язык приложения"
+        label.text = "Изменение"
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = UIColor(named: "white")
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
+    }()
+    
+    private lazy var saveButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = UIImage(systemName: "arrow.down.to.line")
+        button.setImage(image, for: .normal)
+        button.tintColor = UIColor(named: "white")
+//        button.addTarget(self,
+//                         action: #selector(backButtonPressed),
+//                         for: .touchUpInside)
+        return button
     }()
     
     private let headerView: UIView = {
@@ -62,16 +71,6 @@ final class ProcessViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
         return imageView
-    }()
-    
-    private lazy var uploadPhotoButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Загрузить фото", for: .normal)
-        button.layer.cornerRadius = 8
-        button.backgroundColor = .systemBlue
-        button.tintColor = UIColor(named: "white")
-        button.addTarget(self, action: #selector(uploadButtonAction), for: .touchUpInside)
-        return button
     }()
     
     private lazy var hideLogoButton: UIButton = {
@@ -97,14 +96,14 @@ final class ProcessViewController: UIViewController {
         return button
     }()
     
-    private lazy var changePhotoButton: UIButton = {
+    private lazy var processPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Изменить", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.layer.cornerRadius = 16
         button.backgroundColor = UIColor(named: "white")
         button.tintColor = UIColor(named: "blue")
-        button.addTarget(self, action: #selector(changeButtonAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(processButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -118,14 +117,14 @@ final class ProcessViewController: UIViewController {
         
     }()
     
-    
-    
     // MARK: LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
         defaultImage = mainImage.image
+        hideLogoButton.isHidden = true
+        filterButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +138,7 @@ final class ProcessViewController: UIViewController {
     }
     
     @objc
-    func changeButtonAction() {
+    func processButtonAction() {
         presenter?.changeImage(image: self.mainImage.image!, value: -3000)
     }
     
@@ -149,6 +148,16 @@ final class ProcessViewController: UIViewController {
         presenter?.changeImage(image: self.defaultImage!, value: sender.value)
     }
     
+    func changeToProcess() {
+        titleLabel.text = "Редактирование"
+        processPhotoButton.setTitle("Редактировать", for: .normal)
+        hideLogoButton.isHidden = false
+        filterButton.isHidden = false
+        let shareBarButtonItem = UIBarButtonItem(systemItem: .action)
+        shareBarButtonItem.tintColor = UIColor(named: "white")
+        let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
+        navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
+    }
 }
 
 // MARK: - ProcessViewControllerProtocol Imp
@@ -169,25 +178,24 @@ extension ProcessViewController {
         setupConstraints()
         setupNavigationController()
         view.backgroundColor = UIColor(named: "blue")
+    }
+    
+    func setupNavigationController() {
         navigationItem.setHidesBackButton(true,
                                           animated: true)
         let backButton = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = backButton
         navigationItem.titleView = titleLabel
-    }
-    
-    func setupNavigationController() {
-        title = "Редактирование"
+        navigationItem.titleView?.frame = CGRect(x: 0, y: 0, width: 213, height: 29)
     }
     
     func addSubviews() {
         view.addSubviews(headerView,
                          mainImage,
                          slider,
-                         uploadPhotoButton,
                          hideLogoButton,
                          filterButton,
-                         changePhotoButton)
+                         processPhotoButton)
     }
     
     func setupConstraints() {
@@ -202,17 +210,10 @@ extension ProcessViewController {
             mainImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             mainImage.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
             mainImage.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
-            
-//            uploadPhotoButton.bottomAnchor.constraint(equalTo: slider.topAnchor, constant: -16),
-//            uploadPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-//            slider.bottomAnchor.constraint(equalTo: changePhotoButton.topAnchor, constant: -16),
-//            slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-//            slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
 
             hideLogoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             hideLogoButton.widthAnchor.constraint(equalToConstant: 183),
-            hideLogoButton.bottomAnchor.constraint(equalTo: changePhotoButton.topAnchor, constant: -28),
+            hideLogoButton.bottomAnchor.constraint(equalTo: processPhotoButton.topAnchor, constant: -28),
             hideLogoButton.heightAnchor.constraint(equalToConstant: 50),
             
             filterButton.topAnchor.constraint(equalTo: hideLogoButton.topAnchor),
@@ -220,39 +221,10 @@ extension ProcessViewController {
             filterButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             filterButton.widthAnchor.constraint(equalToConstant: 56),
             
-            changePhotoButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            changePhotoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            changePhotoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            changePhotoButton.heightAnchor.constraint(equalToConstant: 50)
+            processPhotoButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            processPhotoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            processPhotoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            processPhotoButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-}
-
-extension ProcessViewController: PHPickerViewControllerDelegate {
-    @objc
-    func uploadButtonAction() {
-        var config = PHPickerConfiguration()
-        config.filter = PHPickerFilter.images
-        
-
-        let pickerViewController = PHPickerViewController(configuration: config)
-        
-        
-        pickerViewController.delegate = self
-        self.present(pickerViewController, animated: true, completion: nil)
-    }
-    
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true, completion: nil)
-           for result in results {
-              result.itemProvider.loadObject(ofClass: UIImage.self, completionHandler: { (object, error) in
-                 if let image = object as? UIImage {
-                     DispatchQueue.main.async {
-                         self.mainImage.image = image
-                         self.defaultImage = self.mainImage.image
-                     }
-                 }
-              })
-           }
     }
 }

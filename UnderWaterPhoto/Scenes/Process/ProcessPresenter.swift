@@ -8,6 +8,11 @@
 import CoreImage
 import UIKit
 
+enum ProcessButtonType {
+    case change
+    case process
+}
+
 protocol ProcessPresenterProtocol: AnyObject {
     func changeImage(image: UIImage, value: Float)
     func backButtonPressed()
@@ -19,6 +24,7 @@ class ProcessPresenter {
     //MARK: - PrivateProperties
     
     private let sceneBuildManager: Buildable
+    private var processButtonType: ProcessButtonType = .change
     
     //MARK: - Initialize
     
@@ -33,9 +39,16 @@ extension ProcessPresenter: ProcessPresenterProtocol {
     }
     
     func changeImage(image: UIImage, value: Float) {
-        Task {
-            let newImage: UIImage = try await process(image: image)
-            self.viewController?.uploadImage(image: newImage)
+        switch processButtonType {
+        case .change:
+            processButtonType = .process
+            viewController?.changeToProcess()
+        case .process:
+            processButtonType = .change
+            Task {
+                let newImage: UIImage = try await process(image: image)
+                self.viewController?.uploadImage(image: newImage)
+            }
         }
     }
     
