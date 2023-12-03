@@ -44,7 +44,7 @@ extension ProcessPresenter: ProcessPresenterProtocol {
             processButtonType = .process
             viewController?.changeToProcess()
         case .process:
-            processButtonType = .change
+            viewController?.showBottomSaveSheet()
             Task {
                 let newImage: UIImage = try await process(image: image)
                 self.viewController?.uploadImage(image: newImage)
