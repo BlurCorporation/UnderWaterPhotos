@@ -22,6 +22,7 @@ final class ProcessViewController: UIViewController {
     
     var presenter: ProcessPresenterProtocol?
     var defaultImage: UIImage?
+    private let customTransitioningDelegate = BSTransitioningDelegate()
     
     // MARK: PrivateProperties
     
@@ -53,9 +54,9 @@ final class ProcessViewController: UIViewController {
         let image = UIImage(systemName: "arrow.down.to.line")
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(named: "white")
-//        button.addTarget(self,
-//                         action: #selector(backButtonPressed),
-//                         for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(presentVCAsBottomSheet),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -124,7 +125,7 @@ final class ProcessViewController: UIViewController {
         
     }()
     
-    private let bottomSaveSheetView: UIView = {
+    private let processBottomSheetView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "blueDark")
         view.layer.cornerRadius = 16
@@ -137,7 +138,7 @@ final class ProcessViewController: UIViewController {
         button.setTitle("Назад", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.tintColor = UIColor(named: "white")
-        button.addTarget(self, action: #selector(bottomSheetSaveButtonAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(bottomSheetBackButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -146,6 +147,7 @@ final class ProcessViewController: UIViewController {
         button.setTitle("Сохранить", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.tintColor = UIColor(named: "white")
+        button.addTarget(self, action: #selector(bottomSheetSaveButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -180,11 +182,27 @@ final class ProcessViewController: UIViewController {
 //        presenter?.changeImage(image: self.defaultImage!, value: sender.value)
     }
     @objc
-    func bottomSheetSaveButtonAction() {
-        UIView.animate(withDuration: 0.5) {
+    func bottomSheetBackButtonAction() {
+        UIView.animate(withDuration: 0.35) {
             self.topConstraint.constant = 0
             self.view.layoutIfNeeded()
         }
+    }
+    
+    @objc
+    func bottomSheetSaveButtonAction() {
+        UIView.animate(withDuration: 0.35) {
+            self.topConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc
+    func presentVCAsBottomSheet() {
+        let vc = BottomSheetSaveViewController()
+        vc.transitioningDelegate = customTransitioningDelegate
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true)
     }
     
     func changeToProcess() {
@@ -195,6 +213,7 @@ final class ProcessViewController: UIViewController {
         let shareBarButtonItem = UIBarButtonItem(systemItem: .action)
         shareBarButtonItem.tintColor = UIColor(named: "white")
         let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
+        
         navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
     }
     
@@ -204,6 +223,8 @@ final class ProcessViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
+    
+    
 }
 
 // MARK: - ProcessViewControllerProtocol Imp
@@ -242,9 +263,9 @@ extension ProcessViewController {
                          hideLogoButton,
                          filterButton,
                          processPhotoButton,
-                         bottomSaveSheetView)
+                         processBottomSheetView)
         
-        bottomSaveSheetView.addSubviews(slider, bottomSheetBackButton, bottomSheetSaveButton)
+        processBottomSheetView.addSubviews(slider, bottomSheetBackButton, bottomSheetSaveButton)
     }
     
     func setupConstraints() {
@@ -275,24 +296,23 @@ extension ProcessViewController {
             processPhotoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             processPhotoButton.heightAnchor.constraint(equalToConstant: 50),
             
-            bottomSaveSheetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            bottomSaveSheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomSaveSheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            bottomSaveSheetView.heightAnchor.constraint(equalToConstant: 0),
+            processBottomSheetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            processBottomSheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            processBottomSheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            bottomSheetBackButton.leadingAnchor.constraint(equalTo: bottomSaveSheetView.leadingAnchor, constant: 20),
-            bottomSheetBackButton.topAnchor.constraint(equalTo: bottomSaveSheetView.topAnchor, constant: 27),
+            bottomSheetBackButton.leadingAnchor.constraint(equalTo: processBottomSheetView.leadingAnchor, constant: 20),
+            bottomSheetBackButton.topAnchor.constraint(equalTo: processBottomSheetView.topAnchor, constant: 27),
             
-            bottomSheetSaveButton.topAnchor.constraint(equalTo: bottomSaveSheetView.topAnchor, constant: 27),
-            bottomSheetSaveButton.trailingAnchor.constraint(equalTo: bottomSaveSheetView.trailingAnchor, constant: -20),
+            bottomSheetSaveButton.topAnchor.constraint(equalTo: processBottomSheetView.topAnchor, constant: 27),
+            bottomSheetSaveButton.trailingAnchor.constraint(equalTo: processBottomSheetView.trailingAnchor, constant: -20),
             
-            slider.bottomAnchor.constraint(equalTo: bottomSaveSheetView.bottomAnchor, constant: -55),
-            slider.topAnchor.constraint(equalTo: bottomSaveSheetView.topAnchor, constant: 84),
-            slider.trailingAnchor.constraint(equalTo: bottomSaveSheetView.trailingAnchor, constant: -16),
-            slider.leadingAnchor.constraint(equalTo: bottomSaveSheetView.leadingAnchor, constant: 16)
+            slider.bottomAnchor.constraint(equalTo: processBottomSheetView.bottomAnchor, constant: -55),
+            slider.topAnchor.constraint(equalTo: processBottomSheetView.topAnchor, constant: 84),
+            slider.trailingAnchor.constraint(equalTo: processBottomSheetView.trailingAnchor, constant: -16),
+            slider.leadingAnchor.constraint(equalTo: processBottomSheetView.leadingAnchor, constant: 16)
         ])
         
-        topConstraint = bottomSaveSheetView.topAnchor.constraint(equalTo: view.bottomAnchor)
+        topConstraint = processBottomSheetView.topAnchor.constraint(equalTo: view.bottomAnchor)
         topConstraint.isActive = true
     }
 }
