@@ -46,6 +46,7 @@
 		1BBDC5CF2B18EEB1004C80CE /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBDC5CE2B18EEB1004C80CE /* ModelSubscription.swift */; };
 		1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */; };
 		1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */; };
+		1BDACE892B2495C500CE8C73 /* ImageMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */; };
 		3A0586D92AE6DC930047FC62 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586D82AE6DC930047FC62 /* CustomTextField.swift */; };
 		3A0586DB2AE6E17E0047FC62 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */; };
 		3A48C85F2B053A2D00DD5A18 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C85E2B053A2D00DD5A18 /* FirebaseAnalytics */; };
@@ -134,6 +135,7 @@
 		1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSettingView.swift; sourceTree = "<group>"; };
 		1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingViewModel.swift; sourceTree = "<group>"; };
 		1BD9766E2B079A1300AF1B40 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMergeManager.swift; sourceTree = "<group>"; };
 		3A0586D82AE6DC930047FC62 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3A65046A2B1674B200662B2B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 		1BADC9682AA4DCF6002C34A5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */,
 				1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */,
 			);
 			path = Managers;
@@ -576,6 +579,7 @@
 				1B0B51772B1E5DBC0037C534 /* CoverVerticalDismissAnimatedTransitioning.swift in Sources */,
 				1B4BD0752AE8F26500A56066 /* CVWrapper.mm in Sources */,
 				1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */,
+				1BDACE892B2495C500CE8C73 /* ImageMergeManager.swift in Sources */,
 				1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */,
 				1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */,
 				1B6A987A2AEFFB9D000C12A0 /* SettingsModel.swift in Sources */,
@@ -595,7 +599,7 @@
 				1B0B51752B1E5DBC0037C534 /* BSTransitioningDelegate.swift in Sources */,
 				3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */,
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
-				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
+				1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */,
 				FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */,
 				1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */,
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,

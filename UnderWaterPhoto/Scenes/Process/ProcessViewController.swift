@@ -21,9 +21,11 @@ protocol ProcessViewControllerProtocol: UIViewController {
 final class ProcessViewController: UIViewController {
     
     var presenter: ProcessPresenterProtocol?
+    var imageMergeManager: ImageMergeManager?
     var defaultImage: UIImage?
     private var processedImage: UIImage?
     private var processedImageAlpha: Float = 0.8
+    private var previousImageAlpha: Float = 0.8
     private let customTransitioningDelegate = BSTransitioningDelegate()
     
     // MARK: PrivateProperties
@@ -109,6 +111,8 @@ final class ProcessViewController: UIViewController {
         button.setImage(UIImage(systemName: "trapezoid.and.line.vertical", withConfiguration: imageConfig), for: .normal)
         button.tintColor = UIColor(named: "white")
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(filterTouched), for: .touchDown)
+        button.addTarget(self, action: #selector(filterDidntTouched), for: .touchUpInside)
         return button
     }()
     
@@ -167,7 +171,7 @@ final class ProcessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
-//        defaultImage = mainImageView.image
+        processedImage = defaultImage
         if let defaultImage {
             mainImageView.image = defaultImage
         }
@@ -191,14 +195,25 @@ final class ProcessViewController: UIViewController {
         presenter?.changeImage(image: self.mainImageView.image!, value: -3000)
     }
     
+    @objc func filterTouched() {
+        processedImageView.isHidden = true
+    }
+    
+    @objc func filterDidntTouched() {
+        processedImageView.isHidden = false
+    }
+    
     @objc
     func sliderChange(_ sender: UISlider) {
         print(sender.value)
         processedImageView.alpha = CGFloat(sender.value)
         processedImageAlpha = sender.value
     }
+
     @objc
     func bottomSheetBackButtonAction() {
+        processedImageView.alpha = CGFloat(previousImageAlpha)
+        slider.value = previousImageAlpha
         UIView.animate(withDuration: 0.35) {
             self.topConstraint.constant = 0
             self.view.layoutIfNeeded()
@@ -207,16 +222,28 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func bottomSheetSaveButtonAction() {
+        previousImageAlpha = processedImageAlpha
         UIView.animate(withDuration: 0.35) {
             self.topConstraint.constant = 0
             self.view.layoutIfNeeded()
         }
     }
     
+    @objc func shareAll() {
+        guard let defaultImage = defaultImage,
+              let topImage = processedImage?.image(alpha: CGFloat(processedImageAlpha)) else { return }
+        let image = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: topImage)
+        let shareAll = [image!] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+       }
+    
     @objc
     func presentVCAsBottomSheet() {
         let vc = BottomSheetSaveViewController()
         vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
+        vc.imageMergeManager = imageMergeManager
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
@@ -227,8 +254,9 @@ final class ProcessViewController: UIViewController {
         processPhotoButton.setTitle("Редактировать", for: .normal)
         hideLogoButton.isHidden = false
         filterButton.isHidden = false
-        let shareBarButtonItem = UIBarButtonItem(systemItem: .action)
+        let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAll))
         shareBarButtonItem.tintColor = UIColor(named: "white")
+//        shareBarButtonItem.target = #selector(shareAll)
         let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
         
         navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]

@@ -14,6 +14,7 @@ protocol Buildable {
 }
 
 final class SceneBuildManager {
+    private let imageMergeManager = ImageMergeManager()
 }
 
 
@@ -39,6 +40,7 @@ extension SceneBuildManager: Buildable {
         let presenter = ProcessPresenter(sceneBuildManager: self)
         
         viewController.defaultImage = image
+        viewController.imageMergeManager = imageMergeManager
         viewController.presenter = presenter
         presenter.viewController = viewController
         

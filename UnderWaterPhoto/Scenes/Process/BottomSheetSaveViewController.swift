@@ -4,6 +4,7 @@ final class BottomSheetSaveViewController: UIViewController {
     
     private var image: UIImage? = nil
     private var processedImage: UIImage? = nil
+    var imageMergeManager: ImageMergeManager?
     
     private let saveInAppLabel: UILabel = {
         let label = UILabel()
@@ -88,24 +89,6 @@ final class BottomSheetSaveViewController: UIViewController {
         ])
     }
     
-    func mergeImages(bottomImage: UIImage, topImage: UIImage) -> UIImage{
-        let bottomImage = bottomImage
-        let topImage = topImage
-
-        let size = bottomImage.size
-        UIGraphicsBeginImageContext(size)
-
-        let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        bottomImage.draw(in: areaSize)
-
-        topImage.draw(in: areaSize, blendMode: .normal, alpha: 1)
-
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        return newImage
-    }
-    
     func addImage(image: UIImage?, processedImage: UIImage?) {
         self.image = image
         self.processedImage = processedImage
@@ -123,7 +106,7 @@ final class BottomSheetSaveViewController: UIViewController {
         if onPhoneSwitch.isOn {
             guard let image = image else { return }
             if let processedImage = processedImage {
-                let finalImage = mergeImages(bottomImage: image, topImage: processedImage)
+                guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
                 UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
             } else {
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
