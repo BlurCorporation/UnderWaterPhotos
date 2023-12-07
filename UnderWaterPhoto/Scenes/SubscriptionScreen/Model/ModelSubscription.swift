@@ -28,3 +28,5 @@ let priceData = [
     PriceScroll(title: "Третья крутая подписка", price: "3 конфетки", priceForDay: "4 нюдса", Color: Color.purple),
     PriceScroll(title: "Четвертая подписка", price: "какая-нибудь цена", priceForDay: "не смотреть рилсы", Color: Color.purple)
 ]
+
+
