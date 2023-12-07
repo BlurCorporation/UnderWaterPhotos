@@ -8,7 +8,7 @@
 protocol Buildable {
     func buildViewController() -> ViewController // тестовый vc
     func buildMainView() -> MainViewController // MainScreen на SwiftUI
-    func buildSubscriptionView() -> SubscriptionViewController
+    func buildSubscriptionView() -> SubscriptionViewController // Экран подписок 
     func buildLanguageScreen() -> LanguageSettingViewController
     func buildAuthViewController() -> AuthViewController
 }

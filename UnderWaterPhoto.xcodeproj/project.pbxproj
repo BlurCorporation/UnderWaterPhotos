@@ -73,6 +73,10 @@
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
 		FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */; };
+		FB40DA182B1C8D6A0007EA5F /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA172B1C8D6A0007EA5F /* ButtonView.swift */; };
+		FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA192B1C8DA50007EA5F /* PriceView.swift */; };
+		FB40DA1C2B1C8DF10007EA5F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA1B2B1C8DF10007EA5F /* TextView.swift */; };
+		FB40DA1E2B1C8E1D0007EA5F /* BenefitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA1D2B1C8E1D0007EA5F /* BenefitsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +124,10 @@
 		3A9673A92ABB678900E624B2 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSubscription.swift; sourceTree = "<group>"; };
 		FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSubscription.swift; sourceTree = "<group>"; };
+		FB40DA172B1C8D6A0007EA5F /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		FB40DA192B1C8DA50007EA5F /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
+		FB40DA1B2B1C8DF10007EA5F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		FB40DA1D2B1C8E1D0007EA5F /* BenefitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,7 +329,7 @@
 			children = (
 				1BCC183B2B079CA800B763D8 /* LanguageSetting */,
 				1B6A98742AEFFA2A000C12A0 /* Settings */,
-				FB0EEA562ABAEA62007BC62C /* Subscription */,
+				FB0EEA562ABAEA62007BC62C /* SubscriptionScreen */,
 				3A9673A62ABB66BA00E624B2 /* AuthScreen */,
 				1B27EB032AAD35A800DD4E30 /* Main */,
 				1BADC96C2AA4DDD6002C34A5 /* Test */,
@@ -364,20 +372,24 @@
 			path = AuthScreen;
 			sourceTree = "<group>";
 		};
-		FB0EEA562ABAEA62007BC62C /* Subscription */ = {
+		FB0EEA562ABAEA62007BC62C /* SubscriptionScreen */ = {
 			isa = PBXGroup;
 			children = (
 				3A65046E2B1675D700662B2B /* Model */,
 				FB7F5F892AE122BC007E1808 /* ViewController */,
 				FB7F5F8A2AE12340007E1808 /* ViewModel */,
 			);
-			path = Subscription;
+			path = SubscriptionScreen;
 			sourceTree = "<group>";
 		};
 		FB7F5F892AE122BC007E1808 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */,
+				FB40DA172B1C8D6A0007EA5F /* ButtonView.swift */,
+				FB40DA192B1C8DA50007EA5F /* PriceView.swift */,
+				FB40DA1B2B1C8DF10007EA5F /* TextView.swift */,
+				FB40DA1D2B1C8E1D0007EA5F /* BenefitsView.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -503,6 +515,7 @@
 				1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */,
 				1BADC9582AA4D895002C34A5 /* ViewController.swift in Sources */,
 				1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */,
+				FB40DA1C2B1C8DF10007EA5F /* TextView.swift in Sources */,
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
@@ -519,16 +532,19 @@
 				1B6A987A2AEFFB9D000C12A0 /* SettingsModel.swift in Sources */,
 				1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */,
 				1BBDC5CF2B18EEB1004C80CE /* ModelSubscription.swift in Sources */,
+				FB40DA1E2B1C8E1D0007EA5F /* BenefitsView.swift in Sources */,
 				3A0586D92AE6DC930047FC62 /* CustomTextField.swift in Sources */,
 				1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */,
 				1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */,
 				1B6A98782AEFFB92000C12A0 /* SettingsViewModel.swift in Sources */,
 				1B2759932AE1241800237167 /* MainViewModel.swift in Sources */,
 				1B6A98762AEFFA39000C12A0 /* SettingsView.swift in Sources */,
+				FB40DA182B1C8D6A0007EA5F /* ButtonView.swift in Sources */,
 				FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */,
 				3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */,
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
 				1BADC96E2AA4DDEC002C34A5 /* Presenter.swift in Sources */,
+				FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */,
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,
 				14E941172B02965F00582CF0 /* String.swift in Sources */,
 				3A0586DB2AE6E17E0047FC62 /* CustomButton.swift in Sources */,
