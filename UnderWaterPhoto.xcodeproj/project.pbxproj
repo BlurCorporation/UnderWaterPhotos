@@ -16,6 +16,7 @@
 		1B0B517E2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B516B2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift */; };
 		1B0B517F2B1E5DBC0037C534 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B516C2B1E5DBC0037C534 /* CGFloat+Extension.swift */; };
 		1B0B51802B1E5DBC0037C534 /* BottomSheetSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */; };
+		1B0B51842B222C250037C534 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B51832B222C250037C534 /* UIImage+Extension.swift */; };
 		1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */; };
 		1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2119BD2AEAAA3700B3E1AF /* View.swift */; };
 		1B2759932AE1241800237167 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759922AE1241800237167 /* MainViewModel.swift */; };
@@ -97,6 +98,7 @@
 		1B0B516B2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPanGestureRecognizer+Extension.swift"; sourceTree = "<group>"; };
 		1B0B516C2B1E5DBC0037C534 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
 		1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetSaveViewController.swift; sourceTree = "<group>"; };
+		1B0B51832B222C250037C534 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1B2759922AE1241800237167 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -209,20 +211,9 @@
 			path = Transition;
 			sourceTree = "<group>";
 		};
-		1B0B51652B1E5DBC0037C534 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				1B0B516A2B1E5DBC0037C534 /* CGPoint+Extension.swift */,
-				1B0B516B2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift */,
-				1B0B516C2B1E5DBC0037C534 /* CGFloat+Extension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		1B0B51822B1E61000037C534 /* CustomBottomSheet */ = {
 			isa = PBXGroup;
 			children = (
-				1B0B51652B1E5DBC0037C534 /* Extensions */,
 				1B0B51602B1E5DBC0037C534 /* Transition */,
 			);
 			path = CustomBottomSheet;
@@ -257,10 +248,14 @@
 		1B27EAF12AA8AC7900DD4E30 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1B0B516A2B1E5DBC0037C534 /* CGPoint+Extension.swift */,
+				1B0B516B2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift */,
+				1B0B516C2B1E5DBC0037C534 /* CGFloat+Extension.swift */,
 				1B27EAF32AA8AC9700DD4E30 /* UIView.swift */,
 				1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */,
 				1B2119BD2AEAAA3700B3E1AF /* View.swift */,
 				14E941162B02965F00582CF0 /* String.swift */,
+				1B0B51832B222C250037C534 /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -575,6 +570,7 @@
 				1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */,
 				1B0B517F2B1E5DBC0037C534 /* CGFloat+Extension.swift in Sources */,
 				1BA7ED9A2AEA8914004CC70A /* HeaderView.swift in Sources */,
+				1B0B51842B222C250037C534 /* UIImage+Extension.swift in Sources */,
 				1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
 				1B0B51772B1E5DBC0037C534 /* CoverVerticalDismissAnimatedTransitioning.swift in Sources */,

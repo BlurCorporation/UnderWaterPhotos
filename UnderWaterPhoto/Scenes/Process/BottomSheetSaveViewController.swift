@@ -3,7 +3,8 @@ import UIKit
 final class BottomSheetSaveViewController: UIViewController {
     
     private var image: UIImage? = nil
-
+    private var processedImage: UIImage? = nil
+    
     private let saveInAppLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "white")
@@ -87,8 +88,27 @@ final class BottomSheetSaveViewController: UIViewController {
         ])
     }
     
-    func addImage(image: UIImage?) {
+    func mergeImages(bottomImage: UIImage, topImage: UIImage) -> UIImage{
+        let bottomImage = bottomImage
+        let topImage = topImage
+
+        let size = bottomImage.size
+        UIGraphicsBeginImageContext(size)
+
+        let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        bottomImage.draw(in: areaSize)
+
+        topImage.draw(in: areaSize, blendMode: .normal, alpha: 1)
+
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+    
+    func addImage(image: UIImage?, processedImage: UIImage?) {
         self.image = image
+        self.processedImage = processedImage
     }
     
     @objc func back() {
@@ -96,12 +116,19 @@ final class BottomSheetSaveViewController: UIViewController {
     }
     
     @objc func save() {
+        
         if inAppSwitch.isOn {
             //TODO: add inApp saving
         }
         if onPhoneSwitch.isOn {
             guard let image = image else { return }
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            if let processedImage = processedImage {
+                let finalImage = mergeImages(bottomImage: image, topImage: processedImage)
+                UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
+            } else {
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            }
+            
         }
         
         presentingViewController?.dismiss(animated: true)

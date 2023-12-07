@@ -23,6 +23,7 @@ final class ProcessViewController: UIViewController {
     var presenter: ProcessPresenterProtocol?
     private var defaultImage: UIImage?
     private var processedImage: UIImage?
+    private var processedImageAlpha: Float = 0
     private let customTransitioningDelegate = BSTransitioningDelegate()
     
     // MARK: PrivateProperties
@@ -69,13 +70,24 @@ final class ProcessViewController: UIViewController {
         return view
     }()
     
-    private let mainImage: UIImageView = {
+    private let mainImageView: UIImageView = {
         let image = UIImage(named: "underwaterPhoto1")
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
+        return imageView
+    }()
+    
+    private let processedImageView: UIImageView = {
+        let image = UIImage()
+        let imageView = UIImageView()
+//        imageView.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 40
+        imageView.layer.opacity = 0.8
         return imageView
     }()
     
@@ -115,9 +127,9 @@ final class ProcessViewController: UIViewController {
     
     private lazy var slider: UISlider = {
         let slider = UISlider()
-        slider.minimumValue = -1
+        slider.minimumValue = 0
         slider.maximumValue = 1
-        slider.value = 0
+        slider.value = 0.8
         slider.addTarget(self, action: #selector(sliderChange(_ :)), for: .valueChanged)
         slider.minimumTrackTintColor = UIColor(named: "blue")
         slider.maximumTrackTintColor = UIColor(named: "white")
@@ -157,7 +169,7 @@ final class ProcessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
-        defaultImage = mainImage.image
+        defaultImage = mainImageView.image
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
     }
@@ -174,12 +186,14 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func processButtonAction() {
-        presenter?.changeImage(image: self.mainImage.image!, value: -3000)
+        presenter?.changeImage(image: self.mainImageView.image!, value: -3000)
     }
     
     @objc
     func sliderChange(_ sender: UISlider) {
         print(sender.value)
+        processedImageView.layer.opacity = sender.value
+        processedImageAlpha = sender.value
 //        presenter?.changeImage(image: self.defaultImage!, value: sender.value)
     }
     @objc
@@ -192,6 +206,8 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func bottomSheetSaveButtonAction() {
+        processedImage = processedImage?.image(alpha: CGFloat(processedImageAlpha))
+        processedImageView.image = processedImage
         UIView.animate(withDuration: 0.35) {
             self.topConstraint.constant = 0
             self.view.layoutIfNeeded()
@@ -201,7 +217,7 @@ final class ProcessViewController: UIViewController {
     @objc
     func presentVCAsBottomSheet() {
         let vc = BottomSheetSaveViewController()
-        vc.addImage(image: processedImage)
+        vc.addImage(image: defaultImage, processedImage: processedImage)
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
@@ -225,8 +241,6 @@ final class ProcessViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-    
-    
 }
 
 // MARK: - ProcessViewControllerProtocol Imp
@@ -234,8 +248,9 @@ final class ProcessViewController: UIViewController {
 extension ProcessViewController: ProcessViewControllerProtocol {
     func uploadImage(image: UIImage) {
         DispatchQueue.main.async {
-            self.mainImage.image = image
+//            self.mainImageView.image = image
             self.processedImage = image
+            self.processedImageView.image = image
         }
     }
 }
@@ -261,14 +276,17 @@ extension ProcessViewController {
     
     func addSubviews() {
         view.addSubviews(headerView,
-                         mainImage,
+                         mainImageView,
+                         processedImageView,
                          slider,
                          hideLogoButton,
                          filterButton,
                          processPhotoButton,
                          processBottomSheetView)
         
-        processBottomSheetView.addSubviews(slider, bottomSheetBackButton, bottomSheetSaveButton)
+        processBottomSheetView.addSubviews(slider,
+                                           bottomSheetBackButton,
+                                           bottomSheetSaveButton)
     }
     
     func setupConstraints() {
@@ -279,10 +297,15 @@ extension ProcessViewController {
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 108),
             
-            mainImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            mainImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            mainImage.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
-            mainImage.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
+            mainImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            mainImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            mainImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+            mainImageView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
+            
+            processedImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor),
+            processedImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor),
+            processedImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor),
+            processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
 
             hideLogoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             hideLogoButton.widthAnchor.constraint(equalToConstant: 183),
