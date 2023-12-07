@@ -21,7 +21,8 @@ protocol ProcessViewControllerProtocol: UIViewController {
 final class ProcessViewController: UIViewController {
     
     var presenter: ProcessPresenterProtocol?
-    var defaultImage: UIImage?
+    private var defaultImage: UIImage?
+    private var processedImage: UIImage?
     private let customTransitioningDelegate = BSTransitioningDelegate()
     
     // MARK: PrivateProperties
@@ -200,6 +201,7 @@ final class ProcessViewController: UIViewController {
     @objc
     func presentVCAsBottomSheet() {
         let vc = BottomSheetSaveViewController()
+        vc.addImage(image: processedImage)
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
@@ -233,6 +235,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
     func uploadImage(image: UIImage) {
         DispatchQueue.main.async {
             self.mainImage.image = image
+            self.processedImage = image
         }
     }
 }

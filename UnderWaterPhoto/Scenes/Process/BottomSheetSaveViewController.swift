@@ -1,6 +1,8 @@
 import UIKit
 
 final class BottomSheetSaveViewController: UIViewController {
+    
+    private var image: UIImage? = nil
 
     private let saveInAppLabel: UILabel = {
         let label = UILabel()
@@ -25,26 +27,28 @@ final class BottomSheetSaveViewController: UIViewController {
         button.setTitle("Назад", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.tintColor = UIColor(named: "white")
+        button.addTarget(self, action: #selector(back), for: .touchUpInside)
         return button
     }()
     
-    private let bottomSheetSaveButton: UIButton = {
+    private lazy var bottomSheetSaveButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Сохранить", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.tintColor = UIColor(named: "white")
+        button.addTarget(self, action: #selector(save), for: .touchUpInside)
         return button
     }()
     
     private let inAppSwitch: UISwitch = {
         let uiswitch = UISwitch()
-        
+        uiswitch.isOn = true
         return uiswitch
     }()
     
     private let onPhoneSwitch: UISwitch = {
         let uiswitch = UISwitch()
-        
+        uiswitch.isOn = true
         return uiswitch
     }()
 
@@ -81,5 +85,25 @@ final class BottomSheetSaveViewController: UIViewController {
             onPhoneSwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             onPhoneSwitch.centerYAnchor.constraint(equalTo: saveOnPhoneLabel.centerYAnchor),
         ])
+    }
+    
+    func addImage(image: UIImage?) {
+        self.image = image
+    }
+    
+    @objc func back() {
+        presentingViewController?.dismiss(animated: true)
+    }
+    
+    @objc func save() {
+        if inAppSwitch.isOn {
+            //TODO: add inApp saving
+        }
+        if onPhoneSwitch.isOn {
+            guard let image = image else { return }
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        }
+        
+        presentingViewController?.dismiss(animated: true)
     }
 }

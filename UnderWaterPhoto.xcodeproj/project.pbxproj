@@ -753,6 +753,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Для загрузки и скачивания фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -789,6 +790,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Для загрузки и скачивания фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
