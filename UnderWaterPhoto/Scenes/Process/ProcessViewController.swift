@@ -21,9 +21,9 @@ protocol ProcessViewControllerProtocol: UIViewController {
 final class ProcessViewController: UIViewController {
     
     var presenter: ProcessPresenterProtocol?
-    private var defaultImage: UIImage?
+    var defaultImage: UIImage?
     private var processedImage: UIImage?
-    private var processedImageAlpha: Float = 0
+    private var processedImageAlpha: Float = 0.8
     private let customTransitioningDelegate = BSTransitioningDelegate()
     
     // MARK: PrivateProperties
@@ -71,7 +71,7 @@ final class ProcessViewController: UIViewController {
     }()
     
     private let mainImageView: UIImageView = {
-        let image = UIImage(named: "underwaterPhoto1")
+        let image = UIImage()
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
         imageView.image = image
@@ -83,11 +83,9 @@ final class ProcessViewController: UIViewController {
     private let processedImageView: UIImageView = {
         let image = UIImage()
         let imageView = UIImageView()
-//        imageView.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
-        imageView.layer.opacity = 0.8
         return imageView
     }()
     
@@ -129,7 +127,7 @@ final class ProcessViewController: UIViewController {
         let slider = UISlider()
         slider.minimumValue = 0
         slider.maximumValue = 1
-        slider.value = 0.8
+        slider.value = processedImageAlpha
         slider.addTarget(self, action: #selector(sliderChange(_ :)), for: .valueChanged)
         slider.minimumTrackTintColor = UIColor(named: "blue")
         slider.maximumTrackTintColor = UIColor(named: "white")
@@ -155,7 +153,7 @@ final class ProcessViewController: UIViewController {
         return button
     }()
     
-    private let bottomSheetSaveButton: UIButton = {
+    private lazy var bottomSheetSaveButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Сохранить", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -169,7 +167,11 @@ final class ProcessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
-        defaultImage = mainImageView.image
+//        defaultImage = mainImageView.image
+        if let defaultImage {
+            mainImageView.image = defaultImage
+        }
+        
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
     }
@@ -192,9 +194,8 @@ final class ProcessViewController: UIViewController {
     @objc
     func sliderChange(_ sender: UISlider) {
         print(sender.value)
-        processedImageView.layer.opacity = sender.value
+        processedImageView.alpha = CGFloat(sender.value)
         processedImageAlpha = sender.value
-//        presenter?.changeImage(image: self.defaultImage!, value: sender.value)
     }
     @objc
     func bottomSheetBackButtonAction() {
@@ -206,8 +207,6 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func bottomSheetSaveButtonAction() {
-        processedImage = processedImage?.image(alpha: CGFloat(processedImageAlpha))
-        processedImageView.image = processedImage
         UIView.animate(withDuration: 0.35) {
             self.topConstraint.constant = 0
             self.view.layoutIfNeeded()
@@ -217,7 +216,7 @@ final class ProcessViewController: UIViewController {
     @objc
     func presentVCAsBottomSheet() {
         let vc = BottomSheetSaveViewController()
-        vc.addImage(image: defaultImage, processedImage: processedImage)
+        vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
@@ -248,7 +247,6 @@ final class ProcessViewController: UIViewController {
 extension ProcessViewController: ProcessViewControllerProtocol {
     func uploadImage(image: UIImage) {
         DispatchQueue.main.async {
-//            self.mainImageView.image = image
             self.processedImage = image
             self.processedImageView.image = image
         }

@@ -25,7 +25,7 @@ class ProcessPresenter {
     
     private let sceneBuildManager: Buildable
     private var processButtonType: ProcessButtonType = .change
-    
+    private var wasProcessed: Bool = false
     //MARK: - Initialize
     
     init(sceneBuildManager: Buildable) {
@@ -45,9 +45,12 @@ extension ProcessPresenter: ProcessPresenterProtocol {
             viewController?.changeToProcess()
         case .process:
             viewController?.showBottomSaveSheet()
-            Task {
-                let newImage: UIImage = try await process(image: image)
-                self.viewController?.uploadImage(image: newImage)
+            if !wasProcessed {
+                wasProcessed = true
+                Task {
+                    let newImage: UIImage = try await process(image: image)
+                    self.viewController?.uploadImage(image: newImage)
+                }
             }
         }
     }
