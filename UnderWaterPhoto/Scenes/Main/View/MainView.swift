@@ -17,7 +17,7 @@ struct MainView: View {
     @State private var height: CGFloat = 0
     
     var languageSettingVC: () -> Void
-    var routeProcessScreen: () -> Void
+    var routeProcessScreen: (_ image: UIImage?) -> Void
     
     var body: some View {
         VStack {
@@ -124,7 +124,7 @@ private extension MainView {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .onTapGesture {
-                        routeProcessScreen()
+                        routeProcessScreen(UIImage(named: image.imageName))
                     }
             }
         }
@@ -158,8 +158,8 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
-        let routeProcessScreen = {
-            let secondViewController = SceneBuildManager().buildViewController()
+        let routeProcessScreen = { image in
+            let secondViewController = SceneBuildManager().buildProcessViewController(image: image)
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
@@ -180,7 +180,7 @@ final class MainViewController: UIViewController {
 }
 
 #Preview {
-    MainView( vm: MainViewModel(), languageSettingVC: {}, routeProcessScreen: {})
+    MainView( vm: MainViewModel(), languageSettingVC: {}, routeProcessScreen: {image in })
 }
 
 

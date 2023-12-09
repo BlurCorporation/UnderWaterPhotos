@@ -6,14 +6,15 @@
 //
 
 protocol Buildable {
-    func buildViewController() -> ViewController // тестовый vc
-    func buildMainView() -> MainViewController // MainScreen на SwiftUI
-    func buildSubscriptionView() -> SubscriptionViewController // Экран подписок 
+    func buildProcessViewController(image: UIImage?) -> ProcessViewController
+    func buildMainView() -> MainViewController
+    func buildSubscriptionView() -> SubscriptionViewController
     func buildLanguageScreen() -> LanguageSettingViewController
     func buildAuthViewController() -> AuthViewController
 }
 
 final class SceneBuildManager {
+    private let imageMergeManager = ImageMergeManager()
 }
 
 
@@ -34,10 +35,12 @@ extension SceneBuildManager: Buildable {
         return viewController
     }
     
-    func buildViewController() -> ViewController {
-        let viewController = ViewController()
-        let presenter = Presenter(sceneBuildManager: self)
+    func buildProcessViewController(image: UIImage?) -> ProcessViewController {
+        let viewController = ProcessViewController()
+        let presenter = ProcessPresenter(sceneBuildManager: self)
         
+        viewController.defaultImage = image
+        viewController.imageMergeManager = imageMergeManager
         viewController.presenter = presenter
         presenter.viewController = viewController
         

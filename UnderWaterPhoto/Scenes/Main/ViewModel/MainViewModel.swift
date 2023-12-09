@@ -24,11 +24,11 @@ class MainViewModel: ObservableObject {
     func fetch() {
         if state != .settings {
             images = [
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
+                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
+                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
+                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
+                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
+                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
                 ImageModel(id: UUID(), imageName: "emptyImage1"),
                 ImageModel(id: UUID(), imageName: "emptyImage1"),
                 ImageModel(id: UUID(), imageName: "emptyImage1"),
