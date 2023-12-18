@@ -120,11 +120,11 @@ private extension MainView {
     var scrollContentView: some View {
         LazyVGrid(columns: [GridItem(), GridItem()]) {
             ForEach(vm.images) { image in
-                Image(image.imageName)
+                Image(uiImage: image.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .onTapGesture {
-                        routeProcessScreen(UIImage(named: image.imageName))
+                        routeProcessScreen(image.image)
                     }
             }
         }
@@ -180,7 +180,7 @@ final class MainViewController: UIViewController {
 }
 
 #Preview {
-    MainView( vm: MainViewModel(), languageSettingVC: {}, routeProcessScreen: {image in })
+    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {image in })
 }
 
 

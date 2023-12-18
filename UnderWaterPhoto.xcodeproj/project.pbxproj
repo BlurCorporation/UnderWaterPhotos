@@ -36,6 +36,10 @@
 		1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */; };
 		1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */; };
 		1BA7ED9A2AEA8914004CC70A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7ED992AEA8914004CC70A /* HeaderView.swift */; };
+		1BAB87F92B2B7B7700841A93 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87F72B2B7B7700841A93 /* LocalFileManager.swift */; };
+		1BAB87FA2B2B7B7700841A93 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87F82B2B7B7700841A93 /* CoreDataManager.swift */; };
+		1BAB87FC2B2B7B8800841A93 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87FB2B2B7B8800841A93 /* Repository.swift */; };
+		1BAB87FF2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87FD2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld */; };
 		1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9532AA4D895002C34A5 /* AppDelegate.swift */; };
 		1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */; };
 		1BADC9582AA4D895002C34A5 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */; };
@@ -123,6 +127,10 @@
 		1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePresenter.swift; sourceTree = "<group>"; };
 		1BA7ED992AEA8914004CC70A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		1BAB87F72B2B7B7700841A93 /* LocalFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
+		1BAB87F82B2B7B7700841A93 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		1BAB87FB2B2B7B8800841A93 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		1BAB87FE2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProcessedFiles.xcdatamodel; sourceTree = "<group>"; };
 		1BADC9532AA4D895002C34A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
@@ -324,6 +332,15 @@
 			path = "ОБРАЗЕЦ архитектуры мвп";
 			sourceTree = "<group>";
 		};
+		1BAB88002B30341E00841A93 /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				1BAB87FD2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld */,
+				1BAB87FB2B2B7B8800841A93 /* Repository.swift */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
 		1BADC9472AA4D895002C34A5 = {
 			isa = PBXGroup;
 			children = (
@@ -352,6 +369,7 @@
 		1BADC9672AA4DCE9002C34A5 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1BAB88002B30341E00841A93 /* DataLayer */,
 				1B4BD0662AE8F25500A56066 /* ImageProcessing */,
 				14E941182B02969D00582CF0 /* Classes */,
 				1B27EAF12AA8AC7900DD4E30 /* Extensions */,
@@ -363,6 +381,8 @@
 		1BADC9682AA4DCF6002C34A5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				1BAB87F82B2B7B7700841A93 /* CoreDataManager.swift */,
+				1BAB87F72B2B7B7700841A93 /* LocalFileManager.swift */,
 				1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */,
 				1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */,
 			);
@@ -559,6 +579,8 @@
 				1B0B51782B1E5DBC0037C534 /* BSPresentationController.swift in Sources */,
 				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
 				1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */,
+				1BAB87FF2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld in Sources */,
+				1BAB87FC2B2B7B8800841A93 /* Repository.swift in Sources */,
 				1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */,
 				1BADC9582AA4D895002C34A5 /* ProcessViewController.swift in Sources */,
 				1B0B517E2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift in Sources */,
@@ -577,6 +599,7 @@
 				1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
 				1B0B51772B1E5DBC0037C534 /* CoverVerticalDismissAnimatedTransitioning.swift in Sources */,
+				1BAB87FA2B2B7B7700841A93 /* CoreDataManager.swift in Sources */,
 				1B4BD0752AE8F26500A56066 /* CVWrapper.mm in Sources */,
 				1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */,
 				1BDACE892B2495C500CE8C73 /* ImageMergeManager.swift in Sources */,
@@ -603,6 +626,7 @@
 				FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */,
 				1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */,
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,
+				1BAB87F92B2B7B7700841A93 /* LocalFileManager.swift in Sources */,
 				14E941172B02965F00582CF0 /* String.swift in Sources */,
 				3A0586DB2AE6E17E0047FC62 /* CustomButton.swift in Sources */,
 			);
@@ -1008,6 +1032,19 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		1BAB87FD2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1BAB87FE2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodel */,
+			);
+			currentVersion = 1BAB87FE2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodel */;
+			path = ProcessedFiles.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1BADC9482AA4D895002C34A5 /* Project object */;
 }

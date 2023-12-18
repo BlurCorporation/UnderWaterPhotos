@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-struct ImageModel: Identifiable {
+struct ImageModel: Identifiable, Equatable {
     var id: UUID
-    var imageName: String
+    var image: UIImage
 }

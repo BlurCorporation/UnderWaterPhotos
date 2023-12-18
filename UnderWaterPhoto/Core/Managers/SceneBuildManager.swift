@@ -15,6 +15,7 @@ protocol Buildable {
 
 final class SceneBuildManager {
     private let imageMergeManager = ImageMergeManager()
+    private let repository = Repository()
 }
 
 
@@ -41,6 +42,7 @@ extension SceneBuildManager: Buildable {
         
         viewController.defaultImage = image
         viewController.imageMergeManager = imageMergeManager
+        viewController.repository = repository
         viewController.presenter = presenter
         presenter.viewController = viewController
         
@@ -48,7 +50,7 @@ extension SceneBuildManager: Buildable {
     }
     
     func buildMainView() -> MainViewController {
-        let viewModel = MainViewModel()
+        let viewModel = MainViewModel(repository: Repository())
         let viewController = MainViewController(viewModel: viewModel)
         
         return viewController

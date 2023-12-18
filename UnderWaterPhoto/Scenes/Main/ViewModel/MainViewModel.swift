@@ -21,22 +21,16 @@ class MainViewModel: ObservableObject {
     @Published var mail: String = "under@water.ru"
     @Published var toggle: Bool = false
     
+    let repository: Repository
+    
+    init(repository: Repository) {
+        self.repository = repository
+        fetch()
+    }
+    
     func fetch() {
         if state != .settings {
-            images = [
-                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
-                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
-                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
-                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
-                ImageModel(id: UUID(), imageName: "underwaterPhoto1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1"),
-                ImageModel(id: UUID(), imageName: "emptyImage1")
-            ]
+            images = repository.getImages()
             if images.isEmpty {
                 state = .clear
             } else {
