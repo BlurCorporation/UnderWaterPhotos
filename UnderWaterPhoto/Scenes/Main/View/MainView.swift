@@ -18,6 +18,7 @@ struct MainView: View {
     
     var languageSettingVC: () -> Void
     var routeProcessScreen: (_ image: UIImage?) -> Void
+    var routeSubscriptionScreen: () -> Void
     
     var body: some View {
         VStack {
@@ -32,7 +33,8 @@ struct MainView: View {
             } content: {
                 switch vm.state {
                 case .settings:
-                    SettingsView(routeLanguageScreen: languageSettingVC)
+                    SettingsView(routeLanguageScreen: languageSettingVC,
+                                 routeSubscriptionScreen: routeSubscriptionScreen)
                         .frame(height: 220)
                         .padding([.top], -32)
                 case .main:
@@ -165,9 +167,15 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
+        let routeSubscriptionScreen = {
+            let nextViewController = SceneBuildManager().buildSubscriptionView()
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+        
         let swiftUIViewController = UIHostingController(rootView: MainView(vm: viewModel,
                                                                            languageSettingVC: goLanguageScreen,
-                                                                           routeProcessScreen: routeProcessScreen))
+                                                                           routeProcessScreen: routeProcessScreen,
+                                                                           routeSubscriptionScreen: routeSubscriptionScreen))
         self.addChild(swiftUIViewController)
         swiftUIViewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(swiftUIViewController.view)
@@ -182,7 +190,7 @@ final class MainViewController: UIViewController {
 }
 
 #Preview {
-    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {image in })
+    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {image in }, routeSubscriptionScreen: {})
 }
 
 

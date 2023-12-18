@@ -21,14 +21,13 @@ struct SubscriptionView: View {
         ScalingHeaderScrollView {
             Color("blueDark")
                 .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
-                .padding(.bottom, 16)
         } content: {
             VStack {
                 content
             }
         }
         .hideScrollIndicators()
-        .height(min: 166.5, max: 166.5)
+        .height(min: 116.5, max: 116.5)
         .background(Color("blue"))
         .ignoresSafeArea()
     }
@@ -50,10 +49,46 @@ struct SubscriptionView: View {
 final class SubscriptionViewController: UIViewController {
     
     private var swiftUIViewController: UIHostingController<SubscriptionView>?
+    
+    private lazy var backButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = UIImage(named: "back")
+        button.setImage(image, for: .normal)
+        button.tintColor = UIColor(named: "white")
+        
+        button.addTarget(self,
+                         action: #selector(backButtonPressed),
+                         for: .touchUpInside)
+        return button
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Подписка"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = UIColor(named: "white")
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         addSwiftUIViewToViewController()
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        navigationItem.setHidesBackButton(true,
+                                          animated: true)
+        let backButton = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.titleView = titleLabel
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    @objc
+    func backButtonPressed() {
+        navigationController?.popViewController(animated: true)
     }
     
     func addSwiftUIViewToViewController() {

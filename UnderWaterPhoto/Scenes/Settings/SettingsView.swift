@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var vm = SettingsViewModel()
-    var routeLanguageScreen: () -> ()
+    var routeLanguageScreen: () -> Void
+    var routeSubscriptionScreen: () -> Void
     
     var body: some View {
         NavigationView {
@@ -20,6 +21,9 @@ struct SettingsView: View {
                     .onTapGesture {
                         if setting.id == 0 {
                             routeLanguageScreen()
+                        }
+                        if setting.id == 2 {
+                            routeSubscriptionScreen()
                         }
                     }
                 .listRowBackground(Color("blue"))
