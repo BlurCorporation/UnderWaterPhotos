@@ -123,6 +123,8 @@ private extension MainView {
                 Image(uiImage: image.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .clipShape(.rect(cornerRadius: 24))
+                    .shadow(radius: 5)
                     .onTapGesture {
                         routeProcessScreen(image.image)
                     }
