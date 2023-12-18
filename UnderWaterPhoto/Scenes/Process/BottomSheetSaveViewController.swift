@@ -5,6 +5,7 @@ final class BottomSheetSaveViewController: UIViewController {
     private var image: UIImage? = nil
     private var processedImage: UIImage? = nil
     var imageMergeManager: ImageMergeManager?
+    var repository: Repository?
     
     private let saveInAppLabel: UILabel = {
         let label = UILabel()
@@ -101,7 +102,13 @@ final class BottomSheetSaveViewController: UIViewController {
     @objc func save() {
         
         if inAppSwitch.isOn {
-            //TODO: add inApp saving
+            guard let image = image else { return }
+            if let processedImage = processedImage {
+                guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
+                repository?.addImage(uiimage: finalImage)
+            } else {
+                repository?.addImage(uiimage: image)
+            }
         }
         if onPhoneSwitch.isOn {
             guard let image = image else { return }

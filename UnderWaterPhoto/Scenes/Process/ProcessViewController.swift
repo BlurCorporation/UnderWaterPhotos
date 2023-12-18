@@ -22,6 +22,7 @@ final class ProcessViewController: UIViewController {
     
     var presenter: ProcessPresenterProtocol?
     var imageMergeManager: ImageMergeManager?
+    var repository: Repository?
     var defaultImage: UIImage?
     private var processedImage: UIImage?
     private var processedImageAlpha: Float = 0.8
@@ -244,6 +245,7 @@ final class ProcessViewController: UIViewController {
         let vc = BottomSheetSaveViewController()
         vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
         vc.imageMergeManager = imageMergeManager
+        vc.repository = repository
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
