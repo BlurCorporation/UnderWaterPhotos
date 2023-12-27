@@ -61,4 +61,20 @@ class LocalFileManager {
         }
         return folderURL.appendingPathComponent(imageName + ".png")
     }
+    
+    func deleteCache(folderName: String) {
+        guard let paths = getURLForFolder(folderName: folderName)?.path else { return }
+            
+        do {
+            let fileName = try FileManager.default.contentsOfDirectory(atPath: paths)
+                
+            for file in fileName {
+                // For each file in the directory, create full path and delete the file
+                let filePath = URL(fileURLWithPath: paths).appendingPathComponent(file).absoluteURL
+                try FileManager.default.removeItem(at: filePath)
+            }
+        } catch let error {
+            print(error)
+        }
+    }
 }

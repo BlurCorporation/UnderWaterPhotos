@@ -22,6 +22,9 @@ struct SettingsView: View {
                         if setting.id == 0 {
                             routeLanguageScreen()
                         }
+                        if setting.id == 1 {
+                            Repository().deleteEntities()
+                        }
                         if setting.id == 2 {
                             routeSubscriptionScreen()
                         }
