@@ -33,6 +33,7 @@ class Repository {
         do {
             try coreDataManager.context.execute(deleteRequest)
             try coreDataManager.context.save()
+            fileManager.deleteCache(folderName: "ImagesFolder")
         } catch {
             print ("There was an error")
         }
