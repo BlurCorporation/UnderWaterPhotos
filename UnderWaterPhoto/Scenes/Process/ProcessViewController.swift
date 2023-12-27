@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import AVKit
+import AVFoundation
 
 // MARK: - ProcessViewControllerProtocol
 
@@ -90,6 +92,15 @@ final class ProcessViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
         return imageView
+    }()
+    
+    private let videoPlayerLayer: AVPlayerLayer = {
+        let player = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!))
+        let layer = AVPlayerLayer(player: player)
+        layer.cornerRadius = 40
+        layer.videoGravity = .resizeAspect
+        layer.masksToBounds = true
+        return layer
     }()
     
     private lazy var hideLogoButton: UIButton = {
@@ -179,6 +190,13 @@ final class ProcessViewController: UIViewController {
         
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
+//        print(mainImageView.frame)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        videoPlayerLayer.frame = mainImageView.bounds
+        mainImageView.layer.addSublayer(videoPlayerLayer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
