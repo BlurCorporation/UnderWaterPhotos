@@ -24,4 +24,8 @@
 }
 
 
++ (nullable NSString *)processWithVideos:(nonnull NSString *)video error:(NSError *__autoreleasing  _Nullable * _Nullable)error {
+    return @"123";
+}
+
 @end

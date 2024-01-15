@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CVWrapper : NSObject
 
 + (nullable UIImage*) processWithImages:(UIImage*)image error:(NSError**)error;
++ (nullable NSString*) processWithVideos:(NSString*)video error:(NSError**)error;
 
 @end
 NS_ASSUME_NONNULL_END
