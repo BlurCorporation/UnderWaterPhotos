@@ -33,15 +33,12 @@ final class AuthService {
     private let appleProvider: AppleProviderable
     private let googleProvider: GoogleProviderable
     private let defaultsManager: DefaultsManagerable
-    private let firestore: FirebaseServiceProtocol
     
-    init(defaultsManager: DefaultsManagerable,
-         firestore: FirebaseServiceProtocol) {
-        self.eMailProvider = EmailProvider(firestore: firestore)
-        self.appleProvider = AppleProvider(firestore: firestore)
-        self.googleProvider = GoogleProvider(firestore: firestore)
+    init(defaultsManager: DefaultsManagerable) {
+        self.eMailProvider = EmailProvider()
+        self.appleProvider = AppleProvider()
+        self.googleProvider = GoogleProvider()
         self.defaultsManager = defaultsManager
-        self.firestore = firestore
     }
 }
 
@@ -58,7 +55,6 @@ extension AuthService: AuthServicable {
     
     func isAuth() -> Bool {
         guard let userId = Auth.auth().currentUser?.uid else { return false }
-        firestore.addUserID(userID: userId)
         return true
     }
     

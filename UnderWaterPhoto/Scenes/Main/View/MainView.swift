@@ -125,7 +125,7 @@ private extension MainView {
                 Image(uiImage: image.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .clipShape(.rect(cornerRadius: 24))
+//                    .clipShape(.rect(cornerRadius: 24))
                     .shadow(radius: 5)
                     .onTapGesture {
                         routeProcessScreen(image.image)
@@ -189,9 +189,9 @@ final class MainViewController: UIViewController {
     }
 }
 
-#Preview {
-    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {image in }, routeSubscriptionScreen: {})
-}
+//#Preview {
+//    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {image in }, routeSubscriptionScreen: {})
+//}
 
 
 //#Preview {
