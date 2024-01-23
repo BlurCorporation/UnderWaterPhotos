@@ -42,8 +42,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        // No update needed
-    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
 }
 
