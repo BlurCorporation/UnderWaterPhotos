@@ -26,7 +26,8 @@ struct MainView: View {
                 ZStack {
                     HeaderView(vm: vm,
                                progress: progress,
-                               userName: vm.userName)
+                               userName: vm.userName, 
+                               routeProcessScreen: routeProcessScreen)
                     mainHeaderTextView
                         .padding([.leading, .trailing], 16)
                 }

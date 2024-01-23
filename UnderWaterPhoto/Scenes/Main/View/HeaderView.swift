@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @State private var showImagePicker: Bool = false
+    @State private var selectedImage: UIImage?
     @ObservedObject var vm: MainViewModel
     var progress: CGFloat
     var userName: String
+    var routeProcessScreen: (_ image: UIImage?) -> Void
     @State private var isCross: Bool = false
     
     var headerBottomPadding: CGFloat {
@@ -74,6 +77,9 @@ struct HeaderView: View {
                 }
             }
         }
+        .onChange(of: selectedImage) { _ in
+            routeProcessScreen(selectedImage)
+        }
     }
 }
 
@@ -88,7 +94,7 @@ private extension HeaderView {
     
     var addPhotoButtonView: some View {
         Button(action: {
-            
+            self.showImagePicker.toggle()
         }, label: {
             HStack(spacing: 16) {
                 Image(systemName: "plus.circle.fill")
@@ -104,7 +110,10 @@ private extension HeaderView {
             .background(Color("blue"))
             .cornerRadius(24)
             .padding([.leading, .trailing, .bottom], 16)
-            .shadow(radius: 5)
+            .shadow(color: .black, radius: 5)
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(image: $selectedImage)
+            }
         })
     }
 }
