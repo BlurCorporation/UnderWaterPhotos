@@ -190,6 +190,7 @@ final class AuthViewController: UIViewController {
             self.registrationButton.setTitle("Зарегестрироваться".localized, for: .normal)
             self.headTitle.text = "Создать аккаунт".localized
             self.loginButton.setTitle("Войти".localized, for: .normal)
+            presenter?.changeState(state: .login)
         } else {
             UIView.animate(withDuration: 0.5) {
                 self.nameTextField.alpha = 0
