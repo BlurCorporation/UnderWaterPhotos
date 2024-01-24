@@ -190,6 +190,7 @@ final class AuthViewController: UIViewController {
             self.registrationButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title.localized, for: .normal)
             self.headTitle.text = L10n.AuthViewController.If.ExpandLoginButton.HeadTitle.text.localized
             self.loginButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title.localized, for: .normal)
+            presenter?.changeState(state: .login)
         } else {
             UIView.animate(withDuration: 0.5) {
                 self.nameTextField.alpha = 0

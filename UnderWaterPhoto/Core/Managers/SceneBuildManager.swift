@@ -26,6 +26,14 @@ final class SceneBuildManager {
     private let repository = Repository()
     private let userDefaultsManager = DefaultsManager()
     private let customTransitioningDelegate = BSTransitioningDelegate()
+    private let authState: AuthState
+    private let authService: AuthServicable
+    private let defaultsManager = DefaultsManager()
+    
+    init() {
+        self.authService = AuthService(defaultsManager: defaultsManager)
+        self.authState = AuthState.registration
+    }
 }
 
 extension SceneBuildManager: Buildable {
@@ -37,7 +45,11 @@ extension SceneBuildManager: Buildable {
     
     func buildAuthViewController() -> AuthViewController {
         let viewController = AuthViewController()
-        let presenter = AuthPresenter(sceneBuildManager: self)
+        let presenter = AuthPresenter(sceneBuildManager: self,
+                                      authState: self.authState,
+                                    authService: self.authService,
+                                    defaultsManager: defaultsManager
+        )
         
         viewController.presenter = presenter
         presenter.viewController = viewController

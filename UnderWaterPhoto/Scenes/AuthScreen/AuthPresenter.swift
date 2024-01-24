@@ -14,6 +14,7 @@ protocol AuthPresenterProtocol: AnyObject {
     func restorePasswordButtonPressed()
     func appleIdButtonPressed()
     func googleIdButtonPressed()
+    func changeState(state: AuthState)
 }
 
 // MARK: - AuthPresenter
@@ -21,22 +22,45 @@ protocol AuthPresenterProtocol: AnyObject {
 final class AuthPresenter {
     weak var viewController: AuthViewControllerProtocol?
     
+    var state: AuthState = .registration
+    
     //MARK: - PrivateProperties
     
     private let sceneBuildManager: Buildable
+    private let authState: AuthState
+    private let authService: AuthServicable
+    private let defaultsManager: DefaultsManagerable
     
     //MARK: - Initialize
     
-    init(sceneBuildManager: Buildable) {
+    init(sceneBuildManager: Buildable,
+         authState: AuthState,
+         authService: AuthServicable,
+         defaultsManager: DefaultsManagerable) {
         self.sceneBuildManager = sceneBuildManager
+        self.authState = authState
+        self.authService = authService
+        self.defaultsManager = defaultsManager
     }
 }
 
 // MARK: - AuthPresenterProtocol Imp
 
 extension AuthPresenter: AuthPresenterProtocol {
+    func changeState(state: AuthState) {
+        self.state = state
+    }
+    
     func loginButtonPressed() {
         viewController?.expandLoginButton()
+        switch state {
+        case .login:
+            authService.loginUser(with: <#T##LoginUserRequest?#>, typeAuth: <#T##TypeAuth#>, viewController: <#T##UIViewController?#>, completion: <#T##(Error?) -> Void#>)
+        case .registration:
+            break
+        case .restore:
+            break
+        }
     }
     
     func registrationButtonPressed() {
