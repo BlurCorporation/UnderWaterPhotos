@@ -92,6 +92,8 @@
 		FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA192B1C8DA50007EA5F /* PriceView.swift */; };
 		FB40DA1C2B1C8DF10007EA5F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA1B2B1C8DF10007EA5F /* TextView.swift */; };
 		FB40DA1E2B1C8E1D0007EA5F /* BenefitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA1D2B1C8E1D0007EA5F /* BenefitsView.swift */; };
+		FBDA15622B62ECCF00601514 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FBDA155F2B62ECBF00601514 /* Localizable.strings */; };
+		FBDA15642B62EDAF00601514 /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDA15632B62EDAF00601514 /* Strings+Generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +160,10 @@
 		FB40DA192B1C8DA50007EA5F /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
 		FB40DA1B2B1C8DF10007EA5F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		FB40DA1D2B1C8E1D0007EA5F /* BenefitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsView.swift; sourceTree = "<group>"; };
+		FBDA155E2B62ECBF00601514 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FBDA15602B62ECC300601514 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FBDA15632B62EDAF00601514 /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
+		FBDA15652B62EED600601514 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +378,7 @@
 		1BADC9672AA4DCE9002C34A5 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				FBDA155C2B62EAD700601514 /* Localization */,
 				1BAB88002B30341E00841A93 /* DataLayer */,
 				1B4BD0662AE8F25500A56066 /* ImageProcessing */,
 				14E941182B02969D00582CF0 /* Classes */,
@@ -471,6 +478,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		FBDA155C2B62EAD700601514 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				FBDA15632B62EDAF00601514 /* Strings+Generated.swift */,
+				FBDA155F2B62ECBF00601514 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -540,11 +556,12 @@
 			};
 			buildConfigurationList = 1BADC94B2AA4D895002C34A5 /* Build configuration list for PBXProject "UnderWaterPhoto" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 1BADC9472AA4D895002C34A5;
 			packageReferences = (
@@ -567,6 +584,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */,
+				FBDA15622B62ECCF00601514 /* Localizable.strings in Resources */,
 				1BADC95D2AA4D896002C34A5 /* Assets.xcassets in Resources */,
 				3A681B762B028CD50040DED4 /* GoogleService-Info.plist in Resources */,
 			);
@@ -589,6 +607,7 @@
 				1BADC9582AA4D895002C34A5 /* ProcessViewController.swift in Sources */,
 				1B0B517E2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift in Sources */,
 				1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */,
+				FBDA15642B62EDAF00601514 /* Strings+Generated.swift in Sources */,
 				FB40DA1C2B1C8DF10007EA5F /* TextView.swift in Sources */,
 				1B0B51802B1E5DBC0037C534 /* BottomSheetSaveViewController.swift in Sources */,
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,
@@ -643,8 +662,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				1BADC95F2AA4D896002C34A5 /* Base */,
+				FBDA15652B62EED600601514 /* en */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FBDA155F2B62ECBF00601514 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBDA155E2B62ECBF00601514 /* en */,
+				FBDA15602B62ECC300601514 /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -654,6 +683,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -715,6 +745,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
