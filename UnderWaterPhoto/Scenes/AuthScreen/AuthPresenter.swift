@@ -9,12 +9,15 @@ import UIKit
 // MARK: - AuthPresenterProtocol
 
 protocol AuthPresenterProtocol: AnyObject {
-    func loginButtonPressed()
+    func loginButtonPressed(name: String?,
+                            email: String?,
+                            password: String?,
+                            repeatPassword: String?)
     func registrationButtonPressed()
     func restorePasswordButtonPressed()
     func appleIdButtonPressed()
     func googleIdButtonPressed()
-    func changeState(state: AuthState)
+    func changeState(authState: AuthState)
 }
 
 // MARK: - AuthPresenter
@@ -22,12 +25,10 @@ protocol AuthPresenterProtocol: AnyObject {
 final class AuthPresenter {
     weak var viewController: AuthViewControllerProtocol?
     
-    var state: AuthState = .registration
-    
     //MARK: - PrivateProperties
     
     private let sceneBuildManager: Buildable
-    private let authState: AuthState
+    private var authState: AuthState
     private let authService: AuthServicable
     private let defaultsManager: DefaultsManagerable
     
@@ -47,19 +48,43 @@ final class AuthPresenter {
 // MARK: - AuthPresenterProtocol Imp
 
 extension AuthPresenter: AuthPresenterProtocol {
-    func changeState(state: AuthState) {
-        self.state = state
+    func changeState(authState: AuthState) {
+        self.authState = authState
     }
     
-    func loginButtonPressed() {
-        viewController?.expandLoginButton()
-        switch state {
-        case .login:
-            authService.loginUser(with: <#T##LoginUserRequest?#>, typeAuth: <#T##TypeAuth#>, viewController: <#T##UIViewController?#>, completion: <#T##(Error?) -> Void#>)
+    func loginButtonPressed(name: String?, email: String?, password: String?, repeatPassword: String?) {
+        guard let email = email,
+              let password = password else {
+            return
+        }
+        
+        switch authState {
         case .registration:
-            break
+            viewController?.expandLoginButton()
+        case .login:
+            let user = LoginUserRequest(email: email,
+                                        password: password)
+            
+            authService.loginUser(with: user, typeAuth: .email, viewController: nil) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    let alertController = UIAlertController(title: "Ошибка",
+                                                            message: error.localizedDescription,
+                                                            preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK",
+                                                 style: .default,
+                                                 handler: nil)
+                    alertController.addAction(okAction)
+                    self.viewController?.present(alertController,
+                                                 animated: true,
+                                                 completion: nil)
+                    return
+                }
+                self.defaultsManager.saveObject(true,
+                                                for: .isUserAuth)
+            }
         case .restore:
-            break
+            viewController?.expandLoginButton()
         }
     }
     

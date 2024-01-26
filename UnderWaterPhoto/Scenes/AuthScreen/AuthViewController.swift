@@ -142,7 +142,10 @@ final class AuthViewController: UIViewController {
     @objc
     func loginButtonPressed() {
         loginButton.pushAnimate { [weak self] in
-            self?.presenter?.loginButtonPressed()
+            self?.presenter?.loginButtonPressed(name: self?.nameTextField.text,
+                                                email: self?.emailTextField.text,
+                                                password: self?.passwordTextField.text,
+                                                repeatPassword: self?.repeatPasswordTextField.text)
         }
     }
     
@@ -190,7 +193,7 @@ final class AuthViewController: UIViewController {
             self.registrationButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title.localized, for: .normal)
             self.headTitle.text = L10n.AuthViewController.If.ExpandLoginButton.HeadTitle.text.localized
             self.loginButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title.localized, for: .normal)
-            presenter?.changeState(state: .login)
+            presenter?.changeState(authState: .registration)
         } else {
             UIView.animate(withDuration: 0.5) {
                 self.nameTextField.alpha = 0
