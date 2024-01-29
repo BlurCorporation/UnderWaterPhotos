@@ -5,4 +5,47 @@
   Created by Андрей Барсуков on 25.01.2024.
   
 */
+// MARK: - Scenes
+// LanguageSetting
+"languageSettingView.titleLabel" = "Язык приложения";
+"languageSettingViewModel.Languages.title.rus" = "Русский";
+"languageSettingViewModel.Languages.title.en" = "Английсикий";
+
+// Setting
+"settingsViewModel.settings.id.0.settingName" = "Язык приложения";
+"settingsViewModel.settings.id.0.additionalName" = "Русский";
+"settingsViewModel.settings.id.1.settingName" = "Очистить кэш";
+"settingsViewModel.settings.id.2.settingName" = "Подписка";
+"settingsViewModel.settings.id.3.settingName" = "Удалить аккаунт";
+"settingsViewModel.settings.id.4.settingName" = "Выйти из аккаунта";
+
+// MARK: SubscriptionScreen
+// MARK: Model
+"subscriptionModel.priceData.firstElement.title" = "Первая подписка";
+"subscriptionModel.priceData.firstElement.price" = "9 миллинов";
+"subscriptionModel.priceData.firstElement.priceForDay" = "9 миллинов";
+"subscriptionModel.priceData.secondElement.title" = "Вторая подписка";
+"subscriptionModel.priceData.secondElement.price" = "16 рублей";
+"subscriptionModel.priceData.secondElement.priceForDay" = "3 копейки";
+"subscriptionModel.priceData.thirdElement.title" = "Третья крутая подписка";
+"subscriptionModel.priceData.thirdElement.price" = "3 конфетки";
+"subscriptionModel.priceData.thirdElement.priceForDay" = "4 нюдса";
+"subscriptionModel.priceData.fourthElement.title" = "Четвертая подписка";
+"subscriptionModel.priceData.fourthElement.price" = "какая-нибудь цена";
+"subscriptionModel.priceData.fourthElement.priceForDay" = "не смотреть рилсы";
+
+// MARK: ViewController
+"SubscriptionViewController.titleLabel" = "Подписка";
+
+// ButtonView
+"ButtonView.title" = "Оформить";
+
+// TextView
+"TextView.rulesText" = "Oформляя подписку вы соглашаетесь на Условия использования и Политику конфиденциальности";
+"TextView.attributedString.range" = "Условия использования и Политику конфиденциальности";
+
+// BenefitsView
+"BenefitsView.arrayOfBenefits.firstElement" = "benefits1";
+"BenefitsView.arrayOfBenefits.secondElement" = "benefits2";
+"BenefitsView.arrayOfBenefits.thirdElement" = "benefits3";
 
