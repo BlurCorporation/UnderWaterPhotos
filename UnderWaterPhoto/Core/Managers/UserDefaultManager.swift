@@ -1,9 +1,3 @@
-//
-//  UserDefaultManager.swift
-//  spravochnik_spz
-//
-//  Created by Swift Learning on 12.06.2023.
-//
 
 import Foundation
 

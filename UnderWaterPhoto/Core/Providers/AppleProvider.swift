@@ -1,9 +1,3 @@
-//
-//  AppleService.swift
-//  ARHitBalls
-//
-//  Created by Максим Косников on 19.07.2023.
-//
 
 import Foundation
 import FirebaseAuth
