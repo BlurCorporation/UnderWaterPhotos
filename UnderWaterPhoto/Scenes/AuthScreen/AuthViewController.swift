@@ -142,17 +142,17 @@ final class AuthViewController: UIViewController {
     @objc
     func loginButtonPressed() {
         loginButton.pushAnimate { [weak self] in
-            self?.presenter?.loginButtonPressed(name: self?.nameTextField.text,
-                                                email: self?.emailTextField.text,
-                                                password: self?.passwordTextField.text,
-                                                repeatPassword: self?.repeatPasswordTextField.text)
+            self?.presenter?.loginButtonPressed()
         }
     }
     
     @objc
     func registrationButtonPressed() {
         registrationButton.pushAnimate { [weak self] in
-            self?.presenter?.registrationButtonPressed()
+            self?.presenter?.registrationButtonPressed(name: self?.nameTextField.text,
+                                                       email: self?.emailTextField.text,
+                                                       password: self?.passwordTextField.text,
+                                                       repeatPassword: self?.repeatPasswordTextField.text)
         }
     }
     
