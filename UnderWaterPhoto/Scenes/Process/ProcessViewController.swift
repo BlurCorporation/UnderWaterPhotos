@@ -16,6 +16,7 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func uploadImage(image: UIImage)
     func changeToProcess()
     func showBottomSaveSheet()
+    func changeVideo(url: URL)
 }
 
 // MARK: - ProcessViewController
@@ -95,11 +96,14 @@ final class ProcessViewController: UIViewController {
     }()
     
     private let videoPlayerLayer: AVPlayerLayer = {
-        let player = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!))
+//        let player = AVPlayer()
+        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!)
+        let player = AVPlayer(url: url)
         let layer = AVPlayerLayer(player: player)
         layer.cornerRadius = 40
         layer.videoGravity = .resizeAspect
         layer.masksToBounds = true
+        player.play()
         return layer
     }()
     
@@ -190,17 +194,25 @@ final class ProcessViewController: UIViewController {
         
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
-//        print(mainImageView.frame)
+        print(mainImageView.frame)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        print(mainImageView.bounds)
         videoPlayerLayer.frame = mainImageView.bounds
         mainImageView.layer.addSublayer(videoPlayerLayer)
+//        view.layer.addSublayer(videoPlayerLayer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    func changeVideo(url: URL) {
+        videoPlayerLayer.player = AVPlayer(url: url)
+        videoPlayerLayer.player?.play()
+        print(url)
     }
     
     // MARK: Action

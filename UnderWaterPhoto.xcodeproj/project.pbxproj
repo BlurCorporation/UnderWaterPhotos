@@ -20,6 +20,12 @@
 		1B0C785A2B3CAC45004CB2CB /* testVideo.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */; };
 		1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */; };
 		1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2119BD2AEAAA3700B3E1AF /* View.swift */; };
+		1B2613CF2B695568006EDD31 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613CE2B695568006EDD31 /* CVWrapper.mm */; };
+		1B2613D22B695573006EDD31 /* videoenhancement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613D12B695573006EDD31 /* videoenhancement.cpp */; };
+		1B2613D82B69564B006EDD31 /* ProcessPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */; };
+		1B2613D92B69564B006EDD31 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613D72B69564B006EDD31 /* ProcessViewController.swift */; };
+		1B2613DD2B6963AF006EDD31 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2613DC2B6963AF006EDD31 /* opencv2.framework */; };
+		1B2613DF2B69650E006EDD31 /* FramesOfProcessedVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613DE2B69650E006EDD31 /* FramesOfProcessedVideo.m */; };
 		1B2759932AE1241800237167 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759922AE1241800237167 /* MainViewModel.swift */; };
 		1B2759952AE1242F00237167 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759942AE1242F00237167 /* ImageModel.swift */; };
 		1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF32AA8AC9700DD4E30 /* UIView.swift */; };
@@ -30,7 +36,6 @@
 		1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */; };
 		1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */; };
 		1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */; };
-		1B4BD0752AE8F26500A56066 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD0712AE8F26500A56066 /* CVWrapper.mm */; };
 		1B6A98762AEFFA39000C12A0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A98752AEFFA39000C12A0 /* SettingsView.swift */; };
 		1B6A98782AEFFB92000C12A0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A98772AEFFB92000C12A0 /* SettingsViewModel.swift */; };
 		1B6A987A2AEFFB9D000C12A0 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A98792AEFFB9D000C12A0 /* SettingsModel.swift */; };
@@ -43,11 +48,9 @@
 		1BAB87FF2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87FD2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld */; };
 		1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9532AA4D895002C34A5 /* AppDelegate.swift */; };
 		1BADC9562AA4D895002C34A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */; };
-		1BADC9582AA4D895002C34A5 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */; };
 		1BADC95D2AA4D896002C34A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95C2AA4D896002C34A5 /* Assets.xcassets */; };
 		1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */; };
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
-		1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC96D2AA4DDEC002C34A5 /* ProcessPresenter.swift */; };
 		1BBDC5CF2B18EEB1004C80CE /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBDC5CE2B18EEB1004C80CE /* ModelSubscription.swift */; };
 		1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */; };
 		1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */; };
@@ -81,7 +84,6 @@
 		3A48C88F2B053A2D00DD5A18 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C88E2B053A2D00DD5A18 /* FirebaseRemoteConfigSwift */; };
 		3A48C8912B053A2D00DD5A18 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8902B053A2D00DD5A18 /* FirebaseStorage */; };
 		3A48C8932B053A2D00DD5A18 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8922B053A2D00DD5A18 /* FirebaseStorageCombine-Community */; };
-		3A65046B2B1674B200662B2B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A65046A2B1674B200662B2B /* opencv2.framework */; };
 		3A681B762B028CD50040DED4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A681B752B028CD40040DED4 /* GoogleService-Info.plist */; };
 		3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A72ABB675A00E624B2 /* AuthViewController.swift */; };
 		3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A92ABB678900E624B2 /* AuthPresenter.swift */; };
@@ -111,6 +113,15 @@
 		1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = testVideo.MP4; sourceTree = "<group>"; };
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		1B2613CD2B695568006EDD31 /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
+		1B2613CE2B695568006EDD31 /* CVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CVWrapper.mm; sourceTree = "<group>"; };
+		1B2613D02B69556E006EDD31 /* videoenhancement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoenhancement.h; sourceTree = "<group>"; };
+		1B2613D12B695573006EDD31 /* videoenhancement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoenhancement.cpp; sourceTree = "<group>"; };
+		1B2613D42B69557A006EDD31 /* FramesOfProcessedVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FramesOfProcessedVideo.h; sourceTree = "<group>"; };
+		1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessPresenter.swift; sourceTree = "<group>"; };
+		1B2613D72B69564B006EDD31 /* ProcessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
+		1B2613DC2B6963AF006EDD31 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		1B2613DE2B69650E006EDD31 /* FramesOfProcessedVideo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FramesOfProcessedVideo.m; sourceTree = "<group>"; };
 		1B2759922AE1241800237167 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1B2759942AE1242F00237167 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		1B27EAF32AA8AC9700DD4E30 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -120,12 +131,10 @@
 		1B4BD0672AE8F26500A56066 /* UnderWaterPhoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnderWaterPhoto-Bridging-Header.h"; sourceTree = "<group>"; };
 		1B4BD0692AE8F26500A56066 /* colorcorrection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorcorrection.h; sourceTree = "<group>"; };
 		1B4BD06A2AE8F26500A56066 /* contrastenhancement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contrastenhancement.h; sourceTree = "<group>"; };
-		1B4BD06B2AE8F26500A56066 /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
 		1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colorcorrection.cpp; sourceTree = "<group>"; };
 		1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contrastenhancement.cpp; sourceTree = "<group>"; };
 		1B4BD06F2AE8F26500A56066 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
-		1B4BD0712AE8F26500A56066 /* CVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CVWrapper.mm; sourceTree = "<group>"; };
 		1B6A98752AEFFA39000C12A0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1B6A98772AEFFB92000C12A0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		1B6A98792AEFFB9D000C12A0 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
@@ -138,12 +147,10 @@
 		1BAB87FE2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProcessedFiles.xcdatamodel; sourceTree = "<group>"; };
 		1BADC9532AA4D895002C34A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BADC9552AA4D895002C34A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
 		1BADC95C2AA4D896002C34A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BADC95F2AA4D896002C34A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BADC9612AA4D896002C34A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuildManager.swift; sourceTree = "<group>"; };
-		1BADC96D2AA4DDEC002C34A5 /* ProcessPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessPresenter.swift; sourceTree = "<group>"; };
 		1BBDC5CE2B18EEB1004C80CE /* ModelSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
 		1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSettingView.swift; sourceTree = "<group>"; };
 		1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingViewModel.swift; sourceTree = "<group>"; };
@@ -151,7 +158,6 @@
 		1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMergeManager.swift; sourceTree = "<group>"; };
 		3A0586D82AE6DC930047FC62 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		3A0586DA2AE6E17E0047FC62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		3A65046A2B1674B200662B2B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		3A681B752B028CD40040DED4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A9673A72ABB675A00E624B2 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		3A9673A92ABB678900E624B2 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -173,7 +179,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A65046B2B1674B200662B2B /* opencv2.framework in Frameworks */,
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
 				1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */,
 				3A48C8892B053A2D00DD5A18 /* FirebaseMessaging in Frameworks */,
@@ -200,6 +205,7 @@
 				3A48C8632B053A2D00DD5A18 /* FirebaseAnalyticsSwift in Frameworks */,
 				3A48C8692B053A2D00DD5A18 /* FirebaseAppDistribution-Beta in Frameworks */,
 				3A48C88D2B053A2D00DD5A18 /* FirebaseRemoteConfig in Frameworks */,
+				1B2613DD2B6963AF006EDD31 /* opencv2.framework in Frameworks */,
 				3A48C8912B053A2D00DD5A18 /* FirebaseStorage in Frameworks */,
 				3A48C86D2B053A2D00DD5A18 /* FirebaseAuthCombine-Community in Frameworks */,
 				3A48C8932B053A2D00DD5A18 /* FirebaseStorageCombine-Community in Frameworks */,
@@ -294,13 +300,15 @@
 		1B4BD0662AE8F25500A56066 /* ImageProcessing */ = {
 			isa = PBXGroup;
 			children = (
-				1B4BD06B2AE8F26500A56066 /* CVWrapper.h */,
-				1B4BD0712AE8F26500A56066 /* CVWrapper.mm */,
+				1B2613CD2B695568006EDD31 /* CVWrapper.h */,
+				1B2613CE2B695568006EDD31 /* CVWrapper.mm */,
 				1B4BD0682AE8F26500A56066 /* include */,
 				1B4BD06C2AE8F26500A56066 /* src */,
 				1B4BD06F2AE8F26500A56066 /* UIImage+OpenCV.h */,
 				1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */,
 				1B4BD0672AE8F26500A56066 /* UnderWaterPhoto-Bridging-Header.h */,
+				1B2613D42B69557A006EDD31 /* FramesOfProcessedVideo.h */,
+				1B2613DE2B69650E006EDD31 /* FramesOfProcessedVideo.m */,
 			);
 			path = ImageProcessing;
 			sourceTree = "<group>";
@@ -308,6 +316,7 @@
 		1B4BD0682AE8F26500A56066 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				1B2613D02B69556E006EDD31 /* videoenhancement.h */,
 				1B4BD0692AE8F26500A56066 /* colorcorrection.h */,
 				1B4BD06A2AE8F26500A56066 /* contrastenhancement.h */,
 			);
@@ -317,6 +326,7 @@
 		1B4BD06C2AE8F26500A56066 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				1B2613D12B695573006EDD31 /* videoenhancement.cpp */,
 				1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */,
 				1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */,
 			);
@@ -363,7 +373,7 @@
 		1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				3A65046A2B1674B200662B2B /* opencv2.framework */,
+				1B2613DC2B6963AF006EDD31 /* opencv2.framework */,
 				1BADC96B2AA4DDD0002C34A5 /* Scenes */,
 				1BADC9672AA4DCE9002C34A5 /* Core */,
 				1BADC9532AA4D895002C34A5 /* AppDelegate.swift */,
@@ -417,10 +427,10 @@
 		1BADC96C2AA4DDD6002C34A5 /* Process */ = {
 			isa = PBXGroup;
 			children = (
+				1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */,
+				1B2613D72B69564B006EDD31 /* ProcessViewController.swift */,
 				1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */,
 				1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */,
-				1BADC9572AA4D895002C34A5 /* ProcessViewController.swift */,
-				1BADC96D2AA4DDEC002C34A5 /* ProcessPresenter.swift */,
 			);
 			path = Process;
 			sourceTree = "<group>";
@@ -605,10 +615,10 @@
 				FB3566692B38852B000F9B53 /* ImagePicker.swift in Sources */,
 				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
 				1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */,
+				1B2613D82B69564B006EDD31 /* ProcessPresenter.swift in Sources */,
 				1BAB87FF2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld in Sources */,
 				1BAB87FC2B2B7B8800841A93 /* Repository.swift in Sources */,
 				1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */,
-				1BADC9582AA4D895002C34A5 /* ProcessViewController.swift in Sources */,
 				1B0B517E2B1E5DBC0037C534 /* UIPanGestureRecognizer+Extension.swift in Sources */,
 				1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */,
 				FBDA15642B62EDAF00601514 /* Strings+Generated.swift in Sources */,
@@ -616,9 +626,11 @@
 				1B0B51802B1E5DBC0037C534 /* BottomSheetSaveViewController.swift in Sources */,
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
+				1B2613D92B69564B006EDD31 /* ProcessViewController.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
 				FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */,
 				1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */,
+				1B2613D22B695573006EDD31 /* videoenhancement.cpp in Sources */,
 				1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */,
 				1B0B517F2B1E5DBC0037C534 /* CGFloat+Extension.swift in Sources */,
 				1BA7ED9A2AEA8914004CC70A /* HeaderView.swift in Sources */,
@@ -626,8 +638,9 @@
 				1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */,
 				1BADC9542AA4D895002C34A5 /* AppDelegate.swift in Sources */,
 				1B0B51772B1E5DBC0037C534 /* CoverVerticalDismissAnimatedTransitioning.swift in Sources */,
+				1B2613CF2B695568006EDD31 /* CVWrapper.mm in Sources */,
 				1BAB87FA2B2B7B7700841A93 /* CoreDataManager.swift in Sources */,
-				1B4BD0752AE8F26500A56066 /* CVWrapper.mm in Sources */,
+				1B2613DF2B69650E006EDD31 /* FramesOfProcessedVideo.m in Sources */,
 				1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */,
 				1BDACE892B2495C500CE8C73 /* ImageMergeManager.swift in Sources */,
 				1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */,
@@ -649,9 +662,7 @@
 				1B0B51752B1E5DBC0037C534 /* BSTransitioningDelegate.swift in Sources */,
 				3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */,
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
-				1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */,
 				FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */,
-				1BADC96E2AA4DDEC002C34A5 /* ProcessPresenter.swift in Sources */,
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,
 				1BAB87F92B2B7B7700841A93 /* LocalFileManager.swift in Sources */,
 				14E941172B02965F00582CF0 /* String.swift in Sources */,
