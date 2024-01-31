@@ -10,10 +10,10 @@ import UIKit
 
 protocol AuthPresenterProtocol: AnyObject {
     func loginButtonPressed()
-    func registrationButtonPressed(name: String?,
-                                   email: String?,
-                                   password: String?,
-                                   repeatPassword: String?)
+    func didTapPrimaryButton(email: String,
+                             name: String,
+                             password: String,
+                             repeatPassword: String)
     func restorePasswordButtonPressed()
     func appleIdButtonPressed()
     func googleIdButtonPressed()
@@ -48,75 +48,87 @@ final class AuthPresenter {
 // MARK: - AuthPresenterProtocol Imp
 
 extension AuthPresenter: AuthPresenterProtocol {
+    
     func changeState(authState: AuthState) {
         self.authState = authState
     }
     
     func loginButtonPressed() {
+        self.authState = .login
         viewController?.expandLoginButton()
     }
     
-    func registrationButtonPressed(name: String?,
-                                   email: String?,
-                                   password: String?,
-                                   repeatPassword: String?) {
-        guard let name = name,
-              let email = email,
-              let password = password,
-              let repeatPassword = repeatPassword else { //toDo: проверяем password == repeatPassword?
-            return
-        }
+    func didTapPrimaryButton(email: String,
+                             name: String = "",
+                             password: String = "",
+                             repeatPassword: String = "") {
         
         switch authState {
         case .registration:
-            let newUser = RegisterUserRequest(name: name, email: email, password: password, repeatPassword: repeatPassword)
-            
-            self.authService.registerUser(with: newUser) { wasRegistered, error in
-                if let error = error {
-                    print(error.localizedDescription)
-                    let alertController = UIAlertController(title: "Ошибка",
-                                                            message: error.localizedDescription,
-                                                            preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK",
-                                                 style: .default,
-                                                 handler: nil)
-                    alertController.addAction(okAction)
-                    self.viewController?.present(alertController,
-                                                 animated: true,
-                                                 completion: nil)
-                    return
-                }
-                self.defaultsManager.saveObject(true,
-                                                for: .isUserAuth)
-            }
+            guard !name.isEmpty,
+                  !email.isEmpty,
+                  !password.isEmpty,
+                  !repeatPassword.isEmpty,
+                  password == repeatPassword else { return }
+            self.makeRegistrationRequest(name: name, email: email, password: password)
         case .login:
-            let user = LoginUserRequest(email: email,
-                                        password: password)
-            
-            authService.loginUser(with: user, typeAuth: .email, viewController: nil) { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                    let alertController = UIAlertController(title: "Ошибка",
-                                                            message: error.localizedDescription,
-                                                            preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK",
-                                                 style: .default,
-                                                 handler: nil)
-                    alertController.addAction(okAction)
-                    self.viewController?.present(alertController,
-                                                 animated: true,
-                                                 completion: nil)
-                    return
-                }
-                self.defaultsManager.saveObject(true,
-                                                for: .isUserAuth)
-            }
+            guard !email.isEmpty, !password.isEmpty else { return }
+            self.makeLoginRequest(email: email, password: password)
         case .restore:
-            break
+            guard !email.isEmpty else { return }
+            self.makeRestoreRequest(email: email)
+        }
+    }
+    private func makeRegistrationRequest(name: String,
+                                         email: String,
+                                         password: String) {
+        let newUser = RegisterUserRequest(name: name, email: email, password: password)
+        self.authService.registerUser(with: newUser) { isSuccessRegister, error in
+            if let error = error {
+                self.showError(error: error)
+            }
+            if isSuccessRegister {
+                self.defaultsManager.saveObject(isSuccessRegister,
+                                                for: .isUserAuth)
+            } else {
+                // обработка ошибки если потребуется
+            }
         }
     }
     
+    private func makeLoginRequest(email: String,
+                                  password: String) {
+        let user = LoginUserRequest(email: email,
+                                    password: password)
+        
+        authService.loginUser(with: user, typeAuth: .email, viewController: nil) { error in
+            if let error = error {
+                self.showError(error: error)
+            }
+            self.defaultsManager.saveObject(true,
+                                            for: .isUserAuth)
+        }
+        
+    }
+    
+    private func makeRestoreRequest(email: String) {}
+    
+    private func showError(error: Error) {
+        print(error.localizedDescription)
+        let alertController = UIAlertController(title: "Ошибка",
+                                                message: error.localizedDescription,
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK",
+                                     style: .default,
+                                     handler: nil)
+        alertController.addAction(okAction)
+        self.viewController?.present(alertController,
+                                     animated: true,
+                                     completion: nil)
+    }
+    
     func restorePasswordButtonPressed() {
+        self.authState = .restore
         viewController?.restorePasswordExpand()
     }
     

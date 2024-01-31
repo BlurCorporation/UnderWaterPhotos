@@ -149,10 +149,10 @@ final class AuthViewController: UIViewController {
     @objc
     func registrationButtonPressed() {
         registrationButton.pushAnimate { [weak self] in
-            self?.presenter?.registrationButtonPressed(name: self?.nameTextField.text,
-                                                       email: self?.emailTextField.text,
-                                                       password: self?.passwordTextField.text,
-                                                       repeatPassword: self?.repeatPasswordTextField.text)
+            self?.presenter?.didTapPrimaryButton(email: self?.emailTextField.text ?? "",
+                                                 name: self?.nameTextField.text ?? "",
+                                                 password: self?.passwordTextField.text ?? "",
+                                                 repeatPassword: self?.repeatPasswordTextField.text ?? "")
         }
     }
     
