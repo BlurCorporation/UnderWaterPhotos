@@ -83,7 +83,20 @@ final class ProcessViewController: UIViewController {
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
+        imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    private let playerView: VideoPlayerView = {
+        let player = VideoPlayerView()
+        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!)
+        player.player = AVPlayer(url: url)
+        player.player?.play()
+        player.playerLayer.cornerRadius = 40
+        player.playerLayer.videoGravity = .resizeAspect
+        player.playerLayer.masksToBounds = true
+        player.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
+        return player
     }()
     
     private let processedImageView: UIImageView = {
@@ -93,18 +106,6 @@ final class ProcessViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
         return imageView
-    }()
-    
-    private let videoPlayerLayer: AVPlayerLayer = {
-//        let player = AVPlayer()
-        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!)
-        let player = AVPlayer(url: url)
-        let layer = AVPlayerLayer(player: player)
-        layer.cornerRadius = 40
-        layer.videoGravity = .resizeAspect
-        layer.masksToBounds = true
-        player.play()
-        return layer
     }()
     
     private lazy var hideLogoButton: UIButton = {
@@ -200,9 +201,6 @@ final class ProcessViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         print(mainImageView.bounds)
-        videoPlayerLayer.frame = mainImageView.bounds
-        mainImageView.layer.addSublayer(videoPlayerLayer)
-//        view.layer.addSublayer(videoPlayerLayer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -210,8 +208,10 @@ final class ProcessViewController: UIViewController {
     }
     
     func changeVideo(url: URL) {
-        videoPlayerLayer.player = AVPlayer(url: url)
-        videoPlayerLayer.player?.play()
+//        videoPlayerLayer.player = AVPlayer(url: url)
+//        videoPlayerLayer.player?.play()
+        playerView.player = AVPlayer(url: url)
+        playerView.player?.play()
         print(url)
     }
     
@@ -288,7 +288,6 @@ final class ProcessViewController: UIViewController {
         filterButton.isHidden = false
         let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAll))
         shareBarButtonItem.tintColor = UIColor(named: "white")
-//        shareBarButtonItem.target = #selector(shareAll)
         let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
         
         navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
@@ -334,8 +333,9 @@ extension ProcessViewController {
     
     func addSubviews() {
         view.addSubviews(headerView,
-                         mainImageView,
-                         processedImageView,
+                         playerView,
+//                         mainImageView,
+//                         processedImageView,
                          slider,
                          hideLogoButton,
                          filterButton,
@@ -355,15 +355,20 @@ extension ProcessViewController {
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 108),
             
-            mainImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            mainImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            mainImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
-            mainImageView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
+            playerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            playerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            playerView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+            playerView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
             
-            processedImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor),
-            processedImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor),
-            processedImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor),
-            processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
+//            mainImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+//            mainImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+//            mainImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+//            mainImageView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
+//            
+//            processedImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor),
+//            processedImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor),
+//            processedImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor),
+//            processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
 
             hideLogoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             hideLogoButton.widthAnchor.constraint(equalToConstant: 183),

@@ -26,6 +26,7 @@
 		1B2613D92B69564B006EDD31 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613D72B69564B006EDD31 /* ProcessViewController.swift */; };
 		1B2613DD2B6963AF006EDD31 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2613DC2B6963AF006EDD31 /* opencv2.framework */; };
 		1B2613DF2B69650E006EDD31 /* FramesOfProcessedVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613DE2B69650E006EDD31 /* FramesOfProcessedVideo.m */; };
+		1B2613E12B6CB104006EDD31 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */; };
 		1B2759932AE1241800237167 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759922AE1241800237167 /* MainViewModel.swift */; };
 		1B2759952AE1242F00237167 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2759942AE1242F00237167 /* ImageModel.swift */; };
 		1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF32AA8AC9700DD4E30 /* UIView.swift */; };
@@ -122,6 +123,7 @@
 		1B2613D72B69564B006EDD31 /* ProcessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
 		1B2613DC2B6963AF006EDD31 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		1B2613DE2B69650E006EDD31 /* FramesOfProcessedVideo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FramesOfProcessedVideo.m; sourceTree = "<group>"; };
+		1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		1B2759922AE1241800237167 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1B2759942AE1242F00237167 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		1B27EAF32AA8AC9700DD4E30 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 		1BADC96C2AA4DDD6002C34A5 /* Process */ = {
 			isa = PBXGroup;
 			children = (
+				1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */,
 				1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */,
 				1B2613D72B69564B006EDD31 /* ProcessViewController.swift */,
 				1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */,
@@ -627,6 +630,7 @@
 				1B2759952AE1242F00237167 /* ImageModel.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
 				1B2613D92B69564B006EDD31 /* ProcessViewController.swift in Sources */,
+				1B2613E12B6CB104006EDD31 /* VideoPlayerView.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
 				FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */,
 				1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */,
