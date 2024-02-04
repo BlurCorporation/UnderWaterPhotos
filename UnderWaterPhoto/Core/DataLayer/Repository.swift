@@ -7,51 +7,38 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class Repository {
     private let fileManager = LocalFileManager.instance
     private let coreDataManager = CoreDataManager.shared
-    private var imagesCoreData = [Images]()
+    private var contentCoreData = [ContentEntity]()
     
-    enum entityName: String {
-        case video
-        case image
-        
-        var string: String {
-            switch self {
-            case .video:
-                return "Videos"
-            case .image:
-                return "Images"
-            }
-        }
-    }
     
     func deleteEntities() {
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Images")
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ContentEntity")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         do {
             try coreDataManager.context.execute(deleteRequest)
             try coreDataManager.context.save()
-            fileManager.deleteCache(folderName: "ImagesFolder")
+            fileManager.deleteCache(folderName: "ContentFolder")
         } catch {
             print ("There was an error")
         }
     }
     
-    func getImages () -> [ImageModel] {
-        getEntity(entity: .image)
-        print(imagesCoreData.count)
-        var images = [ImageModel]()
+    func getContent() -> [ContentModel] {
+        getContentEntity()
+        var images = [ContentModel]()
         
-        for i in imagesCoreData {
+        for i in contentCoreData {
             let id = (i.id?.uuidString)!
-            if let savedImage = fileManager.getImage(imageName: id, folderName: "ImagesFolder") {
-                let modell = ImageModel(id: i.id!, image: savedImage)
+            if let savedContent = fileManager.getImage(imageName: id, folderName: "ContentFolder") {
+                let _model = ContentModel(id: i.id!, image: savedContent, url: i.url)
                 if !images.contains(where: { model in
-                    model == modell
+                    model == _model
                 }) {
-                    images.append(modell)
+                    images.append(_model)
                 }
             }
         }
@@ -59,29 +46,24 @@ class Repository {
         return images
     }
     
-    func addImage(uiimage: UIImage) {
-        let image = Images(context: coreDataManager.context)
+    func addContent(uiimage: UIImage, url: String? = nil) {
+        let content = ContentEntity(context: coreDataManager.context)
         let id = UUID()
-        image.id = id
+        content.id = id
+        content.url = url
         save()
-        fileManager.saveImage(image: uiimage, imageName: id.uuidString, folderName: "ImagesFolder")
+        fileManager.saveImage(image: uiimage, imageName: id.uuidString, folderName: "ContentFolder")
     }
     
     func save() {
-        imagesCoreData.removeAll()
+        contentCoreData.removeAll()
         coreDataManager.save()
-        getEntity(entity: .image)
     }
     
-    func getEntity(entity: entityName) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Images")
+    func getContentEntity() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ContentEntity")
         do {
-            switch entity {
-            case .video:
-                print()
-            case .image:
-                imagesCoreData = try coreDataManager.context.fetch(request) as [Images]
-            }
+            contentCoreData = try coreDataManager.context.fetch(request) as [ContentEntity]
         } catch let error {
             print("Error fetching entity: \(error.localizedDescription)")
         }

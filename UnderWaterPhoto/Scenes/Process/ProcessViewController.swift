@@ -18,6 +18,9 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func changeVideo(url: URL)
     func setupImageProcessing()
     func setupVideoProcessing()
+    func presentBottomSheet(processContentType: ProcessContentType,
+                            videoURL: String?,
+                            previewImage: UIImage?)
 }
 
 // MARK: - ProcessViewController
@@ -265,19 +268,26 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func presentVCAsBottomSheet() {
-        let vc = BottomSheetSaveViewController()
-        vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
-        vc.imageMergeManager = imageMergeManager
-        vc.repository = repository
-        vc.transitioningDelegate = customTransitioningDelegate
-        vc.modalPresentationStyle = .custom
-        present(vc, animated: true)
+        presenter?.showBottomSheetButtonPressed()
     }
 }
 
 // MARK: - ProcessViewControllerProtocol Imp
 
 extension ProcessViewController: ProcessViewControllerProtocol {
+    func presentBottomSheet(processContentType: ProcessContentType,
+                            videoURL: String?,
+                            previewImage: UIImage?) {
+        let vc = BottomSheetSaveViewController(processContentType: processContentType)
+        vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
+        vc.addVideo(url: videoURL, previewImage: previewImage)
+        vc.imageMergeManager = imageMergeManager
+        vc.repository = repository
+        vc.transitioningDelegate = customTransitioningDelegate
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true)
+    }
+    
     func setupImageProcessing() {
         playerView.isHidden = true
     }

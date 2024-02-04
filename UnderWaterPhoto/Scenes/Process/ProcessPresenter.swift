@@ -23,6 +23,7 @@ protocol ProcessPresenterProtocol: AnyObject {
     func viewDidLoad()
     func changeImage(image: UIImage, value: Float)
     func backButtonPressed()
+    func showBottomSheetButtonPressed()
 }
 
 class ProcessPresenter {
@@ -33,6 +34,8 @@ class ProcessPresenter {
     private let sceneBuildManager: Buildable
     private var processButtonType: ProcessButtonType = .change
     private var processContentType: ProcessContentType
+    private var previewImage: UIImage?
+    private var videoURL: String?
     private var wasProcessed: Bool = false
     //MARK: - Initialize
     
@@ -57,6 +60,15 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         viewController?.navigationController?.popViewController(animated: true)
     }
     
+    func showBottomSheetButtonPressed() {
+        switch processContentType {
+        case .image:
+            viewController?.presentBottomSheet(processContentType: processContentType, videoURL: nil, previewImage: previewImage)
+        case .video:
+            viewController?.presentBottomSheet(processContentType: processContentType, videoURL: videoURL, previewImage: previewImage)
+        }
+    }
+    
     func changeImage(image: UIImage, value: Float) {
         switch processButtonType {
         case .change:
@@ -70,12 +82,9 @@ extension ProcessPresenter: ProcessPresenterProtocol {
                     switch processContentType {
                     case .image:
                         try await process(image: image)
-                        
                     case .video:
                         let url = URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!).absoluteString
                         try await process(video: String(url.dropFirst(7)))
-                        
-                        
                     }
                 }
             }
@@ -90,24 +99,24 @@ extension ProcessPresenter: ProcessPresenterProtocol {
     private func process(video: String) async throws {
         let processedVideo = try CVWrapper.process(withVideos: video)
         let tempPath = NSTemporaryDirectory() as String
-        let outputPath = (tempPath as NSString).appendingPathComponent("outputVideo10.mp4")
+        let outputPath = (tempPath as NSString).appendingPathComponent("outputVideo15.mp4")
         let outputURL = URL(fileURLWithPath: outputPath)
         
         let frameDuration = CMTime(value: 1, timescale: CMTimeScale(processedVideo.frames))
         
         let uiimageArray: [UIImage] = processedVideo.images.compactMap { $0 as? UIImage }
-        
-        createVideo(from: uiimageArray, outputURL: outputURL, frameDuration: frameDuration) { success in
+        previewImage = uiimageArray.first
+        createVideo(from: uiimageArray, outputURL: outputURL, frameDuration: frameDuration) { [weak self] success in
             if success {
                 print("Видео успешно создано")
-                self.viewController?.changeVideo(url: outputURL)
+                self?.videoURL = outputURL.absoluteString
+                self?.viewController?.changeVideo(url: outputURL)
             } else {
                 print("Произошла ошибка при создании видео")
             }
         }
     }
 }
-
 
 extension ProcessPresenter {
     func createVideo(from images: [UIImage], outputURL: URL, frameDuration: CMTime, completion: @escaping (Bool) -> Void) {
