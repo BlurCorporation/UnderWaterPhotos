@@ -33,12 +33,11 @@ class Repository {
         
         for i in contentCoreData {
             let id = (i.id?.uuidString)!
-            if let savedContent = fileManager.getImage(imageName: id, folderName: "ContentFolder") {
-                let _model = ContentModel(id: i.id!, image: savedContent, url: i.url)
+            if let savedContent = fileManager.getContent(imageName: id, folderName: "ContentFolder") {
                 if !images.contains(where: { model in
-                    model == _model
+                    model == savedContent
                 }) {
-                    images.append(_model)
+                    images.append(savedContent)
                 }
             }
         }
@@ -50,9 +49,9 @@ class Repository {
         let content = ContentEntity(context: coreDataManager.context)
         let id = UUID()
         content.id = id
-        content.url = url
+        
         save()
-        fileManager.saveImage(image: uiimage, imageName: id.uuidString, folderName: "ContentFolder")
+        fileManager.saveContent(image: uiimage, contentName: id.uuidString, url: url, folderName: "ContentFolder")
     }
     
     func save() {

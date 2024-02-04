@@ -17,7 +17,7 @@ struct MainView: View {
     @State private var height: CGFloat = 0
     
     var languageSettingVC: () -> Void
-    var routeProcessScreen: (_ type: ProcessContentType, _ image: UIImage?) -> Void
+    var routeProcessScreen: (_ content: ContentModel) -> Void
     var routeSubscriptionScreen: () -> Void
     
     var body: some View {
@@ -122,14 +122,20 @@ private extension MainView {
     
     var scrollContentView: some View {
         LazyVGrid(columns: [GridItem(), GridItem()]) {
-            ForEach(vm.images) { image in
-                Image(uiImage: image.image)
+            ForEach(vm.images) { item in
+                Image(uiImage: item.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(.rect(cornerRadius: 24))
                     .shadow(radius: 5)
                     .onTapGesture {
-                        routeProcessScreen(.image, image.image)
+                        print()
+                        routeProcessScreen(item)
+//                        if item.url == nil {
+//                            routeProcessScreen(.image, item.image, nil)
+//                        } else {
+//                            routeProcessScreen(.video, item.image, item.url)
+//                        }
                     }
             }
         }
@@ -163,9 +169,10 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
-        let routeProcessScreen: (_ type: ProcessContentType, _ image: UIImage?) -> Void = { type, image in
-            let secondViewController = SceneBuildManager().buildProcessViewController(image: image,
-                                                                                      processContenType: type)
+        let routeProcessScreen: (_ content: ContentModel) -> Void = { item in
+            let secondViewController = SceneBuildManager().buildProcessViewController(image: item.image,
+                                                                                      url: item.url,
+                                                                                      processContenType: item.url == nil ? .image : .video)
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
@@ -192,7 +199,7 @@ final class MainViewController: UIViewController {
 }
 
 #Preview {
-    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_, _ in }, routeSubscriptionScreen: {})
+    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_ in }, routeSubscriptionScreen: {})
 }
 
 

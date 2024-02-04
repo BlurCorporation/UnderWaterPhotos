@@ -9,11 +9,11 @@ import SwiftUI
 
 struct HeaderView: View {
     @State private var showImagePicker: Bool = false
-    @State private var selectedImage: UIImage?
+    @State private var selectedImage: ContentModel?
     @ObservedObject var vm: MainViewModel
     var progress: CGFloat
     var userName: String
-    var routeProcessScreen: (_ type: ProcessContentType, _ image: UIImage?) -> Void
+    var routeProcessScreen: (_ content: ContentModel) -> Void
     @State private var isCross: Bool = false
     
     var headerBottomPadding: CGFloat {
@@ -77,8 +77,14 @@ struct HeaderView: View {
                 }
             }
         }
-        .onChange(of: selectedImage) { _ in
-            routeProcessScreen(.image, selectedImage)
+        .onChange(of: selectedImage) { item in
+            guard let item = item else { return }
+            routeProcessScreen(item)
+//            if item?.url == nil {
+//                routeProcessScreen(.image, item?.image, nil)
+//            } else {
+//                routeProcessScreen(.video, item?.image, item?.url)
+//            }
         }
     }
 }
@@ -120,7 +126,7 @@ private extension HeaderView {
 
 struct Main_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_, _ in }, routeSubscriptionScreen: {})
+        MainView(vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_ in }, routeSubscriptionScreen: {})
     }
 }
 

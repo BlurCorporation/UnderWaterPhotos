@@ -7,6 +7,7 @@
 
 protocol Buildable {
     func buildProcessViewController(image: UIImage?,
+                                    url: String?,
                                     processContenType: ProcessContentType) -> ProcessViewController
     func buildMainView() -> MainViewController
     func buildSubscriptionView() -> SubscriptionViewController
@@ -38,11 +39,13 @@ extension SceneBuildManager: Buildable {
     }
     
     func buildProcessViewController(image: UIImage?,
+                                    url: String?,
                                     processContenType: ProcessContentType) -> ProcessViewController {
         let viewController = ProcessViewController()
         let presenter = ProcessPresenter(sceneBuildManager: self,
                                          processContentType: processContenType)
         
+        viewController.defaultVideoURL = url
         viewController.defaultImage = image
         viewController.imageMergeManager = imageMergeManager
         viewController.repository = repository

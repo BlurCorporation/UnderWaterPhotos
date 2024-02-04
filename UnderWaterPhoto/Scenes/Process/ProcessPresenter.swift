@@ -21,7 +21,7 @@ enum ProcessContentType {
 
 protocol ProcessPresenterProtocol: AnyObject {
     func viewDidLoad()
-    func changeImage(image: UIImage, value: Float)
+    func changeImage(image: UIImage, value: Float, url: String)
     func backButtonPressed()
     func showBottomSheetButtonPressed()
 }
@@ -69,7 +69,7 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         }
     }
     
-    func changeImage(image: UIImage, value: Float) {
+    func changeImage(image: UIImage, value: Float, url: String) {
         switch processButtonType {
         case .change:
             processButtonType = .process
@@ -83,7 +83,6 @@ extension ProcessPresenter: ProcessPresenterProtocol {
                     case .image:
                         try await process(image: image)
                     case .video:
-                        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!).absoluteString
                         try await process(video: String(url.dropFirst(7)))
                     }
                 }
@@ -98,9 +97,13 @@ extension ProcessPresenter: ProcessPresenterProtocol {
     
     private func process(video: String) async throws {
         let processedVideo = try CVWrapper.process(withVideos: video)
-        let tempPath = NSTemporaryDirectory() as String
-        let outputPath = (tempPath as NSString).appendingPathComponent("outputVideo15.mp4")
-        let outputURL = URL(fileURLWithPath: outputPath)
+        
+        // создаём временную директорию, потом удаляем в репозитории
+        guard let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        let tempPath = url.appendingPathComponent("ContentFolder")
+        let outputURL = tempPath.appendingPathComponent("\(UUID()).mp4")
         
         let frameDuration = CMTime(value: 1, timescale: CMTimeScale(processedVideo.frames))
         

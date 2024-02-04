@@ -31,6 +31,7 @@ final class ProcessViewController: UIViewController {
     var imageMergeManager: ImageMergeManager?
     var repository: Repository?
     var defaultImage: UIImage?
+    var defaultVideoURL: String?
     private var processedImage: UIImage?
     private var processedImageAlpha: Float = 0.8
     private var previousImageAlpha: Float = 0.8
@@ -93,9 +94,8 @@ final class ProcessViewController: UIViewController {
     
     private let playerView: VideoPlayerView = {
         let player = VideoPlayerView()
-        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!)
-        player.player = AVPlayer(url: url)
-        player.player?.play()
+//        player.player = AVPlayer(url: URL(string: "file:///var/mobile/Containers/Data/Application/B0BCB60C-C6C2-4F71-A362-A3195EDE266A/Library/Caches/ContentFolder/outputVideo22.mp4")!)
+//        player.player?.play()
         player.playerLayer.cornerRadius = 40
         player.playerLayer.videoGravity = .resizeAspect
         player.playerLayer.masksToBounds = true
@@ -198,6 +198,15 @@ final class ProcessViewController: UIViewController {
             mainImageView.image = defaultImage
         }
         
+        if let url = URL(string: defaultVideoURL ?? "") {
+            playerView.player = AVPlayer(url: url)
+            playerView.player?.play()
+        }
+        
+//        Task {
+//            playerView.player = AVPlayer(url: String)
+//        }
+        
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
         
@@ -220,7 +229,7 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func processButtonAction() {
-        presenter?.changeImage(image: self.mainImageView.image!, value: -3000)
+        presenter?.changeImage(image: self.mainImageView.image!, value: -3000, url: defaultVideoURL ?? "")
     }
     
     @objc func filterTouched() {
