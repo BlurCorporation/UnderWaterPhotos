@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import AVKit
 import AVFoundation
 
 // MARK: - ProcessViewControllerProtocol
@@ -17,6 +16,8 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func changeToProcess()
     func showBottomSaveSheet()
     func changeVideo(url: URL)
+    func setupImageProcessing()
+    func setupVideoProcessing()
 }
 
 // MARK: - ProcessViewController
@@ -189,30 +190,23 @@ final class ProcessViewController: UIViewController {
         super.viewDidLoad()
         setupViewController()
         processedImage = defaultImage
+        
         if let defaultImage {
             mainImageView.image = defaultImage
         }
         
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
-        print(mainImageView.frame)
+        
+        presenter?.viewDidLoad()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print(mainImageView.bounds)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
-    }
-    
-    func changeVideo(url: URL) {
-//        videoPlayerLayer.player = AVPlayer(url: url)
-//        videoPlayerLayer.player?.play()
-        playerView.player = AVPlayer(url: url)
-        playerView.player?.play()
-        print(url)
     }
     
     // MARK: Action
@@ -236,7 +230,6 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func sliderChange(_ sender: UISlider) {
-        print(sender.value)
         processedImageView.alpha = CGFloat(sender.value)
         processedImageAlpha = sender.value
     }
@@ -280,6 +273,30 @@ final class ProcessViewController: UIViewController {
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
     }
+}
+
+// MARK: - ProcessViewControllerProtocol Imp
+
+extension ProcessViewController: ProcessViewControllerProtocol {
+    func setupImageProcessing() {
+        playerView.isHidden = true
+    }
+    
+    func setupVideoProcessing() {
+        mainImageView.isHidden = true
+    }
+    
+    func changeVideo(url: URL) {
+        playerView.player = AVPlayer(url: url)
+        playerView.player?.play()
+    }
+    
+    func uploadImage(image: UIImage) {
+        DispatchQueue.main.async {
+            self.processedImage = image
+            self.processedImageView.image = image
+        }
+    }
     
     func changeToProcess() {
         titleLabel.text = L10n.ProcessViewController.ChangeToProcess.TitleLabel.text
@@ -297,17 +314,6 @@ final class ProcessViewController: UIViewController {
         UIView.animate(withDuration: 0.5) {
             self.topConstraint.constant = -167
             self.view.layoutIfNeeded()
-        }
-    }
-}
-
-// MARK: - ProcessViewControllerProtocol Imp
-
-extension ProcessViewController: ProcessViewControllerProtocol {
-    func uploadImage(image: UIImage) {
-        DispatchQueue.main.async {
-            self.processedImage = image
-            self.processedImageView.image = image
         }
     }
 }
@@ -334,8 +340,8 @@ extension ProcessViewController {
     func addSubviews() {
         view.addSubviews(headerView,
                          playerView,
-//                         mainImageView,
-//                         processedImageView,
+                         mainImageView,
+                         processedImageView,
                          slider,
                          hideLogoButton,
                          filterButton,
@@ -349,7 +355,6 @@ extension ProcessViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            
             headerView.topAnchor.constraint(equalTo: view.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -360,15 +365,15 @@ extension ProcessViewController {
             playerView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
             playerView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
             
-//            mainImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-//            mainImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-//            mainImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
-//            mainImageView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
-//            
-//            processedImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor),
-//            processedImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor),
-//            processedImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor),
-//            processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
+            mainImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            mainImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            mainImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+            mainImageView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
+            
+            processedImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor),
+            processedImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor),
+            processedImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor),
+            processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
 
             hideLogoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             hideLogoButton.widthAnchor.constraint(equalToConstant: 183),

@@ -14,12 +14,13 @@ enum ProcessButtonType {
     case process
 }
 
-enum ProcessContent {
+enum ProcessContentType {
     case image
     case video
 }
 
 protocol ProcessPresenterProtocol: AnyObject {
+    func viewDidLoad()
     func changeImage(image: UIImage, value: Float)
     func backButtonPressed()
 }
@@ -31,16 +32,27 @@ class ProcessPresenter {
     
     private let sceneBuildManager: Buildable
     private var processButtonType: ProcessButtonType = .change
-    private var processContentType: ProcessContent = .video
+    private var processContentType: ProcessContentType
     private var wasProcessed: Bool = false
     //MARK: - Initialize
     
-    init(sceneBuildManager: Buildable) {
+    init(sceneBuildManager: Buildable,
+         processContentType: ProcessContentType) {
         self.sceneBuildManager = sceneBuildManager
+        self.processContentType = processContentType
     }
 }
 
 extension ProcessPresenter: ProcessPresenterProtocol {
+    func viewDidLoad() {
+        switch processContentType {
+        case .image:
+            viewController?.setupImageProcessing()
+        case .video:
+            viewController?.setupVideoProcessing()
+        }
+    }
+    
     func backButtonPressed() {
         viewController?.navigationController?.popViewController(animated: true)
     }
@@ -70,16 +82,12 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         }
     }
     
-    func process(image: UIImage) async throws {
+    private func process(image: UIImage) async throws {
         let newImage = try CVWrapper.process(withImages: image)
         self.viewController?.uploadImage(image: newImage)
-        //                    let url = URL(fileURLWithPath: Bundle.main.path(forResource: "testVideo", ofType: "MP4")!).absoluteString
-        //                    let string = try await process(video: url)
-        //                    print(string)
-        //                    viewController?.changeVideo(url: URL(string: string)!)
     }
     
-    func process(video: String) async throws {
+    private func process(video: String) async throws {
         let processedVideo = try CVWrapper.process(withVideos: video)
         let tempPath = NSTemporaryDirectory() as String
         let outputPath = (tempPath as NSString).appendingPathComponent("outputVideo10.mp4")

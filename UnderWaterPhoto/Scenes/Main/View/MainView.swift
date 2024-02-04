@@ -17,7 +17,7 @@ struct MainView: View {
     @State private var height: CGFloat = 0
     
     var languageSettingVC: () -> Void
-    var routeProcessScreen: (_ image: UIImage?) -> Void
+    var routeProcessScreen: (_ type: ProcessContentType, _ image: UIImage?) -> Void
     var routeSubscriptionScreen: () -> Void
     
     var body: some View {
@@ -129,7 +129,7 @@ private extension MainView {
                     .clipShape(.rect(cornerRadius: 24))
                     .shadow(radius: 5)
                     .onTapGesture {
-                        routeProcessScreen(image.image)
+                        routeProcessScreen(.image, image.image)
                     }
             }
         }
@@ -163,8 +163,9 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
-        let routeProcessScreen = { image in
-            let secondViewController = SceneBuildManager().buildProcessViewController(image: image)
+        let routeProcessScreen: (_ type: ProcessContentType, _ image: UIImage?) -> Void = { type, image in
+            let secondViewController = SceneBuildManager().buildProcessViewController(image: image,
+                                                                                      processContenType: type)
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
@@ -191,7 +192,7 @@ final class MainViewController: UIViewController {
 }
 
 #Preview {
-    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {image in }, routeSubscriptionScreen: {})
+    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_, _ in }, routeSubscriptionScreen: {})
 }
 
 

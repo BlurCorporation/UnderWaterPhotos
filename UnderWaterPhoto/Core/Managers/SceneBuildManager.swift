@@ -6,7 +6,8 @@
 //
 
 protocol Buildable {
-    func buildProcessViewController(image: UIImage?) -> ProcessViewController
+    func buildProcessViewController(image: UIImage?,
+                                    processContenType: ProcessContentType) -> ProcessViewController
     func buildMainView() -> MainViewController
     func buildSubscriptionView() -> SubscriptionViewController
     func buildLanguageScreen() -> LanguageSettingViewController
@@ -36,9 +37,11 @@ extension SceneBuildManager: Buildable {
         return viewController
     }
     
-    func buildProcessViewController(image: UIImage?) -> ProcessViewController {
+    func buildProcessViewController(image: UIImage?,
+                                    processContenType: ProcessContentType) -> ProcessViewController {
         let viewController = ProcessViewController()
-        let presenter = ProcessPresenter(sceneBuildManager: self)
+        let presenter = ProcessPresenter(sceneBuildManager: self,
+                                         processContentType: processContenType)
         
         viewController.defaultImage = image
         viewController.imageMergeManager = imageMergeManager

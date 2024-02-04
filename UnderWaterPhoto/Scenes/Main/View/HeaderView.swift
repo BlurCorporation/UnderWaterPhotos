@@ -13,7 +13,7 @@ struct HeaderView: View {
     @ObservedObject var vm: MainViewModel
     var progress: CGFloat
     var userName: String
-    var routeProcessScreen: (_ image: UIImage?) -> Void
+    var routeProcessScreen: (_ type: ProcessContentType, _ image: UIImage?) -> Void
     @State private var isCross: Bool = false
     
     var headerBottomPadding: CGFloat {
@@ -78,7 +78,7 @@ struct HeaderView: View {
             }
         }
         .onChange(of: selectedImage) { _ in
-            routeProcessScreen(selectedImage)
+            routeProcessScreen(.image, selectedImage)
         }
     }
 }
@@ -120,7 +120,7 @@ private extension HeaderView {
 
 struct Main_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {image in }, routeSubscriptionScreen: {})
+        MainView(vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_, _ in }, routeSubscriptionScreen: {})
     }
 }
 
