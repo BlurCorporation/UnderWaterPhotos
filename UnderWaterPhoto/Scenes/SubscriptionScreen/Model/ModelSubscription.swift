@@ -23,10 +23,10 @@ struct PriceScroll: Identifiable {
 
 /// Название, цена, цена за 1 день подписки
 let priceData = [
-    PriceScroll(title: "Первая подписка", price: "9 миллинов", priceForDay: "300 тыщ", Color: Color.purple),
-    PriceScroll(title: "Вторая подписка", price: "16 рублей", priceForDay: "3 копейки", Color: Color.purple),
-    PriceScroll(title: "Третья крутая подписка", price: "3 конфетки", priceForDay: "4 нюдса", Color: Color.purple),
-    PriceScroll(title: "Четвертая подписка", price: "какая-нибудь цена", priceForDay: "не смотреть рилсы", Color: Color.purple)
+    PriceScroll(title: L10n.SubscriptionModel.PriceData.FirstElement.title, price: L10n.SubscriptionModel.PriceData.FirstElement.price, priceForDay: L10n.SubscriptionModel.PriceData.FirstElement.priceForDay, Color: Color.purple),
+    PriceScroll(title: L10n.SubscriptionModel.PriceData.SecondElement.title, price: L10n.SubscriptionModel.PriceData.SecondElement.price, priceForDay: L10n.SubscriptionModel.PriceData.SecondElement.priceForDay, Color: Color.purple),
+    PriceScroll(title: L10n.SubscriptionModel.PriceData.ThirdElement.title, price: L10n.SubscriptionModel.PriceData.ThirdElement.price, priceForDay: L10n.SubscriptionModel.PriceData.ThirdElement.priceForDay, Color: Color.purple),
+    PriceScroll(title: L10n.SubscriptionModel.PriceData.FourthElement.title, price: L10n.SubscriptionModel.PriceData.FourthElement.price, priceForDay: L10n.SubscriptionModel.PriceData.FourthElement.priceForDay, Color: Color.purple)
 ]
 
 

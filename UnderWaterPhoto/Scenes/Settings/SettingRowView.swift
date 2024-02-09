@@ -15,17 +15,17 @@ struct SettingRowView: View {
     var body: some View {
         VStack {
             ZStack {
-                Color("blue")
+                Color(L10n.SettingRowView.Body.VStack.Zstack.color)
                 HStack {
                     Text(setting)
-                        .foregroundColor(Color("white"))
+                        .foregroundColor(Color(L10n.SettingRowView.Body.VStack.Zstack.HStack.Text.Setting.foregroundColor))
                         .font(.system(size: 17, weight: .regular))
                     Spacer()
-                    Text(additionalText ?? "")
-                        .foregroundColor(Color("grey"))
+                    Text(additionalText ?? L10n.SettingRowView.quotes)
+                        .foregroundColor(Color(L10n.SettingRowView.Body.VStack.Zstack.HStack.Text.AdditionalText.foregroundColor))
                         .font(.system(size: 17, weight: .regular))
-                    Image(systemName: symbol ?? "")
-                        .foregroundColor(Color("grey"))
+                    Image(systemName: symbol ?? L10n.SettingRowView.quotes)
+                        .foregroundColor(Color(L10n.SettingRowView.Body.VStack.Zstack.HStack.Image.Symbol.foregroundColor))
                         .font(.system(size: 17, weight: .regular))
                         .padding([.trailing], 16)
                 }

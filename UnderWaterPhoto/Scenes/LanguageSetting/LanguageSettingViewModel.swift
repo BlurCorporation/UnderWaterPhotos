@@ -14,9 +14,9 @@ enum Languages {
     var title: String {
         switch self {
         case .rus:
-            return "Русский"
+            return L10n.LanguageSettingViewModel.Languages.Title.rus
         case .en:
-            return "Английсикий"
+            return L10n.LanguageSettingViewModel.Languages.Title.en
         }
     }
 }

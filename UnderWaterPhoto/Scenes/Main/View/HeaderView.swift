@@ -28,7 +28,7 @@ struct HeaderView: View {
     }
     
     var body: some View {
-        Color("blueDark")
+        Color(L10n.HeaderView.Body.color)
             .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
             .padding([.bottom], headerBottomPadding)
         VStack {
@@ -86,7 +86,7 @@ struct HeaderView: View {
 private extension HeaderView {
     var navBar: some View {
         HStack {
-            Text("Привет, \(userName)!")
+            Text(L10n.Extension.HeaderView.NavBar.text(userName))
                 .foregroundColor(.white)
                 .font(.system(size: 20, weight: .medium))
         }
@@ -97,17 +97,17 @@ private extension HeaderView {
             self.showImagePicker.toggle()
         }, label: {
             HStack(spacing: 16) {
-                Image(systemName: "plus.circle.fill")
+                Image(systemName: L10n.Extension.HeaderView.AddPhotoButtonView.Image.name)
                     .font(.system(size: 40))
                     .padding([.leading], 20)
-                Text("Редактировать Фото и Видео")
+                Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
                     .font(.system(size: 17, weight: .semibold))
                     .padding([.trailing], 20)
             }
-            .foregroundColor(Color("white"))
+            .foregroundColor(Color(L10n.Extension.HeaderView.AddPhotoButtonView.Button.foregroundColor))
             .frame(height: 80)
             .frame(maxWidth: .infinity)
-            .background(Color("blue"))
+            .background(Color(L10n.Extension.HeaderView.AddPhotoButtonView.Button.backgroundColor))
             .cornerRadius(24)
             .padding([.leading, .trailing, .bottom], 16)
             .shadow(color: .black, radius: 5)
@@ -130,17 +130,17 @@ struct CrossButtonView: View {
         ZStack {
             Rectangle()
                 .frame(width: 40, height: 40)
-                .foregroundColor(Color("blueDark"))
+                .foregroundColor(Color(L10n.CrossButtonView.Body.ZStack.Rectangle.foregroundColor))
             VStack {
                 Rectangle()
                     .frame(width: 24, height: 4)
-                    .foregroundColor(Color("white"))
+                    .foregroundColor(Color(L10n.CrossButtonView.Body.VStack.FirstRectangle.foregroundColor))
                     .cornerRadius(3)
                     .rotationEffect(.degrees(isCross ? 45 : 0), anchor: .center)
                     .offset(x: isCross ? 0 : -8, y: isCross ? 6 : 0)
                 Rectangle()
                     .frame(width: 24, height: 4)
-                    .foregroundColor(Color("white"))
+                    .foregroundColor(Color(L10n.CrossButtonView.Body.VStack.SecondRectangle.foregroundColor))
                     .cornerRadius(3)
                     .rotationEffect(.degrees(isCross ? -45 : 0), anchor: .center)
                     .offset(x: isCross ? 0 : 8, y: isCross ? -6 : 0)

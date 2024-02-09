@@ -12,7 +12,7 @@ class CustomTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 20
-        backgroundColor = UIColor(named: "backgroundColorIdButton")
+        backgroundColor = UIColor(named: L10n.CustomTextField.OverrideInit.BackgroundColor.name)
         attributedPlaceholder = placeholderText
     }
     
@@ -24,7 +24,7 @@ class CustomTextField: UITextField {
                                left: 16,
                                bottom: 11,
                                right: 0)
-    let placeholderText = NSAttributedString(string: "text", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "backgroundColorTextField") as Any])
+    let placeholderText = NSAttributedString(string: L10n.CustomTextField.PlaceholderText.AttrString.string, attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: L10n.CustomTextField.PlaceholderText.AttrString.Attributes.colorName) as Any])
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)

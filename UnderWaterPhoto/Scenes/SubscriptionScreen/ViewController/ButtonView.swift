@@ -13,7 +13,7 @@ struct ButtonView: View {
         Button(action: {
             // action
         }) {
-            Text("Оформить")
+            Text(L10n.ButtonView.title)
                 .frame(maxWidth: 378, maxHeight: 155)
                 .foregroundColor(.white)
                 .background(Color.blue)

@@ -15,7 +15,7 @@ struct BenefitsView: View {
     @State var dragOffset: CGFloat = 0
     @State var activeBenefitsIndex = 0
     
-    let arrayOfBenefits = ["benefits1", "benefits2", "benefits3"]
+    let arrayOfBenefits = [L10n.BenefitsView.ArrayOfBenefits.firstElement, L10n.BenefitsView.ArrayOfBenefits.secondElement, L10n.BenefitsView.ArrayOfBenefits.thirdElement]
     let widthScale = 0.75
     let benefitsAspectRation = 1.5
     

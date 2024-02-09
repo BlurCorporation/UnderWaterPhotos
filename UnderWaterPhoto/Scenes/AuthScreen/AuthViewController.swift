@@ -38,10 +38,10 @@ final class AuthViewController: UIViewController {
 
     private let headTitle: UILabel = {
         let label = UILabel()
-        label.text = "Создать аккаунт".localized
+        label.text = L10n.AuthViewController.HeadTitle.text.localized
         label.textAlignment = .center
         label.backgroundColor = .clear
-        label.textColor = UIColor(named: "backgroundColorRegistrationButton")
+        label.textColor = UIColor(named: L10n.AuthViewController.HeadTitle.textColor)
         return label
     }()
     
@@ -55,26 +55,26 @@ final class AuthViewController: UIViewController {
     
     private let nameTextField: UITextField = {
         let textField = CustomTextField()
-        textField.placeholder = "Имя".localized
+        textField.placeholder = L10n.AuthViewController.nameTextField.localized
         return textField
     }()
     
     private let emailTextField: UITextField = {
         let textField = CustomTextField()
-        textField.placeholder = "E-mail".localized
+        textField.placeholder = L10n.AuthViewController.emailTextField.localized
         return textField
     }()
     
     private let passwordTextField: UITextField = {
         let textField = CustomTextField()
-        textField.placeholder = "Пароль".localized
+        textField.placeholder = L10n.AuthViewController.passwordTextField.localized
         textField.isSecureTextEntry = true
         return textField
     }()
     
     private let repeatPasswordTextField: UITextField = {
         let textField = CustomTextField()
-        textField.placeholder = "Повторите пароль".localized
+        textField.placeholder = L10n.AuthViewController.repeatPasswordTextField.localized
         textField.isSecureTextEntry = true
         return textField
     }()
@@ -83,7 +83,7 @@ final class AuthViewController: UIViewController {
         let button = CustomButton(frame: .zero)
         button.type = .loginButton
         button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-        button.setTitle("Войти".localized, for: .normal)
+        button.setTitle(L10n.AuthViewController.LoginButton.setTitle.localized, for: .normal)
         button.contentHorizontalAlignment = .left
         return button
     }()
@@ -92,7 +92,7 @@ final class AuthViewController: UIViewController {
         let button = CustomButton(frame: .zero)
         button.type = .registrationButton
         button.addTarget(self, action: #selector(registrationButtonPressed), for: .touchUpInside)
-        button.setTitle("Зарегистрироваться".localized, for: .normal)
+        button.setTitle(L10n.AuthViewController.RegistrationButton.setTitle.localized, for: .normal)
         return button
     }()
     
@@ -101,13 +101,13 @@ final class AuthViewController: UIViewController {
         button.type = .loginButton
         button.alpha = .zero
         button.addTarget(self, action: #selector(restorePasswordButtonPressed), for: .touchUpInside)
-        button.setTitle("Восстановить пароль".localized, for: .normal)
+        button.setTitle(L10n.AuthViewController.RestorePasswordButton.setTitle.localized, for: .normal)
         return button
     }()
     
     private let loginUsinLabel: UILabel = {
         let label = UILabel()
-        label.text = "Войти с помощью".localized
+        label.text = L10n.AuthViewController.LoginUsinLabel.text.localized
         label.font = .systemFont(ofSize: 15)
         label.textColor = .white
         return label
@@ -117,7 +117,7 @@ final class AuthViewController: UIViewController {
         let button = CustomButton(frame: .zero)
         button.type = .idButton
         button.addTarget(self, action: #selector(appleIdButtonPressed), for: .touchUpInside)
-        button.setBackgroundImage(UIImage(named: "appleLogo"), for: .normal)
+        button.setBackgroundImage(UIImage(named: L10n.AuthViewController.AppleIdButton.SetBackgroundImage.name), for: .normal)
         return button
     }()
     
@@ -125,7 +125,7 @@ final class AuthViewController: UIViewController {
         let button = CustomButton(frame: .zero)
         button.type = .idButton
         button.addTarget(self, action: #selector(googleIdButtonPressed), for: .touchUpInside)
-        button.setBackgroundImage(UIImage(named: "googleLogo"), for: .normal)
+        button.setBackgroundImage(UIImage(named: L10n.AuthViewController.GoogleIdButton.SetBackgroundImage.name), for: .normal)
         return button
     }()
     
@@ -187,9 +187,9 @@ final class AuthViewController: UIViewController {
                 self.registrationButtonCenterYConstrain?.update(offset: 350)
                 self.view.layoutIfNeeded()
             }
-            self.registrationButton.setTitle("Зарегестрироваться".localized, for: .normal)
-            self.headTitle.text = "Создать аккаунт".localized
-            self.loginButton.setTitle("Войти".localized, for: .normal)
+            self.registrationButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title.localized, for: .normal)
+            self.headTitle.text = L10n.AuthViewController.If.ExpandLoginButton.HeadTitle.text.localized
+            self.loginButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title.localized, for: .normal)
         } else {
             UIView.animate(withDuration: 0.5) {
                 self.nameTextField.alpha = 0
@@ -201,10 +201,10 @@ final class AuthViewController: UIViewController {
                 self.registrationButtonCenterYConstrain?.update(offset: 230)
                 self.view.layoutIfNeeded()
             }
-            self.registrationButton.setTitle("Войти".localized, for: .normal)
-            self.headTitle.text = "Добро пожаловать".localized
-            self.loginButton.setTitle("Регистрация".localized, for: .normal)
-            self.restorePasswordButton.setTitle("Восстановить пароль".localized, for: .normal)
+            self.registrationButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RegistrationButton.title.localized, for: .normal)
+            self.headTitle.text = L10n.AuthViewController.Else.ExpandLoginButton.HeadTitle.text.localized
+            self.loginButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.LoginButton.title.localized, for: .normal)
+            self.restorePasswordButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RestorePasswordButton.title.localized, for: .normal)
         }
         isExpandedLoginButton.toggle()
     }
@@ -217,8 +217,8 @@ final class AuthViewController: UIViewController {
             self.registrationButtonCenterYConstrain?.update(offset: 170)
             self.view.layoutIfNeeded()
         }
-        self.registrationButton.setTitle("Восстановить пароль".localized, for: .normal)
-        self.headTitle.text = "Восстановить пароль".localized
+        self.registrationButton.setTitle(L10n.AuthViewController.RestorePasswordExpand.RegistrationButton.title.localized, for: .normal)
+        self.headTitle.text = L10n.AuthViewController.RestorePasswordExpand.HeadTitle.text.localized
     }
 }
 

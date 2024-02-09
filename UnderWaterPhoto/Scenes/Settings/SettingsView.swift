@@ -29,7 +29,7 @@ struct SettingsView: View {
                             routeSubscriptionScreen()
                         }
                     }
-                .listRowBackground(Color("blue"))
+                    .listRowBackground(Color(L10n.SettingsView.Body.OnTapGesture.ListRowBackground.color))
             }
             .environment(\.defaultMinListRowHeight, 44)
             .frame(height: 220)

@@ -31,13 +31,13 @@ final class CustomButton: UIButton {
         switch type {
         case .registrationButton:
             layer.cornerRadius = 16
-            backgroundColor = UIColor(named: "backgroundColorRegistrationButton")
-            setTitleColor(UIColor(named: "backgroundColorRegistrationTitle"), for: .normal)
+            backgroundColor = UIColor(named: L10n.CustomButton.SetupButton.RegistrationButton.BackgroundColor.name)
+            setTitleColor(UIColor(named: L10n.CustomButton.SetupButton.RegistrationButton.SetTitleColor.name), for: .normal)
         case .idButton:
             layer.cornerRadius = 14
-            backgroundColor = UIColor(named: "backgroundColorIdButton")
+            backgroundColor = UIColor(named: L10n.CustomButton.SetupButton.IdButton.BackgroundColor.name)
         case .loginButton:
-            setTitleColor(UIColor(named: "backgroundColorRegistrationButton"), for: .normal)
+            setTitleColor(UIColor(named: L10n.CustomButton.SetupButton.LoginButton.SetTitleColor.name), for: .normal)
         }
     }
     

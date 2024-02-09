@@ -19,7 +19,7 @@ struct SubscriptionView: View {
     
     var body: some View {
         ScalingHeaderScrollView {
-            Color("blueDark")
+            Color(L10n.SubscriptionView.Body.ScalingHeaderScrollView.color)
                 .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
         } content: {
             VStack {
@@ -28,7 +28,7 @@ struct SubscriptionView: View {
         }
         .hideScrollIndicators()
         .height(min: 116.5, max: 116.5)
-        .background(Color("blue"))
+        .background(Color(L10n.SubscriptionView.Body.Background.color))
         .ignoresSafeArea()
     }
     
@@ -52,9 +52,9 @@ final class SubscriptionViewController: UIViewController {
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(named: "back")
+        let image = UIImage(named: L10n.SubscriptionViewController.BackButton.Image.name)
         button.setImage(image, for: .normal)
-        button.tintColor = UIColor(named: "white")
+        button.tintColor = UIColor(named: L10n.SubscriptionViewController.BackButton.Button.TintColor.name)
         
         button.addTarget(self,
                          action: #selector(backButtonPressed),
@@ -64,9 +64,9 @@ final class SubscriptionViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Подписка"
+        label.text = L10n.SubscriptionViewController.titleLabel
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = UIColor(named: "white")
+        label.textColor = UIColor(named: L10n.SubscriptionViewController.TitleLabel.Label.TextColor.name)
         return label
     }()
 
