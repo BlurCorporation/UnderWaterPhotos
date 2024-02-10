@@ -5,4 +5,191 @@
   Created by Андрей Барсуков on 25.01.2024.
   
 */
+// MARK: - Scenes
+// LanguageSetting
+"languageSettingView.body.color" = "blueDark";
+"languageSettingView.body.content.additionalText" = "";
+"languageSettingView.body.onTapGesture.listRowBackground.color" = "blue";
+"languageSettingView.body.content.background.color" = "blue";
+"languageSettingView.changeSymbol.if" = "checkmark";
+"languageSettingView.changeSymbol.else" = "";
+"languageSettingViewController.backButton.image.name" = "back";
+"languageSettingViewController.backButton.button.tintColor.name" = "white";
 
+"languageSettingViewController.titleLabel" = "Application language";
+"languageSettingViewController.titleLabel.colorName" = "white";
+
+// LanguageSettingViewModel
+"languageSettingViewModel.Languages.title.rus" = "Russian";
+"languageSettingViewModel.Languages.title.en" = "English";
+
+// MARK: Settings
+// SettingsView
+"settingsView.body.onTapGesture.listRowBackground.color" = "blue";
+
+// SettingsViewModel
+"settingsViewModel.settings.id.0.settingName" = "Application language";
+"settingsViewModel.settings.id.0.additionalName" = "Russian";
+"settingsViewModel.settings.id.0.symbol" = "chevron.right";
+"settingsViewModel.settings.id.1.settingName" = "Clear cache";
+"settingsViewModel.settings.id.2.settingName" = "Subscribe";
+"settingsViewModel.settings.id.3.settingName" = "Delete account";
+"settingsViewModel.settings.id.4.settingName" = "Log out of your account";
+
+// SettingRowView
+"settingRowView.body.vStack.Zstack.color" = "blue";
+"settingRowView.body.vStack.Zstack.hStack.text.setting.foregroundColor" = "white";
+"settingRowView.quotes" = "";
+"settingRowView.body.vStack.Zstack.hStack.text.additionalText.foregroundColor" = "grey";
+"settingRowView.body.vStack.Zstack.hStack.image.symbol.foregroundColor" = "grey";
+
+// MARK: SubscriptionScreen
+// MARK: Model
+"subscriptionModel.priceData.firstElement.title" = "First subscribe";
+"subscriptionModel.priceData.firstElement.price" = "9 million";
+"subscriptionModel.priceData.firstElement.priceForDay" = "9 million";
+"subscriptionModel.priceData.secondElement.title" = "Second subscribe";
+"subscriptionModel.priceData.secondElement.price" = "16 rubles";
+"subscriptionModel.priceData.secondElement.priceForDay" = "3 rubles";
+"subscriptionModel.priceData.thirdElement.title" = "Third cool subscribe";
+"subscriptionModel.priceData.thirdElement.price" = "3 sweets";
+"subscriptionModel.priceData.thirdElement.priceForDay" = "4 nudes";
+"subscriptionModel.priceData.fourthElement.title" = "Fouth subscribe";
+"subscriptionModel.priceData.fourthElement.price" = "something price";
+"subscriptionModel.priceData.fourthElement.priceForDay" = "Don't watch reels";
+
+// MARK: ViewController
+// ViewSubscription
+"subscriptionView.body.scalingHeaderScrollView.color" = "blueDark";
+"subscriptionView.body.background.color" = "back";
+"subscriptionViewController.backButton.image.name" = "back";
+"subscriptionViewController.backButton.button.tintColor.name" = "white";
+"subscriptionViewController.titleLabel" = "Subscribe";
+"subscriptionViewController.titleLabel.label.textColor.name" = "white";
+
+// ButtonView
+"buttonView.title" = "checkout";
+
+// TextView
+"textView.rulesText" = "By subscribing you agree to the Terms of Use and Privacy Policy";
+"textView.attributedString.range" = "Terms of Use and Privacy Policy";
+
+// BenefitsView
+"benefitsView.arrayOfBenefits.firstElement" = "benefits1";
+"benefitsView.arrayOfBenefits.secondElement" = "benefits2";
+"benefitsView.arrayOfBenefits.thirdElement" = "benefits3";
+
+// MARK: AuthScreen
+// AuthViewController
+"authViewController.headTitle.text" = "Create account";
+"authViewController.headTitle.textColor" = "backgroundColorRegistrationButton";
+"authViewController.nameTextField" = "Name";
+"authViewController.emailTextField" = "E-mail";
+"authViewController.passwordTextField" = "Password";
+"authViewController.repeatPasswordTextField" = "Повторите пароль";
+"authViewController.loginButton.setTitle" = "Log in";
+"authViewController.registrationButton.setTitle" = "Registration";
+"authViewController.restorePasswordButton.setTitle" = "Restore password";
+"authViewController.loginUsinLabel.text" = "Login using";
+"authViewController.appleIdButton.setBackgroundImage.name" = "appleLogo";
+"authViewController.googleIdButton.setBackgroundImage.name" = "googleLogo";
+"authViewController.if.expandLoginButton.registrationButton.title" = "Registration";
+"authViewController.if.expandLoginButton.headTitle.text" = "Create account";
+"authViewController.if.expandLoginButton.loginButton.title" = "Log in";
+
+"authViewController.else.expandLoginButton.registrationButton.title" = "Log in";
+"authViewController.else.expandLoginButton.headTitle.text" = "Welcome";
+"authViewController.else.expandLoginButton.loginButton.title" = "Registration";
+"authViewController.else.expandLoginButton.restorePasswordButton.title" = "Restore password";
+"authViewController.restorePasswordExpand.registrationButton.title" = "Restore password";
+"authViewController.restorePasswordExpand.headTitle.text" = "Restore password";
+
+// MARK: Main
+// MARK: ViewModel
+
+// MainViewModel
+"mainViewModel.userName" = "Александр";
+"mainViewModel.avatarImage" = "photo";
+"mainViewModel.mail" = "under@water.ru";
+
+// MARK: View
+// MainView
+"mainView.background.color" = "blue";
+"extension.mainView.mainHeaderTextView.text" = "Improve your underwater photos with us!";
+"extension.mainView.emptyView.image.name" = "photo";
+"extension.mainView.emptyView.image.color" = "white";
+"extension.mainView.emptyView.text" = "The photos and videos you uploaded will be here";
+"extension.mainView.emptyView.text.foregroundColor" = "white";
+
+// HeaderView
+"headerView.body.color" = "blueDark";
+"extension.headerView.navBar.text" = "Hi, %@!";
+"extension.headerView.addPhotoButtonView.image.name" = "plus.circle.fill";
+"extension.headerView.addPhotoButtonView.text" = "Edit Photos and Videos";
+"extension.headerView.addPhotoButtonView.button.foregroundColor" = "white";
+"extension.headerView.addPhotoButtonView.button.backgroundColor" = "blue";
+"crossButtonView.body.zStack.rectangle.foregroundColor" = "blueDark";
+"crossButtonView.body.vStack.firstRectangle.foregroundColor" = "white";
+"crossButtonView.body.vStack.secondRectangle.foregroundColor" = "white";
+
+// SettingNavBarView
+"settingNavBarView.body.hStack.vStack.text.name.foregroundColor" = "white";
+"settingNavBarView.body.hStack.vStack.text.mail.foregroundColor" = "grey";
+
+// MARK: Process
+// BottomSheetSaveViewController
+"bottomSheetSaveViewController.saveInAppLabel.label.textColor.name" = "white";
+"bottomSheetSaveViewController.saveInAppLabel.label.text" = "Save to app";
+"bottomSheetSaveViewController.saveOnPhoneLabel.label.textColor.name" = "white";
+"bottomSheetSaveViewController.saveOnPhoneLabel.label.text" = "Save to device";
+"bottomSheetSaveViewController.bottomSheetBackButton.button.setTitle" = "Back";
+"bottomSheetSaveViewController.bottomSheetBackButton.button.tintColor.name" = "white";
+"bottomSheetSaveViewController.bottomSheetSaveButton.button.setTitle" = "Save";
+"bottomSheetSaveViewController.bottomSheetSaveButton.button.tintColor.name" = "white";
+"bottomSheetSaveViewController.viewDidLoad.view.backgroundColor.name" = "blueDark";
+
+// ProcessViewController
+"processViewController.backButton.image.name" = "chevron.left";
+"processViewController.backButton.tintColor.name" = "white";
+"processViewController.titleLabel.label.text" = "Change";
+"processViewController.titleLabel.label.textcolor.name" = "white";
+"processViewController.saveButton.image.name" = "arrow.down.to.line";
+"processViewController.saveButton.button.tintColor.name" = "white";
+"processViewController.headerView.view.backgroundColor.name" = "blueDark";
+"processViewController.hideLogoButton.buttonConfig.image.name" = "xmark";
+"processViewController.hideLogoButton.button.title" = "Remove logo";
+"processViewController.hideLogoButton.button.tintColor.name" = "white";
+"processViewController.filterButton.button.title.name" = "trapezoid.and.line.vertical";
+"processViewController.filterButton.button.tintColor.name" = "white";
+"processViewController.processPhotoButton.button.title" = "Change";
+"processViewController.processPhotoButton.button.backgroundColor.name" = "white";
+"processViewController.processPhotoButton.button.tintColor.name" = "blue";
+"processViewController.slider.minimumTrackTintColor.name" = "blue";
+"processViewController.slider.maximumTrackTintColor.name" = "white";
+"processViewController.slider.thumbTintColor.name" = "white";
+"processViewController.processBottomSheetView.view.backgroundColor.name" = "blueDark";
+"processViewController.bottomSheetBackButton.button.title" = "Back";
+"processViewController.bottomSheetBackButton.button.tintColor.name" = "white";
+"processViewController.bottomSheetSaveButton.button.title" = "Save";
+"processViewController.bottomSheetSaveButton.button.tintColor.name" = "white";
+"processViewController.changeToProcess.titleLabel.text" = "Editing";
+"processViewController.changeToProcess.processPhotoButton.title" = "Edit";
+"processViewController.changeToProcess.shareBarButtonItem.tintColor.name" = "white";
+"processViewController.setupViewController.view.backgroundColor.name" = "blue";
+
+// MARK: - Core
+// Classes
+// CustomBottomSheet
+// CustomButton
+"customButton.setupButton.registrationButton.backgroundColor.name" = "backgroundColorRegistrationButton";
+"customButton.setupButton.registrationButton.setTitleColor.name" = "backgroundColorRegistrationButton";
+"customButton.setupButton.idButton.backgroundColor.name" = "backgroundColorIdButton";
+"customButton.setupButton.loginButton.setTitleColor.name" = "backgroundColorRegistrationButton";
+
+// CustomTextField
+"customTextField.overrideInit.backgroundColor.name" = "backgroundColorIdButton";
+"customTextField.placeholderText.attrString.string" = "text";
+"customTextField.placeholderText.attrString.attributes.colorName" = "backgroundColorTextField";
+
+// MARK: - AppDelegate
+"appDelegate.application.return.uISceneConfiguration.name" = "Default Configuration";
