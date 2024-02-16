@@ -41,7 +41,7 @@ final class AuthViewController: UIViewController {
         label.text = L10n.AuthViewController.HeadTitle.text.localized
         label.textAlignment = .center
         label.backgroundColor = .clear
-        label.textColor = UIColor(named: L10n.AuthViewController.HeadTitle.textColor)
+        label.textColor = UIColor(named: "backgroundColorRegistrationButton")
         return label
     }()
     
@@ -61,7 +61,7 @@ final class AuthViewController: UIViewController {
     
     private let emailTextField: UITextField = {
         let textField = CustomTextField()
-        textField.placeholder = L10n.AuthViewController.emailTextField.localized
+        textField.placeholder = "E-mail".localized
         return textField
     }()
     
@@ -117,7 +117,7 @@ final class AuthViewController: UIViewController {
         let button = CustomButton(frame: .zero)
         button.type = .idButton
         button.addTarget(self, action: #selector(appleIdButtonPressed), for: .touchUpInside)
-        button.setBackgroundImage(UIImage(named: L10n.AuthViewController.AppleIdButton.SetBackgroundImage.name), for: .normal)
+        button.setBackgroundImage(UIImage(named: "appleLogo"), for: .normal)
         return button
     }()
     
@@ -125,7 +125,7 @@ final class AuthViewController: UIViewController {
         let button = CustomButton(frame: .zero)
         button.type = .idButton
         button.addTarget(self, action: #selector(googleIdButtonPressed), for: .touchUpInside)
-        button.setBackgroundImage(UIImage(named: L10n.AuthViewController.GoogleIdButton.SetBackgroundImage.name), for: .normal)
+        button.setBackgroundImage(UIImage(named: "googleLogo"), for: .normal)
         return button
     }()
     

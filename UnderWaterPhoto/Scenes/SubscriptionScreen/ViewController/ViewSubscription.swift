@@ -19,7 +19,7 @@ struct SubscriptionView: View {
     
     var body: some View {
         ScalingHeaderScrollView {
-            Color(L10n.SubscriptionView.Body.ScalingHeaderScrollView.color)
+            Color("blueDark")
                 .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
         } content: {
             VStack {
@@ -28,7 +28,7 @@ struct SubscriptionView: View {
         }
         .hideScrollIndicators()
         .height(min: 116.5, max: 116.5)
-        .background(Color(L10n.SubscriptionView.Body.Background.color))
+        .background(Color("back"))
         .ignoresSafeArea()
     }
     
@@ -52,9 +52,9 @@ final class SubscriptionViewController: UIViewController {
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(named: L10n.SubscriptionViewController.BackButton.Image.name)
+        let image = UIImage(named: "back")
         button.setImage(image, for: .normal)
-        button.tintColor = UIColor(named: L10n.SubscriptionViewController.BackButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         
         button.addTarget(self,
                          action: #selector(backButtonPressed),
@@ -66,7 +66,7 @@ final class SubscriptionViewController: UIViewController {
         let label = UILabel()
         label.text = L10n.SubscriptionViewController.titleLabel
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = UIColor(named: L10n.SubscriptionViewController.TitleLabel.Label.TextColor.name)
+        label.textColor = UIColor(named: "white")
         return label
     }()
 

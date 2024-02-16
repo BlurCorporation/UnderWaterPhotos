@@ -18,10 +18,10 @@ struct SettingsNavBarView: View {
                 .frame(width: 40, height: 40)
             VStack(alignment: .leading) {
                 Text(name)
-                    .foregroundColor(Color(L10n.SettingNavBarView.Body.HStack.VStack.Text.Name.foregroundColor))
+                    .foregroundColor(Color("white"))
                     .font(.system(size: 20, weight: .medium))
                 Text(mail)
-                    .foregroundColor(Color(L10n.SettingNavBarView.Body.HStack.VStack.Text.Mail.foregroundColor))
+                    .foregroundColor(Color("gray"))
                     .font(.system(size: 18, weight: .regular))
             }
             Spacer()

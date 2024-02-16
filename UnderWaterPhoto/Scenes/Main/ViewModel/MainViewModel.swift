@@ -17,8 +17,8 @@ class MainViewModel: ObservableObject {
     @Published var images: [ImageModel] = []
     @Published var userName: String = L10n.MainViewModel.userName
     @Published var state: States = .clear
-    @Published var avatarImage: String = L10n.MainViewModel.avatarImage
-    @Published var mail: String = L10n.MainViewModel.mail
+    @Published var avatarImage: String = "photo"
+    @Published var mail: String = "under@water.ru"
     @Published var toggle: Bool = false
     
     let repository: Repository

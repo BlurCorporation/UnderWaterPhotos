@@ -9,7 +9,7 @@ final class BottomSheetSaveViewController: UIViewController {
     
     private let saveInAppLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(named: L10n.BottomSheetSaveViewController.SaveInAppLabel.Label.TextColor.name)
+        label.textColor = UIColor(named: "white")
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.text = L10n.BottomSheetSaveViewController.SaveInAppLabel.Label.text
         label.numberOfLines = 0
@@ -18,7 +18,7 @@ final class BottomSheetSaveViewController: UIViewController {
     
     private let saveOnPhoneLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(named: L10n.BottomSheetSaveViewController.SaveOnPhoneLabel.Label.TextColor.name)
+        label.textColor = UIColor(named: "white")
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.text = L10n.BottomSheetSaveViewController.SaveOnPhoneLabel.Label.text
         label.numberOfLines = 0
@@ -29,7 +29,7 @@ final class BottomSheetSaveViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(L10n.BottomSheetSaveViewController.BottomSheetBackButton.Button.setTitle, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.tintColor = UIColor(named: L10n.BottomSheetSaveViewController.BottomSheetBackButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         button.addTarget(self, action: #selector(back), for: .touchUpInside)
         return button
     }()
@@ -38,7 +38,7 @@ final class BottomSheetSaveViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(L10n.BottomSheetSaveViewController.BottomSheetSaveButton.Button.setTitle, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.tintColor = UIColor(named: L10n.BottomSheetSaveViewController.BottomSheetSaveButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         button.addTarget(self, action: #selector(save), for: .touchUpInside)
         return button
     }()
@@ -58,7 +58,7 @@ final class BottomSheetSaveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(named: L10n.BottomSheetSaveViewController.ViewDidLoad.View.BackgroundColor.name)
+        view.backgroundColor = UIColor(named: "blueDark")
         view.layer.cornerRadius = 16
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 

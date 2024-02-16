@@ -35,9 +35,9 @@ final class ProcessViewController: UIViewController {
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(systemName: L10n.ProcessViewController.BackButton.Image.name)
+        let image = UIImage(systemName: "chevron.left")
         button.setImage(image, for: .normal)
-        button.tintColor = UIColor(named: L10n.ProcessViewController.BackButton.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         button.addTarget(self,
                          action: #selector(backButtonPressed),
                          for: .touchUpInside)
@@ -48,7 +48,7 @@ final class ProcessViewController: UIViewController {
         let label = UILabel()
         label.text = L10n.ProcessViewController.TitleLabel.Label.text
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = UIColor(named: L10n.ProcessViewController.TitleLabel.Label.Textcolor.name)
+        label.textColor = UIColor(named: "white")
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -56,9 +56,9 @@ final class ProcessViewController: UIViewController {
     
     private lazy var saveButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(systemName: L10n.ProcessViewController.SaveButton.Image.name)
+        let image = UIImage(systemName: "arrow.down.to.line")
         button.setImage(image, for: .normal)
-        button.tintColor = UIColor(named: L10n.ProcessViewController.SaveButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         button.addTarget(self,
                          action: #selector(presentVCAsBottomSheet),
                          for: .touchUpInside)
@@ -67,7 +67,7 @@ final class ProcessViewController: UIViewController {
     
     private let headerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: L10n.ProcessViewController.HeaderView.View.BackgroundColor.name)
+        view.backgroundColor = UIColor(named: "blueDark")
         view.layer.cornerRadius = 40
         view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return view
@@ -96,11 +96,11 @@ final class ProcessViewController: UIViewController {
         let button = UIButton(type: .system)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .small)
         var buttonConfig = UIButton.Configuration.plain()
-        buttonConfig.image = UIImage(systemName: L10n.ProcessViewController.HideLogoButton.ButtonConfig.Image.name, withConfiguration: imageConfig)
+        buttonConfig.image = UIImage(systemName: "xmark", withConfiguration: imageConfig)
         buttonConfig.imagePadding = 8
         button.configuration = buttonConfig
         button.setTitle(L10n.ProcessViewController.HideLogoButton.Button.title, for: .normal)
-        button.tintColor = UIColor(named: L10n.ProcessViewController.HideLogoButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.layer.cornerRadius = 20
         return button
@@ -109,8 +109,8 @@ final class ProcessViewController: UIViewController {
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .small)
-        button.setImage(UIImage(systemName: L10n.ProcessViewController.FilterButton.Button.Title.name, withConfiguration: imageConfig), for: .normal)
-        button.tintColor = UIColor(named: L10n.ProcessViewController.FilterButton.Button.TintColor.name)
+        button.setImage(UIImage(systemName: "trapezoid.and.line.vertical", withConfiguration: imageConfig), for: .normal)
+        button.tintColor = UIColor(named: "white")
         button.layer.cornerRadius = 20
         button.addTarget(self, action: #selector(filterTouched), for: .touchDown)
         button.addTarget(self, action: #selector(filterDidntTouched), for: .touchUpInside)
@@ -122,8 +122,8 @@ final class ProcessViewController: UIViewController {
         button.setTitle(L10n.ProcessViewController.ProcessPhotoButton.Button.title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.layer.cornerRadius = 16
-        button.backgroundColor = UIColor(named: L10n.ProcessViewController.ProcessPhotoButton.Button.BackgroundColor.name)
-        button.tintColor = UIColor(named: L10n.ProcessViewController.ProcessPhotoButton.Button.TintColor.name)
+        button.backgroundColor = UIColor(named: "white")
+        button.tintColor = UIColor(named: "blue")
         button.addTarget(self, action: #selector(processButtonAction), for: .touchUpInside)
         return button
     }()
@@ -134,16 +134,16 @@ final class ProcessViewController: UIViewController {
         slider.maximumValue = 1
         slider.value = processedImageAlpha
         slider.addTarget(self, action: #selector(sliderChange(_ :)), for: .valueChanged)
-        slider.minimumTrackTintColor = UIColor(named: L10n.ProcessViewController.Slider.MinimumTrackTintColor.name)
-        slider.maximumTrackTintColor = UIColor(named: L10n.ProcessViewController.Slider.MaximumTrackTintColor.name)
-        slider.thumbTintColor = UIColor(named: L10n.ProcessViewController.Slider.ThumbTintColor.name)
+        slider.minimumTrackTintColor = UIColor(named: "blue")
+        slider.maximumTrackTintColor = UIColor(named: "white")
+        slider.thumbTintColor = UIColor(named: "white")
         return slider
         
     }()
     
     private let processBottomSheetView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: L10n.ProcessViewController.ProcessBottomSheetView.View.BackgroundColor.name)
+        view.backgroundColor = UIColor(named: "blueDark")
         view.layer.cornerRadius = 16
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
@@ -153,7 +153,7 @@ final class ProcessViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(L10n.ProcessViewController.BottomSheetBackButton.Button.title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.tintColor = UIColor(named: L10n.ProcessViewController.BottomSheetBackButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         button.addTarget(self, action: #selector(bottomSheetBackButtonAction), for: .touchUpInside)
         return button
     }()
@@ -162,7 +162,7 @@ final class ProcessViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(L10n.ProcessViewController.BottomSheetSaveButton.Button.title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.tintColor = UIColor(named: L10n.ProcessViewController.BottomSheetSaveButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         button.addTarget(self, action: #selector(bottomSheetSaveButtonAction), for: .touchUpInside)
         return button
     }()
@@ -257,7 +257,7 @@ final class ProcessViewController: UIViewController {
         hideLogoButton.isHidden = false
         filterButton.isHidden = false
         let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAll))
-        shareBarButtonItem.tintColor = UIColor(named: L10n.ProcessViewController.ChangeToProcess.ShareBarButtonItem.TintColor.name)
+        shareBarButtonItem.tintColor = UIColor(named: "white")
 //        shareBarButtonItem.target = #selector(shareAll)
         let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
         
@@ -290,7 +290,7 @@ extension ProcessViewController {
         addSubviews()
         setupConstraints()
         setupNavigationController()
-        view.backgroundColor = UIColor(named: L10n.ProcessViewController.SetupViewController.View.BackgroundColor.name)
+        view.backgroundColor = UIColor(named: "blue")
     }
     
     func setupNavigationController() {

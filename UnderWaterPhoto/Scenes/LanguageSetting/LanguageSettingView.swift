@@ -13,17 +13,17 @@ struct LanguageSettingView: View {
     
     var body: some View {
         ScalingHeaderScrollView {
-            Color(L10n.LanguageSettingView.Body.color)
+            Color("blueDark")
                 .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
         } content: {
             List(vm.languages, id: \.self) { language in
                 SettingRowView(setting: language.title,
-                               additionalText: L10n.LanguageSettingView.Body.Content.additionalText,
+                               additionalText: "",
                                    symbol: changeSymbol(language: language))
                     .onTapGesture {
                         vm.changeLanguage(language: language)
                     }
-                    .listRowBackground(Color(L10n.LanguageSettingView.Body.OnTapGesture.ListRowBackground.color))
+                    .listRowBackground(Color("blue"))
                 .frame(maxWidth: .infinity)
             }
             .environment(\.defaultMinListRowHeight, 44)
@@ -34,15 +34,15 @@ struct LanguageSettingView: View {
         }
         .hideScrollIndicators()
         .height(min: 116.5, max: 116.5)
-        .background(Color(L10n.LanguageSettingView.Body.Content.Background.color))
+        .background(Color("blue"))
        .ignoresSafeArea()
     }
     
     func changeSymbol(language: Languages) -> String{
         if vm.selectedLanguage == language {
-            return L10n.LanguageSettingView.ChangeSymbol.if
+            return "checkmark"
         } else {
-            return L10n.LanguageSettingView.ChangeSymbol.else
+            return ""
         }
     }
 }
@@ -50,9 +50,9 @@ struct LanguageSettingView: View {
 class LanguageSettingViewController: UIViewController {
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(named: L10n.LanguageSettingViewController.BackButton.Image.name)
+        let image = UIImage(named: "back")
         button.setImage(image, for: .normal)
-        button.tintColor = UIColor(named: L10n.LanguageSettingViewController.BackButton.Button.TintColor.name)
+        button.tintColor = UIColor(named: "white")
         
         button.addTarget(self,
                          action: #selector(backButtonPressed),
@@ -64,7 +64,7 @@ class LanguageSettingViewController: UIViewController {
         let label = UILabel()
         label.text = L10n.LanguageSettingViewController.titleLabel
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = UIColor(named: L10n.LanguageSettingViewController.TitleLabel.colorName)
+        label.textColor = UIColor(named: "white")
         return label
     }()
     

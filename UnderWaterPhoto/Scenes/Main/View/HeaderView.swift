@@ -28,7 +28,7 @@ struct HeaderView: View {
     }
     
     var body: some View {
-        Color(L10n.HeaderView.Body.color)
+        Color("blueDark")
             .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
             .padding([.bottom], headerBottomPadding)
         VStack {
@@ -97,17 +97,17 @@ private extension HeaderView {
             self.showImagePicker.toggle()
         }, label: {
             HStack(spacing: 16) {
-                Image(systemName: L10n.Extension.HeaderView.AddPhotoButtonView.Image.name)
+                Image(systemName: "plus.circle.fill")
                     .font(.system(size: 40))
                     .padding([.leading], 20)
                 Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
                     .font(.system(size: 17, weight: .semibold))
                     .padding([.trailing], 20)
             }
-            .foregroundColor(Color(L10n.Extension.HeaderView.AddPhotoButtonView.Button.foregroundColor))
+            .foregroundColor(Color("white"))
             .frame(height: 80)
             .frame(maxWidth: .infinity)
-            .background(Color(L10n.Extension.HeaderView.AddPhotoButtonView.Button.backgroundColor))
+            .background(Color("blue"))
             .cornerRadius(24)
             .padding([.leading, .trailing, .bottom], 16)
             .shadow(color: .black, radius: 5)
@@ -130,17 +130,17 @@ struct CrossButtonView: View {
         ZStack {
             Rectangle()
                 .frame(width: 40, height: 40)
-                .foregroundColor(Color(L10n.CrossButtonView.Body.ZStack.Rectangle.foregroundColor))
+                .foregroundColor(Color("blueDark"))
             VStack {
                 Rectangle()
                     .frame(width: 24, height: 4)
-                    .foregroundColor(Color(L10n.CrossButtonView.Body.VStack.FirstRectangle.foregroundColor))
+                    .foregroundColor(Color("white"))
                     .cornerRadius(3)
                     .rotationEffect(.degrees(isCross ? 45 : 0), anchor: .center)
                     .offset(x: isCross ? 0 : -8, y: isCross ? 6 : 0)
                 Rectangle()
                     .frame(width: 24, height: 4)
-                    .foregroundColor(Color(L10n.CrossButtonView.Body.VStack.SecondRectangle.foregroundColor))
+                    .foregroundColor(Color("white"))
                     .cornerRadius(3)
                     .rotationEffect(.degrees(isCross ? -45 : 0), anchor: .center)
                     .offset(x: isCross ? 0 : 8, y: isCross ? -6 : 0)

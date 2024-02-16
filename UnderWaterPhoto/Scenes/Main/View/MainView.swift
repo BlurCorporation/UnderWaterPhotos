@@ -65,7 +65,7 @@ struct MainView: View {
                 }
                 
             }
-                           .background(Color(L10n.MainView.Background.color))
+                           .background(Color("blue"))
            .ignoresSafeArea()
            .onChange(of: vm.state) { newValue in
                if newValue == .settings {
@@ -106,11 +106,11 @@ private extension MainView {
             Spacer()
             Spacer()
             VStack {
-                Image(systemName: L10n.Extension.MainView.EmptyView.Image.name)
+                Image(systemName: "photo")
                     .font(.system(size: 32, weight: .medium))
-                    .foregroundColor(Color(L10n.Extension.MainView.EmptyView.Image.color))
+                    .foregroundColor(Color("white"))
                 Text(L10n.Extension.MainView.EmptyView.text)
-                    .foregroundColor(Color(L10n.Extension.MainView.EmptyView.Text.foregroundColor))
+                    .foregroundColor(Color("white"))
                     .font(.system(size: 20, weight: .medium))
                     .padding([.leading, .trailing], 36)
                     .multilineTextAlignment(.center)
