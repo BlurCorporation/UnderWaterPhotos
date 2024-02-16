@@ -28,7 +28,7 @@ struct SubscriptionView: View {
         }
         .hideScrollIndicators()
         .height(min: 116.5, max: 116.5)
-        .background(Color("blue"))
+        .background(Color("back"))
         .ignoresSafeArea()
     }
     
@@ -64,7 +64,7 @@ final class SubscriptionViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Подписка"
+        label.text = L10n.SubscriptionViewController.titleLabel
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = UIColor(named: "white")
         return label

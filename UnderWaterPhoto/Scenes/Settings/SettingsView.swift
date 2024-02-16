@@ -29,7 +29,7 @@ struct SettingsView: View {
                             routeSubscriptionScreen()
                         }
                     }
-                .listRowBackground(Color("blue"))
+                    .listRowBackground(Color("blue"))
             }
             .environment(\.defaultMinListRowHeight, 44)
             .frame(height: 220)

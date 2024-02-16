@@ -86,7 +86,7 @@ struct HeaderView: View {
 private extension HeaderView {
     var navBar: some View {
         HStack {
-            Text("Привет, \(userName)!")
+            Text(L10n.Extension.HeaderView.NavBar.text(userName))
                 .foregroundColor(.white)
                 .font(.system(size: 20, weight: .medium))
         }
@@ -100,7 +100,7 @@ private extension HeaderView {
                 Image(systemName: "plus.circle.fill")
                     .font(.system(size: 40))
                     .padding([.leading], 20)
-                Text("Редактировать Фото и Видео")
+                Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
                     .font(.system(size: 17, weight: .semibold))
                     .padding([.trailing], 20)
             }

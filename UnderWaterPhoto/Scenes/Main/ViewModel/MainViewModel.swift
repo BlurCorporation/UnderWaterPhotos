@@ -15,7 +15,7 @@ enum States {
 
 class MainViewModel: ObservableObject {
     @Published var images: [ImageModel] = []
-    @Published var userName: String = "Александр"
+    @Published var userName: String = L10n.MainViewModel.userName
     @Published var state: States = .clear
     @Published var avatarImage: String = "photo"
     @Published var mail: String = "under@water.ru"

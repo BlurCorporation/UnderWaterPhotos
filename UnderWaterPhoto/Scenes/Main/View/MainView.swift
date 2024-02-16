@@ -65,7 +65,7 @@ struct MainView: View {
                 }
                 
             }
-           .background(Color("blue"))
+                           .background(Color("blue"))
            .ignoresSafeArea()
            .onChange(of: vm.state) { newValue in
                if newValue == .settings {
@@ -94,7 +94,7 @@ struct MainView: View {
 
 private extension MainView {
     var mainHeaderTextView: some View {
-        Text("Cделай свои подводные фотографии лучше вместе с нами!")
+        Text(L10n.Extension.MainView.MainHeaderTextView.text)
             .foregroundColor(.white)
             .font(.system(size: 28, weight: .semibold))
             .opacity(3.0 - progress * 5)
@@ -109,7 +109,7 @@ private extension MainView {
                 Image(systemName: "photo")
                     .font(.system(size: 32, weight: .medium))
                     .foregroundColor(Color("white"))
-                Text("Здесь будут загруженные тобой фото и видео")
+                Text(L10n.Extension.MainView.EmptyView.text)
                     .foregroundColor(Color("white"))
                     .font(.system(size: 20, weight: .medium))
                     .padding([.leading, .trailing], 36)

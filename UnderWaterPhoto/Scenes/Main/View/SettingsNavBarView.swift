@@ -21,7 +21,7 @@ struct SettingsNavBarView: View {
                     .foregroundColor(Color("white"))
                     .font(.system(size: 20, weight: .medium))
                 Text(mail)
-                    .foregroundColor(Color("grey"))
+                    .foregroundColor(Color("gray"))
                     .font(.system(size: 18, weight: .regular))
             }
             Spacer()

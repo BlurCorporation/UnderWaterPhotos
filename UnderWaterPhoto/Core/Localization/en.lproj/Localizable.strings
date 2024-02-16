@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  UnderWaterPhoto
+
+  Created by Андрей Барсуков on 25.01.2024.
+  
+*/
+// MARK: - Scenes
+// LanguageSetting
+"languageSettingViewController.titleLabel" = "Application language";
+
+// LanguageSettingViewModel
+"languageSettingViewModel.Languages.title.rus" = "Russian";
+"languageSettingViewModel.Languages.title.en" = "English";
+
+// MARK: Settings
+// SettingsViewModel
+"settingsViewModel.settings.id.0.settingName" = "Application language";
+"settingsViewModel.settings.id.0.additionalName" = "Russian";
+"settingsViewModel.settings.id.1.settingName" = "Clear cache";
+"settingsViewModel.settings.id.2.settingName" = "Subscribe";
+"settingsViewModel.settings.id.3.settingName" = "Delete account";
+"settingsViewModel.settings.id.4.settingName" = "Log out of your account";
+
+// MARK: SubscriptionScreen
+// MARK: Model
+"subscriptionModel.priceData.firstElement.title" = "First subscribe";
+"subscriptionModel.priceData.firstElement.price" = "9 million";
+"subscriptionModel.priceData.firstElement.priceForDay" = "9 million";
+"subscriptionModel.priceData.secondElement.title" = "Second subscribe";
+"subscriptionModel.priceData.secondElement.price" = "16 rubles";
+"subscriptionModel.priceData.secondElement.priceForDay" = "3 rubles";
+"subscriptionModel.priceData.thirdElement.title" = "Third cool subscribe";
+"subscriptionModel.priceData.thirdElement.price" = "3 sweets";
+"subscriptionModel.priceData.thirdElement.priceForDay" = "4 nudes";
+"subscriptionModel.priceData.fourthElement.title" = "Fouth subscribe";
+"subscriptionModel.priceData.fourthElement.price" = "something price";
+"subscriptionModel.priceData.fourthElement.priceForDay" = "Don't watch reels";
+
+// MARK: ViewController
+// ViewSubscription
+"subscriptionViewController.titleLabel" = "Subscribe";
+
+// ButtonView
+"buttonView.title" = "checkout";
+
+// TextView
+"textView.rulesText" = "By subscribing you agree to the Terms of Use and Privacy Policy";
+"textView.attributedString.range" = "Terms of Use and Privacy Policy";
+
+// MARK: AuthScreen
+// AuthViewController
+"authViewController.headTitle.text" = "Create account";
+"authViewController.nameTextField" = "Name";
+"authViewController.passwordTextField" = "Password";
+"authViewController.repeatPasswordTextField" = "Repeat password";
+"authViewController.loginButton.setTitle" = "Log in";
+"authViewController.registrationButton.setTitle" = "Registration";
+"authViewController.restorePasswordButton.setTitle" = "Restore password";
+"authViewController.loginUsinLabel.text" = "Log in using";
+"authViewController.if.expandLoginButton.registrationButton.title" = "Registration";
+"authViewController.if.expandLoginButton.headTitle.text" = "Create account";
+"authViewController.if.expandLoginButton.loginButton.title" = "Log in";
+
+"authViewController.else.expandLoginButton.registrationButton.title" = "Log in";
+"authViewController.else.expandLoginButton.headTitle.text" = "Welcome";
+"authViewController.else.expandLoginButton.loginButton.title" = "Registration";
+"authViewController.else.expandLoginButton.restorePasswordButton.title" = "Restore password";
+"authViewController.restorePasswordExpand.registrationButton.title" = "Restore password";
+"authViewController.restorePasswordExpand.headTitle.text" = "Restore password";
+
+// MARK: Main
+// MARK: ViewModel
+
+// MainViewModel
+"mainViewModel.userName" = "Alexandr";
+
+// MARK: View
+// MainView
+"extension.mainView.mainHeaderTextView.text" = "Improve your underwater photos with us!";
+"extension.mainView.emptyView.text" = "The photos and videos you uploaded will be here";
+
+// HeaderView
+"extension.headerView.navBar.text" = "Hi, %@!";
+"extension.headerView.addPhotoButtonView.text" = "Edit Photos and Videos";
+
+// MARK: Process
+// BottomSheetSaveViewController
+"bottomSheetSaveViewController.saveInAppLabel.label.text" = "Save to app";
+"bottomSheetSaveViewController.saveOnPhoneLabel.label.text" = "Save to device";
+"bottomSheetSaveViewController.bottomSheetBackButton.button.setTitle" = "Back";
+"bottomSheetSaveViewController.bottomSheetSaveButton.button.setTitle" = "Save";
+
+// ProcessViewController
+"processViewController.titleLabel.label.text" = "Change";
+"processViewController.hideLogoButton.button.title" = "Remove logo";
+"processViewController.processPhotoButton.button.title" = "Change";
+"processViewController.bottomSheetBackButton.button.title" = "Back";
+"processViewController.bottomSheetSaveButton.button.title" = "Save";
+"processViewController.changeToProcess.titleLabel.text" = "Editing";
+"processViewController.changeToProcess.processPhotoButton.title" = "Edit";

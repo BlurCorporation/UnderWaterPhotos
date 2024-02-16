@@ -18,12 +18,12 @@ struct LanguageSettingView: View {
         } content: {
             List(vm.languages, id: \.self) { language in
                 SettingRowView(setting: language.title,
-                                   additionalText: "",
+                               additionalText: "",
                                    symbol: changeSymbol(language: language))
                     .onTapGesture {
                         vm.changeLanguage(language: language)
                     }
-                .listRowBackground(Color("blue"))
+                    .listRowBackground(Color("blue"))
                 .frame(maxWidth: .infinity)
             }
             .environment(\.defaultMinListRowHeight, 44)
@@ -34,7 +34,7 @@ struct LanguageSettingView: View {
         }
         .hideScrollIndicators()
         .height(min: 116.5, max: 116.5)
-       .background(Color("blue"))
+        .background(Color("blue"))
        .ignoresSafeArea()
     }
     
@@ -62,7 +62,7 @@ class LanguageSettingViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Язык приложения"
+        label.text = L10n.LanguageSettingViewController.titleLabel
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = UIColor(named: "white")
         return label

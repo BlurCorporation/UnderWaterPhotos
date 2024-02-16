@@ -32,7 +32,7 @@ final class CustomButton: UIButton {
         case .registrationButton:
             layer.cornerRadius = 16
             backgroundColor = UIColor(named: "backgroundColorRegistrationButton")
-            setTitleColor(UIColor(named: "backgroundColorRegistrationTitle"), for: .normal)
+            setTitleColor(UIColor(named: "backgroundColorRegistrationButton"), for: .normal)
         case .idButton:
             layer.cornerRadius = 14
             backgroundColor = UIColor(named: "backgroundColorIdButton")

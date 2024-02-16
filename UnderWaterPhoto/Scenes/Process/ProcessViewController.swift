@@ -46,7 +46,7 @@ final class ProcessViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Изменение"
+        label.text = L10n.ProcessViewController.TitleLabel.Label.text
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = UIColor(named: "white")
         label.numberOfLines = 0
@@ -99,7 +99,7 @@ final class ProcessViewController: UIViewController {
         buttonConfig.image = UIImage(systemName: "xmark", withConfiguration: imageConfig)
         buttonConfig.imagePadding = 8
         button.configuration = buttonConfig
-        button.setTitle("Убрать логотип", for: .normal)
+        button.setTitle(L10n.ProcessViewController.HideLogoButton.Button.title, for: .normal)
         button.tintColor = UIColor(named: "white")
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.layer.cornerRadius = 20
@@ -119,7 +119,7 @@ final class ProcessViewController: UIViewController {
     
     private lazy var processPhotoButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Изменить", for: .normal)
+        button.setTitle(L10n.ProcessViewController.ProcessPhotoButton.Button.title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.layer.cornerRadius = 16
         button.backgroundColor = UIColor(named: "white")
@@ -151,7 +151,7 @@ final class ProcessViewController: UIViewController {
     
     private lazy var bottomSheetBackButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Назад", for: .normal)
+        button.setTitle(L10n.ProcessViewController.BottomSheetBackButton.Button.title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.tintColor = UIColor(named: "white")
         button.addTarget(self, action: #selector(bottomSheetBackButtonAction), for: .touchUpInside)
@@ -160,7 +160,7 @@ final class ProcessViewController: UIViewController {
     
     private lazy var bottomSheetSaveButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Сохранить", for: .normal)
+        button.setTitle(L10n.ProcessViewController.BottomSheetSaveButton.Button.title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.tintColor = UIColor(named: "white")
         button.addTarget(self, action: #selector(bottomSheetSaveButtonAction), for: .touchUpInside)
@@ -252,8 +252,8 @@ final class ProcessViewController: UIViewController {
     }
     
     func changeToProcess() {
-        titleLabel.text = "Редактирование"
-        processPhotoButton.setTitle("Редактировать", for: .normal)
+        titleLabel.text = L10n.ProcessViewController.ChangeToProcess.TitleLabel.text
+        processPhotoButton.setTitle(L10n.ProcessViewController.ChangeToProcess.ProcessPhotoButton.title, for: .normal)
         hideLogoButton.isHidden = false
         filterButton.isHidden = false
         let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAll))
