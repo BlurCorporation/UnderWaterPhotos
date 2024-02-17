@@ -26,7 +26,7 @@ private extension SceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let sceneBuildManager: Buildable = SceneBuildManager()
         let viewController = sceneBuildManager.buildMainView()
-//        let viewController = sceneBuildManager.buildProcessViewController(image: UIImage(named: "underwaterPhoto1"),
+//        let viewController = sceneBuildManager.buildProcessViewController(image: nil,//UIImage(named: "underwaterPhoto1"),
 //                                                                          url: nil,
 //                                                                          processContenType: .video)
         let navigationController = UINavigationController(rootViewController: viewController)

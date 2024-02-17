@@ -203,10 +203,6 @@ final class ProcessViewController: UIViewController {
             playerView.player?.play()
         }
         
-//        Task {
-//            playerView.player = AVPlayer(url: String)
-//        }
-        
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
         

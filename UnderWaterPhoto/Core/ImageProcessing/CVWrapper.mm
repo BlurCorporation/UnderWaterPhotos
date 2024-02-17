@@ -27,7 +27,7 @@
 
 + (nullable FramesOfProcessedVideo *)processWithVideos:(nonnull NSString *)video error:(NSError *__autoreleasing  _Nullable * _Nullable)error {
     std::cout << cv::getBuildInformation() << std::endl;
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testVideo" ofType:@"MP4"];
+    NSString *filePath = video;//[[NSBundle mainBundle] pathForResource:@"testVideo3" ofType:@"mov"];
     std::string InputFile = [filePath UTF8String];
     std::cout << InputFile << std::endl;
     std::size_t filename;

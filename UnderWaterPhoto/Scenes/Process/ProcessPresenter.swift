@@ -102,8 +102,16 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         guard let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             return
         }
-        let tempPath = url.appendingPathComponent("ContentFolder")
-        let outputURL = tempPath.appendingPathComponent("\(UUID()).mp4")
+//        let tempPath = url.appendingPathComponent("TempContentFolder")
+        guard let outputURL: URL = URL(string: String(url.appendingPathComponent("\(UUID()).mp4").absoluteString)) else {
+            return
+        }
+        
+        
+//        let tempPath = NSTemporaryDirectory() as String
+//        let outputPath = (tempPath as NSString).appendingPathComponent("outputVideo17.mp4")
+//        let outputURL = URL(fileURLWithPath: outputPath)
+        print(outputURL)
         
         let frameDuration = CMTime(value: 1, timescale: CMTimeScale(processedVideo.frames))
         
@@ -113,6 +121,7 @@ extension ProcessPresenter: ProcessPresenterProtocol {
             if success {
                 print("Видео успешно создано")
                 self?.videoURL = outputURL.absoluteString
+                print(outputURL.absoluteString)
                 self?.viewController?.changeVideo(url: outputURL)
             } else {
                 print("Произошла ошибка при создании видео")
@@ -152,6 +161,7 @@ extension ProcessPresenter {
             
             writerInput.markAsFinished()
             writer.finishWriting {
+                print(writer.status)
                 completion(writer.status == .completed)
             }
         }
