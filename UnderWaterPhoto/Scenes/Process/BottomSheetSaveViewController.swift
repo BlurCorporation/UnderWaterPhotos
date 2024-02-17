@@ -1,4 +1,5 @@
 import UIKit
+import Photos
 
 final class BottomSheetSaveViewController: UIViewController {
     
@@ -69,11 +70,11 @@ final class BottomSheetSaveViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor(named: "blueDark")
         view.layer.cornerRadius = 16
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-
+        
         view.addSubviews(bottomSheetSaveButton,
                          bottomSheetBackButton,
                          saveInAppLabel,
@@ -144,8 +145,11 @@ final class BottomSheetSaveViewController: UIViewController {
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
                 }
             case .video:
-                guard let image = previewImage, let url = videoURL else { return }
-                repository?.addContent(uiimage: image, url: url)
+                guard let url = videoURL else { return }
+                PHPhotoLibrary.shared().performChanges {
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
+                }
+                
             }
         }
         
