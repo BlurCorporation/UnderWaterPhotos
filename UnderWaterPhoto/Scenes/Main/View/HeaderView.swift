@@ -119,6 +119,7 @@ private extension HeaderView {
             .shadow(color: .black, radius: 5)
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(image: $selectedImage)
+                    .ignoresSafeArea()
             }
         })
     }

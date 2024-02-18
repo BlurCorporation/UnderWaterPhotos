@@ -109,6 +109,7 @@ final class ProcessViewController: UIViewController {
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -284,12 +285,15 @@ extension ProcessViewController: ProcessViewControllerProtocol {
                             videoURL: String?,
                             previewImage: UIImage?) {
         let vc = BottomSheetSaveViewController(processContentType: processContentType)
-        vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
+        vc.transitioningDelegate = customTransitioningDelegate
+        vc.modalPresentationStyle = .custom
+        if videoURL == nil {
+            vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
+        }
         vc.addVideo(url: videoURL, previewImage: previewImage)
         vc.imageMergeManager = imageMergeManager
         vc.repository = repository
-        vc.transitioningDelegate = customTransitioningDelegate
-        vc.modalPresentationStyle = .custom
+        
         present(vc, animated: true)
     }
     
