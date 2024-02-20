@@ -18,6 +18,8 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func changeVideo(url: URL)
     func setupImageProcessing()
     func setupVideoProcessing()
+    func shareImage()
+    func shareVideo()
     func presentBottomSheet(processContentType: ProcessContentType,
                             videoURL: String?,
                             previewImage: UIImage?)
@@ -94,8 +96,8 @@ final class ProcessViewController: UIViewController {
     
     private let playerView: VideoPlayerView = {
         let player = VideoPlayerView()
-//        player.player = AVPlayer(url: URL(string: "file:///var/mobile/Containers/Data/Application/B0BCB60C-C6C2-4F71-A362-A3195EDE266A/Library/Caches/ContentFolder/outputVideo22.mp4")!)
-//        player.player?.play()
+        //        player.player = AVPlayer(url: URL(string: "file:///var/mobile/Containers/Data/Application/B0BCB60C-C6C2-4F71-A362-A3195EDE266A/Library/Caches/ContentFolder/outputVideo22.mp4")!)
+        //        player.player?.play()
         player.playerLayer.cornerRadius = 40
         player.playerLayer.videoGravity = .resizeAspect
         player.playerLayer.masksToBounds = true
@@ -242,7 +244,7 @@ final class ProcessViewController: UIViewController {
         processedImageView.alpha = CGFloat(sender.value)
         processedImageAlpha = sender.value
     }
-
+    
     @objc
     func bottomSheetBackButtonAction() {
         processedImageView.alpha = CGFloat(previousImageAlpha)
@@ -262,15 +264,11 @@ final class ProcessViewController: UIViewController {
         }
     }
     
-    @objc func shareAll() {
-        guard let defaultImage = defaultImage,
-              let topImage = processedImage?.image(alpha: CGFloat(processedImageAlpha)) else { return }
-        let image = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: topImage)
-        let shareAll = [image!] as [Any]
-        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
-       }
+    @objc func shareButtonPressed() {
+        
+    }
+    
+    
     
     @objc
     func presentVCAsBottomSheet() {
@@ -287,7 +285,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
         let vc = BottomSheetSaveViewController(processContentType: processContentType)
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom
-        if videoURL == nil {
+        if processContentType == .image {
             vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
         }
         vc.addVideo(url: videoURL, previewImage: previewImage)
@@ -322,11 +320,25 @@ extension ProcessViewController: ProcessViewControllerProtocol {
         processPhotoButton.setTitle(L10n.ProcessViewController.ChangeToProcess.ProcessPhotoButton.title, for: .normal)
         hideLogoButton.isHidden = false
         filterButton.isHidden = false
-        let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAll))
+        let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonPressed))
         shareBarButtonItem.tintColor = UIColor(named: "white")
         let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
         
         navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
+    }
+    
+    func shareImage() {
+        guard let defaultImage = defaultImage,
+              let topImage = processedImage?.image(alpha: CGFloat(processedImageAlpha)) else { return }
+        let image = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: topImage)
+        let shareAll = [image!] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func shareVideo() {
+        
     }
     
     func showBottomSaveSheet() {
@@ -393,7 +405,7 @@ extension ProcessViewController {
             processedImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor),
             processedImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor),
             processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
-
+            
             hideLogoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             hideLogoButton.widthAnchor.constraint(equalToConstant: 183),
             hideLogoButton.bottomAnchor.constraint(equalTo: processPhotoButton.topAnchor, constant: -28),
