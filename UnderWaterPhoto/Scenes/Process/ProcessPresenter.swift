@@ -68,7 +68,9 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         case .image:
             viewController?.shareImage()
         case .video:
-            viewController?.shareVideo()
+            guard let stringURL = videoURL,
+                  let url = URL(string: stringURL) else { return }
+            viewController?.shareVideo(url)
         }
         
     }

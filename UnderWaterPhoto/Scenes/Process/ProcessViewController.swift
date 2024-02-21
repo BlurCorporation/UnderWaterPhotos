@@ -19,7 +19,7 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func setupImageProcessing()
     func setupVideoProcessing()
     func shareImage()
-    func shareVideo()
+    func shareVideo(_ video: URL)
     func presentBottomSheet(processContentType: ProcessContentType,
                             videoURL: String?,
                             previewImage: UIImage?)
@@ -265,10 +265,8 @@ final class ProcessViewController: UIViewController {
     }
     
     @objc func shareButtonPressed() {
-        
+        presenter?.shareButtonPressed()
     }
-    
-    
     
     @objc
     func presentVCAsBottomSheet() {
@@ -337,8 +335,29 @@ extension ProcessViewController: ProcessViewControllerProtocol {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    func shareVideo() {
+    func shareVideo(_ video: URL) {
+//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//        let docDirectory = paths[0]
+//        let filePath = defaultVideoURL//"\(docDirectory)/tmpVideo.mov"
+//        urlData.write(toFile: filePath ?? "", atomically: true)
+        // File Saved
         
+        
+        print(video)
+
+//        let videoLink = URL(string: filePath ?? "")
+
+
+        let objectsToShare = [video] //comment!, imageData!, myWebsite!]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+        activityVC.setValue("Video", forKey: "subject")
+        
+        activityVC.popoverPresentationController?.sourceView = self.view
+//        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.copyToPasteboard, UIActivity.ActivityType.mail, UIActivity.ActivityType.message, UIActivity.ActivityType.openInIBooks, UIActivity.ActivityType.postToTencentWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.print]
+
+                   
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     func showBottomSaveSheet() {

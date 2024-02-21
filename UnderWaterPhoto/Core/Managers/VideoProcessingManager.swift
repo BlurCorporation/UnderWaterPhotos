@@ -154,11 +154,10 @@ class VideoProcessingManager {
         mutableVideoComposition.renderSize = CGSize(width: 480, height: 640)
         
         if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-            let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\("fileName").m4v")
+            let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\("ProcessedUnderWaterVideo").m4v")
             
             do {
                 if FileManager.default.fileExists(atPath: outputURL.path) {
-                    
                     try FileManager.default.removeItem(at: outputURL)
                 }
             } catch { }
