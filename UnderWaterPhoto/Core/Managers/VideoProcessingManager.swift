@@ -20,8 +20,11 @@ class VideoProcessingManager {
             let sourceUrl = videoURL
             let asset = AVURLAsset(url: sourceUrl)
             guard let audioAssetTrack = asset.tracks(withMediaType: AVMediaType.audio).first else { print("error audioAssetTrack"); return }
-            guard let audioCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid) else { print("error audioCompositionTrack"); return }
-            try audioCompositionTrack.insertTimeRange(audioAssetTrack.timeRange, of: audioAssetTrack, at: CMTime.zero)
+            guard let audioCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio,
+                                                                          preferredTrackID: kCMPersistentTrackID_Invalid) else { print("error audioCompositionTrack"); return }
+            try audioCompositionTrack.insertTimeRange(audioAssetTrack.timeRange,
+                                                      of: audioAssetTrack,
+                                                      at: CMTime.zero)
         } catch {
             print(error)
         }
@@ -33,7 +36,8 @@ class VideoProcessingManager {
         }
         
         // Create an export session
-        let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough)!
+        let exportSession = AVAssetExportSession(asset: composition,
+                                                 presetName: AVAssetExportPresetPassthrough)!
         exportSession.outputFileType = AVFileType.m4a
         exportSession.outputURL = outputUrl
         
@@ -52,9 +56,12 @@ class VideoProcessingManager {
             AVVideoHeightKey: NSNumber(value: Float(images.first!.size.height))
         ]
         
-        let writer = try! AVAssetWriter(outputURL: outputURL, fileType: .mp4)
-        let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
-        let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
+        let writer = try! AVAssetWriter(outputURL: outputURL,
+                                        fileType: .mp4)
+        let writerInput = AVAssetWriterInput(mediaType: .video,
+                                             outputSettings: videoSettings)
+        let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput,
+                                                           sourcePixelBufferAttributes: nil)
         
         writer.add(writerInput)
         writer.startWriting()
@@ -67,7 +74,8 @@ class VideoProcessingManager {
             for image in images {
                 while !writerInput.isReadyForMoreMediaData { }
                 if let buffer = self.pixelBuffer(from: image) {
-                    let frameTime = CMTime(value: Int64(frameCount), timescale: frameDuration.timescale)
+                    let frameTime = CMTime(value: Int64(frameCount),
+                                           timescale: frameDuration.timescale)
                     adaptor.append(buffer, withPresentationTime: frameTime)
                     frameCount += 1
                 }
@@ -84,7 +92,12 @@ class VideoProcessingManager {
     func pixelBuffer(from image: UIImage) -> CVPixelBuffer? {
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
         var pixelBuffer: CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
+        let status = CVPixelBufferCreate(kCFAllocatorDefault,
+                                         Int(image.size.width),
+                                         Int(image.size.height),
+                                         kCVPixelFormatType_32ARGB,
+                                         attrs,
+                                         &pixelBuffer)
         guard status == kCVReturnSuccess else {
             return nil
         }
@@ -93,18 +106,24 @@ class VideoProcessingManager {
         let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
         
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pixelData, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        let context = CGContext(data: pixelData,
+                                width: Int(image.size.width),
+                                height: Int(image.size.height),
+                                bitsPerComponent: 8,
+                                bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!),
+                                space: rgbColorSpace,
+                                bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
         
-        context?.draw(image.cgImage!, in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        context?.draw(image.cgImage!, in: CGRect(x: 0, y: 0,
+                                                 width: image.size.width, height: image.size.height))
         
-        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        CVPixelBufferUnlockBaseAddress(pixelBuffer!,
+                                       CVPixelBufferLockFlags(rawValue: 0))
         
         return pixelBuffer
     }
     
     func mergeVideoWithAudio(videoUrl: URL, audioUrl: URL, success: @escaping ((URL) -> Void), failure: @escaping ((Error?) -> Void)) {
-        
-        
         let mixComposition: AVMutableComposition = AVMutableComposition()
         var mutableCompositionVideoTrack: [AVMutableCompositionTrack] = []
         var mutableCompositionAudioTrack: [AVMutableCompositionTrack] = []
@@ -122,11 +141,9 @@ class VideoProcessingManager {
                     try mutableCompositionVideoTrack.first?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: aVideoAssetTrack.timeRange.duration), of: aVideoAssetTrack, at: CMTime.zero)
                     try mutableCompositionAudioTrack.first?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: aVideoAssetTrack.timeRange.duration), of: aAudioAssetTrack, at: CMTime.zero)
                     videoTrack.preferredTransform = aVideoAssetTrack.preferredTransform
-                    
-                } catch{
+                } catch {
                     print(error)
                 }
-                
                 
                 totalVideoCompositionInstruction.timeRange = CMTimeRangeMake(start: CMTime.zero,duration: aVideoAssetTrack.timeRange.duration)
             }
@@ -158,19 +175,16 @@ class VideoProcessingManager {
                         if let _error = exportSession.error {
                             failure(_error)
                         }
-                        
                     case .cancelled:
                         if let _error = exportSession.error {
                             failure(_error)
                         }
-                        
                     default:
                         print("finished")
                         success(outputURL)
                     }
                 })
             } else {
-//                failure(CustomError(title: "nil", description: "nil", code: 999))
                 failure(nil)
             }
         }
@@ -180,7 +194,6 @@ class VideoProcessingManager {
 extension VideoProcessingManager: VideoProcessingManagerProtocol {
     func process(_ video: String, completion: @escaping (Result<ContentModel, Error>) -> ()) {
         do {
-            
             let processedVideo = try CVWrapper.process(withVideos: video)
             extractAudio(videoURL: URL(string: "file://\(video)")!, completion: { audiourl in
                 // создаём временную директорию, потом удаляем в репозитории
@@ -204,11 +217,8 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
                         self.mergeVideoWithAudio(videoUrl: outputURL, audioUrl: audiourl, success: { url in
                             contentModel.url = url.absoluteString
                             completion(.success(contentModel))
-//                            self?.viewController?.changeVideo(url: url)
-//                            self?.videoURL = url.absoluteString
                         }, failure: { error in
                             completion(.failure(error ?? CustomError(title: "123", description: "123", code: 2134124324523)))
-//                            print(error?.localizedDescription)
                         })
                         print("aaaa")
                     } else {

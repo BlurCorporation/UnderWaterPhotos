@@ -41,9 +41,11 @@ extension SceneBuildManager: Buildable {
     func buildProcessViewController(image: UIImage?,
                                     url: String?,
                                     processContenType: ProcessContentType) -> ProcessViewController {
+        let videoProcessingManager = VideoProcessingManager()
         let viewController = ProcessViewController()
         let presenter = ProcessPresenter(sceneBuildManager: self,
-                                         processContentType: processContenType)
+                                         processContentType: processContenType,
+                                         videoProcessingManager: videoProcessingManager)
         
         viewController.defaultVideoURL = url
         viewController.defaultImage = image

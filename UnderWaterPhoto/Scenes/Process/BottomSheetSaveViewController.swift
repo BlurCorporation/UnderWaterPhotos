@@ -145,7 +145,7 @@ final class BottomSheetSaveViewController: UIViewController {
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
                 }
             case .video:
-                guard let url = videoURL else { return }
+                guard let url = videoURL else { print("error"); return }
                 PHPhotoLibrary.shared().performChanges {
                     PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
                 }
