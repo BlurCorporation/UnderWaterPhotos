@@ -13,28 +13,49 @@ class LocalFileManager {
     
     private init() { }
     
-    func saveImage(image: UIImage, imageName: String, folderName: String) {
+    func saveContent(image: UIImage, contentName: String, url: String?, folderName: String) {
         createFolderIfNeeded(folderName: folderName)
         
         guard
             let data = image.pngData(),
-            let url = getURLForImage(imageName: imageName, folderName: folderName)
+            let imageURL = getURLForImage(imageName: contentName, folderName: folderName)
         else { return }
         
         do {
-            try data.write(to: url)
+            if let _url = url {
+                // удаляем ранее созданный временный файл
+                try FileManager.default.copyItem(at: URL(string: _url)!, to: getURLForVideo(videoName: contentName, folderName: "ContentFolder")!)
+                try FileManager.default.removeItem(at: URL(string: _url)!)
+            }
+        } catch {
+            print("Error copying")
+        }
+        
+        do {
+            try data.write(to: imageURL)
         } catch let error {
-            print("Error saving image. ImageName: \(imageName) \(error)")
+            print("Error saving image. ImageName: \(contentName) \(error)")
         }
     }
     
-    func getImage(imageName: String, folderName: String) -> UIImage? {
+    func getContent(imageName: String, folderName: String) -> ContentModel? {
         guard
-            let url = getURLForImage(imageName: imageName, folderName: folderName),
-            FileManager.default.fileExists(atPath: url.path) else {
+            let imageURL = getURLForImage(imageName: imageName, folderName: folderName),
+            
+            FileManager.default.fileExists(atPath: imageURL.path) else {
             return nil
         }
-        return UIImage(contentsOfFile: url.path)
+        
+        var videoURL: URL? = getURLForVideo(videoName: imageName, folderName: folderName)
+        
+        do {
+            let size = try FileManager.default.attributesOfItem(atPath: videoURL!.path)[.size] as? UInt64
+        } catch {
+            videoURL = nil
+        }
+        
+        
+        return ContentModel(id: UUID(uuidString: imageName)!, image: UIImage(contentsOfFile: imageURL.path)!, url: videoURL?.absoluteString)
     }
     
     private func createFolderIfNeeded(folderName: String) {
@@ -60,6 +81,13 @@ class LocalFileManager {
             return nil
         }
         return folderURL.appendingPathComponent(imageName + ".png")
+    }
+    
+    func getURLForVideo(videoName: String, folderName: String) -> URL? {
+        guard let folderURL = getURLForFolder(folderName: folderName) else {
+            return nil
+        }
+        return folderURL.appendingPathComponent(videoName + ".mp4")
     }
     
     func deleteCache(folderName: String) {

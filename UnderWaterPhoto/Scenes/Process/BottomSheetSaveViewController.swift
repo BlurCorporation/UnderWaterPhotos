@@ -1,9 +1,13 @@
 import UIKit
+import Photos
 
 final class BottomSheetSaveViewController: UIViewController {
     
-    private var image: UIImage? = nil
-    private var processedImage: UIImage? = nil
+    private var image: UIImage?
+    private var processedImage: UIImage?
+    private var videoURL: String?
+    private var previewImage: UIImage?
+    private var processContentType: ProcessContentType
     var imageMergeManager: ImageMergeManager?
     var repository: Repository?
     
@@ -54,14 +58,23 @@ final class BottomSheetSaveViewController: UIViewController {
         uiswitch.isOn = true
         return uiswitch
     }()
-
+    
+    init(processContentType: ProcessContentType) {
+        self.processContentType = processContentType
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor(named: "blueDark")
         view.layer.cornerRadius = 16
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-
+        
         view.addSubviews(bottomSheetSaveButton,
                          bottomSheetBackButton,
                          saveInAppLabel,
@@ -95,30 +108,49 @@ final class BottomSheetSaveViewController: UIViewController {
         self.processedImage = processedImage
     }
     
+    func addVideo(url: String?, previewImage: UIImage?) {
+        videoURL = url
+        self.previewImage = previewImage
+    }
+    
     @objc func back() {
         presentingViewController?.dismiss(animated: true)
     }
     
     @objc func save() {
-        
         if inAppSwitch.isOn {
-            guard let image = image else { return }
-            if let processedImage = processedImage {
-                guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
-                repository?.addImage(uiimage: finalImage)
-            } else {
-                repository?.addImage(uiimage: image)
+            switch processContentType {
+            case .image:
+                guard let image = image else { return }
+                if let processedImage = processedImage {
+                    guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
+                    repository?.addContent(uiimage: finalImage)
+                } else {
+                    repository?.addContent(uiimage: image)
+                }
+            case .video:
+                guard let image = previewImage, let url = videoURL else { return }
+                repository?.addContent(uiimage: image, url: url)
             }
         }
+        
         if onPhoneSwitch.isOn {
-            guard let image = image else { return }
-            if let processedImage = processedImage {
-                guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
-                UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
-            } else {
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            switch processContentType {
+            case .image:
+                guard let image = image else { return }
+                if let processedImage = processedImage {
+                    guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
+                    UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
+                } else {
+                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                }
+            case .video:
+                guard let url = videoURL else { print("error"); return }
+                PHPhotoLibrary.shared().performChanges {
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
+                }
+                
             }
-            
         }
         
         presentingViewController?.dismiss(animated: true)

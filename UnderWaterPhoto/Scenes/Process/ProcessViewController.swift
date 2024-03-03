@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 
 // MARK: - ProcessViewControllerProtocol
 
@@ -14,6 +15,14 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func uploadImage(image: UIImage)
     func changeToProcess()
     func showBottomSaveSheet()
+    func changeVideo(url: URL)
+    func setupImageProcessing()
+    func setupVideoProcessing()
+    func shareImage()
+    func shareVideo(_ video: URL)
+    func presentBottomSheet(processContentType: ProcessContentType,
+                            videoURL: String?,
+                            previewImage: UIImage?)
 }
 
 // MARK: - ProcessViewController
@@ -24,6 +33,7 @@ final class ProcessViewController: UIViewController {
     var imageMergeManager: ImageMergeManager?
     var repository: Repository?
     var defaultImage: UIImage?
+    var defaultVideoURL: String?
     private var processedImage: UIImage?
     private var processedImageAlpha: Float = 0.8
     private var previousImageAlpha: Float = 0.8
@@ -80,7 +90,19 @@ final class ProcessViewController: UIViewController {
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
+        imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    private let playerView: VideoPlayerView = {
+        let player = VideoPlayerView()
+        //        player.player = AVPlayer(url: URL(string: "file:///var/mobile/Containers/Data/Application/B0BCB60C-C6C2-4F71-A362-A3195EDE266A/Library/Caches/ContentFolder/outputVideo22.mp4")!)
+        //        player.player?.play()
+        player.playerLayer.cornerRadius = 40
+        player.playerLayer.videoGravity = .resizeAspect
+        player.playerLayer.masksToBounds = true
+        player.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
+        return player
     }()
     
     private let processedImageView: UIImageView = {
@@ -89,6 +111,7 @@ final class ProcessViewController: UIViewController {
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 40
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -173,12 +196,24 @@ final class ProcessViewController: UIViewController {
         super.viewDidLoad()
         setupViewController()
         processedImage = defaultImage
+        
         if let defaultImage {
             mainImageView.image = defaultImage
         }
         
+        if let url = URL(string: defaultVideoURL ?? "") {
+            playerView.player = AVPlayer(url: url)
+            playerView.player?.play()
+        }
+        
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
+        
+        presenter?.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -193,7 +228,7 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func processButtonAction() {
-        presenter?.changeImage(image: self.mainImageView.image!, value: -3000)
+        presenter?.changeImage(image: self.mainImageView.image!, value: -3000, url: defaultVideoURL ?? "")
     }
     
     @objc func filterTouched() {
@@ -206,11 +241,10 @@ final class ProcessViewController: UIViewController {
     
     @objc
     func sliderChange(_ sender: UISlider) {
-        print(sender.value)
         processedImageView.alpha = CGFloat(sender.value)
         processedImageAlpha = sender.value
     }
-
+    
     @objc
     func bottomSheetBackButtonAction() {
         processedImageView.alpha = CGFloat(previousImageAlpha)
@@ -230,25 +264,53 @@ final class ProcessViewController: UIViewController {
         }
     }
     
-    @objc func shareAll() {
-        guard let defaultImage = defaultImage,
-              let topImage = processedImage?.image(alpha: CGFloat(processedImageAlpha)) else { return }
-        let image = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: topImage)
-        let shareAll = [image!] as [Any]
-        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
-       }
+    @objc func shareButtonPressed() {
+        presenter?.shareButtonPressed()
+    }
     
     @objc
     func presentVCAsBottomSheet() {
-        let vc = BottomSheetSaveViewController()
-        vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
-        vc.imageMergeManager = imageMergeManager
-        vc.repository = repository
+        presenter?.showBottomSheetButtonPressed()
+    }
+}
+
+// MARK: - ProcessViewControllerProtocol Imp
+
+extension ProcessViewController: ProcessViewControllerProtocol {
+    func presentBottomSheet(processContentType: ProcessContentType,
+                            videoURL: String?,
+                            previewImage: UIImage?) {
+        let vc = BottomSheetSaveViewController(processContentType: processContentType)
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom
+        if processContentType == .image {
+            vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
+        }
+        vc.addVideo(url: videoURL, previewImage: previewImage)
+        vc.imageMergeManager = imageMergeManager
+        vc.repository = repository
+        
         present(vc, animated: true)
+    }
+    
+    func setupImageProcessing() {
+        playerView.isHidden = true
+    }
+    
+    func setupVideoProcessing() {
+        mainImageView.isHidden = true
+    }
+    
+    func changeVideo(url: URL) {
+        playerView.player = AVPlayer(url: url)
+        playerView.player?.play()
+    }
+    
+    func uploadImage(image: UIImage) {
+        DispatchQueue.main.async {
+            self.processedImage = image
+            self.processedImageView.image = image
+        }
     }
     
     func changeToProcess() {
@@ -256,29 +318,52 @@ final class ProcessViewController: UIViewController {
         processPhotoButton.setTitle(L10n.ProcessViewController.ChangeToProcess.ProcessPhotoButton.title, for: .normal)
         hideLogoButton.isHidden = false
         filterButton.isHidden = false
-        let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAll))
+        let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonPressed))
         shareBarButtonItem.tintColor = UIColor(named: "white")
-//        shareBarButtonItem.target = #selector(shareAll)
         let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
         
         navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
+    }
+    
+    func shareImage() {
+        guard let defaultImage = defaultImage,
+              let topImage = processedImage?.image(alpha: CGFloat(processedImageAlpha)) else { return }
+        let image = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: topImage)
+        let shareAll = [image!] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func shareVideo(_ video: URL) {
+//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//        let docDirectory = paths[0]
+//        let filePath = defaultVideoURL//"\(docDirectory)/tmpVideo.mov"
+//        urlData.write(toFile: filePath ?? "", atomically: true)
+        // File Saved
+        
+        
+        print(video)
+
+//        let videoLink = URL(string: filePath ?? "")
+
+
+        let objectsToShare = [video] //comment!, imageData!, myWebsite!]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+        activityVC.setValue("Video", forKey: "subject")
+        
+        activityVC.popoverPresentationController?.sourceView = self.view
+//        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.copyToPasteboard, UIActivity.ActivityType.mail, UIActivity.ActivityType.message, UIActivity.ActivityType.openInIBooks, UIActivity.ActivityType.postToTencentWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.print]
+
+                   
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     func showBottomSaveSheet() {
         UIView.animate(withDuration: 0.5) {
             self.topConstraint.constant = -167
             self.view.layoutIfNeeded()
-        }
-    }
-}
-
-// MARK: - ProcessViewControllerProtocol Imp
-
-extension ProcessViewController: ProcessViewControllerProtocol {
-    func uploadImage(image: UIImage) {
-        DispatchQueue.main.async {
-            self.processedImage = image
-            self.processedImageView.image = image
         }
     }
 }
@@ -304,6 +389,7 @@ extension ProcessViewController {
     
     func addSubviews() {
         view.addSubviews(headerView,
+                         playerView,
                          mainImageView,
                          processedImageView,
                          slider,
@@ -319,11 +405,15 @@ extension ProcessViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            
             headerView.topAnchor.constraint(equalTo: view.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 108),
+            
+            playerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            playerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            playerView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+            playerView.bottomAnchor.constraint(equalTo: hideLogoButton.topAnchor, constant: -13),
             
             mainImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
@@ -334,7 +424,7 @@ extension ProcessViewController {
             processedImageView.topAnchor.constraint(equalTo: mainImageView.topAnchor),
             processedImageView.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor),
             processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
-
+            
             hideLogoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             hideLogoButton.widthAnchor.constraint(equalToConstant: 183),
             hideLogoButton.bottomAnchor.constraint(equalTo: processPhotoButton.topAnchor, constant: -28),

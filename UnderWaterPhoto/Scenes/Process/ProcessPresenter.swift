@@ -13,32 +13,78 @@ enum ProcessButtonType {
     case process
 }
 
+enum ProcessContentType {
+    case image
+    case video
+}
+
 protocol ProcessPresenterProtocol: AnyObject {
-    func changeImage(image: UIImage, value: Float)
+    func viewDidLoad()
+    func changeImage(image: UIImage, value: Float, url: String)
     func backButtonPressed()
+    func shareButtonPressed()
+    func showBottomSheetButtonPressed()
 }
 
 class ProcessPresenter {
     weak var viewController: ProcessViewControllerProtocol?
-        
+    
     //MARK: - PrivateProperties
     
     private let sceneBuildManager: Buildable
+    private let videoProcessingManager: VideoProcessingManagerProtocol
     private var processButtonType: ProcessButtonType = .change
+    private var processContentType: ProcessContentType
+    private var previewImage: UIImage?
+    private var videoURL: String?
     private var wasProcessed: Bool = false
     //MARK: - Initialize
     
-    init(sceneBuildManager: Buildable) {
+    init(sceneBuildManager: Buildable,
+         processContentType: ProcessContentType,
+         videoProcessingManager: VideoProcessingManagerProtocol) {
         self.sceneBuildManager = sceneBuildManager
+        self.processContentType = processContentType
+        self.videoProcessingManager = videoProcessingManager
     }
 }
 
 extension ProcessPresenter: ProcessPresenterProtocol {
+    func viewDidLoad() {
+        switch processContentType {
+        case .image:
+            viewController?.setupImageProcessing()
+        case .video:
+            viewController?.setupVideoProcessing()
+        }
+    }
+    
     func backButtonPressed() {
         viewController?.navigationController?.popViewController(animated: true)
     }
     
-    func changeImage(image: UIImage, value: Float) {
+    func shareButtonPressed() {
+        switch processContentType {
+        case .image:
+            viewController?.shareImage()
+        case .video:
+            guard let stringURL = videoURL,
+                  let url = URL(string: stringURL) else { return }
+            viewController?.shareVideo(url)
+        }
+        
+    }
+    
+    func showBottomSheetButtonPressed() {
+        switch processContentType {
+        case .image:
+            viewController?.presentBottomSheet(processContentType: processContentType, videoURL: nil, previewImage: previewImage)
+        case .video:
+            viewController?.presentBottomSheet(processContentType: processContentType, videoURL: videoURL, previewImage: previewImage)
+        }
+    }
+    
+    func changeImage(image: UIImage, value: Float, url: String) {
         switch processButtonType {
         case .change:
             processButtonType = .process
@@ -48,15 +94,32 @@ extension ProcessPresenter: ProcessPresenterProtocol {
             if !wasProcessed {
                 wasProcessed = true
                 Task {
-                    let newImage: UIImage = try await process(image: image)
-                    self.viewController?.uploadImage(image: newImage)
+                    switch processContentType {
+                    case .image:
+                        try await process(image: image)
+                    case .video:
+                        try await process(video: String(url.dropFirst(7)))
+                    }
                 }
             }
         }
     }
     
-    func process(image: UIImage) async throws -> UIImage{
+    private func process(image: UIImage) async throws {
         let newImage = try CVWrapper.process(withImages: image)
-        return newImage
+        self.viewController?.uploadImage(image: newImage)
+    }
+    
+    private func process(video: String) async throws {
+        videoProcessingManager.process(video) { [weak self] result in
+            switch result {
+            case .success(let success):
+                self?.previewImage = success.image
+                self?.viewController?.changeVideo(url: URL(string: success.url!)!)
+                self?.videoURL = success.url
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
 }
