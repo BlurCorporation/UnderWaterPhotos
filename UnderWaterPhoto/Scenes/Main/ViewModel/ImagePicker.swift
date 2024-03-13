@@ -24,6 +24,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let uiImage = info[.originalImage] as? UIImage {
                 let content = ContentModel(id: UUID(), image: uiImage)
                 parent.image = content
+                self.parent.presentationMode.wrappedValue.dismiss()
             }
             
             if let videourl = info[.mediaURL] as? URL{
@@ -35,10 +36,12 @@ struct ImagePicker: UIViewControllerRepresentable {
                                                image: UIImage(),
                                                url: String(describing: mp4Url!))
                     self.parent.image = content
+                    self.parent.presentationMode.wrappedValue.dismiss()
                 }
+                
             }
 
-            parent.presentationMode.wrappedValue.dismiss()
+            
         }
 
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
