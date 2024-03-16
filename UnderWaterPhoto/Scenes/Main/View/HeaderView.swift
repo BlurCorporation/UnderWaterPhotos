@@ -80,11 +80,6 @@ struct HeaderView: View {
         .onChange(of: selectedImage) { item in
             guard let item = item else { return }
             routeProcessScreen(item)
-//            if item?.url == nil {
-//                routeProcessScreen(.image, item?.image, nil)
-//            } else {
-//                routeProcessScreen(.video, item?.image, item?.url)
-//            }
         }
     }
 }

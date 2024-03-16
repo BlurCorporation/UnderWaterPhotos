@@ -72,7 +72,6 @@ extension ProcessPresenter: ProcessPresenterProtocol {
                   let url = URL(string: stringURL) else { return }
             viewController?.shareVideo(url)
         }
-        
     }
     
     func showBottomSheetButtonPressed() {
@@ -107,7 +106,8 @@ extension ProcessPresenter: ProcessPresenterProtocol {
     
     private func process(image: UIImage) async throws {
         let newImage = try CVWrapper.process(withImages: image)
-        self.viewController?.uploadImage(image: newImage)
+        let _newImage = UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+        self.viewController?.uploadImage(image: _newImage)
     }
     
     private func process(video: String) async throws {

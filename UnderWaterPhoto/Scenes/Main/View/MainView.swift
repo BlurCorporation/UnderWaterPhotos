@@ -129,13 +129,7 @@ private extension MainView {
                     .clipShape(.rect(cornerRadius: 24))
                     .shadow(radius: 5)
                     .onTapGesture {
-                        print()
                         routeProcessScreen(item)
-//                        if item.url == nil {
-//                            routeProcessScreen(.image, item.image, nil)
-//                        } else {
-//                            routeProcessScreen(.video, item.image, item.url)
-//                        }
                     }
             }
         }
@@ -201,8 +195,3 @@ final class MainViewController: UIViewController {
 #Preview {
     MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_ in }, routeSubscriptionScreen: {})
 }
-
-
-//#Preview {
-//    MainView( languageSettingVC: {}, routeProcessScreen: {})
-//}

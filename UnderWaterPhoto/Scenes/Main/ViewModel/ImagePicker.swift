@@ -24,9 +24,10 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let uiImage = info[.originalImage] as? UIImage {
                 let content = ContentModel(id: UUID(), image: uiImage)
                 parent.image = content
+                self.parent.presentationMode.wrappedValue.dismiss()
             }
             
-            if let videourl = info[.mediaURL] as? URL{
+            if let videourl = info[.mediaURL] as? URL {
                 let avAsset = AVURLAsset(url: videourl, options: nil)
                 avAsset.exportVideo(presetName: AVAssetExportPresetHighestQuality,
                                     outputFileType: AVFileType.mp4,
@@ -35,10 +36,34 @@ struct ImagePicker: UIViewControllerRepresentable {
                                                image: UIImage(),
                                                url: String(describing: mp4Url!))
                     self.parent.image = content
+                    
+                    self.parent.presentationMode.wrappedValue.dismiss()
                 }
             }
 
-            parent.presentationMode.wrappedValue.dismiss()
+            
+        }
+        
+        func getVideoOrientationFromAsset(asset: AVAsset) -> UIImage.Orientation {
+            let videoTrack = asset.tracks(withMediaType: .video)[0]
+            let size = videoTrack.naturalSize
+
+            guard let txf = asset.tracks(withMediaType: .video).first?.preferredTransform else {
+                return .up
+            }
+
+            if (size.width == txf.tx && size.height == txf.ty) {
+                return .left
+            }
+            else if (txf.tx == 0 && txf.ty == 0) {
+                return .right
+            }
+            else if (txf.tx == 0 && txf.ty == size.width) {
+                return .down
+            }
+            else {
+                return .up
+            }
         }
 
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

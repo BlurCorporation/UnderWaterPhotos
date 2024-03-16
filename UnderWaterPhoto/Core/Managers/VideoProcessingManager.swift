@@ -188,11 +188,30 @@ class VideoProcessingManager {
             }
         }
     }
+    
+    private func thumbnailForVideoAtURL(url: URL) -> UIImage? {
+
+        let asset = AVAsset(url: url)
+        let assetImageGenerator = AVAssetImageGenerator(asset: asset)
+
+        var time = asset.duration
+        time.value = min(time.value, 2)
+
+        do {
+            let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
+            return UIImage(cgImage: imageRef)
+        } catch {
+            print("error")
+            return nil
+        }
+    }
 }
 
 extension VideoProcessingManager: VideoProcessingManagerProtocol {
     func process(_ video: String, completion: @escaping (Result<ContentModel, Error>) -> ()) {
         do {
+            guard let previewImage = self.thumbnailForVideoAtURL(url: URL(string: "file://\(video)")!) else { return }
+            print(previewImage.imageOrientation.rawValue)
             let processedVideo = try CVWrapper.process(withVideos: video)
             extractAudio(videoURL: URL(string: "file://\(video)")!, completion: { audiourl in
                 // создаём временную директорию, потом удаляем в репозитории
@@ -208,9 +227,18 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
                 
                 let frameDuration = CMTime(value: 1, timescale: CMTimeScale(processedVideo.frames))
                 
-                let uiimageArray: [UIImage] = processedVideo.images.compactMap { $0 as? UIImage }
+                guard let previewImage = self.thumbnailForVideoAtURL(url: URL(string: "file://\(video)")!) else { return }
+                
+                let uiimageArray: [UIImage] = processedVideo.images.compactMap { image in
+                    let _image = image as! UIImage
+                    let newImage = UIImage(cgImage: _image.cgImage!, scale: _image.scale, orientation: .down/*previewImage.imageOrientation*/)
+                    return newImage
+                }
+                
+//                let uiimageArray: [UIImage] = processedVideo.images.compactMap { $0 as? UIImage }
+                
                 var contentModel = ContentModel(id: videoUUID, image: uiimageArray.first ?? UIImage())
-                self.createVideo(from: uiimageArray, outputURL: outputURL, frameDuration: frameDuration) { /*[weak self]*/ success in
+                self.createVideo(from: uiimageArray, outputURL: outputURL, frameDuration: frameDuration) { success in
                     if success {
                         print("Видео успешно создано")
                         self.mergeVideoWithAudio(videoUrl: outputURL, audioUrl: audiourl, success: { url in
