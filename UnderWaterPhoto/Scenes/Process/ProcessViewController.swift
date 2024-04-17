@@ -94,14 +94,12 @@ final class ProcessViewController: UIViewController {
         return imageView
     }()
     
-    private let playerView: VideoPlayerView = {
-        let player = VideoPlayerView()
-        //        player.player = AVPlayer(url: URL(string: "file:///var/mobile/Containers/Data/Application/B0BCB60C-C6C2-4F71-A362-A3195EDE266A/Library/Caches/ContentFolder/outputVideo22.mp4")!)
-        //        player.player?.play()
-        player.playerLayer.cornerRadius = 40
-        player.playerLayer.videoGravity = .resizeAspect
-        player.playerLayer.masksToBounds = true
-        player.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
+    private let playerView: VideoLooperView = {
+        let player = VideoLooperView()
+        player.videoPlayerView.playerLayer.cornerRadius = 40
+        player.videoPlayerView.playerLayer.videoGravity = .resizeAspect
+        player.videoPlayerView.playerLayer.masksToBounds = true
+        player.videoPlayerView.backgroundColor = UIColor(red: 255/255, green: 255/250, blue: 255/251, alpha: 0.08)
         return player
     }()
     
@@ -201,11 +199,14 @@ final class ProcessViewController: UIViewController {
             mainImageView.image = defaultImage
         }
         
-        if let url = URL(string: defaultVideoURL ?? "") {
-            playerView.player = AVPlayer(url: url)
-            playerView.player?.play()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            if let url = URL(string: self.defaultVideoURL ?? "") {
+                self.playerView.addVideo(video: url)
+                self.playerView.play()
+            }
         }
-        
+            
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
         
@@ -218,6 +219,14 @@ final class ProcessViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.playerView.pause()
+        }
     }
     
     // MARK: Action
@@ -302,12 +311,16 @@ extension ProcessViewController: ProcessViewControllerProtocol {
     }
     
     func changeVideo(url: URL) {
-        playerView.player = AVPlayer(url: url)
-        playerView.player?.play()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.playerView.addVideo(video: url)
+            self.playerView.play()
+        }
     }
     
     func uploadImage(image: UIImage) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.processedImage = image
             self.processedImageView.image = image
         }
