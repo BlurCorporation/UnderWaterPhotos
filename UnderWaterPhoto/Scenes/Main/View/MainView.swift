@@ -121,16 +121,20 @@ private extension MainView {
     
     
     var scrollContentView: some View {
-        LazyVGrid(columns: [GridItem(), GridItem()]) {
-            ForEach(vm.images) { item in
-                Image(uiImage: item.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(.rect(cornerRadius: 24))
-                    .shadow(radius: 5)
-                    .onTapGesture {
-                        routeProcessScreen(item)
-                    }
+        GeometryReader { geometry in
+            LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
+                ForEach(vm.images) { item in
+                    Image(uiImage: item.image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: geometry.size.width / 2 - 8, height: 210, alignment: .center)
+                        .clipped()
+                        .clipShape(.rect(cornerRadius: 24))
+                        .shadow(radius: 5)
+                        .onTapGesture {
+                            routeProcessScreen(item)
+                        }
+                }
             }
         }
     }
