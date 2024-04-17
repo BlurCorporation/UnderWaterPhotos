@@ -42,6 +42,7 @@
 		1B6A987A2AEFFB9D000C12A0 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A98792AEFFB9D000C12A0 /* SettingsModel.swift */; };
 		1B6FD6A72AB8B23B005F97B5 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */; };
 		1B6FD6A92AB8B244005F97B5 /* ExamplePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */; };
+		1B9763822BD039FB001BEB10 /* VideoLooperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9763812BD039FB001BEB10 /* VideoLooperView.swift */; };
 		1BA7ED9A2AEA8914004CC70A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7ED992AEA8914004CC70A /* HeaderView.swift */; };
 		1BAB87F92B2B7B7700841A93 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87F72B2B7B7700841A93 /* LocalFileManager.swift */; };
 		1BAB87FA2B2B7B7700841A93 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87F82B2B7B7700841A93 /* CoreDataManager.swift */; };
@@ -143,6 +144,7 @@
 		1B6A98792AEFFB9D000C12A0 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		1B6FD6A62AB8B23B005F97B5 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		1B6FD6A82AB8B244005F97B5 /* ExamplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePresenter.swift; sourceTree = "<group>"; };
+		1B9763812BD039FB001BEB10 /* VideoLooperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoLooperView.swift; sourceTree = "<group>"; };
 		1BA7ED992AEA8914004CC70A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		1BAB87F72B2B7B7700841A93 /* LocalFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		1BAB87F82B2B7B7700841A93 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 		1BADC96C2AA4DDD6002C34A5 /* Process */ = {
 			isa = PBXGroup;
 			children = (
+				1B9763812BD039FB001BEB10 /* VideoLooperView.swift */,
 				1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */,
 				1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */,
 				1B2613D72B69564B006EDD31 /* ProcessViewController.swift */,
@@ -620,6 +623,7 @@
 				1B0B51782B1E5DBC0037C534 /* BSPresentationController.swift in Sources */,
 				FB3566692B38852B000F9B53 /* ImagePicker.swift in Sources */,
 				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
+				1B9763822BD039FB001BEB10 /* VideoLooperView.swift in Sources */,
 				1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */,
 				1B2613D82B69564B006EDD31 /* ProcessPresenter.swift in Sources */,
 				1BAB87FF2B2B7B8F00841A93 /* ProcessedFiles.xcdatamodeld in Sources */,

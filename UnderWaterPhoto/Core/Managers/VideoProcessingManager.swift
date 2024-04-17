@@ -235,7 +235,6 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
                     return newImage
                 }
                 
-//                let uiimageArray: [UIImage] = processedVideo.images.compactMap { $0 as? UIImage }
                 
                 var contentModel = ContentModel(id: videoUUID, image: uiimageArray.first ?? UIImage())
                 self.createVideo(from: uiimageArray, outputURL: outputURL, frameDuration: frameDuration) { success in
@@ -247,7 +246,6 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
                         }, failure: { error in
                             completion(.failure(error ?? CustomError(title: "123", description: "123", code: 2134124324523)))
                         })
-                        print("aaaa")
                     } else {
                         print("Произошла ошибка при создании видео")
                     }
