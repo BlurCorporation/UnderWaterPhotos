@@ -32,7 +32,7 @@ struct SettingsView: View {
                     .listRowBackground(Color("blue"))
             }
             .environment(\.defaultMinListRowHeight, 44)
-            .frame(height: 220)
+            .frame(height: 176)
             .listStyle(.plain)
         }
     }

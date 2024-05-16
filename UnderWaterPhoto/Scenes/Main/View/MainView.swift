@@ -36,7 +36,7 @@ struct MainView: View {
                 case .settings:
                     SettingsView(routeLanguageScreen: languageSettingVC,
                                  routeSubscriptionScreen: routeSubscriptionScreen)
-                        .frame(height: 220)
+                        .frame(height: 176)
                         .padding([.top], -32)
                 case .main:
                     scrollContentView
