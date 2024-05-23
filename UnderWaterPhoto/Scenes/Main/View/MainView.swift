@@ -77,6 +77,7 @@ struct MainView: View {
                }
            }
            .onAppear {
+               vm.fetch()
                switch vm.state {
                case .main, .clear:
                    progress = 0
