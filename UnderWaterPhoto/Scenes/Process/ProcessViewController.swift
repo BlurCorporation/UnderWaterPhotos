@@ -23,6 +23,8 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func presentBottomSheet(processContentType: ProcessContentType,
                             videoURL: String?,
                             previewImage: UIImage?)
+    func startIndicator()
+    func stopIndicator()
 }
 
 // MARK: - ProcessViewController
@@ -64,7 +66,13 @@ final class ProcessViewController: UIViewController {
         return label
     }()
     
-    private lazy var saveButton: UIButton = {
+    private lazy var shareBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonPressed))
+        item.tintColor = UIColor(named: "white")
+        return item
+    }()
+    
+    private lazy var saveBarButtonItem: UIBarButtonItem = {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "arrow.down.to.line")
         button.setImage(image, for: .normal)
@@ -72,7 +80,8 @@ final class ProcessViewController: UIViewController {
         button.addTarget(self,
                          action: #selector(presentVCAsBottomSheet),
                          for: .touchUpInside)
-        return button
+        let item = UIBarButtonItem(customView: button)
+        return item
     }()
     
     private let headerView: UIView = {
@@ -188,6 +197,12 @@ final class ProcessViewController: UIViewController {
         return button
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator =  UIActivityIndicatorView(style: .large)
+        activityIndicator.color = .white
+        return activityIndicator
+    }()
+    
     // MARK: LifeCycle
     
     override func viewDidLoad() {
@@ -286,6 +301,36 @@ final class ProcessViewController: UIViewController {
 // MARK: - ProcessViewControllerProtocol Imp
 
 extension ProcessViewController: ProcessViewControllerProtocol {
+    func startIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.saveBarButtonItem.isEnabled = false
+            self.shareBarButtonItem.isEnabled = false
+            self.processPhotoButton.isEnabled = false
+            self.filterButton.isEnabled = false
+            self.hideLogoButton.isEnabled = false
+            self.bottomSheetBackButton.isEnabled = false
+            self.bottomSheetSaveButton.isEnabled = false
+            self.slider.isEnabled = false
+            self.activityIndicator.startAnimating()
+        }
+    }
+    
+    func stopIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.saveBarButtonItem.isEnabled = true
+            self.shareBarButtonItem.isEnabled = true
+            self.processPhotoButton.isEnabled = true
+            self.filterButton.isEnabled = true
+            self.hideLogoButton.isEnabled = true
+            self.bottomSheetBackButton.isEnabled = true
+            self.bottomSheetSaveButton.isEnabled = true
+            self.slider.isEnabled = true
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
     func presentBottomSheet(processContentType: ProcessContentType,
                             videoURL: String?,
                             previewImage: UIImage?) {
@@ -331,9 +376,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
         processPhotoButton.setTitle(L10n.ProcessViewController.ChangeToProcess.ProcessPhotoButton.title, for: .normal)
         hideLogoButton.isHidden = false
         filterButton.isHidden = false
-        let shareBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonPressed))
-        shareBarButtonItem.tintColor = UIColor(named: "white")
-        let saveBarButtonItem = UIBarButtonItem(customView: saveButton)
+        
         
         navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
     }
@@ -409,7 +452,9 @@ extension ProcessViewController {
                          hideLogoButton,
                          filterButton,
                          processPhotoButton,
-                         processBottomSheetView)
+                         processBottomSheetView,
+                         activityIndicator
+        )
         
         processBottomSheetView.addSubviews(slider,
                                            bottomSheetBackButton,
@@ -466,7 +511,10 @@ extension ProcessViewController {
             slider.bottomAnchor.constraint(equalTo: processBottomSheetView.bottomAnchor, constant: -55),
             slider.topAnchor.constraint(equalTo: processBottomSheetView.topAnchor, constant: 84),
             slider.trailingAnchor.constraint(equalTo: processBottomSheetView.trailingAnchor, constant: -16),
-            slider.leadingAnchor.constraint(equalTo: processBottomSheetView.leadingAnchor, constant: 16)
+            slider.leadingAnchor.constraint(equalTo: processBottomSheetView.leadingAnchor, constant: 16),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor)
         ])
         
         topConstraint = processBottomSheetView.topAnchor.constraint(equalTo: view.bottomAnchor)

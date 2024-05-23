@@ -26,7 +26,7 @@ struct MainView: View {
                 ZStack {
                     HeaderView(vm: vm,
                                progress: progress,
-                               userName: vm.userName, 
+                               userName: vm.userName,
                                routeProcessScreen: routeProcessScreen)
                     mainHeaderTextView
                         .padding([.leading, .trailing], 16)
@@ -36,8 +36,8 @@ struct MainView: View {
                 case .settings:
                     SettingsView(routeLanguageScreen: languageSettingVC,
                                  routeSubscriptionScreen: routeSubscriptionScreen)
-                        .frame(height: 176)
-                        .padding([.top], -32)
+                    .frame(height: 176)
+                    .padding([.top], -32)
                 case .main:
                     scrollContentView
                         .padding()
@@ -61,11 +61,11 @@ struct MainView: View {
                     }
                 case .settings:
                     print(".setting")
-                        isLoading = false
+                    isLoading = false
                 }
                 
             }
-                           .background(Color("blue"))
+           .background(Color("blue"))
            .ignoresSafeArea()
            .onChange(of: vm.state) { newValue in
                if newValue == .settings {

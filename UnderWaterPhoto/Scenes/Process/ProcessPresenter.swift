@@ -105,21 +105,26 @@ extension ProcessPresenter: ProcessPresenterProtocol {
     }
     
     private func process(image: UIImage) async throws {
+        viewController?.startIndicator()
         let newImage = try CVWrapper.process(withImages: image)
         let _newImage = UIImage(cgImage: newImage.cgImage!, scale: image.scale, orientation: image.imageOrientation)
-        self.viewController?.uploadImage(image: _newImage)
+        viewController?.uploadImage(image: _newImage)
+        viewController?.stopIndicator()
     }
     
     private func process(video: String) async throws {
+        viewController?.startIndicator()
         videoProcessingManager.process(video) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let success):
-                self?.previewImage = success.image
-                self?.viewController?.changeVideo(url: URL(string: success.url!)!)
-                self?.videoURL = success.url
+                self.previewImage = success.image
+                self.viewController?.changeVideo(url: URL(string: success.url!)!)
+                self.videoURL = success.url
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
+            self.viewController?.stopIndicator()
         }
     }
 }
