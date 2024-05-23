@@ -124,15 +124,9 @@ final class ProcessViewController: UIViewController {
     
     private lazy var hideLogoButton: UIButton = {
         let button = UIButton(type: .system)
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .small)
-        var buttonConfig = UIButton.Configuration.plain()
-        buttonConfig.image = UIImage(systemName: "xmark", withConfiguration: imageConfig)
-        buttonConfig.imagePadding = 8
-        button.configuration = buttonConfig
         button.setTitle(L10n.ProcessViewController.HideLogoButton.Button.title, for: .normal)
         button.tintColor = UIColor(named: "white")
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.layer.cornerRadius = 20
         return button
     }()
     
@@ -392,26 +386,10 @@ extension ProcessViewController: ProcessViewControllerProtocol {
     }
     
     func shareVideo(_ video: URL) {
-//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-//        let docDirectory = paths[0]
-//        let filePath = defaultVideoURL//"\(docDirectory)/tmpVideo.mov"
-//        urlData.write(toFile: filePath ?? "", atomically: true)
-        // File Saved
-        
-        
-        print(video)
-
-//        let videoLink = URL(string: filePath ?? "")
-
-
-        let objectsToShare = [video] //comment!, imageData!, myWebsite!]
+        let objectsToShare = [video]
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-
         activityVC.setValue("Video", forKey: "subject")
-        
         activityVC.popoverPresentationController?.sourceView = self.view
-//        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.copyToPasteboard, UIActivity.ActivityType.mail, UIActivity.ActivityType.message, UIActivity.ActivityType.openInIBooks, UIActivity.ActivityType.postToTencentWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.print]
-
                    
         self.present(activityVC, animated: true, completion: nil)
     }
@@ -484,7 +462,7 @@ extension ProcessViewController {
             processedImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor),
             
             hideLogoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            hideLogoButton.widthAnchor.constraint(equalToConstant: 183),
+            hideLogoButton.widthAnchor.constraint(equalToConstant: hideLogoButton.intrinsicContentSize.width + 36),
             hideLogoButton.bottomAnchor.constraint(equalTo: processPhotoButton.topAnchor, constant: -28),
             hideLogoButton.heightAnchor.constraint(equalToConstant: 50),
             
