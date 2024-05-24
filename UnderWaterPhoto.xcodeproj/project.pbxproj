@@ -54,6 +54,7 @@
 		1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */; };
 		1BADC96A2AA4DD13002C34A5 /* SceneBuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */; };
 		1BBDC5CF2B18EEB1004C80CE /* ModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBDC5CE2B18EEB1004C80CE /* ModelSubscription.swift */; };
+		1BC063772BFF7BE7006D4DE6 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC063762BFF7BE7006D4DE6 /* UserDefaultManager.swift */; };
 		1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */; };
 		1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */; };
 		1BDACE892B2495C500CE8C73 /* ImageMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */; };
@@ -157,6 +158,7 @@
 		1BADC9612AA4D896002C34A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BADC9692AA4DD13002C34A5 /* SceneBuildManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneBuildManager.swift; sourceTree = "<group>"; };
 		1BBDC5CE2B18EEB1004C80CE /* ModelSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSubscription.swift; sourceTree = "<group>"; };
+		1BC063762BFF7BE7006D4DE6 /* UserDefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSettingView.swift; sourceTree = "<group>"; };
 		1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingViewModel.swift; sourceTree = "<group>"; };
 		1BD9766E2B079A1300AF1B40 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -409,6 +411,7 @@
 		1BADC9682AA4DCF6002C34A5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				1BC063762BFF7BE7006D4DE6 /* UserDefaultManager.swift */,
 				1BAB87F82B2B7B7700841A93 /* CoreDataManager.swift */,
 				1BAB87F72B2B7B7700841A93 /* LocalFileManager.swift */,
 				1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */,
@@ -436,8 +439,8 @@
 			children = (
 				1B9763812BD039FB001BEB10 /* VideoLooperView.swift */,
 				1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */,
-				1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */,
 				1B2613D72B69564B006EDD31 /* ProcessViewController.swift */,
+				1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */,
 				1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */,
 				1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */,
 			);
@@ -674,6 +677,7 @@
 				1B0B51752B1E5DBC0037C534 /* BSTransitioningDelegate.swift in Sources */,
 				3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */,
 				1B27EAF42AA8AC9700DD4E30 /* UIView.swift in Sources */,
+				1BC063772BFF7BE7006D4DE6 /* UserDefaultManager.swift in Sources */,
 				FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */,
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,
 				1BAB87F92B2B7B7700841A93 /* LocalFileManager.swift in Sources */,

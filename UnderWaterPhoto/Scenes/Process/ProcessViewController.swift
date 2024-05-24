@@ -25,6 +25,8 @@ protocol ProcessViewControllerProtocol: UIViewController {
                             previewImage: UIImage?)
     func startIndicator()
     func stopIndicator()
+    func showWatermark()
+    func hideWatermark()
 }
 
 // MARK: - ProcessViewController
@@ -33,13 +35,14 @@ final class ProcessViewController: UIViewController {
     
     var presenter: ProcessPresenterProtocol?
     var imageMergeManager: ImageMergeManager?
-    var repository: Repository?
+//    var repository: Repository?
     var defaultImage: UIImage?
     var defaultVideoURL: String?
     private var processedImage: UIImage?
     private var processedImageAlpha: Float = 0.8
     private var previousImageAlpha: Float = 0.8
-    private let customTransitioningDelegate = BSTransitioningDelegate()
+//    private let customTransitioningDelegate = BSTransitioningDelegate()
+    private var isWatermark: Bool = true
     
     // MARK: PrivateProperties
     
@@ -127,6 +130,7 @@ final class ProcessViewController: UIViewController {
         button.setTitle(L10n.ProcessViewController.HideLogoButton.Button.title, for: .normal)
         button.tintColor = UIColor(named: "white")
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.addTarget(self, action: #selector(hideLogoButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -197,6 +201,12 @@ final class ProcessViewController: UIViewController {
         return activityIndicator
     }()
     
+    private let watermarkImageView: UIImageView = {
+        let image = UIImage(named: "watermark")
+        let imageView = UIImageView(image: image)
+        return imageView
+    }()
+    
     // MARK: LifeCycle
     
     override func viewDidLoad() {
@@ -218,6 +228,7 @@ final class ProcessViewController: UIViewController {
             
         hideLogoButton.isHidden = true
         filterButton.isHidden = true
+        watermarkImageView.isHidden = true
         
         presenter?.viewDidLoad()
     }
@@ -290,6 +301,12 @@ final class ProcessViewController: UIViewController {
     func presentVCAsBottomSheet() {
         presenter?.showBottomSheetButtonPressed()
     }
+    
+    @objc
+    func hideLogoButtonAction() {
+        self.watermarkImageView.isHidden = isWatermark
+        isWatermark.toggle()
+    }
 }
 
 // MARK: - ProcessViewControllerProtocol Imp
@@ -328,17 +345,13 @@ extension ProcessViewController: ProcessViewControllerProtocol {
     func presentBottomSheet(processContentType: ProcessContentType,
                             videoURL: String?,
                             previewImage: UIImage?) {
-        let vc = BottomSheetSaveViewController(processContentType: processContentType)
-        vc.transitioningDelegate = customTransitioningDelegate
-        vc.modalPresentationStyle = .custom
-        if processContentType == .image {
-            vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
-        }
-        vc.addVideo(url: videoURL, previewImage: previewImage)
-        vc.imageMergeManager = imageMergeManager
-        vc.repository = repository
-        
-        present(vc, animated: true)
+        self.presenter?.showSaveBottomSheet(
+            processContentType: processContentType,
+            videoURL: videoURL,
+            previewImage: previewImage,
+            defaultImage: defaultImage,
+            processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha))
+        )
     }
     
     func setupImageProcessing() {
@@ -368,7 +381,6 @@ extension ProcessViewController: ProcessViewControllerProtocol {
     func changeToProcess() {
         titleLabel.text = L10n.ProcessViewController.ChangeToProcess.TitleLabel.text
         processPhotoButton.setTitle(L10n.ProcessViewController.ChangeToProcess.ProcessPhotoButton.title, for: .normal)
-        hideLogoButton.isHidden = false
         filterButton.isHidden = false
         
         
@@ -398,6 +410,22 @@ extension ProcessViewController: ProcessViewControllerProtocol {
         UIView.animate(withDuration: 0.5) {
             self.topConstraint.constant = -167
             self.view.layoutIfNeeded()
+        }
+    }
+    
+    func showWatermark() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.hideLogoButton.isHidden = false
+            self.watermarkImageView.isHidden = false
+        }
+    }
+    
+    func hideWatermark() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.hideLogoButton.isHidden = true
+            self.watermarkImageView.isHidden = true
         }
     }
 }
@@ -431,7 +459,8 @@ extension ProcessViewController {
                          filterButton,
                          processPhotoButton,
                          processBottomSheetView,
-                         activityIndicator
+                         activityIndicator,
+                         watermarkImageView
         )
         
         processBottomSheetView.addSubviews(slider,
@@ -492,7 +521,10 @@ extension ProcessViewController {
             slider.leadingAnchor.constraint(equalTo: processBottomSheetView.leadingAnchor, constant: 16),
             
             activityIndicator.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor),
+            
+            watermarkImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: -16),
+            watermarkImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor, constant: 16)
         ])
         
         topConstraint = processBottomSheetView.topAnchor.constraint(equalTo: view.bottomAnchor)

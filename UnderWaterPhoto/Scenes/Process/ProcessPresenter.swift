@@ -24,28 +24,42 @@ protocol ProcessPresenterProtocol: AnyObject {
     func backButtonPressed()
     func shareButtonPressed()
     func showBottomSheetButtonPressed()
+    func showSaveBottomSheet(processContentType: ProcessContentType,
+                             videoURL: String?,
+                             previewImage: UIImage?,
+                             defaultImage: UIImage?,
+                             processedImage: UIImage?)
 }
 
 class ProcessPresenter {
     weak var viewController: ProcessViewControllerProtocol?
     
-    //MARK: - PrivateProperties
+    // MARK: - Dependencies
     
     private let sceneBuildManager: Buildable
     private let videoProcessingManager: VideoProcessingManagerProtocol
+    private let userDefaultsManager: DefaultsManagerable
+    
+    //MARK: - PrivateProperties
+    
     private var processButtonType: ProcessButtonType = .change
     private var processContentType: ProcessContentType
     private var previewImage: UIImage?
     private var videoURL: String?
     private var wasProcessed: Bool = false
+    private let isUserPremium: Bool
     //MARK: - Initialize
     
     init(sceneBuildManager: Buildable,
          processContentType: ProcessContentType,
-         videoProcessingManager: VideoProcessingManagerProtocol) {
+         videoProcessingManager: VideoProcessingManagerProtocol,
+         userDefaultsManager: DefaultsManagerable,
+         isUserPremium: Bool) {
         self.sceneBuildManager = sceneBuildManager
         self.processContentType = processContentType
         self.videoProcessingManager = videoProcessingManager
+        self.userDefaultsManager = userDefaultsManager
+        self.isUserPremium = isUserPremium
     }
 }
 
@@ -88,6 +102,9 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         case .change:
             processButtonType = .process
             viewController?.changeToProcess()
+            if !isUserPremium {
+                viewController?.showWatermark()
+            }
         case .process:
             viewController?.showBottomSaveSheet()
             if !wasProcessed {
@@ -102,6 +119,16 @@ extension ProcessPresenter: ProcessPresenterProtocol {
                 }
             }
         }
+    }
+    
+    func showSaveBottomSheet(processContentType: ProcessContentType,
+                             videoURL: String?,
+                             previewImage: UIImage?,
+                             defaultImage: UIImage?,
+                             processedImage: UIImage?) {
+        let viewController = sceneBuildManager.buildSaveBottomSheetViewController(processContentType: processContentType, videoURL: videoURL, previewImage: previewImage, defaultImage: defaultImage, processedImage: processedImage)
+        
+        self.viewController?.present(viewController, animated: true)
     }
     
     private func process(image: UIImage) async throws {

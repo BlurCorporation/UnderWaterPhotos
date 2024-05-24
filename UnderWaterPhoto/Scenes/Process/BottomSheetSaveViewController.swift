@@ -9,7 +9,8 @@ final class BottomSheetSaveViewController: UIViewController {
     private var previewImage: UIImage?
     private var processContentType: ProcessContentType
     var imageMergeManager: ImageMergeManager?
-    var repository: Repository?
+    private var repository: Repository
+    private let userDefaultsManager: DefaultsManagerable
     
     private let saveInAppLabel: UILabel = {
         let label = UILabel()
@@ -59,8 +60,19 @@ final class BottomSheetSaveViewController: UIViewController {
         return uiswitch
     }()
     
-    init(processContentType: ProcessContentType) {
+    private let imageView: UIImageView = {
+        let image = UIImageView(image: UIImage(systemName: "xmark"))
+        return image
+    }()
+    
+    init(
+        processContentType: ProcessContentType,
+        userDefaultsManager: DefaultsManagerable,
+        repository: Repository
+    ) {
         self.processContentType = processContentType
+        self.userDefaultsManager = userDefaultsManager
+        self.repository = repository
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -80,7 +92,10 @@ final class BottomSheetSaveViewController: UIViewController {
                          saveInAppLabel,
                          saveOnPhoneLabel,
                          onPhoneSwitch,
-                         inAppSwitch)
+                         inAppSwitch
+                         //,
+//                         imageView
+        )
         NSLayoutConstraint.activate([
             bottomSheetBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             bottomSheetBackButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 27),
@@ -100,6 +115,13 @@ final class BottomSheetSaveViewController: UIViewController {
             
             onPhoneSwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             onPhoneSwitch.centerYAnchor.constraint(equalTo: saveOnPhoneLabel.centerYAnchor),
+            
+//            imageView.topAnchor.constraint(equalTo: inAppSwitch.bottomAnchor, constant: 10),
+//            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+//            imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            imageView.heightAnchor.constraint(equalToConstant: 100)
+            
         ])
     }
     
@@ -121,27 +143,40 @@ final class BottomSheetSaveViewController: UIViewController {
         if inAppSwitch.isOn {
             switch processContentType {
             case .image:
-                guard let image = image else { return }
+                guard var image = image else { return }
                 if let processedImage = processedImage {
-                    guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
-                    repository?.addContent(uiimage: finalImage)
+                    guard var finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
+                    if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+                        finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
+                    }
+//                    imageView.image = finalImage
+                    repository.addContent(uiimage: finalImage)
                 } else {
-                    repository?.addContent(uiimage: image)
+                    if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+                        image = imageMergeManager?.mergeWatermark(image: image) ?? UIImage()
+                    }
+                    repository.addContent(uiimage: image)
                 }
             case .video:
                 guard let image = previewImage, let url = videoURL else { return }
-                repository?.addContent(uiimage: image, url: url)
+                repository.addContent(uiimage: image, url: url)
             }
         }
         
         if onPhoneSwitch.isOn {
             switch processContentType {
             case .image:
-                guard let image = image else { return }
+                guard var image = image else { return }
                 if let processedImage = processedImage {
-                    guard let finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
+                    guard var finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
+                    if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+                        finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
+                    }
                     UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
                 } else {
+                    if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+                        image = imageMergeManager?.mergeWatermark(image: image) ?? UIImage()
+                    }
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
                 }
             case .video:
