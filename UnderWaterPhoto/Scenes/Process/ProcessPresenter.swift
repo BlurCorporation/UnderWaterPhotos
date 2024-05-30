@@ -28,7 +28,9 @@ protocol ProcessPresenterProtocol: AnyObject {
                              videoURL: String?,
                              previewImage: UIImage?,
                              defaultImage: UIImage?,
-                             processedImage: UIImage?)
+                             processedImage: UIImage?,
+                             processedImageAlpha: Float
+    )
 }
 
 class ProcessPresenter {
@@ -114,7 +116,10 @@ extension ProcessPresenter: ProcessPresenterProtocol {
                     case .image:
                         try await process(image: image)
                     case .video:
-                        try await process(video: String(url.dropFirst(7)))
+                            try await process(
+                                video: String(url.dropFirst(7)),
+                                isWatermark: !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false)
+                            )
                     }
                 }
             }
@@ -125,8 +130,16 @@ extension ProcessPresenter: ProcessPresenterProtocol {
                              videoURL: String?,
                              previewImage: UIImage?,
                              defaultImage: UIImage?,
-                             processedImage: UIImage?) {
-        let viewController = sceneBuildManager.buildSaveBottomSheetViewController(processContentType: processContentType, videoURL: videoURL, previewImage: previewImage, defaultImage: defaultImage, processedImage: processedImage)
+                             processedImage: UIImage?,
+                             processedImageAlpha: Float) {
+        let viewController = sceneBuildManager.buildSaveBottomSheetViewController(
+            processContentType: processContentType,
+            videoURL: videoURL,
+            previewImage: previewImage,
+            defaultImage: defaultImage,
+            processedImage: processedImage,
+            processedImageAlpha: processedImageAlpha
+        )
         
         self.viewController?.present(viewController, animated: true)
     }
@@ -139,9 +152,9 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         viewController?.stopIndicator()
     }
     
-    private func process(video: String) async throws {
+    private func process(video: String, isWatermark: Bool) async throws {
         viewController?.startIndicator()
-        videoProcessingManager.process(video) { [weak self] result in
+        videoProcessingManager.process(video, isWatermark: isWatermark) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let success):

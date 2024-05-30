@@ -17,7 +17,8 @@ protocol Buildable {
                                             videoURL: String?,
                                             previewImage: UIImage?,
                                             defaultImage: UIImage?,
-                                            processedImage: UIImage?) -> BottomSheetSaveViewController
+                                            processedImage: UIImage?,
+                                            processedImageAlpha: Float) -> BottomSheetSaveViewController
 }
 
 final class SceneBuildManager {
@@ -47,7 +48,7 @@ extension SceneBuildManager: Buildable {
     func buildProcessViewController(image: UIImage?,
                                     url: String?,
                                     processContenType: ProcessContentType) -> ProcessViewController {
-        let videoProcessingManager = VideoProcessingManager()
+        let videoProcessingManager = VideoProcessingManager(imageMergeManager: imageMergeManager)
         let viewController = ProcessViewController()
         let isUserPremium = userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false
         let presenter = ProcessPresenter(sceneBuildManager: self,
@@ -59,7 +60,6 @@ extension SceneBuildManager: Buildable {
         viewController.defaultVideoURL = url
         viewController.defaultImage = image
         viewController.imageMergeManager = imageMergeManager
-//        viewController.repository = repository
         viewController.presenter = presenter
         presenter.viewController = viewController
         
@@ -83,7 +83,8 @@ extension SceneBuildManager: Buildable {
                                             videoURL: String?,
                                             previewImage: UIImage?,
                                             defaultImage: UIImage?,
-                                            processedImage: UIImage?) -> BottomSheetSaveViewController {
+                                            processedImage: UIImage?,
+                                            processedImageAlpha: Float) -> BottomSheetSaveViewController {
         let vc = BottomSheetSaveViewController(
             processContentType: processContentType,
             userDefaultsManager: userDefaultsManager,
@@ -93,7 +94,7 @@ extension SceneBuildManager: Buildable {
         vc.modalPresentationStyle = .custom
         
         if processContentType == .image {
-            vc.addImage(image: defaultImage, processedImage: processedImage)
+            vc.addImage(image: defaultImage, processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha)))
         }
         vc.addVideo(url: videoURL, previewImage: previewImage)
         vc.imageMergeManager = imageMergeManager

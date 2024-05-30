@@ -9,11 +9,24 @@ import Foundation
 import AVFoundation
 
 protocol VideoProcessingManagerProtocol {
-    func process(_ video: String, completion: @escaping (Result<ContentModel, Error>) -> ())
+    func process(_ video: String, isWatermark: Bool, completion: @escaping (Result<ContentModel, Error>) -> ())
 }
 
 class VideoProcessingManager {
-    func extractAudio(videoURL: URL, completion: @escaping (URL) -> ()) {
+    
+    // MARK: - Dependencies
+    
+    private let imageMergeManager: ImageMergeManager
+    
+    // MARK: - Lifecycle
+    
+    init(imageMergeManager: ImageMergeManager) {
+        self.imageMergeManager = imageMergeManager
+    }
+    
+    // MARK: - Private methods
+    
+    private func extractAudio(videoURL: URL, completion: @escaping (URL) -> ()) {
         // Create a composition
         let composition = AVMutableComposition()
         do {
@@ -49,7 +62,7 @@ class VideoProcessingManager {
         }
     }
     
-    func createVideo(from images: [UIImage], outputURL: URL, frameDuration: CMTime, completion: @escaping (Bool) -> Void) {
+    private func createVideo(from images: [UIImage], outputURL: URL, frameDuration: CMTime, completion: @escaping (Bool) -> Void) {
         let videoSettings: [String: Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
             AVVideoWidthKey: NSNumber(value: Float(images.first!.size.width)),
@@ -89,7 +102,7 @@ class VideoProcessingManager {
         }
     }
     
-    func pixelBuffer(from image: UIImage) -> CVPixelBuffer? {
+    private func pixelBuffer(from image: UIImage) -> CVPixelBuffer? {
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
         var pixelBuffer: CVPixelBuffer?
         let status = CVPixelBufferCreate(kCFAllocatorDefault,
@@ -123,7 +136,7 @@ class VideoProcessingManager {
         return pixelBuffer
     }
     
-    func mergeVideoWithAudio(videoUrl: URL, audioUrl: URL, success: @escaping ((URL) -> Void), failure: @escaping ((Error?) -> Void)) {
+    private func mergeVideoWithAudio(videoUrl: URL, audioUrl: URL, success: @escaping ((URL) -> Void), failure: @escaping ((Error?) -> Void)) {
         let mixComposition: AVMutableComposition = AVMutableComposition()
         var mutableCompositionVideoTrack: [AVMutableCompositionTrack] = []
         var mutableCompositionAudioTrack: [AVMutableCompositionTrack] = []
@@ -207,13 +220,16 @@ class VideoProcessingManager {
     }
 }
 
+// MARK: - VideoProcessingManagerProtocol
+
 extension VideoProcessingManager: VideoProcessingManagerProtocol {
-    func process(_ video: String, completion: @escaping (Result<ContentModel, Error>) -> ()) {
+    func process(_ video: String, isWatermark: Bool, completion: @escaping (Result<ContentModel, Error>) -> ()) {
         do {
             guard let previewImage = self.thumbnailForVideoAtURL(url: URL(string: "file://\(video)")!) else { return }
             print(previewImage.imageOrientation.rawValue)
             let processedVideo = try CVWrapper.process(withVideos: video)
-            extractAudio(videoURL: URL(string: "file://\(video)")!, completion: { audiourl in
+            extractAudio(videoURL: URL(string: "file://\(video)")!, completion: { [weak self] audiourl in
+                guard let self = self else { return }
                 // создаём временную директорию, потом удаляем в репозитории
                 guard let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
                     return
@@ -230,7 +246,10 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
                 guard let previewImage = self.thumbnailForVideoAtURL(url: URL(string: "file://\(video)")!) else { return }
                 
                 let uiimageArray: [UIImage] = processedVideo.images.compactMap { image in
-                    let _image = image as! UIImage
+                    var _image = image as! UIImage
+                    if isWatermark {
+                        _image = self.imageMergeManager.mergeWatermark(image: _image)
+                    }
                     let newImage = UIImage(cgImage: _image.cgImage!, scale: _image.scale, orientation: .down/*previewImage.imageOrientation*/)
                     return newImage
                 }

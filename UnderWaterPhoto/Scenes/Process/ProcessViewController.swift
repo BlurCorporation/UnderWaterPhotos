@@ -350,7 +350,8 @@ extension ProcessViewController: ProcessViewControllerProtocol {
             videoURL: videoURL,
             previewImage: previewImage,
             defaultImage: defaultImage,
-            processedImage: processedImage?.image(alpha: CGFloat(processedImageAlpha))
+            processedImage: processedImage,//?.image(alpha: CGFloat(processedImageAlpha))
+            processedImageAlpha: processedImageAlpha
         )
     }
     
