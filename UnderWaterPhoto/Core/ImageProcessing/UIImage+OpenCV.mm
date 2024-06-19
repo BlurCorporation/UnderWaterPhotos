@@ -19,6 +19,16 @@
 
 @implementation UIImage (OpenCV)
 
+- (UIImage *)normalizedImage {
+    if (self.imageOrientation == UIImageOrientationUp) return self;
+
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    [self drawInRect:(CGRect){0, 0, self.size}];
+    UIImage *normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return normalizedImage;
+}
+
 -(cv::Mat)CVMat
 {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(self.CGImage);
@@ -74,12 +84,12 @@
     return cvMat;
 }
 
-+ (UIImage *)imageWithCVMat:(const cv::Mat&)cvMat
++ (UIImage *)imageWithCVMat:(const cv::Mat&)cvMat orientation:(UIImageOrientation)orientation
 {
-    return [[UIImage alloc] initWithCVMat:cvMat];
+    return [[UIImage alloc] initWithCVMat:cvMat orientation:orientation];
 }
 
-- (id)initWithCVMat:(const cv::Mat&)cvMat
+- (id)initWithCVMat:(const cv::Mat&)cvMat orientation:(UIImageOrientation)orientation
 {
     NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize() * cvMat.total()];
     CGColorSpaceRef colorSpace;
@@ -91,7 +101,6 @@
     }
     
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
-
         // Creating CGImage from cv::Mat
     CGImageRef imageRef = CGImageCreate(cvMat.cols,                                 //width
                                         cvMat.rows,                                 //height
@@ -107,7 +116,7 @@
                                         );                     
     
         // Getting UIImage from CGImage
-    self = [self initWithCGImage:imageRef];
+    self = [self initWithCGImage:imageRef scale: 1.0 orientation: orientation];
     CGImageRelease(imageRef);
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);

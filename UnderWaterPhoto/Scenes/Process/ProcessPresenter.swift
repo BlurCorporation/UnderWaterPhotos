@@ -147,8 +147,8 @@ extension ProcessPresenter: ProcessPresenterProtocol {
     private func process(image: UIImage) async throws {
         viewController?.startIndicator()
         let newImage = try CVWrapper.process(withImages: image)
-        let _newImage = UIImage(cgImage: newImage.cgImage!, scale: image.scale, orientation: image.imageOrientation)
-        viewController?.uploadImage(image: _newImage)
+//        let _newImage = UIImage(cgImage: newImage.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+        viewController?.uploadImage(image: newImage)
         viewController?.stopIndicator()
     }
     

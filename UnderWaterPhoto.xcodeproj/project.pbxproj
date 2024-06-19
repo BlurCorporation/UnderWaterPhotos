@@ -256,6 +256,7 @@
 		1B27598F2AE123F500237167 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FB3566682B38852B000F9B53 /* ImagePicker.swift */,
 				1B27EB042AAD35B800DD4E30 /* MainView.swift */,
 				1BA7ED992AEA8914004CC70A /* HeaderView.swift */,
 				1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */,
@@ -267,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				1B2759922AE1241800237167 /* MainViewModel.swift */,
-				FB3566682B38852B000F9B53 /* ImagePicker.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

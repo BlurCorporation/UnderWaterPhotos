@@ -33,8 +33,9 @@
 @interface UIImage (OpenCV)
 
     //cv::Mat to UIImage
-+ (UIImage *)imageWithCVMat:(const cv::Mat&)cvMat;
-- (id)initWithCVMat:(const cv::Mat&)cvMat;
+- (UIImage *)normalizedImage;
++ (UIImage *)imageWithCVMat:(const cv::Mat&)cvMat orientation:(UIImageOrientation)orientation;
+- (id)initWithCVMat:(const cv::Mat&)cvMat orientation:(UIImageOrientation)orientation;
 
     //UIImage to cv::Mat
 - (cv::Mat)CVMat;

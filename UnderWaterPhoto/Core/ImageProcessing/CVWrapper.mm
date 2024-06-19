@@ -13,21 +13,49 @@
 #import "include/videoenhancement.h"
 #import <Foundation/Foundation.h>
 #import "FramesOfProcessedVideo.h"
+#import "AVFoundation/AVFoundation.h"
 
 @implementation CVWrapper
 
 + (nullable UIImage*) processWithImages:(UIImage*)image error:(NSError**)error;
 {
-    cv::Mat matImage = [image CVMat3];
+    UIImage* image1 = [image normalizedImage];
+    cv::Mat matImage = [image1 CVMat3];
     matImage = GWA_RGB(matImage);
     matImage = ICM(matImage, 0.5);
-    UIImage* result =  [UIImage imageWithCVMat: matImage];
+    UIImage* result =  [UIImage imageWithCVMat: matImage orientation: UIImageOrientationUp];
     return result;
 }
 
 + (nullable FramesOfProcessedVideo *)processWithVideos:(nonnull NSString *)video error:(NSError *__autoreleasing  _Nullable * _Nullable)error {
+    NSURL *videoURL = [NSURL URLWithString: [NSString stringWithFormat:@"file://%@", video]];
+    NSLog(@"%@", videoURL);
+    AVAsset *videoAsset = [AVAsset assetWithURL:videoURL];
+    
+    AVAssetTrack *videoTrack = [[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+    CGSize size = [videoTrack naturalSize];
+    CGAffineTransform txf = [videoTrack preferredTransform];
+    
+    BOOL shouldRotate = false;
+    
+    UIImageOrientation baseVideoOrientation = UIImageOrientationUp;
+    
+    if (size.width == txf.tx && size.height == txf.ty) {
+        // UIInterfaceOrientationLandscapeRight
+        baseVideoOrientation = UIImageOrientationDown;
+    } else if (txf.tx == 0 && txf.ty == 0) {
+        // UIInterfaceOrientationLandscapeLeft
+        baseVideoOrientation = UIImageOrientationUp;
+    } else if (txf.tx == 0 && txf.ty == size.width) {
+        // UIInterfaceOrientationPortraitUpsideDown
+        baseVideoOrientation = UIImageOrientationLeft;
+    } else {
+        // UIInterfaceOrientationPortrait
+        baseVideoOrientation = UIImageOrientationRight;
+    }
+    
     std::cout << cv::getBuildInformation() << std::endl;
-    NSString *filePath = video;//[[NSBundle mainBundle] pathForResource:@"testVideo3" ofType:@"mov"];
+    NSString *filePath = video; //[[NSBundle mainBundle] pathForResource:@"testVideo3" ofType:@"mov"];
     std::string InputFile = [filePath UTF8String];
     std::cout << InputFile << std::endl;
     std::size_t filename;
@@ -73,7 +101,8 @@
         cap >> image;
         image_out = colorcorrection(image);
         outt << image_out;
-        [images addObject:[UIImage imageWithCVMat:image_out]];
+        UIImage *correctedImage = [UIImage imageWithCVMat:image_out orientation: baseVideoOrientation];
+        [images addObject: [correctedImage normalizedImage]];
     }
     
     NSLog(@"%d", [images count]);

@@ -87,8 +87,10 @@ class VideoProcessingManager {
             for image in images {
                 while !writerInput.isReadyForMoreMediaData { }
                 if let buffer = self.pixelBuffer(from: image) {
-                    let frameTime = CMTime(value: Int64(frameCount),
-                                           timescale: frameDuration.timescale)
+                    let frameTime = CMTime(
+                        value: Int64(frameCount),
+                        timescale: frameDuration.timescale
+                    )
                     adaptor.append(buffer, withPresentationTime: frameTime)
                     frameCount += 1
                 }
@@ -103,14 +105,19 @@ class VideoProcessingManager {
     }
     
     private func pixelBuffer(from image: UIImage) -> CVPixelBuffer? {
-        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+        let attrs = [
+            kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
+            kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue
+        ] as CFDictionary
         var pixelBuffer: CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault,
-                                         Int(image.size.width),
-                                         Int(image.size.height),
-                                         kCVPixelFormatType_32ARGB,
-                                         attrs,
-                                         &pixelBuffer)
+        let status = CVPixelBufferCreate(
+            kCFAllocatorDefault,
+            Int(image.size.width),
+            Int(image.size.height),
+            kCVPixelFormatType_32ARGB,
+            attrs,
+            &pixelBuffer
+        )
         guard status == kCVReturnSuccess else {
             return nil
         }
@@ -119,24 +126,40 @@ class VideoProcessingManager {
         let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
         
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pixelData,
-                                width: Int(image.size.width),
-                                height: Int(image.size.height),
-                                bitsPerComponent: 8,
-                                bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!),
-                                space: rgbColorSpace,
-                                bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        let context = CGContext(
+            data: pixelData,
+            width: Int(image.size.width),
+            height: Int(image.size.height),
+            bitsPerComponent: 8,
+            bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!),
+            space: rgbColorSpace,
+            bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
+        )
         
-        context?.draw(image.cgImage!, in: CGRect(x: 0, y: 0,
-                                                 width: image.size.width, height: image.size.height))
+        context?.draw(
+            image.cgImage!,
+            in: CGRect(
+                x: 0,
+                y: 0,
+                width: image.size.width,
+                height: image.size.height
+            )
+        )
         
-        CVPixelBufferUnlockBaseAddress(pixelBuffer!,
-                                       CVPixelBufferLockFlags(rawValue: 0))
+        CVPixelBufferUnlockBaseAddress(
+            pixelBuffer!,
+            CVPixelBufferLockFlags(rawValue: 0)
+        )
         
         return pixelBuffer
     }
     
-    private func mergeVideoWithAudio(videoUrl: URL, audioUrl: URL, success: @escaping ((URL) -> Void), failure: @escaping ((Error?) -> Void)) {
+    private func mergeVideoWithAudio(
+        videoUrl: URL,
+        audioUrl: URL,
+        success: @escaping ((URL) -> Void),
+        failure: @escaping ((Error?) -> Void)
+    ) {
         let mixComposition: AVMutableComposition = AVMutableComposition()
         var mutableCompositionVideoTrack: [AVMutableCompositionTrack] = []
         var mutableCompositionAudioTrack: [AVMutableCompositionTrack] = []
@@ -247,11 +270,11 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
                 
                 let uiimageArray: [UIImage] = processedVideo.images.compactMap { image in
                     var _image = image as! UIImage
-                    if isWatermark {
-                        _image = self.imageMergeManager.mergeWatermark(image: _image)
-                    }
-                    let newImage = UIImage(cgImage: _image.cgImage!, scale: _image.scale, orientation: .down/*previewImage.imageOrientation*/)
-                    return newImage
+//                    if isWatermark {
+//                        _image = self.imageMergeManager.mergeWatermark(image: _image)
+//                    }
+//                    let newImage = UIImage(cgImage: _image.cgImage!, scale: _image.scale, orientation: .right/*previewImage.imageOrientation*/)
+                    return _image
                 }
                 
                 

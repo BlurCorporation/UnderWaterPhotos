@@ -40,7 +40,6 @@ struct ImagePicker: UIViewControllerRepresentable {
                     self.parent.presentationMode.wrappedValue.dismiss()
                 }
             }
-
             
         }
         

@@ -169,9 +169,11 @@ final class MainViewController: UIViewController {
         }
         
         let routeProcessScreen: (_ content: ContentModel) -> Void = { item in
-            let secondViewController = SceneBuildManager().buildProcessViewController(image: item.image,
-                                                                                      url: item.url,
-                                                                                      processContenType: item.url == nil ? .image : .video)
+            let secondViewController = SceneBuildManager().buildProcessViewController(
+                image: item.image,
+                url: item.url,
+                processContenType: item.url == nil ? .image : .video
+            )
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
@@ -180,10 +182,14 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
         
-        let swiftUIViewController = UIHostingController(rootView: MainView(vm: viewModel,
-                                                                           languageSettingVC: goLanguageScreen,
-                                                                           routeProcessScreen: routeProcessScreen,
-                                                                           routeSubscriptionScreen: routeSubscriptionScreen))
+        let swiftUIViewController = UIHostingController(
+            rootView: MainView(
+                vm: viewModel,
+                languageSettingVC: goLanguageScreen,
+                routeProcessScreen: routeProcessScreen,
+                routeSubscriptionScreen: routeSubscriptionScreen
+            )
+        )
         self.addChild(swiftUIViewController)
         swiftUIViewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(swiftUIViewController.view)
