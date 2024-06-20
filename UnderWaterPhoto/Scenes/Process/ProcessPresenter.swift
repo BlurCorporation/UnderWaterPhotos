@@ -104,6 +104,9 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         case .change:
             processButtonType = .process
             viewController?.changeToProcess()
+            viewController?.makeConstraintsForWatermark(
+                processContentType: processContentType
+            )
             if !isUserPremium {
                 viewController?.showWatermark()
             }
@@ -147,7 +150,9 @@ extension ProcessPresenter: ProcessPresenterProtocol {
     private func process(image: UIImage) async throws {
         viewController?.startIndicator()
         let newImage = try CVWrapper.process(withImages: image)
-//        let _newImage = UIImage(cgImage: newImage.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+        if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+            
+        }
         viewController?.uploadImage(image: newImage)
         viewController?.stopIndicator()
     }

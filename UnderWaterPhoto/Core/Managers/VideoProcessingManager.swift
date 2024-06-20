@@ -270,10 +270,10 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
                 
                 let uiimageArray: [UIImage] = processedVideo.images.compactMap { image in
                     var _image = image as! UIImage
-//                    if isWatermark {
-//                        _image = self.imageMergeManager.mergeWatermark(image: _image)
-//                    }
-//                    let newImage = UIImage(cgImage: _image.cgImage!, scale: _image.scale, orientation: .right/*previewImage.imageOrientation*/)
+                    if isWatermark {
+                        _image = self.imageMergeManager.mergeWatermark(image: _image)
+                    }
+                    let newImage = UIImage(cgImage: _image.cgImage!)
                     return _image
                 }
                 

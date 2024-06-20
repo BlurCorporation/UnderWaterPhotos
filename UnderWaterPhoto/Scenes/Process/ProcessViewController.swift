@@ -20,11 +20,16 @@ protocol ProcessViewControllerProtocol: UIViewController {
     func setupVideoProcessing()
     func shareImage()
     func shareVideo(_ video: URL)
-    func presentBottomSheet(processContentType: ProcessContentType,
-                            videoURL: String?,
-                            previewImage: UIImage?)
+    func presentBottomSheet(
+        processContentType: ProcessContentType,
+        videoURL: String?,
+        previewImage: UIImage?
+    )
     func startIndicator()
     func stopIndicator()
+    func makeConstraintsForWatermark(
+        processContentType: ProcessContentType
+    )
     func showWatermark()
     func hideWatermark()
 }
@@ -35,13 +40,11 @@ final class ProcessViewController: UIViewController {
     
     var presenter: ProcessPresenterProtocol?
     var imageMergeManager: ImageMergeManager?
-//    var repository: Repository?
     var defaultImage: UIImage?
     var defaultVideoURL: String?
     private var processedImage: UIImage?
     private var processedImageAlpha: Float = 0.8
     private var previousImageAlpha: Float = 0.8
-//    private let customTransitioningDelegate = BSTransitioningDelegate()
     private var isWatermark: Bool = true
     
     // MARK: PrivateProperties
@@ -366,6 +369,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
     func changeVideo(url: URL) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            self.hideWatermark()
             self.playerView.addVideo(video: url)
             self.playerView.play()
         }
@@ -412,6 +416,42 @@ extension ProcessViewController: ProcessViewControllerProtocol {
             self.topConstraint.constant = -167
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func makeConstraintsForWatermark(processContentType: ProcessContentType) {
+        switch processContentType {
+        case .image:
+            let imageRect = AVMakeRect(aspectRatio: mainImageView.image!.size, insideRect: mainImageView.frame)
+            let leadingConstant = abs(mainImageView.frame.width - imageRect.width)
+            / 2
+            + 32
+            let bottomConstant = -(
+                abs(mainImageView.frame.height - imageRect.height)
+                / 2
+                + 32
+            )
+            
+            NSLayoutConstraint.activate([
+                watermarkImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor, constant: leadingConstant),
+                watermarkImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: bottomConstant)
+            ])
+        case .video:
+            let leadingConstant = abs(playerView.frame.width - playerView.videoPlayerView.playerLayer.videoRect.width)
+            / 2
+            + 32
+            let bottomConstant = -(
+                abs(playerView.frame.height - playerView.videoPlayerView.playerLayer.videoRect.height) 
+                / 2
+                + 32
+            )
+            
+            NSLayoutConstraint.activate([
+                watermarkImageView.leadingAnchor.constraint(equalTo: playerView.leadingAnchor, constant: leadingConstant),
+                watermarkImageView.bottomAnchor.constraint(equalTo: playerView.bottomAnchor, constant: bottomConstant)
+            ])
+        }
+           
+        self.view.layoutIfNeeded()
     }
     
     func showWatermark() {
@@ -523,9 +563,6 @@ extension ProcessViewController {
             
             activityIndicator.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor),
-            
-            watermarkImageView.bottomAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: -16),
-            watermarkImageView.leadingAnchor.constraint(equalTo: mainImageView.leadingAnchor, constant: 16)
         ])
         
         topConstraint = processBottomSheetView.topAnchor.constraint(equalTo: view.bottomAnchor)
