@@ -24,8 +24,16 @@ protocol Buildable {
 final class SceneBuildManager {
     private let imageMergeManager = ImageMergeManager()
     private let repository = Repository()
-    private let userDefaultsManager = DefaultsManager()
+    private let userDefaultsManager: DefaultsManagerable
     private let customTransitioningDelegate = BSTransitioningDelegate()
+    private let authState: AuthState
+    private let authService: AuthServicable
+    
+    init(userDefaultsManager: DefaultsManagerable) {
+        self.userDefaultsManager = userDefaultsManager
+        self.authService = AuthService(defaultsManager: self.userDefaultsManager)
+        self.authState = AuthState.registration
+    }
 }
 
 extension SceneBuildManager: Buildable {
@@ -37,7 +45,12 @@ extension SceneBuildManager: Buildable {
     
     func buildAuthViewController() -> AuthViewController {
         let viewController = AuthViewController()
-        let presenter = AuthPresenter(sceneBuildManager: self)
+        let presenter = AuthPresenter(
+            sceneBuildManager: self,
+            authState: self.authState,
+            authService: self.authService,
+            defaultsManager: self.userDefaultsManager
+        )
         
         viewController.presenter = presenter
         presenter.viewController = viewController
@@ -67,8 +80,11 @@ extension SceneBuildManager: Buildable {
     }
     
     func buildMainView() -> MainViewController {
-        let viewModel = MainViewModel(repository: Repository())
-        let viewController = MainViewController(viewModel: viewModel)
+        let viewModel = MainViewModel(repository: repository)
+        let viewController = MainViewController(
+            viewModel: viewModel,
+            sceneBuildManager: self
+        )
         
         return viewController
     }

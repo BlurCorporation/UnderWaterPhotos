@@ -22,7 +22,7 @@ struct PriceView: View {
                 .foregroundStyle(.white)
         }
         .frame(width: 136, height: 170)
-        .background(Color(.blueDark))
+//        .background(Color(.blueDark))
         .cornerRadius(20)
     }
 }

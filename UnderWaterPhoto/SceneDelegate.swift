@@ -24,11 +24,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 private extension SceneDelegate {
     func setupRootViewController(windowScene: UIWindowScene) {
         let window = UIWindow(windowScene: windowScene)
-        let sceneBuildManager: Buildable = SceneBuildManager()
-        let viewController = sceneBuildManager.buildMainView()
-//        let viewController = sceneBuildManager.buildProcessViewController(image: nil,//UIImage(named: "underwaterPhoto1"),
-//                                                                          url: nil,
-//                                                                          processContenType: .video)
+        let defaultsManager: DefaultsManagerable = DefaultsManager()
+        let sceneBuildManager: Buildable = SceneBuildManager(userDefaultsManager: defaultsManager)
+        let isUserAuth = {
+            if let isUserAuth = defaultsManager.fetchObject(type: Bool.self, for: .isUserAuth) {
+                return isUserAuth
+            } else {
+                return false
+            }
+        }()
+        let viewController = {
+            return isUserAuth ? sceneBuildManager.buildMainView() : sceneBuildManager.buildAuthViewController()
+        }()
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
