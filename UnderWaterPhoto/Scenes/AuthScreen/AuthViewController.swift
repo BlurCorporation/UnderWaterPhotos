@@ -24,7 +24,6 @@ final class AuthViewController: UIViewController {
     
     // MARK: PrivateProperties
     private var isExpandedLoginButton: Bool = false
-    private let screenHeight = UIScreen.main.bounds.height
     private var passwordTextFieldCenterYConstraint: Constraint?
     private var emailTextFieldCenterYConstraint: Constraint?
     private var loginButtonCenterYConstraint: Constraint?
@@ -38,10 +37,11 @@ final class AuthViewController: UIViewController {
 
     private let headTitle: UILabel = {
         let label = UILabel()
-        label.text = L10n.AuthViewController.HeadTitle.text.localized
+        label.text = L10n.AuthViewController.HeadTitle.text
+        label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
         label.textAlignment = .center
         label.backgroundColor = .clear
-        label.textColor = UIColor(named: "backgroundColorRegistrationButton")
+        label.textColor = UIColor(named: "white")
         return label
     }()
     
@@ -53,77 +53,78 @@ final class AuthViewController: UIViewController {
         return stackView
     }()
     
-    private let nameTextField: UITextField = {
+    private let nameTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.placeholder = L10n.AuthViewController.nameTextField.localized
         return textField
     }()
     
-    private let emailTextField: UITextField = {
+    private let emailTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.placeholder = "E-mail".localized
         return textField
     }()
     
-    private let passwordTextField: UITextField = {
+    private let passwordTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.placeholder = L10n.AuthViewController.passwordTextField.localized
         textField.isSecureTextEntry = true
         return textField
     }()
     
-    private let repeatPasswordTextField: UITextField = {
+    private let repeatPasswordTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.placeholder = L10n.AuthViewController.repeatPasswordTextField.localized
         textField.isSecureTextEntry = true
         return textField
     }()
     
-    private lazy var loginButton: CustomButton = {
-        let button = CustomButton(frame: .zero)
-        button.type = .loginButton
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.setTitle(L10n.AuthViewController.LoginButton.setTitle, for: .normal)
         button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-        button.setTitle(L10n.AuthViewController.LoginButton.setTitle.localized, for: .normal)
         button.contentHorizontalAlignment = .left
         return button
     }()
     
-    private lazy var registrationButton: CustomButton = {
-        let button = CustomButton(frame: .zero)
-        button.type = .registrationButton
+    private lazy var registrationButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor(named: "blue"), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.setTitle(L10n.AuthViewController.RegistrationButton.setTitle, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(registrationButtonPressed), for: .touchUpInside)
-        button.setTitle(L10n.AuthViewController.RegistrationButton.setTitle.localized, for: .normal)
         return button
     }()
     
-    private lazy var restorePasswordButton: CustomButton = {
-        let button = CustomButton(frame: .zero)
-        button.type = .loginButton
+    private lazy var restorePasswordButton: UIButton = {
+        let button = UIButton()
         button.alpha = .zero
         button.addTarget(self, action: #selector(restorePasswordButtonPressed), for: .touchUpInside)
-        button.setTitle(L10n.AuthViewController.RestorePasswordButton.setTitle.localized, for: .normal)
+        button.setTitle(L10n.AuthViewController.RestorePasswordButton.setTitle, for: .normal)
         return button
     }()
     
     private let loginUsinLabel: UILabel = {
         let label = UILabel()
-        label.text = L10n.AuthViewController.LoginUsinLabel.text.localized
-        label.font = .systemFont(ofSize: 15)
+        label.text = L10n.AuthViewController.LoginUsinLabel.text
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.numberOfLines = .zero
         label.textColor = .white
         return label
     }()
     
-    private lazy var appleIdButton: CustomButton = {
-        let button = CustomButton(frame: .zero)
-        button.type = .idButton
+    private lazy var appleIdButton: UIButton = {
+        let button = UIButton()
         button.addTarget(self, action: #selector(appleIdButtonPressed), for: .touchUpInside)
         button.setBackgroundImage(UIImage(named: "appleLogo"), for: .normal)
         return button
     }()
     
-    private lazy var googleIdButton: CustomButton = {
-        let button = CustomButton(frame: .zero)
-        button.type = .idButton
+    private lazy var googleIdButton: UIButton = {
+        let button = UIButton()
         button.addTarget(self, action: #selector(googleIdButtonPressed), for: .touchUpInside)
         button.setBackgroundImage(UIImage(named: "googleLogo"), for: .normal)
         return button
@@ -142,44 +143,52 @@ final class AuthViewController: UIViewController {
     @objc
     func loginButtonPressed() {
         loginButton.pushAnimate { [weak self] in
-            self?.presenter?.loginButtonPressed()
+            guard let self = self else { return }
+            self.presenter?.loginButtonPressed()
         }
     }
     
     @objc
     func registrationButtonPressed() {
         registrationButton.pushAnimate { [weak self] in
-            self?.presenter?.didTapPrimaryButton(email: self?.emailTextField.text ?? "",
-                                                 name: self?.nameTextField.text ?? "",
-                                                 password: self?.passwordTextField.text ?? "",
-                                                 repeatPassword: self?.repeatPasswordTextField.text ?? "")
+            guard let self = self else { return }
+            self.presenter?.didTapPrimaryButton(
+                email: self.emailTextField.text ?? "",
+                name: self.nameTextField.text ?? "",
+                password: self.passwordTextField.text ?? "",
+                repeatPassword: self.repeatPasswordTextField.text ?? ""
+            )
         }
     }
     
     @objc
     func restorePasswordButtonPressed() {
         restorePasswordButton.pushAnimate { [weak self] in
-            self?.presenter?.restorePasswordButtonPressed()
+            guard let self = self else { return }
+            self.presenter?.restorePasswordButtonPressed()
         }
     }
     
     @objc
     func appleIdButtonPressed() {
         appleIdButton.pushAnimate { [weak self] in
-            self?.presenter?.appleIdButtonPressed()
+            guard let self = self else { return }
+            self.presenter?.appleIdButtonPressed()
         }
     }
     
     @objc
     func googleIdButtonPressed() {
         googleIdButton.pushAnimate { [weak self] in
-            self?.presenter?.googleIdButtonPressed()
+            guard let self = self else { return }
+            self.presenter?.googleIdButtonPressed()
         }
     }
     
     func expandLoginButton() {
         if isExpandedLoginButton {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.5) { [weak self] in
+                guard let self = self else { return }
                 self.nameTextField.alpha = 1
                 self.passwordTextField.alpha = 1
                 self.repeatPasswordTextField.alpha = 1
@@ -190,12 +199,13 @@ final class AuthViewController: UIViewController {
                 self.registrationButtonCenterYConstrain?.update(offset: 350)
                 self.view.layoutIfNeeded()
             }
-            self.registrationButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title.localized, for: .normal)
-            self.headTitle.text = L10n.AuthViewController.If.ExpandLoginButton.HeadTitle.text.localized
-            self.loginButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title.localized, for: .normal)
-            presenter?.changeState(authState: .registration)
+            self.registrationButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title, for: .normal)
+            self.headTitle.text = L10n.AuthViewController.If.ExpandLoginButton.HeadTitle.text
+            self.loginButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title, for: .normal)
+            self.presenter?.changeState(authState: .registration)
         } else {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.5) { [weak self] in
+                guard let self = self else { return }
                 self.nameTextField.alpha = 0
                 self.repeatPasswordTextField.alpha = 0
                 self.restorePasswordButton.alpha = 1
@@ -205,24 +215,25 @@ final class AuthViewController: UIViewController {
                 self.registrationButtonCenterYConstrain?.update(offset: 230)
                 self.view.layoutIfNeeded()
             }
-            self.registrationButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RegistrationButton.title.localized, for: .normal)
-            self.headTitle.text = L10n.AuthViewController.Else.ExpandLoginButton.HeadTitle.text.localized
-            self.loginButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.LoginButton.title.localized, for: .normal)
-            self.restorePasswordButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RestorePasswordButton.title.localized, for: .normal)
+            self.registrationButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RegistrationButton.title, for: .normal)
+            self.headTitle.text = L10n.AuthViewController.Else.ExpandLoginButton.HeadTitle.text
+            self.loginButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.LoginButton.title, for: .normal)
+            self.restorePasswordButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RestorePasswordButton.title, for: .normal)
         }
         isExpandedLoginButton.toggle()
     }
     
     func restorePasswordExpand() {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
             self.passwordTextField.alpha = 0
             self.restorePasswordButton.alpha = 0
             self.loginButtonCenterYConstraint?.update(offset: 92)
             self.registrationButtonCenterYConstrain?.update(offset: 170)
             self.view.layoutIfNeeded()
         }
-        self.registrationButton.setTitle(L10n.AuthViewController.RestorePasswordExpand.RegistrationButton.title.localized, for: .normal)
-        self.headTitle.text = L10n.AuthViewController.RestorePasswordExpand.HeadTitle.text.localized
+        self.registrationButton.setTitle(L10n.AuthViewController.RestorePasswordExpand.RegistrationButton.title, for: .normal)
+        self.headTitle.text = L10n.AuthViewController.RestorePasswordExpand.HeadTitle.text
     }
 }
 
@@ -243,18 +254,20 @@ private extension AuthViewController {
     func setupNavigationController() {}
     
     func addSubviews() {
-        view.addSubviews(logoLabel,
-                         headTitle,
-                         nameTextField,
-                         emailTextField,
-                         passwordTextField,
-                         repeatPasswordTextField,
-                         loginButton,
-                         restorePasswordButton,
-                         registrationButton,
-                         loginUsinLabel,
-                         appleIdButton,
-                         googleIdButton)
+        view.addSubviews(
+            logoLabel,
+            headTitle,
+            nameTextField,
+            emailTextField,
+            passwordTextField,
+            repeatPasswordTextField,
+            loginButton,
+            restorePasswordButton,
+            registrationButton,
+            loginUsinLabel,
+            appleIdButton,
+            googleIdButton
+        )
     }
     
     func setupConstraints() {
@@ -320,9 +333,10 @@ private extension AuthViewController {
         
         registrationButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(343)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(50)
-            if screenHeight < 700 {
+            if UIScreen.main.bounds.height < 700 {
                 registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(220).constraint
             } else {
                 registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(350).constraint
@@ -332,20 +346,20 @@ private extension AuthViewController {
         loginUsinLabel.snp.makeConstraints { make in
             make.top.equalTo(registrationButton.snp.bottom).offset(82)
             make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(134)
-            make.height.equalTo(20)
+            make.width.equalTo(loginUsinLabel.intrinsicContentSize.width)
+            make.height.equalTo(loginUsinLabel.intrinsicContentSize.height)
         }
         
         appleIdButton.snp.makeConstraints { make in
             make.top.equalTo(loginUsinLabel.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalTo(loginUsinLabel.snp.leading)
             make.width.equalTo(57.24)
             make.height.equalTo(50)
         }
         
         googleIdButton.snp.makeConstraints { make in
             make.top.equalTo(loginUsinLabel.snp.bottom).offset(16)
-            make.leading.equalTo(appleIdButton.snp.trailing).offset(31.71)
+            make.trailing.equalTo(loginUsinLabel.snp.trailing)
             make.width.equalTo(62)
             make.height.equalTo(50)
         }

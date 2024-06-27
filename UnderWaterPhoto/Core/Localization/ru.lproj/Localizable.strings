@@ -7,7 +7,7 @@
 */
 // MARK: - Scenes
 // LanguageSetting
-"languageSettingViewController.titleLabel" = "Язык приложения";
+"languageSettingVC.titleLabel" = "Язык приложения";
 
 // LanguageSettingViewModel
 "languageSettingViewModel.Languages.title.rus" = "Русский";
@@ -39,7 +39,7 @@
 
 // MARK: ViewController
 // ViewSubscription
-"subscriptionViewController.titleLabel" = "Подписка";
+"subscriptionVC.titleLabel" = "Подписка";
 
 // ButtonView
 "buttonView.title" = "Оформить";
@@ -49,25 +49,25 @@
 "textView.attributedString.range" = "Условия использования и Политику конфиденциальности";
 
 // MARK: AuthScreen
-// AuthViewController
-"authViewController.headTitle.text" = "Создать аккаунт";
-"authViewController.nameTextField" = "Имя";
-"authViewController.passwordTextField" = "Пароль";
-"authViewController.repeatPasswordTextField" = "Повторите пароль";
-"authViewController.loginButton.setTitle" = "Войти";
-"authViewController.registrationButton.setTitle" = "Зарегистрироваться";
-"authViewController.restorePasswordButton.setTitle" = "Восстановить пароль";
-"authViewController.loginUsinLabel.text" = "Войти с помощью";
-"authViewController.if.expandLoginButton.registrationButton.title" = "Зарегестрироваться";
-"authViewController.if.expandLoginButton.headTitle.text" = "Создать аккаунт";
-"authViewController.if.expandLoginButton.loginButton.title" = "Войти";
+// AuthVC
+"authVC.headTitle.text" = "Создать аккаунт";
+"authVC.nameTextField" = "Имя";
+"authVC.passwordTextField" = "Пароль";
+"authVC.repeatPasswordTextField" = "Повторите пароль";
+"authVC.loginButton.setTitle" = "Войти";
+"authVC.registrationButton.setTitle" = "Зарегистрироваться";
+"authVC.restorePasswordButton.setTitle" = "Восстановить пароль";
+"authVC.loginUsinLabel.text" = "Войти с помощью";
+"authVC.if.expandLoginButton.registrationButton.title" = "Зарегестрироваться";
+"authVC.if.expandLoginButton.headTitle.text" = "Создать аккаунт";
+"authVC.if.expandLoginButton.loginButton.title" = "Войти";
 
-"authViewController.else.expandLoginButton.registrationButton.title" = "Войти";
-"authViewController.else.expandLoginButton.headTitle.text" = "Добро пожаловать";
-"authViewController.else.expandLoginButton.loginButton.title" = "Регистрация";
-"authViewController.else.expandLoginButton.restorePasswordButton.title" = "Восстановить пароль";
-"authViewController.restorePasswordExpand.registrationButton.title" = "Восстановить пароль";
-"authViewController.restorePasswordExpand.headTitle.text" = "Восстановить пароль";
+"authVC.else.expandLoginButton.registrationButton.title" = "Войти";
+"authVC.else.expandLoginButton.headTitle.text" = "Добро пожаловать";
+"authVC.else.expandLoginButton.loginButton.title" = "Регистрация";
+"authVC.else.expandLoginButton.restorePasswordButton.title" = "Восстановить пароль";
+"authVC.restorePasswordExpand.registrationButton.title" = "Восстановить пароль";
+"authVC.restorePasswordExpand.headTitle.text" = "Восстановить пароль";
 
 // MARK: Main
 // MARK: ViewModel
@@ -85,17 +85,17 @@
 "extension.headerView.addPhotoButtonView.text" = "Редактировать Фото и Видео";
 
 // MARK: Process
-// BottomSheetSaveViewController
-"bottomSheetSaveViewController.saveInAppLabel.label.text" = "Сохранить в приложении";
-"bottomSheetSaveViewController.saveOnPhoneLabel.label.text" = "Сохранить на устрйоство";
-"bottomSheetSaveViewController.bottomSheetBackButton.button.setTitle" = "Назад";
-"bottomSheetSaveViewController.bottomSheetSaveButton.button.setTitle" = "Сохранить";
+// BottomSheetSaveVC
+"bottomSheetSaveVC.saveInAppLabel.label.text" = "Сохранить в приложении";
+"bottomSheetSaveVC.saveOnPhoneLabel.label.text" = "Сохранить на устрйоство";
+"bottomSheetSaveVC.bottomSheetBackButton.button.setTitle" = "Назад";
+"bottomSheetSaveVC.bottomSheetSaveButton.button.setTitle" = "Сохранить";
 
-// ProcessViewController
-"processViewController.titleLabel.label.text" = "Изменение";
-"processViewController.hideLogoButton.button.title" = "Убрать логотип";
-"processViewController.processPhotoButton.button.title" = "Изменить";
-"processViewController.bottomSheetBackButton.button.title" = "Назад";
-"processViewController.bottomSheetSaveButton.button.title" = "Сохранить";
-"processViewController.changeToProcess.titleLabel.text" = "Редактирование";
-"processViewController.changeToProcess.processPhotoButton.title" = "Редактировать";
+// ProcessVC
+"processVC.titleLabel.label.text" = "Изменение";
+"processVC.hideLogoButton.button.title" = "Убрать логотип";
+"processVC.processPhotoButton.button.title" = "Изменить";
+"processVC.bottomSheetBackButton.button.title" = "Назад";
+"processVC.bottomSheetSaveButton.button.title" = "Сохранить";
+"processVC.changeToProcess.titleLabel.text" = "Редактирование";
+"processVC.changeToProcess.processPhotoButton.title" = "Редактировать";

@@ -25,10 +25,7 @@ private extension SceneDelegate {
     func setupRootViewController(windowScene: UIWindowScene) {
         let window = UIWindow(windowScene: windowScene)
         let sceneBuildManager: Buildable = SceneBuildManager()
-        let viewController = sceneBuildManager.buildMainView()
-//        let viewController = sceneBuildManager.buildProcessViewController(image: nil,//UIImage(named: "underwaterPhoto1"),
-//                                                                          url: nil,
-//                                                                          processContenType: .video)
+        let viewController = sceneBuildManager.buildAuthViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
