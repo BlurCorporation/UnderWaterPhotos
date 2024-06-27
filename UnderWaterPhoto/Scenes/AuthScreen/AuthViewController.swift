@@ -23,6 +23,7 @@ final class AuthViewController: UIViewController {
     var presenter: AuthPresenterProtocol?
     
     // MARK: PrivateProperties
+    
     private var isExpandedLoginButton: Bool = false
     private var passwordTextFieldCenterYConstraint: Constraint?
     private var emailTextFieldCenterYConstraint: Constraint?
@@ -152,7 +153,7 @@ final class AuthViewController: UIViewController {
     func registrationButtonPressed() {
         registrationButton.pushAnimate { [weak self] in
             guard let self = self else { return }
-            self.presenter?.didTapPrimaryButton(
+            self.presenter?.signInButtonTap(
                 email: self.emailTextField.text ?? "",
                 name: self.nameTextField.text ?? "",
                 password: self.passwordTextField.text ?? "",
@@ -184,7 +185,11 @@ final class AuthViewController: UIViewController {
             self.presenter?.googleIdButtonPressed()
         }
     }
-    
+}
+
+// MARK: - AuthViewControllerProtocol Imp
+
+extension AuthViewController: AuthViewControllerProtocol {
     func expandLoginButton() {
         if isExpandedLoginButton {
             UIView.animate(withDuration: 0.5) { [weak self] in
@@ -236,10 +241,6 @@ final class AuthViewController: UIViewController {
         self.headTitle.text = L10n.AuthViewController.RestorePasswordExpand.HeadTitle.text
     }
 }
-
-// MARK: - AuthViewControllerProtocol Imp
-
-extension AuthViewController: AuthViewControllerProtocol {}
 
 // MARK: - PrivateMethods
 

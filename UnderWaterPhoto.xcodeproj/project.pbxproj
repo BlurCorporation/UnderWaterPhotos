@@ -58,6 +58,7 @@
 		1BDACE892B2495C500CE8C73 /* ImageMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */; };
 		1BF21B4A2B849985002F04A9 /* VideoProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF21B492B849985002F04A9 /* VideoProcessingManager.swift */; };
 		1BF381FB2C25DC170012A40C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF381FA2C25DC170012A40C /* CustomTextField.swift */; };
+		1BF381FF2C2DC97B0012A40C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BF381FE2C2DC97B0012A40C /* GoogleService-Info.plist */; };
 		3A1024A42B5D401D000ECBDC /* EmailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1024A12B5D401D000ECBDC /* EmailProvider.swift */; };
 		3A1024A52B5D401E000ECBDC /* AppleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1024A22B5D401D000ECBDC /* AppleProvider.swift */; };
 		3A1024A62B5D401E000ECBDC /* GoogleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1024A32B5D401D000ECBDC /* GoogleProvider.swift */; };
@@ -94,7 +95,6 @@
 		3A48C88F2B053A2D00DD5A18 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C88E2B053A2D00DD5A18 /* FirebaseRemoteConfigSwift */; };
 		3A48C8912B053A2D00DD5A18 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8902B053A2D00DD5A18 /* FirebaseStorage */; };
 		3A48C8932B053A2D00DD5A18 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3A48C8922B053A2D00DD5A18 /* FirebaseStorageCombine-Community */; };
-		3A681B762B028CD50040DED4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A681B752B028CD40040DED4 /* GoogleService-Info.plist */; };
 		3A8B16F52B6184B800747ED1 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B16F42B6184B800747ED1 /* AuthState.swift */; };
 		3A9673A82ABB675A00E624B2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A72ABB675A00E624B2 /* AuthViewController.swift */; };
 		3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9673A92ABB678900E624B2 /* AuthPresenter.swift */; };
@@ -170,6 +170,7 @@
 		1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMergeManager.swift; sourceTree = "<group>"; };
 		1BF21B492B849985002F04A9 /* VideoProcessingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProcessingManager.swift; sourceTree = "<group>"; };
 		1BF381FA2C25DC170012A40C /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		1BF381FE2C2DC97B0012A40C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A1024A12B5D401D000ECBDC /* EmailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailProvider.swift; sourceTree = "<group>"; };
 		3A1024A22B5D401D000ECBDC /* AppleProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleProvider.swift; sourceTree = "<group>"; };
 		3A1024A32B5D401D000ECBDC /* GoogleProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleProvider.swift; sourceTree = "<group>"; };
@@ -177,7 +178,6 @@
 		3A1024AA2B5D4095000ECBDC /* LoginUserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserRequest.swift; sourceTree = "<group>"; };
 		3A1024AB2B5D4095000ECBDC /* RegisterUserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterUserRequest.swift; sourceTree = "<group>"; };
 		3A1024B32B5D43D2000ECBDC /* UserDefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
-		3A681B752B028CD40040DED4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A8B16F42B6184B800747ED1 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		3A9673A72ABB675A00E624B2 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		3A9673A92ABB678900E624B2 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -393,7 +393,7 @@
 				1BADC95C2AA4D896002C34A5 /* Assets.xcassets */,
 				1BADC95E2AA4D896002C34A5 /* LaunchScreen.storyboard */,
 				1BADC9612AA4D896002C34A5 /* Info.plist */,
-				3A681B752B028CD40040DED4 /* GoogleService-Info.plist */,
+				1BF381FE2C2DC97B0012A40C /* GoogleService-Info.plist */,
 			);
 			path = UnderWaterPhoto;
 			sourceTree = "<group>";
@@ -648,9 +648,9 @@
 			files = (
 				1B0C785A2B3CAC45004CB2CB /* testVideo.MP4 in Resources */,
 				1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */,
+				1BF381FF2C2DC97B0012A40C /* GoogleService-Info.plist in Resources */,
 				FBDA15622B62ECCF00601514 /* Localizable.strings in Resources */,
 				1BADC95D2AA4D896002C34A5 /* Assets.xcassets in Resources */,
-				3A681B762B028CD50040DED4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,7 +898,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blurcorporation.divepix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "UnderWaterPhoto/Core/ImageProcessing/UnderWaterPhoto-Bridging-Header.h";
@@ -935,7 +935,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blurcorporation.divepix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "UnderWaterPhoto/Core/ImageProcessing/UnderWaterPhoto-Bridging-Header.h";

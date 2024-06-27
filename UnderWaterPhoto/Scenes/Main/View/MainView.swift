@@ -143,6 +143,7 @@ private extension MainView {
 
 final class MainViewController: UIViewController {
     let viewModel: MainViewModel
+    var sceneBuildManager: Buildable
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,8 +154,12 @@ final class MainViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
-    init(viewModel: MainViewModel) {
+    init(
+        viewModel: MainViewModel,
+        sceneBuildManager: Buildable
+    ) {
         self.viewModel = viewModel
+        self.sceneBuildManager = sceneBuildManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -163,13 +168,15 @@ final class MainViewController: UIViewController {
     }
     
     func addSwiftUIViewToViewController() {
-        let goLanguageScreen = {
-            let secondViewController = SceneBuildManager().buildLanguageScreen()
+        let goLanguageScreen = { [weak self] in
+            guard let self = self else { return }
+            let secondViewController = self.sceneBuildManager.buildLanguageScreen()
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
-        let routeProcessScreen: (_ content: ContentModel) -> Void = { item in
-            let secondViewController = SceneBuildManager().buildProcessViewController(
+        let routeProcessScreen: (_ content: ContentModel) -> Void = { [weak self] item in
+            guard let self = self else { return }
+            let secondViewController = self.sceneBuildManager.buildProcessViewController(
                 image: item.image,
                 url: item.url,
                 processContenType: item.url == nil ? .image : .video
@@ -177,8 +184,9 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(secondViewController, animated: true)
         }
         
-        let routeSubscriptionScreen = {
-            let nextViewController = SceneBuildManager().buildSubscriptionView()
+        let routeSubscriptionScreen = { [weak self] in
+            guard let self = self else { return }
+            let nextViewController = self.sceneBuildManager.buildSubscriptionView()
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
         

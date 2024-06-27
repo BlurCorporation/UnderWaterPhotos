@@ -24,8 +24,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 private extension SceneDelegate {
     func setupRootViewController(windowScene: UIWindowScene) {
         let window = UIWindow(windowScene: windowScene)
-        let sceneBuildManager: Buildable = SceneBuildManager()
-        let viewController = sceneBuildManager.buildAuthViewController()
+        let defaultsManager: DefaultsManagerable = DefaultsManager()
+        let sceneBuildManager: Buildable = SceneBuildManager(userDefaultsManager: defaultsManager)
+        let isUserAuth = {
+            if let isUserAuth = defaultsManager.fetchObject(type: Bool.self, for: .isUserAuth) {
+                return isUserAuth
+            } else {
+                return false
+            }
+        }()
+        let viewController = {
+            return isUserAuth ? sceneBuildManager.buildMainView() : sceneBuildManager.buildAuthViewController()
+        }()
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

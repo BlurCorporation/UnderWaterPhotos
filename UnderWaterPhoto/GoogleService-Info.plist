@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>102728512170-tken1103vim3v7p9rb40mmdk401hhaq6.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.102728512170-tken1103vim3v7p9rb40mmdk401hhaq6</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAxf9F1W0uRbviIwsLme5cwfHiP-dS5gKs</string>
+	<string>AIzaSyB9sjkTw0DZ-4OiSiyDzAquH6QAxr9E7kc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>102728512170</string>
+	<string>615605052611</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>BlurCorp.UnderWaterPhoto</string>
+	<string>com.blurcorporation.divepix</string>
 	<key>PROJECT_ID</key>
-	<string>underwaterphoto-c2c63</string>
+	<string>divepix-fa283</string>
 	<key>STORAGE_BUCKET</key>
-	<string>underwaterphoto-c2c63.appspot.com</string>
+	<string>divepix-fa283.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:102728512170:ios:00ddef05674cb350e316d3</string>
+	<string>1:615605052611:ios:2938c7999a26a8b48cee76</string>
 </dict>
 </plist>

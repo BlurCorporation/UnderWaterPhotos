@@ -10,7 +10,7 @@ import UIKit
 
 protocol AuthPresenterProtocol: AnyObject {
     func loginButtonPressed()
-    func didTapPrimaryButton(email: String,
+    func signInButtonTap(email: String,
                              name: String,
                              password: String,
                              repeatPassword: String)
@@ -58,10 +58,12 @@ extension AuthPresenter: AuthPresenterProtocol {
         viewController?.expandLoginButton()
     }
     
-    func didTapPrimaryButton(email: String,
-                             name: String = "",
-                             password: String = "",
-                             repeatPassword: String = "") {
+    func signInButtonTap(
+        email: String,
+        name: String = "",
+        password: String = "",
+        repeatPassword: String = ""
+    ) {
         
         switch authState {
         case .registration:
@@ -70,43 +72,66 @@ extension AuthPresenter: AuthPresenterProtocol {
                   !password.isEmpty,
                   !repeatPassword.isEmpty,
                   password == repeatPassword else { return }
-            self.makeRegistrationRequest(name: name, email: email, password: password)
+            self.makeRegistrationRequest(
+                name: name,
+                email: email,
+                password: password
+            )
         case .login:
             guard !email.isEmpty, !password.isEmpty else { return }
-            self.makeLoginRequest(email: email, password: password)
+            self.makeLoginRequest(
+                email: email,
+                password: password
+            )
         case .restore:
             guard !email.isEmpty else { return }
             self.makeRestoreRequest(email: email)
         }
     }
-    private func makeRegistrationRequest(name: String,
-                                         email: String,
-                                         password: String) {
-        let newUser = RegisterUserRequest(name: name, email: email, password: password)
+    private func makeRegistrationRequest(
+        name: String,
+        email: String,
+        password: String
+    ) {
+        let newUser = RegisterUserRequest(
+            name: name,
+            email: email,
+            password: password
+        )
         self.authService.registerUser(with: newUser) { isSuccessRegister, error in
             if let error = error {
                 self.showError(error: error)
             }
             if isSuccessRegister {
-                self.defaultsManager.saveObject(isSuccessRegister,
-                                                for: .isUserAuth)
+                self.defaultsManager.saveObject(isSuccessRegister,for: .isUserAuth)
+                let viewController = self.sceneBuildManager.buildMainView()
+                self.viewController?.navigationController?.pushViewController(viewController, animated: true)
             } else {
                 // обработка ошибки если потребуется
             }
         }
     }
     
-    private func makeLoginRequest(email: String,
-                                  password: String) {
-        let user = LoginUserRequest(email: email,
-                                    password: password)
+    private func makeLoginRequest(
+        email: String,
+        password: String
+    ) {
+        let user = LoginUserRequest(
+            email: email,
+            password: password
+        )
         
-        authService.loginUser(with: user, typeAuth: .email, viewController: nil) { error in
+        authService.loginUser(
+            with: user,
+            typeAuth: .email,
+            viewController: nil
+        ) { error in
             if let error = error {
                 self.showError(error: error)
             }
-            self.defaultsManager.saveObject(true,
-                                            for: .isUserAuth)
+            self.defaultsManager.saveObject(true, for: .isUserAuth)
+            let viewController = self.sceneBuildManager.buildMainView()
+            self.viewController?.navigationController?.pushViewController(viewController, animated: true)
         }
         
     }

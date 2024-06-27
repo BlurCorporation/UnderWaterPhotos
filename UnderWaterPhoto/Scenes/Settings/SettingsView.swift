@@ -19,14 +19,17 @@ struct SettingsView: View {
                                    additionalText: setting.additionalName,
                                    symbol: setting.symbol)
                     .onTapGesture {
-                        if setting.id == 0 {
+                        switch setting.id {
+                        case 0:
                             routeLanguageScreen()
-                        }
-                        if setting.id == 1 {
+                        case 1:
                             Repository().deleteEntities()
-                        }
-                        if setting.id == 2 {
+                        case 2:
                             routeSubscriptionScreen()
+                        case 3:
+                            break
+                        default:
+                            break
                         }
                     }
                     .listRowBackground(Color("blue"))
