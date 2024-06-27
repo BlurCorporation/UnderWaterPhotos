@@ -120,12 +120,6 @@ private extension HeaderView {
     }
 }
 
-struct Main_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView(vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_ in }, routeSubscriptionScreen: {})
-    }
-}
-
 struct CrossButtonView: View {
     var isCross: Bool
     var body: some View {

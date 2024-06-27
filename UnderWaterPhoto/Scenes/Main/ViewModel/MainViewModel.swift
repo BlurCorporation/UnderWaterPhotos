@@ -31,7 +31,6 @@ class MainViewModel: ObservableObject {
     func fetch() {
         if state != .settings {
             images = repository.getContent()
-//            print(images[1].url)
             if images.isEmpty {
                 state = .clear
             } else {

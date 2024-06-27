@@ -19,23 +19,34 @@ struct MainView: View {
     var languageSettingVC: () -> Void
     var routeProcessScreen: (_ content: ContentModel) -> Void
     var routeSubscriptionScreen: () -> Void
+    var logout: () -> Void
+    
+    let defaultsManager: DefaultsManagerable
+    let repository: Repository
     
     var body: some View {
         VStack {
             ScalingHeaderScrollView {
                 ZStack {
-                    HeaderView(vm: vm,
-                               progress: progress,
-                               userName: vm.userName,
-                               routeProcessScreen: routeProcessScreen)
+                    HeaderView(
+                        vm: vm,
+                        progress: progress,
+                        userName: vm.userName,
+                        routeProcessScreen: routeProcessScreen
+                    )
                     mainHeaderTextView
                         .padding([.leading, .trailing], 16)
                 }
             } content: {
                 switch vm.state {
                 case .settings:
-                    SettingsView(routeLanguageScreen: languageSettingVC,
-                                 routeSubscriptionScreen: routeSubscriptionScreen)
+                    SettingsView(
+                        routeLanguageScreen: languageSettingVC,
+                        routeSubscriptionScreen: routeSubscriptionScreen,
+                        logout: logout,
+                        defaultsManager: defaultsManager,
+                        repository: repository
+                    )
                     .frame(height: 176)
                     .padding([.top], -32)
                 case .main:
@@ -143,7 +154,9 @@ private extension MainView {
 
 final class MainViewController: UIViewController {
     let viewModel: MainViewModel
-    var sceneBuildManager: Buildable
+    private let sceneBuildManager: Buildable
+    private let defaultsManager: DefaultsManagerable
+    private let repository: Repository
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,10 +169,14 @@ final class MainViewController: UIViewController {
     
     init(
         viewModel: MainViewModel,
-        sceneBuildManager: Buildable
+        sceneBuildManager: Buildable,
+        defaultsManager: DefaultsManagerable,
+        repository: Repository
     ) {
         self.viewModel = viewModel
         self.sceneBuildManager = sceneBuildManager
+        self.defaultsManager = defaultsManager
+        self.repository = repository
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -190,12 +207,20 @@ final class MainViewController: UIViewController {
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
         
+        let logout = { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        
         let swiftUIViewController = UIHostingController(
             rootView: MainView(
                 vm: viewModel,
                 languageSettingVC: goLanguageScreen,
                 routeProcessScreen: routeProcessScreen,
-                routeSubscriptionScreen: routeSubscriptionScreen
+                routeSubscriptionScreen: routeSubscriptionScreen,
+                logout: logout,
+                defaultsManager: defaultsManager,
+                repository: repository
             )
         )
         self.addChild(swiftUIViewController)
@@ -209,8 +234,4 @@ final class MainViewController: UIViewController {
             swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-}
-
-#Preview {
-    MainView( vm: MainViewModel(repository: Repository()), languageSettingVC: {}, routeProcessScreen: {_ in }, routeSubscriptionScreen: {})
 }

@@ -11,6 +11,9 @@ struct SettingsView: View {
     @StateObject private var vm = SettingsViewModel()
     var routeLanguageScreen: () -> Void
     var routeSubscriptionScreen: () -> Void
+    var logout: () -> Void
+    let defaultsManager: DefaultsManagerable
+    let repository: Repository
     
     var body: some View {
         NavigationView {
@@ -23,11 +26,12 @@ struct SettingsView: View {
                         case 0:
                             routeLanguageScreen()
                         case 1:
-                            Repository().deleteEntities()
+                            repository.deleteEntities()
                         case 2:
                             routeSubscriptionScreen()
-                        case 3:
-                            break
+                        case 4:
+                            defaultsManager.deleteObject(for: .isUserAuth)
+                            logout()
                         default:
                             break
                         }
