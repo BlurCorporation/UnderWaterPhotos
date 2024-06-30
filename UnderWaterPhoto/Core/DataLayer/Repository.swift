@@ -13,8 +13,18 @@ class Repository {
     private let fileManager = LocalFileManager.instance
     private let coreDataManager = CoreDataManager.shared
     private var contentCoreData = [ContentEntity]()
+	private let firebaseStorageManager: FirebaseStorageManagerProtocol = FirebaseStorageManager()
     
-    
+	private func uploadVideo(id: UUID) {
+		let stringID = id.uuidString
+		if let url = fileManager.getContent(imageName: stringID, folderName: "ContentFolder")?.url {
+			guard let url = URL(string: url) else { return }
+			firebaseStorageManager.uploadFile(url: url, id: stringID)
+		} else {
+			print("Error to get content url in Repository")
+		}
+	}
+	
     func deleteEntities() {
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ContentEntity")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
@@ -51,7 +61,11 @@ class Repository {
         content.id = id
         
         save()
-        fileManager.saveContent(image: uiimage, contentName: id.uuidString, url: url, folderName: "ContentFolder")
+		fileManager.saveContent(image: uiimage, contentName: id.uuidString, url: url, folderName: "ContentFolder") { result in
+			if true {
+				uploadVideo(id: id)
+			}
+		}
     }
     
     func save() {

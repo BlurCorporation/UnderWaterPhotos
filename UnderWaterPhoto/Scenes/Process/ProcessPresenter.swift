@@ -52,11 +52,13 @@ class ProcessPresenter {
     private let isUserPremium: Bool
     //MARK: - Initialize
     
-    init(sceneBuildManager: Buildable,
-         processContentType: ProcessContentType,
-         videoProcessingManager: VideoProcessingManagerProtocol,
-         userDefaultsManager: DefaultsManagerable,
-         isUserPremium: Bool) {
+	init(
+		sceneBuildManager: Buildable,
+		processContentType: ProcessContentType,
+		videoProcessingManager: VideoProcessingManagerProtocol,
+		userDefaultsManager: DefaultsManagerable,
+		isUserPremium: Bool
+	) {
         self.sceneBuildManager = sceneBuildManager
         self.processContentType = processContentType
         self.videoProcessingManager = videoProcessingManager
@@ -129,12 +131,14 @@ extension ProcessPresenter: ProcessPresenterProtocol {
         }
     }
     
-    func showSaveBottomSheet(processContentType: ProcessContentType,
-                             videoURL: String?,
-                             previewImage: UIImage?,
-                             defaultImage: UIImage?,
-                             processedImage: UIImage?,
-                             processedImageAlpha: Float) {
+	func showSaveBottomSheet(
+		processContentType: ProcessContentType,
+		videoURL: String?,
+		previewImage: UIImage?,
+		defaultImage: UIImage?,
+		processedImage: UIImage?,
+		processedImageAlpha: Float
+	) {
         let viewController = sceneBuildManager.buildSaveBottomSheetViewController(
             processContentType: processContentType,
             videoURL: videoURL,

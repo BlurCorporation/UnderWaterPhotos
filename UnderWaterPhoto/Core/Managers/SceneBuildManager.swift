@@ -32,11 +32,13 @@ final class SceneBuildManager {
     private let customTransitioningDelegate = BSTransitioningDelegate()
     private let authState: AuthState
     private let authService: AuthServicable
+	private let firebaseStorageManager: FirebaseStorageManagerProtocol
     
     init(userDefaultsManager: DefaultsManagerable) {
         self.userDefaultsManager = userDefaultsManager
         self.authService = AuthService(defaultsManager: self.userDefaultsManager)
         self.authState = AuthState.registration
+		self.firebaseStorageManager = FirebaseStorageManager()
     }
 }
 
@@ -116,7 +118,8 @@ extension SceneBuildManager: Buildable {
         let vc = BottomSheetSaveViewController(
             processContentType: processContentType,
             userDefaultsManager: userDefaultsManager,
-            repository: repository
+            repository: repository,
+			firebaseStorageManager: firebaseStorageManager
         )
         vc.transitioningDelegate = customTransitioningDelegate
         vc.modalPresentationStyle = .custom

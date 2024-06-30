@@ -11,6 +11,7 @@ final class BottomSheetSaveViewController: UIViewController {
     var imageMergeManager: ImageMergeManager?
     private var repository: Repository
     private let userDefaultsManager: DefaultsManagerable
+	private let firebaseStorageManager: FirebaseStorageManagerProtocol
     
     private let saveInAppLabel: UILabel = {
         let label = UILabel()
@@ -68,11 +69,13 @@ final class BottomSheetSaveViewController: UIViewController {
     init(
         processContentType: ProcessContentType,
         userDefaultsManager: DefaultsManagerable,
-        repository: Repository
+        repository: Repository,
+		firebaseStorageManager: FirebaseStorageManagerProtocol
     ) {
         self.processContentType = processContentType
         self.userDefaultsManager = userDefaultsManager
         self.repository = repository
+		self.firebaseStorageManager = firebaseStorageManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -149,7 +152,6 @@ final class BottomSheetSaveViewController: UIViewController {
                     if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
                         finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
                     }
-//                    imageView.image = finalImage
                     repository.addContent(uiimage: finalImage)
                 } else {
                     if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
@@ -159,7 +161,10 @@ final class BottomSheetSaveViewController: UIViewController {
                 }
             case .video:
                 guard let image = previewImage, let url = videoURL else { return }
-                repository.addContent(uiimage: image, url: url)
+				print(url)
+//				firebaseStorageManager.uploadFile(url: URL(string: url)!)
+				repository.addContent(uiimage: image, url: url)
+				
             }
         }
         

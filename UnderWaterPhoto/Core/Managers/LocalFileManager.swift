@@ -13,7 +13,13 @@ class LocalFileManager {
     
     private init() { }
     
-    func saveContent(image: UIImage, contentName: String, url: String?, folderName: String) {
+	func saveContent(
+		image: UIImage,
+		contentName: String,
+		url: String?,
+		folderName: String,
+		completion: (Bool) -> Void
+	) {
         createFolderIfNeeded(folderName: folderName)
         
         guard
@@ -36,6 +42,7 @@ class LocalFileManager {
         } catch let error {
             print("Error saving image. ImageName: \(contentName) \(error)")
         }
+		completion(true)
     }
     
     func getContent(imageName: String, folderName: String) -> ContentModel? {

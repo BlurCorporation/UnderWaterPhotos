@@ -44,7 +44,3 @@ struct SettingsView: View {
         }
     }
 }
-
-//#Preview {
-//    SettingsView(routeLanguageScreen: {})
-//}
