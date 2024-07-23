@@ -10,19 +10,40 @@ import FirebaseCore
 import FirebaseStorage
 import AVFoundation
 
+enum FirebaseStorageError: Error {
+	case invalidURL
+	case error(Error)
+}
+
 protocol FirebaseStorageManagerProtocol {
-	func uploadFile(
+	func uploadVideo(
 		url: URL,
-		id: String
+		id: String,
+		completion: @escaping (Result<String, FirebaseStorageError>) -> Void
 	)
-	func uploadTOFireBaseVideo(
-		url: URL,
-		success : @escaping (String) -> Void,
-		failure : @escaping (Error) -> Void
+	
+	func uploadImage(
+		image: UIImage,
+		id: UUID,
+		completion: @escaping (Result<String, FirebaseStorageError>) -> Void
+	)
+	
+	func downloadImage(
+		id: String,
+		completion: @escaping (Result<UIImage, Error>) -> Void
+	)
+	
+	func downloadVideo(
+		id: String,
+		completion: @escaping (Result<URL, Error>) -> Void
 	)
 }
 
 final class FirebaseStorageManager {
+	
+	// MARK: - Dependencies
+	
+	private let authService: AuthServicable
 	
 	// MARK: - Private properties
 	
@@ -31,40 +52,29 @@ final class FirebaseStorageManager {
 	
 	// MARK: - Lifecycle
 	
-	init() {
+	init(authService: AuthServicable) {
 		self.storage = Storage.storage()
 		self.storageRef = self.storage.reference()
+		self.authService = authService
 	}
 }
 
 // MARK: - FirebaseStorageManagerProtocol
 
 extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
-	func uploadFile(
+	func uploadVideo(
 		url: URL,
-		id: String
+		id: String,
+		completion: @escaping (Result<String, FirebaseStorageError>) -> Void
 	) {
-		// File located on disk
+		let folderID = authService.getUserName()
+		let ref = storageRef.child("\(folderID)/\(id).m4v")
 		
-		// Create a reference to the file you want to upload
-		let riversRef = storageRef.child("\(id).m4v")
-
-		// Upload the file to the path "images/rivers.jpg"
-		let uploadTask = riversRef.putFile(from: url, metadata: nil) { metadata, error in
-			guard let metadata = metadata else {
-				// Uh-oh, an error occurred!
-				print(error?.localizedDescription)
+		let uploadTask = ref.putFile(from: url, metadata: nil) { metadata, error in
+			guard let _ = metadata else {
+				print(error?.localizedDescription as Any)
 				return
 			}
-			// Metadata contains file metadata such as size, content-type.
-			let size = metadata.size
-			// You can also access to download URL after upload.
-//			riversRef.downloadURL { (url, error) in
-//				guard let downloadURL = url else {
-//					// Uh-oh, an error occurred!
-//					return
-//				}
-//			}
 		}
 		
 		uploadTask.observe(.progress) { snapshot in
@@ -73,69 +83,73 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 			print(percentComplete)
 		}
 		
+		uploadTask.observe(.success) { _ in
+			completion(.success(id))
+		}
 	}
 	
-//	func uploadFile(url: URL) {
-//		do {
-//			let videoData = try Data(contentsOf: url)
-//			storageRef.child("images/rivers.m4v").putData(videoData) { metadata, error in
-//				guard let metadata = metadata else {
-//					// Uh-oh, an error occurred!
-//					print(error?.localizedDescription)
-//					return
-//				}
-//				print("success")
-//			}
-//			
-//		} catch {
-//			print(error.localizedDescription)
-//		}
-//	}
-	
-	func uploadTOFireBaseVideo(
-		url: URL,
-		success : @escaping (String) -> Void,
-		failure : @escaping (Error) -> Void
+	func uploadImage(
+		image: UIImage,
+		id: UUID,
+		completion: @escaping (Result<String, FirebaseStorageError>) -> Void
 	) {
+		guard let data = image.pngData() else { return }
+		let folderID = authService.getUserName()
+		let ref = storageRef.child("\(folderID)/\(id).png")
 		
-		let name = "\(Int(Date().timeIntervalSince1970)).mp4"
-		let path = NSTemporaryDirectory() + name
-		
-//		let dispatchgroup = DispatchGroup()
-		
-//		dispatchgroup.enter()
-		
-		let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-		let outputurl = documentsURL.appendingPathComponent(name)
-		var ur = outputurl
-//		self.convertVideo(toMPEG4FormatForVideo: url as URL, outputURL: outputurl) { (session) in
-//			
-//			ur = session.outputURL!
-//			dispatchgroup.leave()
-//			
-//		}
-//		dispatchgroup.wait()
-		
-		let data = NSData(contentsOf: url as URL)
-		
-		do {
-			
-			try data?.write(to: url, options: .atomic)
-			
-		} catch {
-			
-			print(error)
+		let uploadTask = ref.putData(data) { metadata, error in
+			guard let _ = metadata else {
+				print(error?.localizedDescription as Any)
+				return
+			}
 		}
 		
-		let storageRef = Storage.storage().reference().child("Videos").child(name)
-		if let uploadData = data as Data? {
-			storageRef.putData(uploadData) { NSMetadata, error in
-				if let error = error {
-					failure(error)
-				} else{
-					success("success")
-				}
-				
+		uploadTask.observe(.progress) { snapshot in
+			let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
+			   / Double(snapshot.progress!.totalUnitCount)
+			print(percentComplete)
+		}
+		
+		
+		
+		ref.downloadURL { result in
+			switch result {
+			case .success(let url):
+				completion(.success(url.absoluteString))
+			case .failure(let error):
+				completion(.failure(.error(error)))
+			}
+		}
+	}
+	
+	func downloadImage(
+		id: String,
+		completion: @escaping (Result<UIImage, Error>) -> Void
+	) {
+		let ref = storageRef.child(id + ".png")
+		let downloadTask = ref.getData(maxSize: Int64.max) { data, error in
+			if let error = error {
+				completion(.failure(error))
+			} else {
+				let image = UIImage(data: data!)
+				completion(.success(image!))
+			}
+		}
+	}
+	
+	func downloadVideo(
+		id: String,
+		completion: @escaping (Result<URL, Error>) -> Void
+	) {
+		let ref = storageRef.child(id + ".m4v")
+		let directory = NSTemporaryDirectory()
+		let fileName = NSUUID().uuidString
+		let fullURL = NSURL.fileURL(withPathComponents: [directory, fileName])
+		let downloadTask = ref.write(toFile: fullURL!) { url, error in
+			if let error = error {
+				completion(.failure(error))
+			} else {
+				completion(.success(url!))
 			}
 		}
 	}

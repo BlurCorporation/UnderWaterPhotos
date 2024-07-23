@@ -185,6 +185,10 @@ final class AuthViewController: UIViewController {
             self.presenter?.googleIdButtonPressed()
         }
     }
+	
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
+	}
 }
 
 // MARK: - AuthViewControllerProtocol Imp
@@ -250,6 +254,8 @@ private extension AuthViewController {
         addSubviews()
         setupConstraints()
         setupNavigationController()
+		let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+		self.view.addGestureRecognizer(tap)
     }
     
     func setupNavigationController() {}

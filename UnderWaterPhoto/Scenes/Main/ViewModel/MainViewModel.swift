@@ -36,6 +36,7 @@ class MainViewModel: ObservableObject {
             } else {
                 state = .main
             }
+			
         }
     }
     

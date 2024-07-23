@@ -157,6 +157,7 @@ final class MainViewController: UIViewController {
     private let sceneBuildManager: Buildable
     private let defaultsManager: DefaultsManagerable
     private let repository: Repository
+	private let authService: AuthServicable
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,12 +172,14 @@ final class MainViewController: UIViewController {
         viewModel: MainViewModel,
         sceneBuildManager: Buildable,
         defaultsManager: DefaultsManagerable,
-        repository: Repository
+        repository: Repository,
+		authService: AuthServicable
     ) {
         self.viewModel = viewModel
         self.sceneBuildManager = sceneBuildManager
         self.defaultsManager = defaultsManager
         self.repository = repository
+		self.authService = authService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -209,7 +212,13 @@ final class MainViewController: UIViewController {
         
         let logout = { [weak self] in
             guard let self = self else { return }
-            self.navigationController?.popToRootViewController(animated: true)
+			authService.logout { error in
+				print(error)
+				return
+			}
+			let startViewController = self.sceneBuildManager.buildAuthViewController()
+			let rootViewController = UINavigationController.init(rootViewController: startViewController)
+			UIApplication.shared.windows.first?.rootViewController = rootViewController
         }
         
         let swiftUIViewController = UIHostingController(
