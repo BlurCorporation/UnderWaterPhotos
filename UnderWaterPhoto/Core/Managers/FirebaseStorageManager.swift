@@ -24,7 +24,7 @@ protocol FirebaseStorageManagerProtocol {
 	
 	func uploadImage(
 		image: UIImage,
-		id: UUID,
+		id: String,
 		completion: @escaping (Result<String, FirebaseStorageError>) -> Void
 	)
 	
@@ -35,7 +35,7 @@ protocol FirebaseStorageManagerProtocol {
 	
 	func downloadVideo(
 		id: String,
-		completion: @escaping (Result<URL, Error>) -> Void
+		completion: @escaping (Result<URL?, Error>) -> Void
 	)
 }
 
@@ -90,7 +90,7 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 	
 	func uploadImage(
 		image: UIImage,
-		id: UUID,
+		id: String,
 		completion: @escaping (Result<String, FirebaseStorageError>) -> Void
 	) {
 		guard let data = image.pngData() else { return }
@@ -110,15 +110,8 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 			print(percentComplete)
 		}
 		
-		
-		
-		ref.downloadURL { result in
-			switch result {
-			case .success(let url):
-				completion(.success(url.absoluteString))
-			case .failure(let error):
-				completion(.failure(.error(error)))
-			}
+		uploadTask.observe(.success) { _ in
+			completion(.success(id))
 		}
 	}
 	
@@ -127,7 +120,7 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 		completion: @escaping (Result<UIImage, Error>) -> Void
 	) {
 		let ref = storageRef.child(id + ".png")
-		let downloadTask = ref.getData(maxSize: Int64.max) { data, error in
+		let _ = ref.getData(maxSize: Int64.max) { data, error in
 			if let error = error {
 				completion(.failure(error))
 			} else {
@@ -139,17 +132,17 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 	
 	func downloadVideo(
 		id: String,
-		completion: @escaping (Result<URL, Error>) -> Void
+		completion: @escaping (Result<URL?, Error>) -> Void
 	) {
 		let ref = storageRef.child(id + ".m4v")
 		let directory = NSTemporaryDirectory()
 		let fileName = NSUUID().uuidString
 		let fullURL = NSURL.fileURL(withPathComponents: [directory, fileName])
-		let downloadTask = ref.write(toFile: fullURL!) { url, error in
+		let _ = ref.write(toFile: fullURL!) { url, error in
 			if let error = error {
 				completion(.failure(error))
 			} else {
-				completion(.success(url!))
+				completion(.success(url))
 			}
 		}
 	}

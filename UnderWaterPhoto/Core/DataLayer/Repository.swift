@@ -12,8 +12,7 @@ import FirebaseFirestore
 
 protocol RepositoryProtocol {
 	func setContentID(
-		contentID: String,
-		downloadurl: String
+		contentID: String
 	)
 	func getContentID()
 }
@@ -59,17 +58,41 @@ class Repository {
 	// MARK: - Private methods
 	
 	private func downloadAndSave(contentIDs: [ContentFirestoreModel]) {
+		let contents = self.getContent().map { $0.id.uuidString }
 		for id in contentIDs {
-			self.firebaseStorageManager.downloadVideo(id: id.downloadurl) { [weak self] result in
+			guard !contents.contains(id.downloadurl) else { continue }
+			self.firebaseStorageManager.downloadImage(id: id.downloadurl) { [weak self] result in
 				guard let self = self else { return }
 				switch result {
-				case .success(let videoUrl):
-					self.firebaseStorageManager.downloadImage(id: id.downloadurl) { result in
+				case .success(let image):
+					self.firebaseStorageManager.downloadVideo(id: id.downloadurl) { result in
 						switch result {
-						case .success(let image):
-							self.addContent(uiimage: image, url: videoUrl.absoluteString)
+						case .success(let videoUrl):
+							let content = ContentEntity(context: self.coreDataManager.context)
+
+							content.id = UUID(uuidString: id.downloadurl)
+							
+							self.save()
+							self.fileManager.saveContent(
+								image: image,
+								contentName: id.downloadurl,
+								url: videoUrl?.absoluteString,
+								folderName: "ContentFolder"
+							) { _ in
+							}
 						case .failure:
-							print("видео и фото не скачалось")
+							let content = ContentEntity(context: self.coreDataManager.context)
+
+							content.id = UUID(uuidString: id.downloadurl)
+							
+							self.save()
+							self.fileManager.saveContent(
+								image: image,
+								contentName: id.downloadurl,
+								url: nil,
+								folderName: "ContentFolder"
+							) { _ in
+							}
 						}
 					}
 				case .failure:
@@ -90,33 +113,38 @@ class Repository {
 			guard let url = URL(string: url) else { return }
 			firebaseStorageManager.uploadVideo(url: url, id: stringID) { result in
 				switch result {
-				case .success(let url):
-					self.setContentID(
-						contentID: stringID,
-						downloadurl: url
-					)
+				case .success(let id):
+//					self.setContentID(
+//						contentID: stringID,
+//						downloadurl: url
+//					)
+					break
 				case .failure:
 					break
 				}
 			}
-			firebaseStorageManager.uploadImage(image: content.image, id: content.id) { result in
+			firebaseStorageManager.uploadImage(
+				image: content.image,
+				id: stringID
+			) { result in
 				switch result {
-				case .success(let url):
+				case .success(let id):
 					self.setContentID(
-						contentID: stringID,
-						downloadurl: url
+						contentID: id
 					)
 				case .failure:
 					break
 				}
 			}
 		} else {
-			firebaseStorageManager.uploadImage(image: content.image, id: content.id) { result in
+			firebaseStorageManager.uploadImage(
+				image: content.image,
+				id: stringID
+			) { result in
 				switch result {
-				case .success(let url):
+				case .success(let id):
 					self.setContentID(
-						contentID: stringID,
-						downloadurl: url
+						contentID: id
 					)
 				case .failure:
 					break
@@ -177,7 +205,12 @@ class Repository {
 		content.id = id
 		
 		save()
-		fileManager.saveContent(image: uiimage, contentName: id.uuidString, url: url, folderName: "ContentFolder") { result in
+		fileManager.saveContent(
+			image: uiimage,
+			contentName: id.uuidString,
+			url: url,
+			folderName: "ContentFolder"
+		) { result in
 			if true {
 				uploadContent(id: id)
 			}
@@ -189,12 +222,10 @@ class Repository {
 
 extension Repository: RepositoryProtocol {
 	func setContentID(
-		contentID: String,
-		downloadurl: String
+		contentID: String
 	) {
-		let contentModel = ContentFirestoreModel(downloadurl: downloadurl)
+		let contentModel = ContentFirestoreModel(downloadurl: contentID)
 		firestoreService.setContentID(
-			contentID: contentID,
 			contentModel: contentModel
 		) { result in
 			switch result {

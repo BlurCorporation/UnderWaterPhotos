@@ -14,7 +14,6 @@ struct ContentFirestoreModel: Codable {
 
 protocol FirestoreServiceProtocol {
 	func setContentID(
-		contentID: String,
 		contentModel: ContentFirestoreModel,
 		completion: @escaping (Result<Bool, Error>) -> Void
 	)
@@ -67,7 +66,6 @@ final class FirestoreService {
 
 extension FirestoreService: FirestoreServiceProtocol {
 	func setContentID(
-		contentID: String,
 		contentModel: ContentFirestoreModel,
 		completion: @escaping (Result<Bool, Error>) -> Void
 	) {
