@@ -31,6 +31,7 @@ struct SettingsView: View {
                             routeSubscriptionScreen()
                         case 4:
                             defaultsManager.deleteObject(for: .isUserAuth)
+							repository.deleteEntities()
                             logout()
                         default:
                             break

@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct ContentFirestoreModel: Codable {
-	let downloadurl: String
+	let downloadid: String
 }
 
 protocol FirestoreServiceProtocol {
@@ -46,7 +46,7 @@ final class FirestoreService {
 	private func oneCalculation(from calcDict: [String: Any]) -> ContentFirestoreModel {
 		let decoder = JSONDecoder()
 		
-		var model = ContentFirestoreModel(downloadurl: "")
+		var model = ContentFirestoreModel(downloadid: "")
 		
 		do {
 			let jsonData = try JSONSerialization.data(
