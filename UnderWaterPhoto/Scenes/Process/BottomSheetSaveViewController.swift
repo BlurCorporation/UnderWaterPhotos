@@ -149,7 +149,6 @@ final class BottomSheetSaveViewController: UIViewController {
                     if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
                         finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
                     }
-//                    imageView.image = finalImage
                     repository.addContent(uiimage: finalImage)
                 } else {
                     if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
@@ -159,7 +158,7 @@ final class BottomSheetSaveViewController: UIViewController {
                 }
             case .video:
                 guard let image = previewImage, let url = videoURL else { return }
-                repository.addContent(uiimage: image, url: url)
+				repository.addContent(uiimage: image, url: url)
             }
         }
         
