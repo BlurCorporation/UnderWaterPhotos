@@ -9,15 +9,15 @@ import Foundation
 import SwiftUI
 
 struct ButtonView: View {
-    var body: some View {
-        Button(action: {
-            // action
-        }) {
-            Text(L10n.ButtonView.title)
-                .frame(maxWidth: 378, maxHeight: 155)
-                .foregroundColor(.white)
-                .background(Color.blue)
-                .cornerRadius(16)
-        }
-    }
+	var body: some View {
+		Button(action: {
+			// action
+		}) {
+			Text(L10n.ButtonView.title)
+				.frame(maxWidth: 378, maxHeight: 155)
+				.foregroundColor(.white)
+				.background(Color.blue)
+				.cornerRadius(16)
+		}
+	}
 }

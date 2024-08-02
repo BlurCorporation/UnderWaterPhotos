@@ -8,27 +8,27 @@
 import Foundation
 
 enum States {
-    case main
-    case settings
-    case clear
+	case main
+	case settings
+	case clear
 }
 
 class MainViewModel: ObservableObject {
-    @Published var userName: String = L10n.MainViewModel.userName
-    @Published var images: [ContentModel] = []
-    @Published var state: States = .clear
-    @Published var avatarImage: String = "photo"
-    @Published var mail: String = "under@water.ru"
-    @Published var toggle: Bool = false
-    
-    let repository: Repository
-    
-    init(repository: Repository) {
-        self.repository = repository
-    }
-    
-    func fetch() {
-        if state != .settings {
+	@Published var userName: String = L10n.MainViewModel.userName
+	@Published var images: [ContentModel] = []
+	@Published var state: States = .clear
+	@Published var avatarImage: String = "photo"
+	@Published var mail: String = "under@water.ru"
+	@Published var toggle: Bool = false
+	
+	let repository: Repository
+	
+	init(repository: Repository) {
+		self.repository = repository
+	}
+	
+	func fetch() {
+		if state != .settings {
 			self.images = self.repository.getContent()
 			if self.images.isEmpty {
 				self.state = .clear
@@ -39,8 +39,8 @@ class MainViewModel: ObservableObject {
 				self.updateImages()
 				print(self.images)
 			}
-        }
-    }
+		}
+	}
 	
 	func updateImages() {
 		DispatchQueue.main.async { [weak self] in
@@ -53,12 +53,12 @@ class MainViewModel: ObservableObject {
 			}
 		}
 	}
-    
-    func isEmpty() -> Bool {
-        return images.isEmpty
-    }
-    
-    func ttoggle() {
-        toggle.toggle()
-    }
+	
+	func isEmpty() -> Bool {
+		return images.isEmpty
+	}
+	
+	func ttoggle() {
+		toggle.toggle()
+	}
 }

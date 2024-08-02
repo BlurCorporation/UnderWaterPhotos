@@ -79,7 +79,7 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 		
 		uploadTask.observe(.progress) { snapshot in
 			let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
-			   / Double(snapshot.progress!.totalUnitCount)
+			/ Double(snapshot.progress!.totalUnitCount)
 			print(percentComplete)
 		}
 		
@@ -106,7 +106,7 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 		
 		uploadTask.observe(.progress) { snapshot in
 			let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
-			   / Double(snapshot.progress!.totalUnitCount)
+			/ Double(snapshot.progress!.totalUnitCount)
 			print(percentComplete)
 		}
 		

@@ -2,7 +2,7 @@
 import Foundation
 
 struct RegisterUserRequest {
-    let name: String
-    let email: String
-    let password: String
+	let name: String
+	let email: String
+	let password: String
 }

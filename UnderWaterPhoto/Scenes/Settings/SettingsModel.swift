@@ -8,8 +8,8 @@
 import Foundation
 
 struct SettingsModel: Identifiable {
-    var id: Int
-    var settingName: String
-    var additionalName: String?
-    var symbol: String?
+	var id: Int
+	var settingName: String
+	var additionalName: String?
+	var symbol: String?
 }

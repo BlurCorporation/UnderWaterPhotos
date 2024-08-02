@@ -17,7 +17,6 @@
 		1B0B517F2B1E5DBC0037C534 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B516C2B1E5DBC0037C534 /* CGFloat+Extension.swift */; };
 		1B0B51802B1E5DBC0037C534 /* BottomSheetSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */; };
 		1B0B51842B222C250037C534 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B51832B222C250037C534 /* UIImage+Extension.swift */; };
-		1B0C785A2B3CAC45004CB2CB /* testVideo.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */; };
 		1B14FF1F2AF12A4C00ADFA06 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */; };
 		1B2119BE2AEAAA3700B3E1AF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2119BD2AEAAA3700B3E1AF /* View.swift */; };
 		1B2613CF2B695568006EDD31 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B2613CE2B695568006EDD31 /* CVWrapper.mm */; };
@@ -122,7 +121,6 @@
 		1B0B516C2B1E5DBC0037C534 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
 		1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetSaveViewController.swift; sourceTree = "<group>"; };
 		1B0B51832B222C250037C534 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = testVideo.MP4; sourceTree = "<group>"; };
 		1B14FF1E2AF12A4C00ADFA06 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		1B2119BD2AEAAA3700B3E1AF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1B2613CD2B695568006EDD31 /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
@@ -428,7 +426,6 @@
 				1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */,
 				1B2613D72B69564B006EDD31 /* ProcessViewController.swift */,
 				1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */,
-				1B0C78592B3CAC45004CB2CB /* testVideo.MP4 */,
 				1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */,
 			);
 			path = Process;
@@ -627,7 +624,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B0C785A2B3CAC45004CB2CB /* testVideo.MP4 in Resources */,
 				1BADC9602AA4D896002C34A5 /* LaunchScreen.storyboard in Resources */,
 				1BF381FF2C2DC97B0012A40C /* GoogleService-Info.plist in Resources */,
 				FBDA15622B62ECCF00601514 /* Localizable.strings in Resources */,

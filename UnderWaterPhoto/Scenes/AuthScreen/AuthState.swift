@@ -6,7 +6,7 @@
 //
 
 enum AuthState {
-    case registration
-    case login
-    case restore
+	case registration
+	case login
+	case restore
 }
