@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct ContentModel: Identifiable, Equatable {
+struct ContentModel: Identifiable, Hashable {
     var id: UUID
     var image: UIImage
     var url: String?

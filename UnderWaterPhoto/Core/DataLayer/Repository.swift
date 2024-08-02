@@ -15,7 +15,7 @@ protocol RepositoryProtocol {
 		contentID: String
 	)
 	func getContentID()
-	func updateContent()
+	func updateContent(completion: @escaping () -> Void)
 }
 
 class Repository {
@@ -45,8 +45,12 @@ class Repository {
 	
 	// MARK: - Private methods
 	
-	private func downloadAndSave(contentIDs: [ContentFirestoreModel]) {
+	private func downloadAndSave(
+		contentIDs: [ContentFirestoreModel],
+		completion: @escaping () -> Void
+	) {
 		let contents = self.getContent().map { $0.id.uuidString }
+		print("CONTENTIDS")
 		for id in contentIDs {
 			guard !contents.contains(id.downloadid) else { continue }
 			self.firebaseStorageManager.downloadImage(id: id.downloadid) { [weak self] result in
@@ -67,6 +71,7 @@ class Repository {
 								url: videoUrl?.absoluteString,
 								folderName: "ContentFolder"
 							) { _ in
+								completion()
 							}
 						case .failure:
 							let content = ContentEntity(context: self.coreDataManager.context)
@@ -80,6 +85,7 @@ class Repository {
 								url: nil,
 								folderName: "ContentFolder"
 							) { _ in
+								completion()
 							}
 						}
 					}
@@ -201,7 +207,7 @@ class Repository {
 		}
 	}
 	
-	func updateContent() {
+	func updateContent(completion: @escaping () -> Void) {
 		firestoreService.getContentID { result in
 			switch result {
 			case .success(let contentsModel):
@@ -209,7 +215,9 @@ class Repository {
 					print("нет данных")
 					return
 				}
-				self.downloadAndSave(contentIDs: contentsModel)
+				self.downloadAndSave(contentIDs: contentsModel) {
+					completion()
+				}
 			case .failure:
 				print("Ничего не скачалось с Firestore")
 			}

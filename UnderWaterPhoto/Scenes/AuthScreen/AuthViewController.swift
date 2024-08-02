@@ -60,19 +60,25 @@ final class AuthViewController: UIViewController {
         return textField
     }()
     
-    private let emailTextField: CustomTextField = {
-        let textField = CustomTextField()
-        textField.placeholder = "E-mail".localized
-        return textField
-    }()
-    
-    private let passwordTextField: CustomTextField = {
-        let textField = CustomTextField()
-        textField.placeholder = L10n.AuthViewController.passwordTextField.localized
-        textField.isSecureTextEntry = true
-        return textField
-    }()
-    
+	private let emailTextField: CustomTextField = {
+		let textField = CustomTextField()
+		textField.placeholder = "E-mail".localized
+#if DEBUG
+		textField.text = "aa@a.ru"
+#endif
+		return textField
+	}()
+	
+	private let passwordTextField: CustomTextField = {
+		let textField = CustomTextField()
+		textField.placeholder = L10n.AuthViewController.passwordTextField.localized
+		textField.isSecureTextEntry = true
+#if DEBUG
+		textField.text = "12345678"
+#endif
+		return textField
+	}()
+	
     private let repeatPasswordTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.placeholder = L10n.AuthViewController.repeatPasswordTextField.localized

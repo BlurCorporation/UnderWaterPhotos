@@ -25,21 +25,34 @@ class MainViewModel: ObservableObject {
     
     init(repository: Repository) {
         self.repository = repository
-        fetch()
     }
     
     func fetch() {
         if state != .settings {
-			repository.updateContent()
-            images = repository.getContent()
-            if images.isEmpty {
-                state = .clear
-            } else {
-                state = .main
-            }
-			
+			self.images = self.repository.getContent()
+			if self.images.isEmpty {
+				self.state = .clear
+			} else {
+				self.state = .main
+			}
+			self.repository.updateContent {
+				self.updateImages()
+				print(self.images)
+			}
         }
     }
+	
+	func updateImages() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return }
+			self.images = self.repository.getContent()
+			if self.images.isEmpty {
+				self.state = .clear
+			} else {
+				self.state = .main
+			}
+		}
+	}
     
     func isEmpty() -> Bool {
         return images.isEmpty

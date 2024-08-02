@@ -20,7 +20,10 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+		func imagePickerController(
+			_ picker: UIImagePickerController,
+			didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+		) {
             if let uiImage = info[.originalImage] as? UIImage {
                 let content = ContentModel(id: UUID(), image: uiImage)
                 parent.image = content
@@ -29,9 +32,11 @@ struct ImagePicker: UIViewControllerRepresentable {
             
             if let videourl = info[.mediaURL] as? URL {
                 let avAsset = AVURLAsset(url: videourl, options: nil)
-                avAsset.exportVideo(presetName: AVAssetExportPresetHighestQuality,
-                                    outputFileType: AVFileType.mp4,
-                                    fileExtension: "mp4") { (mp4Url) in
+				avAsset.exportVideo(
+					presetName: AVAssetExportPresetHighestQuality,
+					outputFileType: AVFileType.mp4,
+					fileExtension: "mp4"
+				) { (mp4Url) in
                     let content = ContentModel(id: UUID(),
                                                image: UIImage(),
                                                url: String(describing: mp4Url!))

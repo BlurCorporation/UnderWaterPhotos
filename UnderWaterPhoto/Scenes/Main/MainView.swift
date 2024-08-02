@@ -87,15 +87,15 @@ struct MainView: View {
                    }
                }
            }
-           .onAppear {
-               vm.fetch()
-               switch vm.state {
-               case .main, .clear:
-                   progress = 0
-               case .settings:
-                   progress = 1
-               }
-           }
+		   .onAppear {
+			   vm.fetch()
+			   switch vm.state {
+			   case .main, .clear:
+				   progress = 0
+			   case .settings:
+				   progress = 1
+			   }
+		   }
         }
     }
     
@@ -121,7 +121,7 @@ private extension MainView {
                 Image(systemName: "photo")
                     .font(.system(size: 32, weight: .medium))
                     .foregroundColor(Color("white"))
-                Text(L10n.Extension.MainView.EmptyView.text)
+				Text(L10n.Extension.MainView.EmptyView.text)
                     .foregroundColor(Color("white"))
                     .font(.system(size: 20, weight: .medium))
                     .padding([.leading, .trailing], 36)
@@ -133,13 +133,13 @@ private extension MainView {
     
     
     var scrollContentView: some View {
-        GeometryReader { geometry in
             LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
-                ForEach(vm.images) { item in
+				let _ = print(vm.images.count)
+				ForEach(vm.images, id: \.self) { item in
                     Image(uiImage: item.image)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: geometry.size.width / 2 - 8, height: 210, alignment: .center)
+						.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
                         .clipped()
                         .clipShape(.rect(cornerRadius: 24))
                         .shadow(radius: 5)
@@ -148,7 +148,6 @@ private extension MainView {
                         }
                 }
             }
-        }
     }
 }
 
@@ -223,7 +222,7 @@ final class MainViewController: UIViewController {
         
         let swiftUIViewController = UIHostingController(
             rootView: MainView(
-                vm: viewModel,
+				vm: self.viewModel,
                 languageSettingVC: goLanguageScreen,
                 routeProcessScreen: routeProcessScreen,
                 routeSubscriptionScreen: routeSubscriptionScreen,

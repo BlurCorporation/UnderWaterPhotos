@@ -269,33 +269,6 @@
 			path = CustomBottomSheet;
 			sourceTree = "<group>";
 		};
-		1B27598F2AE123F500237167 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				FB3566682B38852B000F9B53 /* ImagePicker.swift */,
-				1B27EB042AAD35B800DD4E30 /* MainView.swift */,
-				1BA7ED992AEA8914004CC70A /* HeaderView.swift */,
-				1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1B2759902AE123FF00237167 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				1B2759922AE1241800237167 /* MainViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		1B2759912AE1240500237167 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1B2759942AE1242F00237167 /* ContentModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		1B27EAF12AA8AC7900DD4E30 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,9 +287,12 @@
 		1B27EB032AAD35A800DD4E30 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				1B2759912AE1240500237167 /* Model */,
-				1B2759902AE123FF00237167 /* ViewModel */,
-				1B27598F2AE123F500237167 /* View */,
+				FB3566682B38852B000F9B53 /* ImagePicker.swift */,
+				1B27EB042AAD35B800DD4E30 /* MainView.swift */,
+				1BA7ED992AEA8914004CC70A /* HeaderView.swift */,
+				1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */,
+				1B2759942AE1242F00237167 /* ContentModel.swift */,
+				1B2759922AE1241800237167 /* MainViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
