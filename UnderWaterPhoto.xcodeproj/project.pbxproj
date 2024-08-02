@@ -141,6 +141,7 @@
 		1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		1B27EB042AAD35B800DD4E30 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1B3259232C46FABF001E5B44 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		1B40F3162C5C0B3600823BE0 /* UnderWaterPhoto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnderWaterPhoto.entitlements; sourceTree = "<group>"; };
 		1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavBarView.swift; sourceTree = "<group>"; };
 		1B4BD0672AE8F26500A56066 /* UnderWaterPhoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnderWaterPhoto-Bridging-Header.h"; sourceTree = "<group>"; };
 		1B4BD0692AE8F26500A56066 /* colorcorrection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorcorrection.h; sourceTree = "<group>"; };
@@ -387,6 +388,7 @@
 		1BADC9522AA4D895002C34A5 /* UnderWaterPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				1B40F3162C5C0B3600823BE0 /* UnderWaterPhoto.entitlements */,
 				1B2613DC2B6963AF006EDD31 /* opencv2.framework */,
 				1BADC96B2AA4DDD0002C34A5 /* Scenes */,
 				1BADC9672AA4DCE9002C34A5 /* Core */,
@@ -881,6 +883,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = UnderWaterPhoto/UnderWaterPhoto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
@@ -890,6 +893,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Нужна камера очень";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Для загрузки и скачивания фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -902,7 +906,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blurcorporation.divepix;
+				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "UnderWaterPhoto/Core/ImageProcessing/UnderWaterPhoto-Bridging-Header.h";
@@ -918,6 +922,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = UnderWaterPhoto/UnderWaterPhoto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B22MD3V3UZ;
@@ -927,6 +932,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Нужна камера очень";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Для загрузки и скачивания фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -939,7 +945,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blurcorporation.divepix;
+				PRODUCT_BUNDLE_IDENTIFIER = BlurCorp.UnderWaterPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "UnderWaterPhoto/Core/ImageProcessing/UnderWaterPhoto-Bridging-Header.h";
