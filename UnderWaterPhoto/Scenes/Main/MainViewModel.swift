@@ -55,6 +55,7 @@ class MainViewModel: ObservableObject {
 	}
 	
 	func isEmpty() -> Bool {
+		self.images = self.repository.getContent()
 		return images.isEmpty
 	}
 	
