@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import PhotosUI
+import UniformTypeIdentifiers
 
 struct HeaderView: View {
 	@State private var showImagePicker: Bool = false
 	@State private var selectedImage: ContentModel?
 	@ObservedObject var vm: MainViewModel
-	var progress: CGFloat
+	@State private var image: PhotosPickerItem?
+//	var progress: CGFloat
 	var userName: String
 	var routeProcessScreen: (_ content: ContentModel) -> Void
+	var routePickerScreen: () -> Void
 	@State private var isCross: Bool = false
 	
 	var headerBottomPadding: CGFloat {
@@ -35,9 +39,11 @@ struct HeaderView: View {
 			HStack {
 				switch vm.state {
 				case .settings:
-					SettingsNavBarView(avatarImage: vm.avatarImage,
-									   name: vm.userName,
-									   mail: vm.mail)
+					SettingsNavBarView(
+						avatarImage: vm.avatarImage,
+						name: vm.userName,
+						mail: vm.mail
+					)
 				default:
 					navBar
 				}
@@ -94,29 +100,79 @@ private extension HeaderView {
 	}
 	
 	var addPhotoButtonView: some View {
-		Button(action: {
-			self.showImagePicker.toggle()
-		}, label: {
-			HStack(spacing: 16) {
-				Image(systemName: "plus.circle.fill")
-					.font(.system(size: 40))
-					.padding([.leading], 20)
-				Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
-					.font(.system(size: 17, weight: .semibold))
-					.padding([.trailing], 20)
+		PhotosPicker(
+			selection: $image,
+			matching: .any(of: [.images, .videos]),
+			preferredItemEncoding: .automatic,
+			label: {
+				HStack(spacing: 16) {
+					Image(systemName: "plus.circle.fill")
+						.font(.system(size: 40))
+						.padding([.leading], 20)
+					Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
+						.font(.system(size: 17, weight: .semibold))
+						.padding([.trailing], 20)
+				}
+				.foregroundColor(Color("white"))
+				.frame(height: 80)
+				.frame(maxWidth: .infinity)
+				.background(Color("blue"))
+				.cornerRadius(24)
+				.padding([.leading, .trailing, .bottom], 16)
+				.shadow(color: .black, radius: 5)
 			}
-			.foregroundColor(Color("white"))
-			.frame(height: 80)
-			.frame(maxWidth: .infinity)
-			.background(Color("blue"))
-			.cornerRadius(24)
-			.padding([.leading, .trailing, .bottom], 16)
-			.shadow(color: .black, radius: 5)
-			.sheet(isPresented: $showImagePicker) {
-				ImagePicker(image: $selectedImage)
-					.ignoresSafeArea()
+		)
+		.onChange(of: image) { content in
+			Task {
+				print(content?.supportedContentTypes.count)
+				if let contentType = content?.supportedContentTypes.first {
+					if contentType.conforms(to: .movie) {
+						if let video = try? await content?.loadTransferable(type: VideoTransferable.self) {
+							let contentModel = ContentModel(
+								id: UUID(),
+								image: UIImage(),
+								url: video.url.absoluteString
+							)
+							self.routeProcessScreen(contentModel)
+						}
+					} else if contentType.conforms(to: .image) {
+						if let image = try? await content?.loadTransferable(type: Image.self) {
+							let uiimage = ImageRenderer(content: image).uiImage
+							if let uiimage = uiimage {
+								let contentModel = ContentModel(
+									id: UUID(),
+									image: uiimage
+								)
+								self.routeProcessScreen(contentModel)
+							} else {
+								print("image is nil")
+							}
+						}
+					} else {
+						print("Content doesnt conforms to image or movie")
+					}
+				}
+				
+//				if let data = try? await content?.loadTransferable(type: Data.self) {
+//					if let image = UIImage(data: data) {
+//						let contentModel = ContentModel(id: UUID(), image: image)
+//						self.routeProcessScreen(contentModel)
+//					} else {
+//						let asset = data.getAVAsset()
+//						asset.exportVideo { url in
+//							let contentModel = ContentModel(
+//								id: UUID(),
+//								image: UIImage(),
+//								url: url?.absoluteString
+//							)
+//							DispatchQueue.main.async {
+//								self.routeProcessScreen(contentModel)
+//							}
+//						}
+//					}
+//				}
 			}
-		})
+		}
 	}
 }
 
@@ -141,6 +197,28 @@ struct CrossButtonView: View {
 					.rotationEffect(.degrees(isCross ? -45 : 0), anchor: .center)
 					.offset(x: isCross ? 0 : 8, y: isCross ? -6 : 0)
 			}
+		}
+	}
+}
+
+struct VideoTransferable: Transferable {
+	let url: URL
+	
+	static var transferRepresentation: some TransferRepresentation {
+		FileRepresentation(contentType: .movie) { exporting in
+			return SentTransferredFile(exporting.url)
+		} importing: { received in
+			let origin = received.file
+			let filename = origin.lastPathComponent
+			let copied = URL.documentsDirectory.appendingPathComponent(filename)
+			let filePath = copied.path()
+			
+			if FileManager.default.fileExists(atPath: filePath) {
+				try FileManager.default.removeItem(atPath: filePath)
+			}
+			
+			try FileManager.default.copyItem(at: origin, to: copied)
+			return VideoTransferable(url: copied)
 		}
 	}
 }

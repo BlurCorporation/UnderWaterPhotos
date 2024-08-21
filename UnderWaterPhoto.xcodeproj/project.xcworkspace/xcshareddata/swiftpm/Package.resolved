@@ -1,5 +1,5 @@
 {
-  "originHash" : "82e2dd47bb61293bf7850e377c9c7182feb060d1f0d4a041db1a00b21a7c7013",
+  "originHash" : "3fc8177b3c45b44b07257bb964272accf459ece663fbefe054bc4d28125bcde9",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -139,10 +139,10 @@
     {
       "identity" : "scalingheaderscrollview",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Maksim193/ScalingHeaderScrollView",
+      "location" : "https://github.com/exyte/ScalingHeaderScrollView.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "2b98c5425c6c4c67a53db443327015f0d042a264"
+        "revision" : "57631d0885bc55991126b932c106540273d6131c",
+        "version" : "1.1.4"
       }
     },
     {

@@ -23,6 +23,7 @@ protocol Buildable {
 		processedImage: UIImage?,
 		processedImageAlpha: Float
 	) -> BottomSheetSaveViewController
+	func buildPickerViewController() -> PickerViewController
 }
 
 final class SceneBuildManager {
@@ -145,5 +146,12 @@ extension SceneBuildManager: Buildable {
 		vc.addVideo(url: videoURL, previewImage: previewImage)
 		vc.imageMergeManager = imageMergeManager
 		return vc
+	}
+	
+	func buildPickerViewController() -> PickerViewController {
+		let viewController = PickerViewController()
+		let presenter = PickerPresenter(viewController: viewController)
+		viewController.presenter = presenter
+		return viewController
 	}
 }

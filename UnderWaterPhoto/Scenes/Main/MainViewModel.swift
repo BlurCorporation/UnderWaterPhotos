@@ -28,16 +28,18 @@ class MainViewModel: ObservableObject {
 	}
 	
 	func fetch() {
-		if state != .settings {
+		if self.state != .settings {
 			self.images = self.repository.getContent()
-			if self.images.isEmpty {
-				self.state = .clear
-			} else {
-				self.state = .main
-			}
+//			if self.images.isEmpty {
+//				self.state = .clear
+//			} 
+//			if !self.images.isEmpty {
+//				self.state = .main
+//			}
+			self.state = self.images.isEmpty ? .clear : .main
+//			self.state = .clear
 			self.repository.updateContent {
 				self.updateImages()
-				print(self.images)
 			}
 		}
 	}

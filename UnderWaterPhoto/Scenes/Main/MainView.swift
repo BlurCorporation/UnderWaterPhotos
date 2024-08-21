@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 import ScalingHeaderScrollView
-
+import PhotosUI
 
 struct MainView: View {
 	@ObservedObject var vm: MainViewModel
@@ -20,19 +20,21 @@ struct MainView: View {
 	var routeProcessScreen: (_ content: ContentModel) -> Void
 	var routeSubscriptionScreen: () -> Void
 	var logout: () -> Void
+	var routePickerScreen: () -> Void
 	
 	let defaultsManager: DefaultsManagerable
 	let repository: Repository
 	
 	var body: some View {
-		VStack {
+		ZStack {
+			Color("blue")
 			ScalingHeaderScrollView {
 				ZStack {
 					HeaderView(
 						vm: vm,
-						progress: progress,
 						userName: vm.userName,
-						routeProcessScreen: routeProcessScreen
+						routeProcessScreen: routeProcessScreen,
+						routePickerScreen: routePickerScreen
 					)
 					mainHeaderTextView
 						.padding([.leading, .trailing], 16)
@@ -55,14 +57,17 @@ struct MainView: View {
 				case .clear:
 					emptyView
 						.padding()
+//				default:
+//					Text("")
 				}
 			}
 			.hideScrollIndicators()
 			.height(min: 188, max: vm.state == .settings ? 188 : 318)
 			.allowsHeaderCollapse()
 			.collapseProgress($progress)
-			.pullToRefresh(isLoading: $isLoading,
-						   color: Color.white) {
+			.pullToRefresh(
+				isLoading: $isLoading
+			) {
 				switch vm.state {
 				case .main, .clear:
 					DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -74,29 +79,28 @@ struct MainView: View {
 					print(".setting")
 					isLoading = false
 				}
-				
 			}
-						   .background(Color("blue"))
-						   .ignoresSafeArea()
-						   .onChange(of: vm.state) { newValue in
-							   if newValue == .settings {
-								   progress = 1
-							   } else {
-								   DispatchQueue.main.asyncAfter(deadline: .now() + 0.13) {
-									   progress = 0
-								   }
-							   }
-						   }
-						   .onAppear {
-							   vm.fetch()
-							   switch vm.state {
-							   case .main, .clear:
-								   progress = 0
-							   case .settings:
-								   progress = 1
-							   }
-						   }
+//			.background(Color("blue"))
+			.onChange(of: vm.state) { newValue in
+				if newValue == .settings {
+					progress = 1
+				} else {
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.13) {
+						progress = 0
+					}
+				}
+			}
+			.onAppear {
+				vm.fetch()
+				switch vm.state {
+				case .main, .clear:
+					progress = 0
+				case .settings:
+					progress = 1
+				}
+			}
 		}
+		.ignoresSafeArea(.container, edges: .all)
 	}
 	
 	func changeProgress(progress: CGFloat) {
@@ -131,7 +135,6 @@ private extension MainView {
 		
 	}
 	
-	
 	var scrollContentView: some View {
 		LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
 			let _ = print(vm.images.count)
@@ -164,6 +167,7 @@ final class MainViewController: UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		navigationController?.isNavigationBarHidden = true
 	}
 	
@@ -203,6 +207,17 @@ final class MainViewController: UIViewController {
 			self.navigationController?.pushViewController(secondViewController, animated: true)
 		}
 		
+		let routePickerScreen = { [weak self] in
+			guard let self = self else { return }
+			let viewController = self.sceneBuildManager.buildPickerViewController()
+			viewController.modalPresentationStyle = .overCurrentContext
+			viewController.modalTransitionStyle = .coverVertical
+			
+			if let topViewController = self.navigationController?.topViewController {
+				topViewController.present(viewController, animated: true)
+			}
+		}
+		
 		let routeSubscriptionScreen = { [weak self] in
 			guard let self = self else { return }
 			let nextViewController = self.sceneBuildManager.buildSubscriptionView()
@@ -227,6 +242,7 @@ final class MainViewController: UIViewController {
 				routeProcessScreen: routeProcessScreen,
 				routeSubscriptionScreen: routeSubscriptionScreen,
 				logout: logout,
+				routePickerScreen: routePickerScreen,
 				defaultsManager: defaultsManager,
 				repository: repository
 			)
@@ -236,10 +252,14 @@ final class MainViewController: UIViewController {
 		self.view.addSubview(swiftUIViewController.view)
 		swiftUIViewController.didMove(toParent: self)
 		NSLayoutConstraint.activate([
-			swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-			swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
-			swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			swiftUIViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+			swiftUIViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			swiftUIViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			swiftUIViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//			swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+//			swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
+//			swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//			swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
 		])
 	}
 }

@@ -50,28 +50,6 @@ struct ImagePicker: UIViewControllerRepresentable {
 			
 		}
 		
-		func getVideoOrientationFromAsset(asset: AVAsset) -> UIImage.Orientation {
-			let videoTrack = asset.tracks(withMediaType: .video)[0]
-			let size = videoTrack.naturalSize
-			
-			guard let txf = asset.tracks(withMediaType: .video).first?.preferredTransform else {
-				return .up
-			}
-			
-			if (size.width == txf.tx && size.height == txf.ty) {
-				return .left
-			}
-			else if (txf.tx == 0 && txf.ty == 0) {
-				return .right
-			}
-			else if (txf.tx == 0 && txf.ty == size.width) {
-				return .down
-			}
-			else {
-				return .up
-			}
-		}
-		
 		func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 			parent.presentationMode.wrappedValue.dismiss()
 		}
@@ -92,15 +70,13 @@ struct ImagePicker: UIViewControllerRepresentable {
 	func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
 }
 
-extension AVURLAsset
-{
+extension AVURLAsset {
 	func exportVideo(
 		presetName: String = AVAssetExportPresetHighestQuality,
 		outputFileType: AVFileType = .mp4,
 		fileExtension: String = "mp4",
 		then completion: @escaping (URL?) -> Void
-	)
-	{
+	) {
 		let filename = url.deletingPathExtension().appendingPathExtension(fileExtension).lastPathComponent
 		let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
 		

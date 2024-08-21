@@ -51,6 +51,7 @@ class ProcessPresenter {
 	private var videoURL: String?
 	private var wasProcessed: Bool = false
 	private let isUserPremium: Bool
+	
 	//MARK: - Initialize
 	
 	init(

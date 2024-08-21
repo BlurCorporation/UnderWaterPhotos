@@ -32,8 +32,8 @@
 		1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */; };
 		1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EB042AAD35B800DD4E30 /* MainView.swift */; };
 		1B3259242C46FABF001E5B44 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3259232C46FABF001E5B44 /* FirestoreService.swift */; };
+		1B40F3202C67D64500823BE0 /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B40F31F2C67D64500823BE0 /* ScalingHeaderScrollView */; };
 		1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */; };
-		1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B4A4FBA2AF126DF00B35745 /* ScalingHeaderScrollView */; };
 		1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */; };
 		1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */; };
 		1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */; };
@@ -55,6 +55,7 @@
 		1BC063772BFF7BE7006D4DE6 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC063762BFF7BE7006D4DE6 /* UserDefaultManager.swift */; };
 		1BCC183E2B079CA800B763D8 /* LanguageSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */; };
 		1BCC18412B0A7FC900B763D8 /* LanguageSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */; };
+		1BD5EB4C2C74D4E900FADDB2 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5EB4B2C74D4E900FADDB2 /* Data.swift */; };
 		1BDACE892B2495C500CE8C73 /* ImageMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */; };
 		1BF21B4A2B849985002F04A9 /* VideoProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF21B492B849985002F04A9 /* VideoProcessingManager.swift */; };
 		1BF381FB2C25DC170012A40C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF381FA2C25DC170012A40C /* CustomTextField.swift */; };
@@ -167,6 +168,7 @@
 		1BC063762BFF7BE7006D4DE6 /* UserDefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		1BCC183C2B079CA800B763D8 /* LanguageSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSettingView.swift; sourceTree = "<group>"; };
 		1BCC18402B0A7FC900B763D8 /* LanguageSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingViewModel.swift; sourceTree = "<group>"; };
+		1BD5EB4B2C74D4E900FADDB2 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		1BD9766E2B079A1300AF1B40 /* UnderWaterPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnderWaterPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDACE882B2495C500CE8C73 /* ImageMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMergeManager.swift; sourceTree = "<group>"; };
 		1BF21B492B849985002F04A9 /* VideoProcessingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProcessingManager.swift; sourceTree = "<group>"; };
@@ -201,7 +203,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */,
-				1B4A4FBB2AF126DF00B35745 /* ScalingHeaderScrollView in Frameworks */,
 				3A48C8892B053A2D00DD5A18 /* FirebaseMessaging in Frameworks */,
 				3A48C87B2B053A2D00DD5A18 /* FirebaseFirestoreSwift in Frameworks */,
 				3A48C8652B053A2D00DD5A18 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
@@ -221,6 +222,7 @@
 				3A48C8712B053A2D00DD5A18 /* FirebaseDatabase in Frameworks */,
 				3A48C88B2B053A2D00DD5A18 /* FirebasePerformance in Frameworks */,
 				3A1024B22B5D42E3000ECBDC /* GoogleSignInSwift in Frameworks */,
+				1B40F3202C67D64500823BE0 /* ScalingHeaderScrollView in Frameworks */,
 				3A48C8672B053A2D00DD5A18 /* FirebaseAppCheck in Frameworks */,
 				3A48C8612B053A2D00DD5A18 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				3A48C8832B053A2D00DD5A18 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
@@ -278,6 +280,7 @@
 				1B2119BD2AEAAA3700B3E1AF /* View.swift */,
 				14E941162B02965F00582CF0 /* String.swift */,
 				1B0B51832B222C250037C534 /* UIImage+Extension.swift */,
+				1BD5EB4B2C74D4E900FADDB2 /* Data.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -543,7 +546,6 @@
 			name = UnderWaterPhoto;
 			packageProductDependencies = (
 				3AE95D812AD3EBD300166F23 /* SnapKit */,
-				1B4A4FBA2AF126DF00B35745 /* ScalingHeaderScrollView */,
 				3A48C85E2B053A2D00DD5A18 /* FirebaseAnalytics */,
 				3A48C8602B053A2D00DD5A18 /* FirebaseAnalyticsOnDeviceConversion */,
 				3A48C8622B053A2D00DD5A18 /* FirebaseAnalyticsSwift */,
@@ -573,6 +575,7 @@
 				3A48C8922B053A2D00DD5A18 /* FirebaseStorageCombine-Community */,
 				3A1024AF2B5D42E3000ECBDC /* GoogleSignIn */,
 				3A1024B12B5D42E3000ECBDC /* GoogleSignInSwift */,
+				1B40F31F2C67D64500823BE0 /* ScalingHeaderScrollView */,
 			);
 			productName = UnderWaterPhoyo;
 			productReference = 1BD9766E2B079A1300AF1B40 /* UnderWaterPhoto.app */;
@@ -606,9 +609,9 @@
 			mainGroup = 1BADC9472AA4D895002C34A5;
 			packageReferences = (
 				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				1B4A4FB92AF126DF00B35745 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 				3A48C85D2B053A2D00DD5A18 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3A1024AE2B5D42E3000ECBDC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				1B40F31E2C67D64500823BE0 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
 			productRefGroup = 1BADC9472AA4D895002C34A5;
 			projectDirPath = "";
@@ -658,6 +661,7 @@
 				1B2613D92B69564B006EDD31 /* ProcessViewController.swift in Sources */,
 				1B2613E12B6CB104006EDD31 /* VideoPlayerView.swift in Sources */,
 				1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */,
+				1BD5EB4C2C74D4E900FADDB2 /* Data.swift in Sources */,
 				FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */,
 				1B2613D22B695573006EDD31 /* videoenhancement.cpp in Sources */,
 				1BF21B4A2B849985002F04A9 /* VideoProcessingManager.swift in Sources */,
@@ -872,7 +876,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -911,7 +915,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -950,12 +954,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1B4A4FB92AF126DF00B35745 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */ = {
+		1B40F31E2C67D64500823BE0 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Maksim193/ScalingHeaderScrollView";
+			repositoryURL = "https://github.com/exyte/ScalingHeaderScrollView.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.4;
 			};
 		};
 		3A1024AE2B5D42E3000ECBDC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
@@ -985,9 +989,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1B4A4FBA2AF126DF00B35745 /* ScalingHeaderScrollView */ = {
+		1B40F31F2C67D64500823BE0 /* ScalingHeaderScrollView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1B4A4FB92AF126DF00B35745 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
+			package = 1B40F31E2C67D64500823BE0 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
 			productName = ScalingHeaderScrollView;
 		};
 		3A1024AF2B5D42E3000ECBDC /* GoogleSignIn */ = {
