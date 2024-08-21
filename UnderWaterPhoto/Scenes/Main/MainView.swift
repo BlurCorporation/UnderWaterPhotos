@@ -20,7 +20,6 @@ struct MainView: View {
 	var routeProcessScreen: (_ content: ContentModel) -> Void
 	var routeSubscriptionScreen: () -> Void
 	var logout: () -> Void
-	var routePickerScreen: () -> Void
 	
 	let defaultsManager: DefaultsManagerable
 	let repository: Repository
@@ -33,8 +32,7 @@ struct MainView: View {
 					HeaderView(
 						vm: vm,
 						userName: vm.userName,
-						routeProcessScreen: routeProcessScreen,
-						routePickerScreen: routePickerScreen
+						routeProcessScreen: routeProcessScreen
 					)
 					mainHeaderTextView
 						.padding([.leading, .trailing], 16)
@@ -61,6 +59,8 @@ struct MainView: View {
 //					Text("")
 				}
 			}
+			.modalIsPresented(vm.isModalPresented)
+			.headerIsClipped(true)
 			.hideScrollIndicators()
 			.height(min: 188, max: vm.state == .settings ? 188 : 318)
 			.allowsHeaderCollapse()
@@ -140,6 +140,7 @@ private extension MainView {
 			let _ = print(vm.images.count)
 			ForEach(vm.images) { item in
 				Image(uiImage: item.image)
+					.renderingMode(.original)
 					.resizable()
 					.aspectRatio(contentMode: .fill)
 					.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
@@ -207,17 +208,6 @@ final class MainViewController: UIViewController {
 			self.navigationController?.pushViewController(secondViewController, animated: true)
 		}
 		
-		let routePickerScreen = { [weak self] in
-			guard let self = self else { return }
-			let viewController = self.sceneBuildManager.buildPickerViewController()
-			viewController.modalPresentationStyle = .overCurrentContext
-			viewController.modalTransitionStyle = .coverVertical
-			
-			if let topViewController = self.navigationController?.topViewController {
-				topViewController.present(viewController, animated: true)
-			}
-		}
-		
 		let routeSubscriptionScreen = { [weak self] in
 			guard let self = self else { return }
 			let nextViewController = self.sceneBuildManager.buildSubscriptionView()
@@ -242,7 +232,6 @@ final class MainViewController: UIViewController {
 				routeProcessScreen: routeProcessScreen,
 				routeSubscriptionScreen: routeSubscriptionScreen,
 				logout: logout,
-				routePickerScreen: routePickerScreen,
 				defaultsManager: defaultsManager,
 				repository: repository
 			)

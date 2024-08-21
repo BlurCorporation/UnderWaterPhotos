@@ -20,6 +20,7 @@ class MainViewModel: ObservableObject {
 	@Published var avatarImage: String = "photo"
 	@Published var mail: String = "under@water.ru"
 	@Published var toggle: Bool = false
+	@Published var isModalPresented: Bool = false
 	
 	let repository: Repository
 	

@@ -17,7 +17,6 @@ struct HeaderView: View {
 //	var progress: CGFloat
 	var userName: String
 	var routeProcessScreen: (_ content: ContentModel) -> Void
-	var routePickerScreen: () -> Void
 	@State private var isCross: Bool = false
 	
 	var headerBottomPadding: CGFloat {
@@ -100,31 +99,33 @@ private extension HeaderView {
 	}
 	
 	var addPhotoButtonView: some View {
-		PhotosPicker(
-			selection: $image,
-			matching: .any(of: [.images, .videos]),
-			preferredItemEncoding: .automatic,
-			label: {
-				HStack(spacing: 16) {
-					Image(systemName: "plus.circle.fill")
-						.font(.system(size: 40))
-						.padding([.leading], 20)
-					Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
-						.font(.system(size: 17, weight: .semibold))
-						.padding([.trailing], 20)
-				}
-				.foregroundColor(Color("white"))
-				.frame(height: 80)
-				.frame(maxWidth: .infinity)
-				.background(Color("blue"))
-				.cornerRadius(24)
-				.padding([.leading, .trailing, .bottom], 16)
-				.shadow(color: .black, radius: 5)
+		Button(action: {
+			vm.isModalPresented = true
+		}) {
+			HStack(spacing: 16) {
+				Image(systemName: "plus.circle.fill")
+					.font(.system(size: 40))
+					.padding([.leading], 20)
+				Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
+					.font(.system(size: 17, weight: .semibold))
+					.padding([.trailing], 20)
 			}
+			.foregroundColor(Color("white"))
+			.frame(height: 80)
+			.frame(maxWidth: .infinity)
+			.background(Color("blue"))
+			.cornerRadius(24)
+			.padding([.leading, .trailing, .bottom], 16)
+			.shadow(color: .black, radius: 5)
+		}
+		.photosPicker(
+			isPresented: $vm.isModalPresented,
+			selection: $image,
+			matching: .any(of: [.images, .videos])
 		)
+		.presentationDetents([.fraction(0.99)])
 		.onChange(of: image) { content in
 			Task {
-				print(content?.supportedContentTypes.count)
 				if let contentType = content?.supportedContentTypes.first {
 					if contentType.conforms(to: .movie) {
 						if let video = try? await content?.loadTransferable(type: VideoTransferable.self) {
@@ -152,27 +153,13 @@ private extension HeaderView {
 						print("Content doesnt conforms to image or movie")
 					}
 				}
-				
-//				if let data = try? await content?.loadTransferable(type: Data.self) {
-//					if let image = UIImage(data: data) {
-//						let contentModel = ContentModel(id: UUID(), image: image)
-//						self.routeProcessScreen(contentModel)
-//					} else {
-//						let asset = data.getAVAsset()
-//						asset.exportVideo { url in
-//							let contentModel = ContentModel(
-//								id: UUID(),
-//								image: UIImage(),
-//								url: url?.absoluteString
-//							)
-//							DispatchQueue.main.async {
-//								self.routeProcessScreen(contentModel)
-//							}
-//						}
-//					}
-//				}
 			}
 		}
+//		.simultaneousGesture(TapGesture()
+//		   .onEnded({
+//			   vm.isModalPresented = true
+//		   })
+//		)
 	}
 }
 
