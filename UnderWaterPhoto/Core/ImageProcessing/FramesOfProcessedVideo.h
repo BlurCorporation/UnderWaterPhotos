@@ -7,10 +7,12 @@
 
 @interface FramesOfProcessedVideo : NSObject
 
-@property (nonatomic, strong) NSMutableArray *images;
-@property (nonatomic, assign) NSInteger frames;
+//@property (nonatomic, strong) NSMutableArray *images;
+//@property (nonatomic, assign) NSInteger frames;
+@property (nonatomic, assign) NSString *urlstring;
 
-- (instancetype)initWithImages:(NSMutableArray *)images frames:(NSInteger)frames;
+//- (instancetype)initWithImages:(NSMutableArray *)images frames:(NSInteger)frames urlstring:(NSString*) urlstring;
+- (instancetype)initWithURLString:(NSString*) urlstring;
 
 @end
 

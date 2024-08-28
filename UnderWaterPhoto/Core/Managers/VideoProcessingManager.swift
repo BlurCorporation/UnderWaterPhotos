@@ -251,6 +251,9 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
 			guard let previewImage = self.thumbnailForVideoAtURL(url: URL(string: "file://\(video)")!) else { return }
 			print(previewImage.imageOrientation.rawValue)
 			let processedVideo = try CVWrapper.process(withVideos: video)
+			var contentModel = ContentModel(id: UUID(), image: UIImage(), url: processedVideo.urlstring as String?)
+			completion(.success(contentModel))
+			/*
 			extractAudio(videoURL: URL(string: "file://\(video)")!, completion: { [weak self] audiourl in
 				guard let self = self else { return }
 				// создаём временную директорию, потом удаляем в репозитории
@@ -293,6 +296,7 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
 					}
 				}
 			})
+			 */
 		} catch {
 			print("error")
 		}

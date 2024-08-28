@@ -224,6 +224,7 @@ final class ProcessViewController: UIViewController {
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
 			if let url = URL(string: self.defaultVideoURL ?? "") {
+				print("DEFAULT VIDEO URL: \(url)")
 				self.playerView.addVideo(video: url)
 				self.playerView.play()
 			}

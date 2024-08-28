@@ -14,6 +14,7 @@
 #import <Foundation/Foundation.h>
 #import "FramesOfProcessedVideo.h"
 #import "AVFoundation/AVFoundation.h"
+#import <opencv2/imgcodecs/ios.h>
 
 @implementation CVWrapper
 
@@ -54,6 +55,14 @@
         baseVideoOrientation = UIImageOrientationRight;
     }
     
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSURL *tempurl = [[fileManager URLsForDirectory: NSCachesDirectory inDomains: NSUserDomainMask] objectAtIndex: 0];
+	NSString *filenamemp4 = [NSString stringWithFormat:@"%@.mp4", [[NSUUID UUID] UUIDString]];
+	NSURL *outputurl = [NSURL URLWithString:[[tempurl URLByAppendingPathComponent: filenamemp4] absoluteString]];
+	NSString *outputurlString = [[outputurl absoluteString] substringFromIndex:7];
+	std::string urlStringCPP = [outputurlString UTF8String];
+	std::cout << urlStringCPP << std::endl;
+	
     std::cout << cv::getBuildInformation() << std::endl;
     NSString *filePath = video; //[[NSBundle mainBundle] pathForResource:@"testVideo3" ofType:@"mov"];
     std::string InputFile = [filePath UTF8String];
@@ -63,7 +72,6 @@
     std::string ext_out = ".avi";
     std::string OutputFile = InputFile.substr(0, filename);
     OutputFile.insert(filename, ext_out);
-
     cv::VideoCapture cap(InputFile);
     if (!cap.isOpened()) {
         std::cerr << "Error opening video file." << std::endl;
@@ -74,9 +82,9 @@
     int n_frames = int(cap.get(CAP_PROP_FRAME_COUNT));
     double FPS = cap.get(CAP_PROP_FPS);
     std::cout << "Width: " << width << " Height: " << height << " n_frames: " << n_frames << " FPS: " << FPS << std::endl;
-    
-    cv::VideoWriter outt(OutputFile,cv::VideoWriter::fourcc('D', 'I', 'V', 'X'), FPS, cv::Size(width, height));
-    
+	NSLog(@"1");
+    cv::VideoWriter outt(urlStringCPP,cv::VideoWriter::fourcc('D', 'I', 'V', 'X'), FPS, cv::Size(width, height));
+	NSLog(@"2");
     std::string ext_comp = "_comp.avi";
     std::string Comparison = InputFile.substr(0, filename);
     Comparison.insert(filename, ext_comp);
@@ -98,17 +106,29 @@
     NSMutableArray *images1 = [[NSMutableArray alloc] init];
     
     for (i = 0; i < n_frames - 1; i++) {
-        cap >> image;
-        image_out = colorcorrection(image);
-        outt << image_out;
-        UIImage *correctedImage = [UIImage imageWithCVMat:image_out orientation: baseVideoOrientation];
-        [images addObject: [correctedImage normalizedImage]];
+		@autoreleasepool {
+			cap >> image;
+			image_out = colorcorrection(image);
+			outt << image_out;
+//			UIImage *correctedImage = [UIImage imageWithCVMat:image_out orientation: baseVideoOrientation];
+//			UIImage *lowResImage = [UIImage imageWithData:UIImageJPEGRepresentation(correctedImage, 0.8)];
+//			NSData * imageData = UIImageJPEGRepresentation(lowResImage,1);
+//			NSLog(@"%u", [imageData length]/1000);
+//			NSLog(@"%u", length);
+			
+//			[images addObject: [[UIImage alloc] normalizedImage]];
+		}
+		NSLog(@"%u", i);
     }
     
     NSLog(@"%d", [images count]);
-    
-    FramesOfProcessedVideo *result = [[FramesOfProcessedVideo alloc] initWithImages:images frames:FPS];
+//	UIImage *img = [UIImage imageNamed: @"image.png"];
+//	FramesOfProcessedVideo *result = [[FramesOfProcessedVideo alloc] initWithImages:  frames:FPS]
+//    FramesOfProcessedVideo *result = [[FramesOfProcessedVideo alloc] initWithImages:images frames:FPS urlstring:outputurlString];
+	FramesOfProcessedVideo *result = [[FramesOfProcessedVideo alloc] initWithURLString:[outputurl absoluteString]];
     return result;
 }
+
+
 
 @end
