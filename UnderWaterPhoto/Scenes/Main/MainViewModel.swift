@@ -23,9 +23,20 @@ class MainViewModel: ObservableObject {
 	@Published var isModalPresented: Bool = false
 	
 	let repository: Repository
+	let userDefaultsManager: DefaultsManagerable
 	
-	init(repository: Repository) {
+	init(
+		repository: Repository,
+		userDefaultsManager: DefaultsManagerable
+	) {
 		self.repository = repository
+		self.userDefaultsManager = userDefaultsManager
+		if let userName = userDefaultsManager.fetchObject(type: String.self, for: .userName) {
+			self.userName = userName
+		}
+		if let email = userDefaultsManager.fetchObject(type: String.self, for: .email) {
+			self.mail = email
+		}
 	}
 	
 	func fetch() {

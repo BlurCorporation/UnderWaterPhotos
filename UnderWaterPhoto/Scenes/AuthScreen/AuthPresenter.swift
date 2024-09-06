@@ -66,7 +66,8 @@ extension AuthPresenter: AuthPresenterProtocol {
 		password: String = "",
 		repeatPassword: String = ""
 	) {
-		
+		self.defaultsManager.saveObject(name, for: .userName)
+		self.defaultsManager.saveObject(email, for: .email)
 		switch authState {
 		case .registration:
 			guard !name.isEmpty,
@@ -118,6 +119,7 @@ extension AuthPresenter: AuthPresenterProtocol {
 		email: String,
 		password: String
 	) {
+		self.defaultsManager.saveObject(email, for: .email)
 		let user = LoginUserRequest(
 			email: email,
 			password: password

@@ -45,4 +45,5 @@ enum DefaultsKey: String {
 	case isUserPremium
 	case isUserAuth
 	case userName
+	case email
 }

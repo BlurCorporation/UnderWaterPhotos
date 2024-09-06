@@ -11,12 +11,16 @@ enum TypeAuth {
 protocol AuthServicable {
 	func isAuth() -> Bool
 	func getUserName() -> String
-	func loginUser(with userRequest: LoginUserRequest?,
-				   typeAuth: TypeAuth,
-				   viewController: UIViewController?,
-				   completion: @escaping (Error?) -> Void)
-	func registerUser(with userRequest: RegisterUserRequest?,
-					  completion: @escaping (Bool, Error?) -> Void)
+	func loginUser(
+		with userRequest: LoginUserRequest?,
+		typeAuth: TypeAuth,
+		viewController: UIViewController?,
+		completion: @escaping (Error?) -> Void
+	)
+	func registerUser(
+		with userRequest: RegisterUserRequest?,
+		completion: @escaping (Bool, Error?) -> Void
+	)
 	func logout(completion: @escaping ((Result<Void, Error>)) -> Void)
 	func userAuthed()
 	func deleteUser(completion: @escaping (Result<Void, Error>) -> Void)
@@ -32,7 +36,10 @@ final class AuthService {
 		defaultsManager: DefaultsManagerable,
 		firestoreService: FirestoreServiceProtocol
 	) {
-		self.eMailProvider = EmailProvider(firestore: firestoreService)
+		self.eMailProvider = EmailProvider(
+			firestore: firestoreService,
+			userDefaultsManager: defaultsManager
+		)
 		self.appleProvider = AppleProvider()
 		self.googleProvider = GoogleProvider()
 		self.defaultsManager = defaultsManager
