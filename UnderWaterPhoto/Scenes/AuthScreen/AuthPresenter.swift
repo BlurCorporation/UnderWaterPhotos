@@ -9,7 +9,7 @@ import UIKit
 // MARK: - AuthPresenterProtocol
 
 protocol AuthPresenterProtocol: AnyObject {
-	func loginButtonPressed()
+	func changeAuthTypeButtonPressed()
 	func signInButtonTap(
 		email: String,
 		name: String,
@@ -55,7 +55,7 @@ extension AuthPresenter: AuthPresenterProtocol {
 		self.authState = authState
 	}
 	
-	func loginButtonPressed() {
+	func changeAuthTypeButtonPressed() {
 		self.authState = .login
 		viewController?.expandLoginButton()
 	}

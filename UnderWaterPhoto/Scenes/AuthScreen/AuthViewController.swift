@@ -27,8 +27,8 @@ final class AuthViewController: UIViewController {
 	private var isExpandedLoginButton: Bool = false
 	private var passwordTextFieldCenterYConstraint: Constraint?
 	private var emailTextFieldCenterYConstraint: Constraint?
-	private var loginButtonCenterYConstraint: Constraint?
-	private var registrationButtonCenterYConstrain: Constraint?
+	private var changeAuthTypeButtonCenterYConstraint: Constraint?
+	private var logInButtonCenterYConstrain: Constraint?
 	
 	private let logoLabel: UILabel = {
 		let label = UILabel()
@@ -86,23 +86,23 @@ final class AuthViewController: UIViewController {
 		return textField
 	}()
 	
-	private lazy var loginButton: UIButton = {
+	private lazy var chageAuthTypeButton: UIButton = {
 		let button = UIButton()
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.setTitle(L10n.AuthViewController.LoginButton.setTitle, for: .normal)
-		button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+		button.addTarget(self, action: #selector(changeAuthTypeButtonPressed), for: .touchUpInside)
 		button.contentHorizontalAlignment = .left
 		return button
 	}()
 	
-	private lazy var registrationButton: UIButton = {
+	private lazy var logInButton: UIButton = {
 		let button = UIButton()
 		button.setTitleColor(UIColor(named: "blue"), for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.setTitle(L10n.AuthViewController.RegistrationButton.setTitle, for: .normal)
 		button.backgroundColor = .white
 		button.layer.cornerRadius = 16
-		button.addTarget(self, action: #selector(registrationButtonPressed), for: .touchUpInside)
+		button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
 		return button
 	}()
 	
@@ -148,16 +148,16 @@ final class AuthViewController: UIViewController {
 	// MARK: Action
 	
 	@objc
-	func loginButtonPressed() {
-		loginButton.pushAnimate { [weak self] in
+	func changeAuthTypeButtonPressed() {
+		chageAuthTypeButton.pushAnimate { [weak self] in
 			guard let self = self else { return }
-			self.presenter?.loginButtonPressed()
+			self.presenter?.changeAuthTypeButtonPressed()
 		}
 	}
 	
 	@objc
-	func registrationButtonPressed() {
-		registrationButton.pushAnimate { [weak self] in
+	func logInButtonPressed() {
+		logInButton.pushAnimate { [weak self] in
 			guard let self = self else { return }
 			self.presenter?.signInButtonTap(
 				email: self.emailTextField.text ?? "",
@@ -210,13 +210,13 @@ extension AuthViewController: AuthViewControllerProtocol {
 				self.restorePasswordButton.alpha = 0
 				self.emailTextFieldCenterYConstraint?.update(offset: 100)
 				self.passwordTextFieldCenterYConstraint?.update(offset: 160)
-				self.loginButtonCenterYConstraint?.update(offset: 272)
-				self.registrationButtonCenterYConstrain?.update(offset: 350)
+				self.changeAuthTypeButtonCenterYConstraint?.update(offset: 272)
+				self.logInButtonCenterYConstrain?.update(offset: 350)
 				self.view.layoutIfNeeded()
 			}
-			self.registrationButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title, for: .normal)
+			self.logInButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title, for: .normal)
 			self.headTitle.text = L10n.AuthViewController.If.ExpandLoginButton.HeadTitle.text
-			self.loginButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title, for: .normal)
+			self.chageAuthTypeButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title, for: .normal)
 			self.presenter?.changeState(authState: .registration)
 		} else {
 			UIView.animate(withDuration: 0.5) { [weak self] in
@@ -226,13 +226,13 @@ extension AuthViewController: AuthViewControllerProtocol {
 				self.restorePasswordButton.alpha = 1
 				self.emailTextFieldCenterYConstraint?.update(offset: 40)
 				self.passwordTextFieldCenterYConstraint?.update(offset: 100)
-				self.loginButtonCenterYConstraint?.update(offset: 152)
-				self.registrationButtonCenterYConstrain?.update(offset: 230)
+				self.changeAuthTypeButtonCenterYConstraint?.update(offset: 152)
+				self.logInButtonCenterYConstrain?.update(offset: 230)
 				self.view.layoutIfNeeded()
 			}
-			self.registrationButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RegistrationButton.title, for: .normal)
+			self.logInButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RegistrationButton.title, for: .normal)
 			self.headTitle.text = L10n.AuthViewController.Else.ExpandLoginButton.HeadTitle.text
-			self.loginButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.LoginButton.title, for: .normal)
+			self.chageAuthTypeButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.LoginButton.title, for: .normal)
 			self.restorePasswordButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RestorePasswordButton.title, for: .normal)
 		}
 		isExpandedLoginButton.toggle()
@@ -243,11 +243,11 @@ extension AuthViewController: AuthViewControllerProtocol {
 			guard let self = self else { return }
 			self.passwordTextField.alpha = 0
 			self.restorePasswordButton.alpha = 0
-			self.loginButtonCenterYConstraint?.update(offset: 92)
-			self.registrationButtonCenterYConstrain?.update(offset: 170)
+			self.changeAuthTypeButtonCenterYConstraint?.update(offset: 92)
+			self.logInButtonCenterYConstrain?.update(offset: 170)
 			self.view.layoutIfNeeded()
 		}
-		self.registrationButton.setTitle(L10n.AuthViewController.RestorePasswordExpand.RegistrationButton.title, for: .normal)
+		self.logInButton.setTitle(L10n.AuthViewController.RestorePasswordExpand.RegistrationButton.title, for: .normal)
 		self.headTitle.text = L10n.AuthViewController.RestorePasswordExpand.HeadTitle.text
 	}
 }
@@ -274,9 +274,9 @@ private extension AuthViewController {
 			emailTextField,
 			passwordTextField,
 			repeatPasswordTextField,
-			loginButton,
+			chageAuthTypeButton,
 			restorePasswordButton,
-			registrationButton,
+			logInButton,
 			loginUsinLabel,
 			appleIdButton,
 			googleIdButton
@@ -330,8 +330,8 @@ private extension AuthViewController {
 			make.height.equalTo(44)
 		}
 		
-		loginButton.snp.makeConstraints { make in
-			loginButtonCenterYConstraint = make.top.equalTo(headTitle.snp.bottom).offset(272).constraint
+		chageAuthTypeButton.snp.makeConstraints { make in
+			changeAuthTypeButtonCenterYConstraint = make.top.equalTo(headTitle.snp.bottom).offset(272).constraint
 			make.leading.equalToSuperview().offset(16)
 			make.width.equalTo(142)
 			make.height.equalTo(50)
@@ -344,20 +344,20 @@ private extension AuthViewController {
 			make.height.equalTo(50)
 		}
 		
-		registrationButton.snp.makeConstraints { make in
+		logInButton.snp.makeConstraints { make in
 			make.centerX.equalToSuperview()
 			make.leading.equalToSuperview().offset(16)
 			make.trailing.equalToSuperview().offset(-16)
 			make.height.equalTo(50)
 			if UIScreen.main.bounds.height < 700 {
-				registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(220).constraint
+				logInButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(220).constraint
 			} else {
-				registrationButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(350).constraint
+				logInButtonCenterYConstrain = make.top.equalTo(headTitle.snp.bottom).offset(350).constraint
 			}
 		}
 		
 		loginUsinLabel.snp.makeConstraints { make in
-			make.top.equalTo(registrationButton.snp.bottom).offset(82)
+			make.top.equalTo(logInButton.snp.bottom).offset(82)
 			make.leading.equalToSuperview().offset(16)
 			make.width.equalTo(loginUsinLabel.intrinsicContentSize.width)
 			make.height.equalTo(loginUsinLabel.intrinsicContentSize.height)

@@ -55,8 +55,6 @@ struct MainView: View {
 				case .clear:
 					emptyView
 						.padding()
-//				default:
-//					Text("")
 				}
 			}
 			.modalIsPresented(vm.isModalPresented)
@@ -66,7 +64,8 @@ struct MainView: View {
 			.allowsHeaderCollapse()
 			.collapseProgress($progress)
 			.pullToRefresh(
-				isLoading: $isLoading
+				isLoading: $isLoading,
+				color: Color.white
 			) {
 				switch vm.state {
 				case .main, .clear:
@@ -80,7 +79,6 @@ struct MainView: View {
 					isLoading = false
 				}
 			}
-//			.background(Color("blue"))
 			.onChange(of: vm.state) { newValue in
 				if newValue == .settings {
 					progress = 1

@@ -32,7 +32,6 @@
 		1B27EAF62AA8B2F000DD4E30 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EAF52AA8B2F000DD4E30 /* UIStackView.swift */; };
 		1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EB042AAD35B800DD4E30 /* MainView.swift */; };
 		1B3259242C46FABF001E5B44 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3259232C46FABF001E5B44 /* FirestoreService.swift */; };
-		1B40F3202C67D64500823BE0 /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B40F31F2C67D64500823BE0 /* ScalingHeaderScrollView */; };
 		1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */; };
 		1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */; };
 		1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */; };
@@ -41,6 +40,7 @@
 		1B6A98782AEFFB92000C12A0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A98772AEFFB92000C12A0 /* SettingsViewModel.swift */; };
 		1B6A987A2AEFFB9D000C12A0 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A98792AEFFB9D000C12A0 /* SettingsModel.swift */; };
 		1B9763822BD039FB001BEB10 /* VideoLooperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9763812BD039FB001BEB10 /* VideoLooperView.swift */; };
+		1BA5BE752C8B2EFC003201CD /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1BA5BE742C8B2EFC003201CD /* ScalingHeaderScrollView */; };
 		1BA7ED9A2AEA8914004CC70A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7ED992AEA8914004CC70A /* HeaderView.swift */; };
 		1BAB87F92B2B7B7700841A93 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87F72B2B7B7700841A93 /* LocalFileManager.swift */; };
 		1BAB87FA2B2B7B7700841A93 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB87F82B2B7B7700841A93 /* CoreDataManager.swift */; };
@@ -222,7 +222,7 @@
 				3A48C8712B053A2D00DD5A18 /* FirebaseDatabase in Frameworks */,
 				3A48C88B2B053A2D00DD5A18 /* FirebasePerformance in Frameworks */,
 				3A1024B22B5D42E3000ECBDC /* GoogleSignInSwift in Frameworks */,
-				1B40F3202C67D64500823BE0 /* ScalingHeaderScrollView in Frameworks */,
+				1BA5BE752C8B2EFC003201CD /* ScalingHeaderScrollView in Frameworks */,
 				3A48C8672B053A2D00DD5A18 /* FirebaseAppCheck in Frameworks */,
 				3A48C8612B053A2D00DD5A18 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				3A48C8832B053A2D00DD5A18 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
@@ -575,7 +575,7 @@
 				3A48C8922B053A2D00DD5A18 /* FirebaseStorageCombine-Community */,
 				3A1024AF2B5D42E3000ECBDC /* GoogleSignIn */,
 				3A1024B12B5D42E3000ECBDC /* GoogleSignInSwift */,
-				1B40F31F2C67D64500823BE0 /* ScalingHeaderScrollView */,
+				1BA5BE742C8B2EFC003201CD /* ScalingHeaderScrollView */,
 			);
 			productName = UnderWaterPhoyo;
 			productReference = 1BD9766E2B079A1300AF1B40 /* UnderWaterPhoto.app */;
@@ -611,7 +611,7 @@
 				3AE95D802AD3EBD300166F23 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3A48C85D2B053A2D00DD5A18 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3A1024AE2B5D42E3000ECBDC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				1B40F31E2C67D64500823BE0 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
+				1BA5BE732C8B2EFC003201CD /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
 			productRefGroup = 1BADC9472AA4D895002C34A5;
 			projectDirPath = "";
@@ -954,12 +954,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1B40F31E2C67D64500823BE0 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */ = {
+		1BA5BE732C8B2EFC003201CD /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/ScalingHeaderScrollView.git";
+			repositoryURL = "https://github.com/Maksim193/ScalingHeaderScrollView";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.4;
+				branch = master;
+				kind = branch;
 			};
 		};
 		3A1024AE2B5D42E3000ECBDC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
@@ -989,9 +989,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1B40F31F2C67D64500823BE0 /* ScalingHeaderScrollView */ = {
+		1BA5BE742C8B2EFC003201CD /* ScalingHeaderScrollView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1B40F31E2C67D64500823BE0 /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
+			package = 1BA5BE732C8B2EFC003201CD /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
 			productName = ScalingHeaderScrollView;
 		};
 		3A1024AF2B5D42E3000ECBDC /* GoogleSignIn */ = {
