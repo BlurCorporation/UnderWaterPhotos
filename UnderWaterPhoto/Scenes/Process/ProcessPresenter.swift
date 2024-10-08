@@ -115,8 +115,11 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 				viewController?.showWatermark()
 			}
 		case .process:
-			viewController?.showBottomSaveSheet()
+			if processContentType == .image {
+				viewController?.showBottomSaveSheet()
+			}
 			if !wasProcessed {
+				self.viewController?.disableProcessButton()
 				wasProcessed = true
 				Task {
 					switch processContentType {

@@ -32,6 +32,7 @@ protocol ProcessViewControllerProtocol: UIViewController {
 	)
 	func showWatermark()
 	func hideWatermark()
+	func disableProcessButton()
 }
 
 // MARK: - ProcessViewController
@@ -372,6 +373,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 	
 	func setupVideoProcessing() {
 		mainImageView.isHidden = true
+		filterButton.isHidden = true
 	}
 	
 	func changeVideo(url: URL) {
@@ -476,6 +478,10 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 			self.hideLogoButton.isHidden = true
 			self.watermarkImageView.isHidden = true
 		}
+	}
+	
+	func disableProcessButton() {
+		self.processPhotoButton.isEnabled = false
 	}
 }
 

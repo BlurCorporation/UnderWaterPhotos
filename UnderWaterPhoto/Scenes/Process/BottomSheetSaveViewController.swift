@@ -170,7 +170,6 @@ final class BottomSheetSaveViewController: UIViewController {
 				PHPhotoLibrary.shared().performChanges {
 					PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
 				}
-				
 			}
 		}
 		
