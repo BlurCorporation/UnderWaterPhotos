@@ -37,7 +37,7 @@
     CGSize size = [videoTrack naturalSize];
     CGAffineTransform txf = [videoTrack preferredTransform];
     
-    BOOL shouldRotate = false;
+//    BOOL shouldRotate = false;
     
     UIImageOrientation baseVideoOrientation = UIImageOrientationUp;
     
@@ -77,12 +77,34 @@
         std::cerr << "Error opening video file." << std::endl;
     }
     
+	int oldWidth = static_cast<int>(cap.get(CAP_PROP_FRAME_WIDTH));
     int width = static_cast<int>(cap.get(CAP_PROP_FRAME_WIDTH));
     int height = static_cast<int>(cap.get(CAP_PROP_FRAME_HEIGHT));
     int n_frames = int(cap.get(CAP_PROP_FRAME_COUNT));
     double FPS = cap.get(CAP_PROP_FPS);
     std::cout << "Width: " << width << " Height: " << height << " n_frames: " << n_frames << " FPS: " << FPS << std::endl;
 	NSLog(@"1");
+	
+	switch (baseVideoOrientation) {
+		case UIImageOrientationUp:
+			break;
+		case UIImageOrientationDown:
+			break;
+		case UIImageOrientationLeft:
+//			int oldWidth = width;
+			width = height;
+			height = oldWidth;
+			break;
+		case UIImageOrientationRight:
+//			int oldWidth = width;
+			width = height;
+			height = oldWidth;
+			break;
+		default:
+			break;
+	}
+	
+	
     cv::VideoWriter outt(urlStringCPP,cv::VideoWriter::fourcc('D', 'I', 'V', 'X'), FPS, cv::Size(width, height));
 	NSLog(@"2");
     std::string ext_comp = "_comp.avi";
@@ -103,11 +125,36 @@
     else n = FPS * 7;
     
     NSMutableArray *images = [[NSMutableArray alloc] init];
-    NSMutableArray *images1 = [[NSMutableArray alloc] init];
+//    NSMutableArray *images1 = [[NSMutableArray alloc] init];
     
+	NSLog(@"------ ORIENTATION ------");
+//	NSLog(baseVideoOrientation);
+	
     for (i = 0; i < n_frames - 1; i++) {
 		@autoreleasepool {
 			cap >> image;
+			switch (baseVideoOrientation) {
+				case UIImageOrientationUp:
+					NSLog(@"UIImageOrientationUp");
+					break;
+				case UIImageOrientationDown:
+					NSLog(@"UIImageOrientationDown");
+					cv::rotate(image, image, cv::ROTATE_180);
+					break;
+				case  UIImageOrientationLeft:
+					NSLog(@"UIImageOrientationLeft");
+					cv::rotate(image, image, cv::ROTATE_90_COUNTERCLOCKWISE);
+					break;
+				case UIImageOrientationRight:
+					NSLog(@"UIImageOrientationRight");
+//					cv::flip(image, image, -1);
+					cv::rotate(image, image, cv::ROTATE_90_CLOCKWISE);
+					break;
+				default:
+					break;
+			}
+//			cv::flip(image, image, 0);
+//			cv::rotate(image, image, cv::ROTATE_90_COUNTERCLOCKWISE);
 			image_out = colorcorrection(image);
 			outt << image_out;
 //			UIImage *correctedImage = [UIImage imageWithCVMat:image_out orientation: baseVideoOrientation];
