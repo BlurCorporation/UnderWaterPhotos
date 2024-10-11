@@ -18,31 +18,37 @@ class LocalFileManager {
 		contentName: String,
 		url: String?,
 		folderName: String,
-		completion: (Bool) -> Void
+		completion: @escaping (Bool) -> Void
 	) {
 		createFolderIfNeeded(folderName: folderName)
 		
-		guard
-			let data = image.pngData(),
-			let imageURL = getURLForImage(imageName: contentName, folderName: folderName)
-		else { return }
-		
-		do {
-			if let _url = url {
-				// удаляем ранее созданный временный файл
-				try FileManager.default.copyItem(at: URL(string: _url)!, to: getURLForVideo(videoName: contentName, folderName: "ContentFolder")!)
-				try FileManager.default.removeItem(at: URL(string: _url)!)
+		DispatchQueue.global().async { [weak self] in
+			guard let self = self else { return }
+			guard
+				let data = image.pngData(),
+				let imageURL = self.getURLForImage(imageName: contentName, folderName: folderName)
+			else { return }
+			
+			do {
+				if let _url = url {
+					// удаляем ранее созданный временный файл
+					try FileManager.default.copyItem(
+						at: URL(string: _url)!,
+						to: getURLForVideo(videoName: contentName, folderName: "ContentFolder")!
+					)
+					try FileManager.default.removeItem(at: URL(string: _url)!)
+				}
+			} catch {
+				print("Error copying")
 			}
-		} catch {
-			print("Error copying")
+			
+			do {
+				try data.write(to: imageURL)
+			} catch let error {
+				print("Error saving image. ImageName: \(contentName) \(error)")
+			}
+			completion(true)
 		}
-		
-		do {
-			try data.write(to: imageURL)
-		} catch let error {
-			print("Error saving image. ImageName: \(contentName) \(error)")
-		}
-		completion(true)
 	}
 	
 	func getContent(imageName: String, folderName: String) -> ContentModel? {
@@ -56,13 +62,17 @@ class LocalFileManager {
 		var videoURL: URL? = getURLForVideo(videoName: imageName, folderName: folderName)
 		
 		do {
-			let size = try FileManager.default.attributesOfItem(atPath: videoURL!.path)[.size] as? UInt64
+			_ = try FileManager.default.attributesOfItem(atPath: videoURL!.path)[.size] as? UInt64
 		} catch {
 			videoURL = nil
 		}
 		
+		guard
+			let id = UUID(uuidString: imageName),
+			let image = UIImage(contentsOfFile: imageURL.path)
+		else { return nil}
 		
-		return ContentModel(id: UUID(uuidString: imageName)!, image: UIImage(contentsOfFile: imageURL.path)!, url: videoURL?.absoluteString)
+		return ContentModel(id: id, image: image, url: videoURL?.absoluteString)
 	}
 	
 	private func createFolderIfNeeded(folderName: String) {

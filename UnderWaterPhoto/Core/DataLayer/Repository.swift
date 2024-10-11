@@ -51,6 +51,7 @@ class Repository {
 	) {
 		let contents = self.getContent().map { $0.id.uuidString }
 		print("CONTENTIDS")
+		
 		for id in contentIDs {
 			guard !contents.contains(id.downloadid) else { continue }
 			self.firebaseStorageManager.downloadImage(id: id.downloadid) { [weak self] result in
@@ -61,7 +62,6 @@ class Repository {
 						switch result {
 						case .success(let videoUrl):
 							let content = ContentEntity(context: self.coreDataManager.context)
-
 							content.id = UUID(uuidString: id.downloadid)
 							
 							self.save()
@@ -75,7 +75,6 @@ class Repository {
 							}
 						case .failure:
 							let content = ContentEntity(context: self.coreDataManager.context)
-
 							content.id = UUID(uuidString: id.downloadid)
 							
 							self.save()
@@ -200,15 +199,15 @@ class Repository {
 			contentName: id.uuidString,
 			url: url,
 			folderName: "ContentFolder"
-		) { result in
-			if true {
-				uploadContent(id: id)
-			}
+		) { [weak self] result in
+			guard let self = self else { return }
+				self.uploadContent(id: id)
 		}
 	}
 	
 	func updateContent(completion: @escaping () -> Void) {
-		firestoreService.getContentID { result in
+		firestoreService.getContentID { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let contentsModel):
 				guard let contentsModel = contentsModel else {

@@ -42,29 +42,22 @@ class MainViewModel: ObservableObject {
 	func fetch() {
 		if self.state != .settings {
 			self.images = self.repository.getContent()
-//			if self.images.isEmpty {
-//				self.state = .clear
-//			} 
-//			if !self.images.isEmpty {
-//				self.state = .main
-//			}
 			self.state = self.images.isEmpty ? .clear : .main
-//			self.state = .clear
 			self.repository.updateContent {
-				self.updateImages()
+				DispatchQueue.main.async { [weak self] in
+					guard let self = self else { return }
+					self.updateImages()
+				}
 			}
 		}
 	}
 	
 	func updateImages() {
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else { return }
-			self.images = self.repository.getContent()
-			if self.images.isEmpty {
-				self.state = .clear
-			} else {
-				self.state = .main
-			}
+		self.images = self.repository.getContent()
+		if self.images.isEmpty {
+			self.state = .clear
+		} else {
+			self.state = .main
 		}
 	}
 	

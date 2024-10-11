@@ -136,7 +136,7 @@ private extension MainView {
 	var scrollContentView: some View {
 		LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
 			let _ = print(vm.images.count)
-			ForEach(vm.images) { item in
+			ForEach(vm.images, id: \.id) { item in
 				Image(uiImage: item.image)
 					.renderingMode(.original)
 					.resizable()
@@ -148,7 +148,7 @@ private extension MainView {
 					.onTapGesture {
 						routeProcessScreen(item)
 					}
-			}
+			}.id(UUID())
 		}
 	}
 }
