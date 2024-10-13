@@ -16,7 +16,7 @@ final class BottomSheetSaveViewController: UIViewController {
 		let label = UILabel()
 		label.textColor = UIColor(named: "white")
 		label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-		label.text = L10n.BottomSheetSaveViewController.SaveInAppLabel.Label.text
+		label.text = L10n.BottomSheetSaveVC.SaveInAppLabel.Label.text
 		label.numberOfLines = 0
 		return label
 	}()
@@ -25,14 +25,14 @@ final class BottomSheetSaveViewController: UIViewController {
 		let label = UILabel()
 		label.textColor = UIColor(named: "white")
 		label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-		label.text = L10n.BottomSheetSaveViewController.SaveOnPhoneLabel.Label.text
+		label.text = L10n.BottomSheetSaveVC.SaveOnPhoneLabel.Label.text
 		label.numberOfLines = 0
 		return label
 	}()
 	
 	private lazy var bottomSheetBackButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(L10n.BottomSheetSaveViewController.BottomSheetBackButton.Button.setTitle, for: .normal)
+		button.setTitle(L10n.BottomSheetSaveVC.BottomSheetBackButton.Button.setTitle, for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.tintColor = UIColor(named: "white")
 		button.addTarget(self, action: #selector(back), for: .touchUpInside)
@@ -41,7 +41,7 @@ final class BottomSheetSaveViewController: UIViewController {
 	
 	private lazy var bottomSheetSaveButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(L10n.BottomSheetSaveViewController.BottomSheetSaveButton.Button.setTitle, for: .normal)
+		button.setTitle(L10n.BottomSheetSaveVC.BottomSheetSaveButton.Button.setTitle, for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.tintColor = UIColor(named: "white")
 		button.addTarget(self, action: #selector(save), for: .touchUpInside)

@@ -13,7 +13,7 @@ import AVFoundation
 
 protocol ProcessViewControllerProtocol: UIViewController {
 	func uploadImage(image: UIImage)
-	func changeToProcess()
+	func changeToProcess(with type: ProcessContentType)
 	func showBottomSaveSheet()
 	func changeVideo(url: URL)
 	func setupImageProcessing()
@@ -33,6 +33,7 @@ protocol ProcessViewControllerProtocol: UIViewController {
 	func showWatermark()
 	func hideWatermark()
 	func disableProcessButton()
+	func routeMainScreen()
 }
 
 // MARK: - ProcessViewController
@@ -65,7 +66,7 @@ final class ProcessViewController: UIViewController {
 	
 	private let titleLabel: UILabel = {
 		let label = UILabel()
-		label.text = L10n.ProcessViewController.TitleLabel.Label.text
+		label.text = L10n.ProcessVC.TitleLabel.Label.text
 		label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
 		label.textColor = UIColor(named: "white")
 		label.numberOfLines = 0
@@ -131,7 +132,7 @@ final class ProcessViewController: UIViewController {
 	
 	private lazy var hideLogoButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(L10n.ProcessViewController.HideLogoButton.Button.title, for: .normal)
+		button.setTitle(L10n.ProcessVC.HideLogoButton.Button.title, for: .normal)
 		button.tintColor = UIColor(named: "white")
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.addTarget(self, action: #selector(hideLogoButtonAction), for: .touchUpInside)
@@ -151,7 +152,7 @@ final class ProcessViewController: UIViewController {
 	
 	private lazy var processPhotoButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(L10n.ProcessViewController.ProcessPhotoButton.Button.title, for: .normal)
+		button.setTitle(L10n.ProcessVC.ProcessPhotoButton.Button.title, for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.layer.cornerRadius = 16
 		button.backgroundColor = UIColor(named: "white")
@@ -183,7 +184,7 @@ final class ProcessViewController: UIViewController {
 	
 	private lazy var bottomSheetBackButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(L10n.ProcessViewController.BottomSheetBackButton.Button.title, for: .normal)
+		button.setTitle(L10n.ProcessVC.BottomSheetBackButton.Button.title, for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.tintColor = UIColor(named: "white")
 		button.addTarget(self, action: #selector(bottomSheetBackButtonAction), for: .touchUpInside)
@@ -192,7 +193,7 @@ final class ProcessViewController: UIViewController {
 	
 	private lazy var bottomSheetSaveButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(L10n.ProcessViewController.BottomSheetSaveButton.Button.title, for: .normal)
+		button.setTitle(L10n.ProcessVC.BottomSheetSaveButton.Button.title, for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.tintColor = UIColor(named: "white")
 		button.addTarget(self, action: #selector(bottomSheetSaveButtonAction), for: .touchUpInside)
@@ -265,7 +266,6 @@ final class ProcessViewController: UIViewController {
 	func processButtonAction() {
 		presenter?.changeImage(
 			image: self.mainImageView.image!,
-			value: -3000,
 			url: defaultVideoURL ?? ""
 		)
 	}
@@ -393,12 +393,15 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 		}
 	}
 	
-	func changeToProcess() {
-		titleLabel.text = L10n.ProcessViewController.ChangeToProcess.TitleLabel.text
-		processPhotoButton.setTitle(L10n.ProcessViewController.ChangeToProcess.ProcessPhotoButton.title, for: .normal)
+	func changeToProcess(with contentType: ProcessContentType) {
+		titleLabel.text = L10n.ProcessVC.ChangeToProcess.TitleLabel.text
+		switch contentType {
+		case .image:
+			processPhotoButton.setTitle(L10n.ProcessVC.ProcessPhotoButton.Edit.title, for: .normal)
+		case .video:
+			processPhotoButton.setTitle(L10n.ProcessVC.ProcessVideoButton.GoMainScene.title, for: .normal)
+		}
 		filterButton.isHidden = false
-		
-		
 		navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
 	}
 	
@@ -482,6 +485,10 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 	
 	func disableProcessButton() {
 		self.processPhotoButton.isEnabled = false
+	}
+	
+	func routeMainScreen() {
+		self.navigationController?.popViewController(animated: true)
 	}
 }
 

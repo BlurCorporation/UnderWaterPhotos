@@ -38,7 +38,7 @@ final class AuthViewController: UIViewController {
 	
 	private let headTitle: UILabel = {
 		let label = UILabel()
-		label.text = L10n.AuthViewController.HeadTitle.text
+		label.text = L10n.AuthVC.HeadTitle.text
 		label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
 		label.textAlignment = .center
 		label.backgroundColor = .clear
@@ -56,7 +56,7 @@ final class AuthViewController: UIViewController {
 	
 	private let nameTextField: CustomTextField = {
 		let textField = CustomTextField()
-		textField.placeholder = L10n.AuthViewController.nameTextField.localized
+		textField.placeholder = L10n.AuthVC.nameTextField.localized
 		return textField
 	}()
 	
@@ -71,7 +71,7 @@ final class AuthViewController: UIViewController {
 	
 	private let passwordTextField: CustomTextField = {
 		let textField = CustomTextField()
-		textField.placeholder = L10n.AuthViewController.passwordTextField.localized
+		textField.placeholder = L10n.AuthVC.passwordTextField.localized
 		textField.isSecureTextEntry = true
 #if DEBUG
 		textField.text = "12345678"
@@ -81,7 +81,7 @@ final class AuthViewController: UIViewController {
 	
 	private let repeatPasswordTextField: CustomTextField = {
 		let textField = CustomTextField()
-		textField.placeholder = L10n.AuthViewController.repeatPasswordTextField.localized
+		textField.placeholder = L10n.AuthVC.repeatPasswordTextField.localized
 		textField.isSecureTextEntry = true
 		return textField
 	}()
@@ -89,7 +89,7 @@ final class AuthViewController: UIViewController {
 	private lazy var chageAuthTypeButton: UIButton = {
 		let button = UIButton()
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-		button.setTitle(L10n.AuthViewController.LoginButton.setTitle, for: .normal)
+		button.setTitle(L10n.AuthVC.LoginButton.setTitle, for: .normal)
 		button.addTarget(self, action: #selector(changeAuthTypeButtonPressed), for: .touchUpInside)
 		button.contentHorizontalAlignment = .left
 		return button
@@ -99,7 +99,7 @@ final class AuthViewController: UIViewController {
 		let button = UIButton()
 		button.setTitleColor(UIColor(named: "blue"), for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-		button.setTitle(L10n.AuthViewController.RegistrationButton.setTitle, for: .normal)
+		button.setTitle(L10n.AuthVC.RegistrationButton.setTitle, for: .normal)
 		button.backgroundColor = .white
 		button.layer.cornerRadius = 16
 		button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
@@ -110,13 +110,13 @@ final class AuthViewController: UIViewController {
 		let button = UIButton()
 		button.alpha = .zero
 		button.addTarget(self, action: #selector(restorePasswordButtonPressed), for: .touchUpInside)
-		button.setTitle(L10n.AuthViewController.RestorePasswordButton.setTitle, for: .normal)
+		button.setTitle(L10n.AuthVC.RestorePasswordButton.setTitle, for: .normal)
 		return button
 	}()
 	
 	private let loginUsinLabel: UILabel = {
 		let label = UILabel()
-		label.text = L10n.AuthViewController.LoginUsinLabel.text
+		label.text = L10n.AuthVC.LoginUsinLabel.text
 		label.font = .systemFont(ofSize: 16, weight: .semibold)
 		label.numberOfLines = .zero
 		label.textColor = .white
@@ -214,9 +214,9 @@ extension AuthViewController: AuthViewControllerProtocol {
 				self.logInButtonCenterYConstrain?.update(offset: 350)
 				self.view.layoutIfNeeded()
 			}
-			self.logInButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.RegistrationButton.title, for: .normal)
-			self.headTitle.text = L10n.AuthViewController.If.ExpandLoginButton.HeadTitle.text
-			self.chageAuthTypeButton.setTitle(L10n.AuthViewController.If.ExpandLoginButton.LoginButton.title, for: .normal)
+			self.logInButton.setTitle(L10n.AuthVC.If.ExpandLoginButton.RegistrationButton.title, for: .normal)
+			self.headTitle.text = L10n.AuthVC.If.ExpandLoginButton.HeadTitle.text
+			self.chageAuthTypeButton.setTitle(L10n.AuthVC.If.ExpandLoginButton.LoginButton.title, for: .normal)
 			self.presenter?.changeState(authState: .registration)
 		} else {
 			UIView.animate(withDuration: 0.5) { [weak self] in
@@ -230,10 +230,10 @@ extension AuthViewController: AuthViewControllerProtocol {
 				self.logInButtonCenterYConstrain?.update(offset: 230)
 				self.view.layoutIfNeeded()
 			}
-			self.logInButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RegistrationButton.title, for: .normal)
-			self.headTitle.text = L10n.AuthViewController.Else.ExpandLoginButton.HeadTitle.text
-			self.chageAuthTypeButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.LoginButton.title, for: .normal)
-			self.restorePasswordButton.setTitle(L10n.AuthViewController.Else.ExpandLoginButton.RestorePasswordButton.title, for: .normal)
+			self.logInButton.setTitle(L10n.AuthVC.Else.ExpandLoginButton.RegistrationButton.title, for: .normal)
+			self.headTitle.text = L10n.AuthVC.Else.ExpandLoginButton.HeadTitle.text
+			self.chageAuthTypeButton.setTitle(L10n.AuthVC.Else.ExpandLoginButton.LoginButton.title, for: .normal)
+			self.restorePasswordButton.setTitle(L10n.AuthVC.Else.ExpandLoginButton.RestorePasswordButton.title, for: .normal)
 		}
 		isExpandedLoginButton.toggle()
 	}
@@ -247,8 +247,8 @@ extension AuthViewController: AuthViewControllerProtocol {
 			self.logInButtonCenterYConstrain?.update(offset: 170)
 			self.view.layoutIfNeeded()
 		}
-		self.logInButton.setTitle(L10n.AuthViewController.RestorePasswordExpand.RegistrationButton.title, for: .normal)
-		self.headTitle.text = L10n.AuthViewController.RestorePasswordExpand.HeadTitle.text
+		self.logInButton.setTitle(L10n.AuthVC.RestorePasswordExpand.RegistrationButton.title, for: .normal)
+		self.headTitle.text = L10n.AuthVC.RestorePasswordExpand.HeadTitle.text
 	}
 }
 

@@ -62,7 +62,7 @@ class LanguageSettingViewController: UIViewController {
 	
 	private let titleLabel: UILabel = {
 		let label = UILabel()
-		label.text = L10n.LanguageSettingViewController.titleLabel
+		label.text = L10n.LanguageSettingVC.titleLabel
 		label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
 		label.textColor = UIColor(named: "white")
 		return label

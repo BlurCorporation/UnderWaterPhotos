@@ -20,7 +20,10 @@ enum ProcessContentType {
 
 protocol ProcessPresenterProtocol: AnyObject {
 	func viewDidLoad()
-	func changeImage(image: UIImage, value: Float, url: String)
+	func changeImage(
+		image: UIImage,
+		url: String
+	)
 	func backButtonPressed()
 	func shareButtonPressed()
 	func showBottomSheetButtonPressed()
@@ -103,35 +106,36 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 		}
 	}
 	
-	func changeImage(image: UIImage, value: Float, url: String) {
+	func changeImage(image: UIImage, url: String) {
 		switch processButtonType {
 		case .change:
 			processButtonType = .process
-			viewController?.changeToProcess()
+			viewController?.changeToProcess(with: processContentType)
 			viewController?.makeConstraintsForWatermark(
 				processContentType: processContentType
 			)
 			if !isUserPremium {
 				viewController?.showWatermark()
 			}
+			self.viewController?.disableProcessButton()
+			wasProcessed = true
+			Task {
+				switch processContentType {
+				case .image:
+					try await process(image: image)
+				case .video:
+					let isWatermark = !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false)
+					try await process(
+						video: String(url.dropFirst(7)),
+						isWatermark: isWatermark
+					)
+				}
+			}
 		case .process:
 			if processContentType == .image {
 				viewController?.showBottomSaveSheet()
-			}
-			if !wasProcessed {
-				self.viewController?.disableProcessButton()
-				wasProcessed = true
-				Task {
-					switch processContentType {
-					case .image:
-						try await process(image: image)
-					case .video:
-						try await process(
-							video: String(url.dropFirst(7)),
-							isWatermark: !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false)
-						)
-					}
-				}
+			} else {
+				viewController?.routeMainScreen()
 			}
 		}
 	}
