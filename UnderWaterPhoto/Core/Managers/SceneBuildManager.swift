@@ -141,11 +141,11 @@ extension SceneBuildManager: Buildable {
 		if processContentType == .image {
 			let processedImage = processedImage?.image(alpha: CGFloat(processedImageAlpha))
 			vc.addImage(
-				image: defaultImage,
+				defaultImage: defaultImage,
 				processedImage: processedImage
 			)
 		}
-		vc.addVideo(url: videoURL, previewImage: previewImage)
+		vc.addVideo(videoURL: videoURL, previewImage: previewImage)
 		vc.imageMergeManager = imageMergeManager
 		return vc
 	}

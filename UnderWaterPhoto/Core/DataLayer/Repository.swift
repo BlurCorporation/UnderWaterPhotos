@@ -188,14 +188,19 @@ class Repository {
 		return images
 	}
 	
-	func addContent(uiimage: UIImage, url: String? = nil) {
+	func addContent(
+		defaultImage: UIImage? = nil,
+		processedImage: UIImage,
+		processedAlphaSetting: Float? = nil,
+		url: String? = nil
+	) {
 		let content = ContentEntity(context: coreDataManager.context)
 		let id = UUID()
 		content.id = id
 		
 		save()
 		fileManager.saveContent(
-			image: uiimage,
+			image: processedImage,
 			contentName: id.uuidString,
 			url: url,
 			folderName: "ContentFolder"
