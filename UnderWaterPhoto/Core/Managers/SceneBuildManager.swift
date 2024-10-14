@@ -7,7 +7,9 @@
 
 protocol Buildable {
 	func buildProcessViewController(
+		defaultImage: UIImage?,
 		image: UIImage?,
+		alphaSetting: Float?,
 		url: String?,
 		processContenType: ProcessContentType
 	) -> ProcessViewController
@@ -76,7 +78,9 @@ extension SceneBuildManager: Buildable {
 	}
 	
 	func buildProcessViewController(
+		defaultImage: UIImage?,
 		image: UIImage?,
+		alphaSetting: Float?,
 		url: String?,
 		processContenType: ProcessContentType
 	) -> ProcessViewController {

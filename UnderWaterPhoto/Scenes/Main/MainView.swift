@@ -199,7 +199,9 @@ final class MainViewController: UIViewController {
 		let routeProcessScreen: (_ content: ContentModel) -> Void = { [weak self] item in
 			guard let self = self else { return }
 			let secondViewController = self.sceneBuildManager.buildProcessViewController(
+				defaultImage: item.defaultImage,
 				image: item.image,
+				alphaSetting: item.alphaSetting,
 				url: item.url,
 				processContenType: item.url == nil ? .image : .video
 			)

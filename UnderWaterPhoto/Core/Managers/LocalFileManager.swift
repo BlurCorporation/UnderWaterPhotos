@@ -51,7 +51,7 @@ class LocalFileManager {
 		}
 	}
 	
-	func getContent(imageName: String, folderName: String) -> ContentModel? {
+	func getContent(imageName: String, defaultImageID: String?, folderName: String) -> ContentModel? {
 		guard
 			let processedImageURL = getURLForImage(imageName: imageName, folderName: folderName),
 				FileManager.default.fileExists(atPath: processedImageURL.path) else {
@@ -72,8 +72,50 @@ class LocalFileManager {
 			return nil
 		}
 		
+		if let defaultImageID = defaultImageID,
+		   let defaultImageURL = getURLForImage(imageName: defaultImageID, folderName: folderName) {
+			guard
+				let defaultImage = UIImage(contentsOfFile: defaultImageURL.path)
+			else {
+				return nil
+			}
+			return ContentModel(
+				id: imageName,
+				defaultid: defaultImageID,
+				defaultImage: defaultImage,
+				image: image
+			)
+		}
+		
 		return ContentModel(id: imageName, image: image, url: videoURL?.absoluteString)
 	}
+	
+	func getVideo(videoId: String) -> ContentModel? {
+		guard
+			let processedImageURL = getURLForImage(imageName: videoId, folderName: "ContentFolder"),
+				FileManager.default.fileExists(atPath: processedImageURL.path) else {
+			return nil
+		}
+		let videoURL: URL? = getURLForVideo(videoName: videoId, folderName: "ContentFolder")
+		do {
+			_ = try FileManager.default.attributesOfItem(atPath: videoURL!.path)[.size] as? UInt64
+		} catch {
+			print("Error in getVideo LocalFileManager")
+			return nil
+		}
+		guard
+			let image = UIImage(contentsOfFile: processedImageURL.path)
+		else {
+			return nil
+		}
+		
+		return ContentModel(
+			id: videoId,
+			image: image,
+			url: videoURL?.absoluteString
+		)
+	}
+	
 	
 	private func createFolderIfNeeded(folderName: String) {
 		guard let url = getURLForFolder(folderName: folderName) else { return }

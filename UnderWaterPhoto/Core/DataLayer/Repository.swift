@@ -12,6 +12,7 @@ import FirebaseFirestore
 
 protocol RepositoryProtocol {
 	func setContentID(
+		defaultContentID: String?,
 		contentID: String,
 		alphaSetting: Float?
 	)
@@ -78,6 +79,7 @@ class Repository {
 						case .failure:
 							let content = ContentEntity(context: self.coreDataManager.context)
 							content.id = id.downloadid
+							content.defaultid = id.defaultid
 							content.alphaSetting = id.alphaSetting ?? .zero
 							
 							self.save()
@@ -87,29 +89,54 @@ class Repository {
 								url: nil,
 								folderName: "ContentFolder"
 							) { _ in
-								completion()
+								guard let defaultid = id.defaultid else {
+									completion()
+									return
+								}
+								self.firebaseStorageManager.downloadImage(
+									id: defaultid
+								) { result in
+									switch result {
+									case .success(let image):
+										self.fileManager.saveContent(
+											image: image,
+											contentName: defaultid,
+											url: nil,
+											folderName: "ContentFolder"
+										) { _ in
+											completion()
+										}
+									case .failure(let failure):
+										print("Фото не скачалось")
+									}
+								}
 							}
 						}
 					}
 				case .failure:
-					print("видео не скачалось")
+					print("Фото не скачалось")
 				}
 			}
 		}
 	}
 	
 	private func uploadContent(
-		id: String,
+		defaultContentID: String?,
+		processedContentID: String,
 		alphaSetting: Float?
 	) {
-		guard let content = fileManager.getContent(imageName: id, folderName: "ContentFolder") else {
+		guard let content = fileManager.getContent(
+			imageName: processedContentID,
+			defaultImageID: defaultContentID,
+			folderName: "ContentFolder"
+		) else {
 			print("Error to get content in Repository")
 			return
 		}
 		
 		if let url = content.url {
 			guard let url = URL(string: url) else { return }
-			firebaseStorageManager.uploadVideo(url: url, id: id) { result in
+			firebaseStorageManager.uploadVideo(url: url, id: processedContentID) { result in
 				switch result {
 				case .success:
 					break
@@ -119,11 +146,12 @@ class Repository {
 			}
 			firebaseStorageManager.uploadImage(
 				image: content.image,
-				id: id
+				id: processedContentID
 			) { result in
 				switch result {
 				case .success(let id):
 					self.setContentID(
+						defaultContentID: nil,
 						contentID: id,
 						alphaSetting: nil
 					)
@@ -134,11 +162,12 @@ class Repository {
 		} else {
 			firebaseStorageManager.uploadImage(
 				image: content.image,
-				id: id
+				id: processedContentID
 			) { result in
 				switch result {
 				case .success(let id):
 					self.setContentID(
+						defaultContentID: defaultContentID,
 						contentID: id,
 						alphaSetting: alphaSetting
 					)
@@ -183,7 +212,11 @@ class Repository {
 		
 		for i in contentCoreData {
 			guard let id = i.id else { continue }
-			if let savedContent = fileManager.getContent(imageName: id, folderName: "ContentFolder") {
+			if let savedContent = fileManager.getContent(
+				imageName: id,
+				defaultImageID: i.defaultid,
+				folderName: "ContentFolder"
+			) {
 				if !images.contains(where: { model in
 					model == savedContent
 				}) {
@@ -204,6 +237,8 @@ class Repository {
 		let content = ContentEntity(context: coreDataManager.context)
 		let id = UUID().uuidString
 		content.id = id
+		content.defaultid = id + "-default"
+		content.alphaSetting = processedAlphaSetting ?? -1
 		
 		save()
 		fileManager.saveContent(
@@ -213,18 +248,22 @@ class Repository {
 			folderName: "ContentFolder"
 		) { [weak self] result in
 			guard let self = self else { return }
-			self.uploadContent(
-				id: id,
-				alphaSetting: nil
-			)
-			guard let defaultImage = defaultImage else { return }
+			guard let defaultImage = defaultImage else {
+				self.uploadContent(
+					defaultContentID: nil,
+					processedContentID: id,
+					alphaSetting: nil
+				)
+				return
+			}
 			fileManager.saveContent(
 				image: defaultImage,
 				contentName: id + "-default",
 				url: url,
 				folderName: "ContentFolder") { result in
 					self.uploadContent(
-						id: id + "-default",
+						defaultContentID: id + "-default",
+						processedContentID: id,
 						alphaSetting: processedAlphaSetting
 					)
 				}
@@ -254,10 +293,12 @@ class Repository {
 
 extension Repository: RepositoryProtocol {
 	func setContentID(
+		defaultContentID: String?,
 		contentID: String,
 		alphaSetting: Float?
 	) {
 		let contentModel = ContentFirestoreModel(
+			defaultid: defaultContentID,
 			downloadid: contentID,
 			alphaSetting: alphaSetting
 		)
