@@ -133,7 +133,7 @@ final class BottomSheetSaveViewController: UIViewController {
 			repository.addContent(
 				defaultImage: defaultImage,
 				processedImage: finalImage,
-				processedAlphaSetting: 0
+				processedAlphaSetting: 100
 			)
 		case .video:
 			guard let image = previewImage, let url = videoURL else { return }

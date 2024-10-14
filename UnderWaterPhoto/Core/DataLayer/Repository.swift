@@ -12,7 +12,8 @@ import FirebaseFirestore
 
 protocol RepositoryProtocol {
 	func setContentID(
-		contentID: String
+		contentID: String,
+		alphaSetting: Float?
 	)
 	func getContentID()
 	func updateContent(completion: @escaping () -> Void)
@@ -49,7 +50,7 @@ class Repository {
 		contentIDs: [ContentFirestoreModel],
 		completion: @escaping () -> Void
 	) {
-		let contents = self.getContent().map { $0.id.uuidString }
+		let contents = self.getContent().map { $0.id }
 		print("CONTENTIDS")
 		
 		for id in contentIDs {
@@ -95,16 +96,18 @@ class Repository {
 		}
 	}
 	
-	private func uploadContent(id: UUID) {
-		let stringID = id.uuidString
-		guard let content = fileManager.getContent(imageName: stringID, folderName: "ContentFolder") else {
+	private func uploadContent(
+		id: String,
+		alphaSetting: Float?
+	) {
+		guard let content = fileManager.getContent(imageName: id, folderName: "ContentFolder") else {
 			print("Error to get content in Repository")
 			return
 		}
 		
 		if let url = content.url {
 			guard let url = URL(string: url) else { return }
-			firebaseStorageManager.uploadVideo(url: url, id: stringID) { result in
+			firebaseStorageManager.uploadVideo(url: url, id: id) { result in
 				switch result {
 				case .success(let id):
 					break
@@ -114,12 +117,13 @@ class Repository {
 			}
 			firebaseStorageManager.uploadImage(
 				image: content.image,
-				id: stringID
+				id: id
 			) { result in
 				switch result {
 				case .success(let id):
 					self.setContentID(
-						contentID: id
+						contentID: id,
+						alphaSetting: nil
 					)
 				case .failure:
 					break
@@ -128,12 +132,13 @@ class Repository {
 		} else {
 			firebaseStorageManager.uploadImage(
 				image: content.image,
-				id: stringID
+				id: id
 			) { result in
 				switch result {
 				case .success(let id):
 					self.setContentID(
-						contentID: id
+						contentID: id,
+						alphaSetting: alphaSetting
 					)
 				case .failure:
 					break
@@ -206,7 +211,21 @@ class Repository {
 			folderName: "ContentFolder"
 		) { [weak self] result in
 			guard let self = self else { return }
-				self.uploadContent(id: id)
+			self.uploadContent(
+				id: id.uuidString,
+				alphaSetting: nil
+			)
+			guard let defaultImage = defaultImage else { return }
+			fileManager.saveContent(
+				image: defaultImage,
+				contentName: id.uuidString + "-default",
+				url: url,
+				folderName: "ContentFolder") { result in
+					self.uploadContent(
+						id: id.uuidString + "-default",
+						alphaSetting: processedAlphaSetting
+					)
+				}
 		}
 	}
 	
@@ -233,9 +252,13 @@ class Repository {
 
 extension Repository: RepositoryProtocol {
 	func setContentID(
-		contentID: String
+		contentID: String,
+		alphaSetting: Float?
 	) {
-		let contentModel = ContentFirestoreModel(downloadid: contentID)
+		let contentModel = ContentFirestoreModel(
+			downloadid: contentID,
+			alphaSetting: alphaSetting ?? .zero
+		)
 		firestoreService.setContentID(
 			contentModel: contentModel
 		) { result in

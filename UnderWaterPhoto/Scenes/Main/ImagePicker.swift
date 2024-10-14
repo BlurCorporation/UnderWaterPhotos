@@ -25,7 +25,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 			didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
 		) {
 			if let uiImage = info[.originalImage] as? UIImage {
-				let content = ContentModel(id: UUID(), image: uiImage)
+				let content = ContentModel(id: UUID().uuidString, image: uiImage)
 				parent.image = content
 				self.parent.presentationMode.wrappedValue.dismiss()
 			}
@@ -38,7 +38,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 					fileExtension: "mp4"
 				) { (mp4Url) in
 					let content = ContentModel(
-						id: UUID(),
+						id: UUID().uuidString,
 						image: UIImage(),
 						url: String(describing: mp4Url!)
 					)

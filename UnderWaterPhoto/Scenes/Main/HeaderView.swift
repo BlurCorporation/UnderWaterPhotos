@@ -130,7 +130,7 @@ private extension HeaderView {
 					if contentType.conforms(to: .movie) {
 						if let video = try? await content?.loadTransferable(type: VideoTransferable.self) {
 							let contentModel = ContentModel(
-								id: UUID(),
+								id: UUID().uuidString,
 								image: UIImage(),
 								url: video.url.absoluteString
 							)
@@ -141,7 +141,7 @@ private extension HeaderView {
 							let uiimage = ImageRenderer(content: image).uiImage
 							if let uiimage = uiimage {
 								let contentModel = ContentModel(
-									id: UUID(),
+									id: UUID().uuidString,
 									image: uiimage
 								)
 								self.routeProcessScreen(contentModel)

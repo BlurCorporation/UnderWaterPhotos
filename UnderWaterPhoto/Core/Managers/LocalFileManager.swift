@@ -68,11 +68,12 @@ class LocalFileManager {
 		}
 		
 		guard
-			let id = UUID(uuidString: imageName),
 			let image = UIImage(contentsOfFile: imageURL.path)
-		else { return nil}
+		else {
+			return nil
+		}
 		
-		return ContentModel(id: id, image: image, url: videoURL?.absoluteString)
+		return ContentModel(id: imageName, image: image, url: videoURL?.absoluteString)
 	}
 	
 	private func createFolderIfNeeded(folderName: String) {
