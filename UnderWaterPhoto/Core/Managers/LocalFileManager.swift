@@ -53,9 +53,8 @@ class LocalFileManager {
 	
 	func getContent(imageName: String, folderName: String) -> ContentModel? {
 		guard
-			let imageURL = getURLForImage(imageName: imageName, folderName: folderName),
-			
-				FileManager.default.fileExists(atPath: imageURL.path) else {
+			let processedImageURL = getURLForImage(imageName: imageName, folderName: folderName),
+				FileManager.default.fileExists(atPath: processedImageURL.path) else {
 			return nil
 		}
 		
@@ -68,7 +67,7 @@ class LocalFileManager {
 		}
 		
 		guard
-			let image = UIImage(contentsOfFile: imageURL.path)
+			let image = UIImage(contentsOfFile: processedImageURL.path)
 		else {
 			return nil
 		}

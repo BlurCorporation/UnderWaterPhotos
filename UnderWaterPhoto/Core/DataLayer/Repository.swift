@@ -64,6 +64,7 @@ class Repository {
 						case .success(let videoUrl):
 							let content = ContentEntity(context: self.coreDataManager.context)
 							content.id = id.downloadid
+							content.alphaSetting = id.alphaSetting ?? .zero
 							
 							self.save()
 							self.fileManager.saveContent(
@@ -77,6 +78,7 @@ class Repository {
 						case .failure:
 							let content = ContentEntity(context: self.coreDataManager.context)
 							content.id = id.downloadid
+							content.alphaSetting = id.alphaSetting ?? .zero
 							
 							self.save()
 							self.fileManager.saveContent(
@@ -109,7 +111,7 @@ class Repository {
 			guard let url = URL(string: url) else { return }
 			firebaseStorageManager.uploadVideo(url: url, id: id) { result in
 				switch result {
-				case .success(let id):
+				case .success:
 					break
 				case .failure:
 					break

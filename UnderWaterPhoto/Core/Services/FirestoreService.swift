@@ -47,7 +47,7 @@ final class FirestoreService {
 	private func oneCalculation(from calcDict: [String: Any]) -> ContentFirestoreModel {
 		let decoder = JSONDecoder()
 		
-		var model = ContentFirestoreModel(downloadid: "", alphaSetting: .zero)
+		var model = ContentFirestoreModel(downloadid: "", alphaSetting: nil)
 		
 		do {
 			let jsonData = try JSONSerialization.data(
