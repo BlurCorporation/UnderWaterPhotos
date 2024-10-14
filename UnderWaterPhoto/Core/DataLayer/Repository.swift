@@ -63,7 +63,7 @@ class Repository {
 						switch result {
 						case .success(let videoUrl):
 							let content = ContentEntity(context: self.coreDataManager.context)
-							content.id = UUID(uuidString: id.downloadid)
+							content.id = id.downloadid
 							
 							self.save()
 							self.fileManager.saveContent(
@@ -76,7 +76,7 @@ class Repository {
 							}
 						case .failure:
 							let content = ContentEntity(context: self.coreDataManager.context)
-							content.id = UUID(uuidString: id.downloadid)
+							content.id = id.downloadid
 							
 							self.save()
 							self.fileManager.saveContent(
@@ -180,7 +180,7 @@ class Repository {
 		var images = [ContentModel]()
 		
 		for i in contentCoreData {
-			let id = (i.id?.uuidString)!
+			guard let id = i.id else { continue }
 			if let savedContent = fileManager.getContent(imageName: id, folderName: "ContentFolder") {
 				if !images.contains(where: { model in
 					model == savedContent
@@ -200,29 +200,29 @@ class Repository {
 		url: String? = nil
 	) {
 		let content = ContentEntity(context: coreDataManager.context)
-		let id = UUID()
+		let id = UUID().uuidString
 		content.id = id
 		
 		save()
 		fileManager.saveContent(
 			image: processedImage,
-			contentName: id.uuidString,
+			contentName: id,
 			url: url,
 			folderName: "ContentFolder"
 		) { [weak self] result in
 			guard let self = self else { return }
 			self.uploadContent(
-				id: id.uuidString,
+				id: id,
 				alphaSetting: nil
 			)
 			guard let defaultImage = defaultImage else { return }
 			fileManager.saveContent(
 				image: defaultImage,
-				contentName: id.uuidString + "-default",
+				contentName: id + "-default",
 				url: url,
 				folderName: "ContentFolder") { result in
 					self.uploadContent(
-						id: id.uuidString + "-default",
+						id: id + "-default",
 						alphaSetting: processedAlphaSetting
 					)
 				}
@@ -257,7 +257,7 @@ extension Repository: RepositoryProtocol {
 	) {
 		let contentModel = ContentFirestoreModel(
 			downloadid: contentID,
-			alphaSetting: alphaSetting ?? .zero
+			alphaSetting: alphaSetting
 		)
 		firestoreService.setContentID(
 			contentModel: contentModel

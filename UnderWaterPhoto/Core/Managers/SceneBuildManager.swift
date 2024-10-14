@@ -142,7 +142,8 @@ extension SceneBuildManager: Buildable {
 			let processedImage = processedImage?.image(alpha: CGFloat(processedImageAlpha))
 			vc.addImage(
 				defaultImage: defaultImage,
-				processedImage: processedImage
+				processedImage: processedImage,
+				alphaSetting: processedImageAlpha
 			)
 		}
 		vc.addVideo(videoURL: videoURL, previewImage: previewImage)

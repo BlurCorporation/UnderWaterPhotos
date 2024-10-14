@@ -3,6 +3,12 @@ import Photos
 
 final class BottomSheetSaveViewController: UIViewController {
 	
+	// MARK: - Dependencies
+	
+	var imageMergeManager: ImageMergeManager?
+	private var repository: Repository
+	private let userDefaultsManager: DefaultsManagerable
+	
 	// MARK: - Private properties
 	
 	private var defaultImage: UIImage?
@@ -10,9 +16,7 @@ final class BottomSheetSaveViewController: UIViewController {
 	private var videoURL: String?
 	private var previewImage: UIImage?
 	private var processContentType: ProcessContentType
-	var imageMergeManager: ImageMergeManager?
-	private var repository: Repository
-	private let userDefaultsManager: DefaultsManagerable
+	private var alphaSetting: Float?
 	
 	// MARK: - UI Elements
 	
@@ -133,7 +137,7 @@ final class BottomSheetSaveViewController: UIViewController {
 			repository.addContent(
 				defaultImage: defaultImage,
 				processedImage: finalImage,
-				processedAlphaSetting: 100
+				processedAlphaSetting: alphaSetting
 			)
 		case .video:
 			guard let image = previewImage, let url = videoURL else { return }
@@ -178,9 +182,10 @@ final class BottomSheetSaveViewController: UIViewController {
 	
 	// MARK: - Internal Methods
 	
-	func addImage(defaultImage: UIImage?, processedImage: UIImage?) {
+	func addImage(defaultImage: UIImage?, processedImage: UIImage?, alphaSetting: Float) {
 		self.defaultImage = defaultImage
 		self.processedImage = processedImage
+		self.alphaSetting = alphaSetting
 	}
 	
 	func addVideo(videoURL: String?, previewImage: UIImage?) {

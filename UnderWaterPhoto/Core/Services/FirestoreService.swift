@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 
 struct ContentFirestoreModel: Codable {
 	let downloadid: String
-	let alphaSetting: Float
+	let alphaSetting: Float?
 }
 
 protocol FirestoreServiceProtocol {
