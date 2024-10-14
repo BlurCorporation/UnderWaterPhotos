@@ -51,7 +51,12 @@ class LocalFileManager {
 		}
 	}
 	
-	func getContent(imageName: String, defaultImageID: String?, folderName: String) -> ContentModel? {
+	func getContent(
+		imageName: String,
+		defaultImageID: String?,
+		alphaSetting: Float?,
+		folderName: String
+	) -> ContentModel? {
 		guard
 			let processedImageURL = getURLForImage(imageName: imageName, folderName: folderName),
 				FileManager.default.fileExists(atPath: processedImageURL.path) else {
@@ -83,6 +88,7 @@ class LocalFileManager {
 				id: imageName,
 				defaultid: defaultImageID,
 				defaultImage: defaultImage,
+				alphaSetting: alphaSetting,
 				image: image
 			)
 		}

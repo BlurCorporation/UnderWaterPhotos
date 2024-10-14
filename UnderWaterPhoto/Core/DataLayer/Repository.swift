@@ -128,6 +128,7 @@ class Repository {
 		guard let content = fileManager.getContent(
 			imageName: processedContentID,
 			defaultImageID: defaultContentID,
+			alphaSetting: alphaSetting,
 			folderName: "ContentFolder"
 		) else {
 			print("Error to get content in Repository")
@@ -136,7 +137,8 @@ class Repository {
 		
 		if let url = content.url {
 			guard let url = URL(string: url) else { return }
-			firebaseStorageManager.uploadVideo(url: url, id: processedContentID) { result in
+			firebaseStorageManager.uploadVideo(url: url, id: processedContentID) { [weak self] result in
+				guard let self = self else { return }
 				switch result {
 				case .success:
 					break
@@ -147,7 +149,8 @@ class Repository {
 			firebaseStorageManager.uploadImage(
 				image: content.image,
 				id: processedContentID
-			) { result in
+			) { [weak self] result in
+				guard let self = self else { return }
 				switch result {
 				case .success(let id):
 					self.setContentID(
@@ -163,14 +166,30 @@ class Repository {
 			firebaseStorageManager.uploadImage(
 				image: content.image,
 				id: processedContentID
-			) { result in
+			) { [weak self] result in
+				guard let self = self else { return }
 				switch result {
 				case .success(let id):
-					self.setContentID(
-						defaultContentID: defaultContentID,
-						contentID: id,
-						alphaSetting: alphaSetting
-					)
+					guard let defaultImage = content.defaultImage,
+						  let defaultid = defaultContentID
+					else {
+						break
+					}
+					self.firebaseStorageManager.uploadImage(
+						image: defaultImage,
+						id: defaultid
+					) { result in
+						switch result {
+						case .success(let defaultId):
+							self.setContentID(
+								defaultContentID: defaultId,
+								contentID: id,
+								alphaSetting: alphaSetting
+							)
+						case .failure(let error):
+							break
+						}
+					}
 				case .failure:
 					break
 				}
@@ -215,9 +234,11 @@ class Repository {
 			if let savedContent = fileManager.getContent(
 				imageName: id,
 				defaultImageID: i.defaultid,
+				alphaSetting: i.alphaSetting,
 				folderName: "ContentFolder"
 			) {
 				if !images.contains(where: { model in
+					
 					model == savedContent
 				}) {
 					images.append(savedContent)

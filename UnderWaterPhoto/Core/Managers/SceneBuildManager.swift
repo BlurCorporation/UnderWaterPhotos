@@ -92,11 +92,23 @@ extension SceneBuildManager: Buildable {
 			processContentType: processContenType,
 			videoProcessingManager: videoProcessingManager,
 			userDefaultsManager: userDefaultsManager,
-			isUserPremium: isUserPremium
+			isUserPremium: isUserPremium, 
+			shouldProcessAfterViewDidLoad: defaultImage != nil
 		)
 		
 		viewController.defaultVideoURL = url
-		viewController.defaultImage = image
+		switch processContenType {
+		case .image:
+			if let defaultImage = defaultImage {
+				viewController.defaultImage = defaultImage
+			} else {
+				viewController.defaultImage = image
+			}
+		case .video:
+			viewController.defaultImage = image
+		}
+		viewController.processedImageAlpha = alphaSetting ?? 0.8
+		viewController.previousImageAlpha = alphaSetting ?? 0.8
 		viewController.imageMergeManager = imageMergeManager
 		viewController.presenter = presenter
 		presenter.viewController = viewController
