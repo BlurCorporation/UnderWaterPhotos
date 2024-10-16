@@ -92,10 +92,11 @@
 "bottomSheetSaveVC.bottomSheetSaveButton.button.setTitle" = "Сохранить";
 
 // ProcessVC
-"processVC.titleLabel.label.text" = "Изменение";
-"processVC.hideLogoButton.button.title" = "Убрать логотип";
-"processVC.processPhotoButton.button.title" = "Изменить";
-"processVC.bottomSheetBackButton.button.title" = "Назад";
-"processVC.bottomSheetSaveButton.button.title" = "Сохранить";
-"processVC.changeToProcess.titleLabel.text" = "Редактирование";
-"processVC.changeToProcess.processPhotoButton.title" = "Редактировать";
+"ProcessVC.titleLabel.label.text" = "Изменение";
+"ProcessVC.hideLogoButton.button.title" = "Убрать логотип";
+"ProcessVC.processPhotoButton.button.title" = "Обработать";
+"ProcessVC.bottomSheetBackButton.button.title" = "Назад";
+"ProcessVC.bottomSheetSaveButton.button.title" = "Сохранить";
+"ProcessVC.changeToProcess.titleLabel.text" = "Редактирование";
+"ProcessVC.processPhotoButton.edit.title" = "Редактировать";
+"ProcessVC.processVideoButton.goMainScene.title" = "Вернуться в галерею";

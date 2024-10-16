@@ -64,7 +64,7 @@ final class SubscriptionViewController: UIViewController {
 	
 	private let titleLabel: UILabel = {
 		let label = UILabel()
-		label.text = L10n.SubscriptionViewController.titleLabel
+		label.text = L10n.SubscriptionVC.titleLabel
 		label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
 		label.textColor = UIColor(named: "white")
 		return label

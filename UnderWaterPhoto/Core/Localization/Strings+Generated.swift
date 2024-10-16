@@ -10,103 +10,151 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
-  internal enum AuthViewController {
-    /// Имя
-    internal static let nameTextField = L10n.tr("Localizable", "authViewController.nameTextField", fallback: "Имя")
-    /// Пароль
-    internal static let passwordTextField = L10n.tr("Localizable", "authViewController.passwordTextField", fallback: "Пароль")
-    /// Повторите пароль
-    internal static let repeatPasswordTextField = L10n.tr("Localizable", "authViewController.repeatPasswordTextField", fallback: "Повторите пароль")
-    internal enum Else {
-      internal enum ExpandLoginButton {
-        internal enum HeadTitle {
-          /// Добро пожаловать
-          internal static let text = L10n.tr("Localizable", "authViewController.else.expandLoginButton.headTitle.text", fallback: "Добро пожаловать")
-        }
-        internal enum LoginButton {
-          /// Регистрация
-          internal static let title = L10n.tr("Localizable", "authViewController.else.expandLoginButton.loginButton.title", fallback: "Регистрация")
-        }
-        internal enum RegistrationButton {
-          /// Войти
-          internal static let title = L10n.tr("Localizable", "authViewController.else.expandLoginButton.registrationButton.title", fallback: "Войти")
-        }
-        internal enum RestorePasswordButton {
-          /// Восстановить пароль
-          internal static let title = L10n.tr("Localizable", "authViewController.else.expandLoginButton.restorePasswordButton.title", fallback: "Восстановить пароль")
-        }
-      }
-    }
-    internal enum HeadTitle {
-      /// Создать аккаунт
-      internal static let text = L10n.tr("Localizable", "authViewController.headTitle.text", fallback: "Создать аккаунт")
-    }
-    internal enum If {
-      internal enum ExpandLoginButton {
-        internal enum HeadTitle {
-          /// Создать аккаунт
-          internal static let text = L10n.tr("Localizable", "authViewController.if.expandLoginButton.headTitle.text", fallback: "Создать аккаунт")
-        }
-        internal enum LoginButton {
-          /// Войти
-          internal static let title = L10n.tr("Localizable", "authViewController.if.expandLoginButton.loginButton.title", fallback: "Войти")
-        }
-        internal enum RegistrationButton {
-          /// Зарегестрироваться
-          internal static let title = L10n.tr("Localizable", "authViewController.if.expandLoginButton.registrationButton.title", fallback: "Зарегестрироваться")
-        }
-      }
-    }
-    internal enum LoginButton {
-      /// Войти
-      internal static let setTitle = L10n.tr("Localizable", "authViewController.loginButton.setTitle", fallback: "Войти")
-    }
-    internal enum LoginUsinLabel {
-      /// Войти с помощью
-      internal static let text = L10n.tr("Localizable", "authViewController.loginUsinLabel.text", fallback: "Войти с помощью")
-    }
-    internal enum RegistrationButton {
-      /// Зарегистрироваться
-      internal static let setTitle = L10n.tr("Localizable", "authViewController.registrationButton.setTitle", fallback: "Зарегистрироваться")
-    }
-    internal enum RestorePasswordButton {
-      /// Восстановить пароль
-      internal static let setTitle = L10n.tr("Localizable", "authViewController.restorePasswordButton.setTitle", fallback: "Восстановить пароль")
-    }
-    internal enum RestorePasswordExpand {
-      internal enum HeadTitle {
-        /// Восстановить пароль
-        internal static let text = L10n.tr("Localizable", "authViewController.restorePasswordExpand.headTitle.text", fallback: "Восстановить пароль")
-      }
-      internal enum RegistrationButton {
-        /// Восстановить пароль
-        internal static let title = L10n.tr("Localizable", "authViewController.restorePasswordExpand.registrationButton.title", fallback: "Восстановить пароль")
-      }
-    }
-  }
-  internal enum BottomSheetSaveViewController {
+  internal enum ProcessVC {
     internal enum BottomSheetBackButton {
       internal enum Button {
         /// Назад
-        internal static let setTitle = L10n.tr("Localizable", "bottomSheetSaveViewController.bottomSheetBackButton.button.setTitle", fallback: "Назад")
+        internal static let title = L10n.tr("Localizable", "ProcessVC.bottomSheetBackButton.button.title", fallback: "Назад")
       }
     }
     internal enum BottomSheetSaveButton {
       internal enum Button {
         /// Сохранить
-        internal static let setTitle = L10n.tr("Localizable", "bottomSheetSaveViewController.bottomSheetSaveButton.button.setTitle", fallback: "Сохранить")
+        internal static let title = L10n.tr("Localizable", "ProcessVC.bottomSheetSaveButton.button.title", fallback: "Сохранить")
+      }
+    }
+    internal enum ChangeToProcess {
+      internal enum TitleLabel {
+        /// Редактирование
+        internal static let text = L10n.tr("Localizable", "ProcessVC.changeToProcess.titleLabel.text", fallback: "Редактирование")
+      }
+    }
+    internal enum HideLogoButton {
+      internal enum Button {
+        /// Убрать логотип
+        internal static let title = L10n.tr("Localizable", "ProcessVC.hideLogoButton.button.title", fallback: "Убрать логотип")
+      }
+    }
+    internal enum ProcessPhotoButton {
+      internal enum Button {
+        /// Обработать
+        internal static let title = L10n.tr("Localizable", "ProcessVC.processPhotoButton.button.title", fallback: "Обработать")
+      }
+      internal enum Edit {
+        /// Редактировать
+        internal static let title = L10n.tr("Localizable", "ProcessVC.processPhotoButton.edit.title", fallback: "Редактировать")
+      }
+    }
+    internal enum ProcessVideoButton {
+      internal enum GoMainScene {
+        /// Вернуться в галерею
+        internal static let title = L10n.tr("Localizable", "ProcessVC.processVideoButton.goMainScene.title", fallback: "Вернуться в галерею")
+      }
+    }
+    internal enum TitleLabel {
+      internal enum Label {
+        /// Изменение
+        internal static let text = L10n.tr("Localizable", "ProcessVC.titleLabel.label.text", fallback: "Изменение")
+      }
+    }
+  }
+  internal enum AuthVC {
+    /// Имя
+    internal static let nameTextField = L10n.tr("Localizable", "authVC.nameTextField", fallback: "Имя")
+    /// Пароль
+    internal static let passwordTextField = L10n.tr("Localizable", "authVC.passwordTextField", fallback: "Пароль")
+    /// Повторите пароль
+    internal static let repeatPasswordTextField = L10n.tr("Localizable", "authVC.repeatPasswordTextField", fallback: "Повторите пароль")
+    internal enum Else {
+      internal enum ExpandLoginButton {
+        internal enum HeadTitle {
+          /// Добро пожаловать
+          internal static let text = L10n.tr("Localizable", "authVC.else.expandLoginButton.headTitle.text", fallback: "Добро пожаловать")
+        }
+        internal enum LoginButton {
+          /// Регистрация
+          internal static let title = L10n.tr("Localizable", "authVC.else.expandLoginButton.loginButton.title", fallback: "Регистрация")
+        }
+        internal enum RegistrationButton {
+          /// Войти
+          internal static let title = L10n.tr("Localizable", "authVC.else.expandLoginButton.registrationButton.title", fallback: "Войти")
+        }
+        internal enum RestorePasswordButton {
+          /// Восстановить пароль
+          internal static let title = L10n.tr("Localizable", "authVC.else.expandLoginButton.restorePasswordButton.title", fallback: "Восстановить пароль")
+        }
+      }
+    }
+    internal enum HeadTitle {
+      /// Создать аккаунт
+      internal static let text = L10n.tr("Localizable", "authVC.headTitle.text", fallback: "Создать аккаунт")
+    }
+    internal enum If {
+      internal enum ExpandLoginButton {
+        internal enum HeadTitle {
+          /// Создать аккаунт
+          internal static let text = L10n.tr("Localizable", "authVC.if.expandLoginButton.headTitle.text", fallback: "Создать аккаунт")
+        }
+        internal enum LoginButton {
+          /// Войти
+          internal static let title = L10n.tr("Localizable", "authVC.if.expandLoginButton.loginButton.title", fallback: "Войти")
+        }
+        internal enum RegistrationButton {
+          /// Зарегестрироваться
+          internal static let title = L10n.tr("Localizable", "authVC.if.expandLoginButton.registrationButton.title", fallback: "Зарегестрироваться")
+        }
+      }
+    }
+    internal enum LoginButton {
+      /// Войти
+      internal static let setTitle = L10n.tr("Localizable", "authVC.loginButton.setTitle", fallback: "Войти")
+    }
+    internal enum LoginUsinLabel {
+      /// Войти с помощью
+      internal static let text = L10n.tr("Localizable", "authVC.loginUsinLabel.text", fallback: "Войти с помощью")
+    }
+    internal enum RegistrationButton {
+      /// Зарегистрироваться
+      internal static let setTitle = L10n.tr("Localizable", "authVC.registrationButton.setTitle", fallback: "Зарегистрироваться")
+    }
+    internal enum RestorePasswordButton {
+      /// Восстановить пароль
+      internal static let setTitle = L10n.tr("Localizable", "authVC.restorePasswordButton.setTitle", fallback: "Восстановить пароль")
+    }
+    internal enum RestorePasswordExpand {
+      internal enum HeadTitle {
+        /// Восстановить пароль
+        internal static let text = L10n.tr("Localizable", "authVC.restorePasswordExpand.headTitle.text", fallback: "Восстановить пароль")
+      }
+      internal enum RegistrationButton {
+        /// Восстановить пароль
+        internal static let title = L10n.tr("Localizable", "authVC.restorePasswordExpand.registrationButton.title", fallback: "Восстановить пароль")
+      }
+    }
+  }
+  internal enum BottomSheetSaveVC {
+    internal enum BottomSheetBackButton {
+      internal enum Button {
+        /// Назад
+        internal static let setTitle = L10n.tr("Localizable", "bottomSheetSaveVC.bottomSheetBackButton.button.setTitle", fallback: "Назад")
+      }
+    }
+    internal enum BottomSheetSaveButton {
+      internal enum Button {
+        /// Сохранить
+        internal static let setTitle = L10n.tr("Localizable", "bottomSheetSaveVC.bottomSheetSaveButton.button.setTitle", fallback: "Сохранить")
       }
     }
     internal enum SaveInAppLabel {
       internal enum Label {
         /// Сохранить в приложении
-        internal static let text = L10n.tr("Localizable", "bottomSheetSaveViewController.saveInAppLabel.label.text", fallback: "Сохранить в приложении")
+        internal static let text = L10n.tr("Localizable", "bottomSheetSaveVC.saveInAppLabel.label.text", fallback: "Сохранить в приложении")
       }
     }
     internal enum SaveOnPhoneLabel {
       internal enum Label {
         /// Сохранить на устрйоство
-        internal static let text = L10n.tr("Localizable", "bottomSheetSaveViewController.saveOnPhoneLabel.label.text", fallback: "Сохранить на устрйоство")
+        internal static let text = L10n.tr("Localizable", "bottomSheetSaveVC.saveOnPhoneLabel.label.text", fallback: "Сохранить на устрйоство")
       }
     }
   }
@@ -138,12 +186,12 @@ internal enum L10n {
       }
     }
   }
-  internal enum LanguageSettingViewController {
+  internal enum LanguageSettingVC {
     /// Localizable.strings
     ///   UnderWaterPhoto
     /// 
     ///   Created by Андрей Барсуков on 25.01.2024.
-    internal static let titleLabel = L10n.tr("Localizable", "languageSettingViewController.titleLabel", fallback: "Язык приложения")
+    internal static let titleLabel = L10n.tr("Localizable", "languageSettingVC.titleLabel", fallback: "Язык приложения")
   }
   internal enum LanguageSettingViewModel {
     internal enum Languages {
@@ -158,48 +206,6 @@ internal enum L10n {
   internal enum MainViewModel {
     /// Александр
     internal static let userName = L10n.tr("Localizable", "mainViewModel.userName", fallback: "Александр")
-  }
-  internal enum ProcessViewController {
-    internal enum BottomSheetBackButton {
-      internal enum Button {
-        /// Назад
-        internal static let title = L10n.tr("Localizable", "processViewController.bottomSheetBackButton.button.title", fallback: "Назад")
-      }
-    }
-    internal enum BottomSheetSaveButton {
-      internal enum Button {
-        /// Сохранить
-        internal static let title = L10n.tr("Localizable", "processViewController.bottomSheetSaveButton.button.title", fallback: "Сохранить")
-      }
-    }
-    internal enum ChangeToProcess {
-      internal enum ProcessPhotoButton {
-        /// Редактировать
-        internal static let title = L10n.tr("Localizable", "processViewController.changeToProcess.processPhotoButton.title", fallback: "Редактировать")
-      }
-      internal enum TitleLabel {
-        /// Редактирование
-        internal static let text = L10n.tr("Localizable", "processViewController.changeToProcess.titleLabel.text", fallback: "Редактирование")
-      }
-    }
-    internal enum HideLogoButton {
-      internal enum Button {
-        /// Убрать логотип
-        internal static let title = L10n.tr("Localizable", "processViewController.hideLogoButton.button.title", fallback: "Убрать логотип")
-      }
-    }
-    internal enum ProcessPhotoButton {
-      internal enum Button {
-        /// Изменить
-        internal static let title = L10n.tr("Localizable", "processViewController.processPhotoButton.button.title", fallback: "Изменить")
-      }
-    }
-    internal enum TitleLabel {
-      internal enum Label {
-        /// Изменение
-        internal static let text = L10n.tr("Localizable", "processViewController.titleLabel.label.text", fallback: "Изменение")
-      }
-    }
   }
   internal enum SettingsViewModel {
     internal enum Settings {
@@ -265,9 +271,9 @@ internal enum L10n {
       }
     }
   }
-  internal enum SubscriptionViewController {
+  internal enum SubscriptionVC {
     /// Подписка
-    internal static let titleLabel = L10n.tr("Localizable", "subscriptionViewController.titleLabel", fallback: "Подписка")
+    internal static let titleLabel = L10n.tr("Localizable", "subscriptionVC.titleLabel", fallback: "Подписка")
   }
   internal enum TextView {
     /// Oформляя подписку вы соглашаетесь на Условия использования и Политику конфиденциальности
