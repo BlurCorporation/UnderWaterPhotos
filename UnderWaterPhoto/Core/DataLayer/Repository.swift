@@ -11,13 +11,27 @@ import UIKit
 import FirebaseFirestore
 
 protocol RepositoryProtocol {
-	func setContentID(
-		defaultContentID: String?,
-		contentID: String,
-		alphaSetting: Float?
-	)
-	func getContentID()
-	func updateContent(completion: @escaping () -> Void)
+	/// Запрашивает данные со всех серверов, загружает и сохраняет,
+		/// если такого контента ещё не было в локальной базе данных.
+		/// - Parameter completion: возвращается после успешной загрузки каждой единицы контента.
+		func updateContent(completion: @escaping () -> Void)
+		/// Удаляет весь сохраненный контент из локальной базы данных.
+		func deleteEntities()
+		/// Осуществляет получение контента из локальной базы данных.
+		/// - Returns: Массив контента.
+		func getContent() -> [ContentModel]
+		/// Осуществляет загрузку контента на сервер и сохранение в локальную базу данных
+		/// - Parameters:
+		///   - defaultImage: дефолтное изображение до обработки
+		///   - processedImage: обработанное изображение
+		///   - processedAlphaSetting: настройка прозрачности между обработанным и необработанным изображением
+		///   - url: ссылка на обработанное видео из временного локального хранилища
+		func addContent(
+			defaultImage: UIImage?,
+			processedImage: UIImage,
+			processedAlphaSetting: Float?,
+			processedVideoTempURL: String?
+		)
 }
 
 class Repository {
@@ -212,7 +226,94 @@ class Repository {
 		}
 	}
 	
+	private func setContentID(
+		defaultContentID: String?,
+		contentID: String,
+		alphaSetting: Float?
+	) {
+		let contentModel = ContentFirestoreModel(
+			defaultid: defaultContentID,
+			downloadid: contentID,
+			alphaSetting: alphaSetting
+		)
+		firestoreService.setContentID(
+			contentModel: contentModel
+		) { result in
+			switch result {
+			case .success(let success):
+				print(success)
+			case .failure:
+				break
+			}
+		}
+	}
+	
 	// MARK: - Internal methods
+	
+}
+
+// MARK: - RepositoryProtocol
+
+extension Repository: RepositoryProtocol {
+	func addContent(
+		defaultImage: UIImage? = nil,
+		processedImage: UIImage,
+		processedAlphaSetting: Float? = nil,
+		processedVideoTempURL: String? = nil
+	) {
+		let content = ContentEntity(context: coreDataManager.context)
+		let id = UUID().uuidString
+		content.id = id
+		content.defaultid = id + "-default"
+		content.alphaSetting = processedAlphaSetting ?? -1
+		
+		save()
+		fileManager.saveContent(
+			image: processedImage,
+			contentName: id,
+			url: processedVideoTempURL,
+			folderName: "ContentFolder"
+		) { [weak self] result in
+			guard let self = self else { return }
+			guard let defaultImage = defaultImage else {
+				self.uploadContent(
+					defaultContentID: nil,
+					processedContentID: id,
+					alphaSetting: nil
+				)
+				return
+			}
+			fileManager.saveContent(
+				image: defaultImage,
+				contentName: id + "-default",
+				url: processedVideoTempURL,
+				folderName: "ContentFolder") { result in
+					self.uploadContent(
+						defaultContentID: id + "-default",
+						processedContentID: id,
+						alphaSetting: processedAlphaSetting
+					)
+				}
+		}
+	}
+	
+	func updateContent(completion: @escaping () -> Void) {
+		firestoreService.getContentID { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let contentsModel):
+				guard let contentsModel = contentsModel else {
+					print("нет данных")
+					return
+				}
+				self.downloadAndSave(contentIDs: contentsModel) {
+					completion()
+				}
+			case .failure:
+				print("Ничего не скачалось с Firestore")
+			}
+		}
+	}
 	
 	func deleteEntities() {
 		let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ContentEntity")
@@ -248,95 +349,5 @@ class Repository {
 		}
 		
 		return images
-	}
-	
-	func addContent(
-		defaultImage: UIImage? = nil,
-		processedImage: UIImage,
-		processedAlphaSetting: Float? = nil,
-		url: String? = nil
-	) {
-		let content = ContentEntity(context: coreDataManager.context)
-		let id = UUID().uuidString
-		content.id = id
-		content.defaultid = id + "-default"
-		content.alphaSetting = processedAlphaSetting ?? -1
-		
-		save()
-		fileManager.saveContent(
-			image: processedImage,
-			contentName: id,
-			url: url,
-			folderName: "ContentFolder"
-		) { [weak self] result in
-			guard let self = self else { return }
-			guard let defaultImage = defaultImage else {
-				self.uploadContent(
-					defaultContentID: nil,
-					processedContentID: id,
-					alphaSetting: nil
-				)
-				return
-			}
-			fileManager.saveContent(
-				image: defaultImage,
-				contentName: id + "-default",
-				url: url,
-				folderName: "ContentFolder") { result in
-					self.uploadContent(
-						defaultContentID: id + "-default",
-						processedContentID: id,
-						alphaSetting: processedAlphaSetting
-					)
-				}
-		}
-	}
-	
-	func updateContent(completion: @escaping () -> Void) {
-		firestoreService.getContentID { [weak self] result in
-			guard let self = self else { return }
-			switch result {
-			case .success(let contentsModel):
-				guard let contentsModel = contentsModel else {
-					print("нет данных")
-					return
-				}
-				self.downloadAndSave(contentIDs: contentsModel) {
-					completion()
-				}
-			case .failure:
-				print("Ничего не скачалось с Firestore")
-			}
-		}
-	}
-}
-
-// MARK: - RepositoryProtocol
-
-extension Repository: RepositoryProtocol {
-	func setContentID(
-		defaultContentID: String?,
-		contentID: String,
-		alphaSetting: Float?
-	) {
-		let contentModel = ContentFirestoreModel(
-			defaultid: defaultContentID,
-			downloadid: contentID,
-			alphaSetting: alphaSetting
-		)
-		firestoreService.setContentID(
-			contentModel: contentModel
-		) { result in
-			switch result {
-			case .success(let success):
-				print(success)
-			case .failure:
-				break
-			}
-		}
-	}
-	
-	func getContentID() {
-		
 	}
 }

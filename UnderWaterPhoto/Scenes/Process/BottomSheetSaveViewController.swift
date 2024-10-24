@@ -141,7 +141,7 @@ final class BottomSheetSaveViewController: UIViewController {
 			)
 		case .video:
 			guard let image = previewImage, let url = videoURL else { return }
-			repository.addContent(processedImage: image, url: url)
+			repository.addContent(processedImage: image, processedVideoTempURL: url)
 		}
 	}
 	
