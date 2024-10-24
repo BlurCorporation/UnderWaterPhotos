@@ -151,63 +151,91 @@ class Repository {
 		}
 		
 		if let url = content.url {
-			guard let url = URL(string: url) else { return }
-			firebaseStorageManager.uploadVideo(url: url, id: processedContentID) { [weak self] result in
-				guard let self = self else { return }
-				switch result {
-				case .success:
-					break
-				case .failure:
-					break
-				}
-			}
-			firebaseStorageManager.uploadImage(
+			self.uploadVideo(
+				url: url,
 				image: content.image,
-				id: processedContentID
-			) { [weak self] result in
-				guard let self = self else { return }
-				switch result {
-				case .success(let id):
-					self.setContentID(
-						defaultContentID: nil,
-						contentID: id,
-						alphaSetting: nil
-					)
-				case .failure:
-					break
-				}
-			}
+				processedContentID: processedContentID
+			)
 		} else {
-			firebaseStorageManager.uploadImage(
-				image: content.image,
-				id: processedContentID
-			) { [weak self] result in
-				guard let self = self else { return }
-				switch result {
-				case .success(let id):
-					guard let defaultImage = content.defaultImage,
-						  let defaultid = defaultContentID
-					else {
+			self.uploadImage(
+				processedImage: content.image,
+				processedImageID: processedContentID,
+				defaultImage: content.defaultImage,
+				defaultImageID: defaultContentID,
+				alphaSetting: alphaSetting
+			)
+		}
+	}
+	
+	private func uploadVideo(
+		url: String,
+		image: UIImage,
+		processedContentID: String
+	) {
+		guard let url = URL(string: url) else { return }
+		firebaseStorageManager.uploadVideo(url: url, id: processedContentID) { /*[weak self]*/ _ in
+//				guard let self = self else { return }
+//				switch result {
+//				case .success:
+//					break
+//				case .failure:
+//					break
+//				}
+		}
+		firebaseStorageManager.uploadImage(
+			image: image,
+			id: processedContentID
+		) { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let id):
+				self.setContentID(
+					defaultContentID: nil,
+					contentID: id,
+					alphaSetting: nil
+				)
+			case .failure:
+				break
+			}
+		}
+	}
+	
+	private func uploadImage(
+		processedImage: UIImage,
+		processedImageID: String,
+		defaultImage: UIImage?,
+		defaultImageID: String?,
+		alphaSetting: Float?
+	) {
+		firebaseStorageManager.uploadImage(
+			image: processedImage,
+			id: processedImageID
+		) { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let id):
+				guard let defaultImage = defaultImage,
+					  let defaultid = defaultImageID
+				else {
+					break
+				}
+				self.firebaseStorageManager.uploadImage(
+					image: defaultImage,
+					id: defaultid
+				) { result in
+					switch result {
+					case .success(let defaultId):
+						self.setContentID(
+							defaultContentID: defaultId,
+							contentID: id,
+							alphaSetting: alphaSetting
+						)
+					case .failure:
 						break
 					}
-					self.firebaseStorageManager.uploadImage(
-						image: defaultImage,
-						id: defaultid
-					) { result in
-						switch result {
-						case .success(let defaultId):
-							self.setContentID(
-								defaultContentID: defaultId,
-								contentID: id,
-								alphaSetting: alphaSetting
-							)
-						case .failure:
-							break
-						}
-					}
-				case .failure:
-					break
 				}
+			case .failure:
+				break
 			}
 		}
 	}
