@@ -65,6 +65,7 @@ class Repository {
 						case .success(let videoUrl):
 							let content = ContentEntity(context: self.coreDataManager.context)
 							content.id = id.downloadid
+							content.defaultid = nil
 							content.alphaSetting = id.alphaSetting ?? .zero
 							
 							self.save()
@@ -186,7 +187,7 @@ class Repository {
 								contentID: id,
 								alphaSetting: alphaSetting
 							)
-						case .failure(let error):
+						case .failure:
 							break
 						}
 					}

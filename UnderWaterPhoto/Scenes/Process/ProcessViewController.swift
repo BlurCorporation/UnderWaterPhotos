@@ -237,7 +237,7 @@ final class ProcessViewController: UIViewController {
 		hideLogoButton.isHidden = true
 		filterButton.isHidden = true
 		watermarkImageView.isHidden = true
-		
+		processedImageView.alpha = CGFloat(self.processedImageAlpha)
 		presenter?.viewDidLoad()
 	}
 	
