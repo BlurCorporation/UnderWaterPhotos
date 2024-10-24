@@ -12,6 +12,8 @@ import AVFoundation
 // MARK: - ProcessViewControllerProtocol
 
 protocol ProcessViewControllerProtocol: UIViewController {
+	var defaultImage: UIImage? { get }
+	
 	func uploadImage(image: UIImage)
 	func changeToProcess(with type: ProcessContentType)
 	func showBottomSaveSheet()
@@ -45,8 +47,8 @@ final class ProcessViewController: UIViewController {
 	var defaultImage: UIImage?
 	var defaultVideoURL: String?
 	private var processedImage: UIImage?
-	private var processedImageAlpha: Float = 0.8
-	private var previousImageAlpha: Float = 0.8
+	var processedImageAlpha: Float = 0.8
+	var previousImageAlpha: Float = 0.8
 	private var isWatermark: Bool = true
 	
 	// MARK: PrivateProperties
@@ -235,7 +237,7 @@ final class ProcessViewController: UIViewController {
 		hideLogoButton.isHidden = true
 		filterButton.isHidden = true
 		watermarkImageView.isHidden = true
-		
+		processedImageView.alpha = CGFloat(self.processedImageAlpha)
 		presenter?.viewDidLoad()
 	}
 	

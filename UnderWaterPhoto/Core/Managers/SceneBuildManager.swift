@@ -7,7 +7,9 @@
 
 protocol Buildable {
 	func buildProcessViewController(
+		defaultImage: UIImage?,
 		image: UIImage?,
+		alphaSetting: Float?,
 		url: String?,
 		processContenType: ProcessContentType
 	) -> ProcessViewController
@@ -76,7 +78,9 @@ extension SceneBuildManager: Buildable {
 	}
 	
 	func buildProcessViewController(
+		defaultImage: UIImage?,
 		image: UIImage?,
+		alphaSetting: Float?,
 		url: String?,
 		processContenType: ProcessContentType
 	) -> ProcessViewController {
@@ -88,11 +92,23 @@ extension SceneBuildManager: Buildable {
 			processContentType: processContenType,
 			videoProcessingManager: videoProcessingManager,
 			userDefaultsManager: userDefaultsManager,
-			isUserPremium: isUserPremium
+			isUserPremium: isUserPremium, 
+			shouldProcessAfterViewDidLoad: defaultImage != nil
 		)
 		
 		viewController.defaultVideoURL = url
-		viewController.defaultImage = image
+		switch processContenType {
+		case .image:
+			if let defaultImage = defaultImage {
+				viewController.defaultImage = defaultImage
+			} else {
+				viewController.defaultImage = image
+			}
+		case .video:
+			viewController.defaultImage = image
+		}
+		viewController.processedImageAlpha = alphaSetting ?? 0.8
+		viewController.previousImageAlpha = alphaSetting ?? 0.8
 		viewController.imageMergeManager = imageMergeManager
 		viewController.presenter = presenter
 		presenter.viewController = viewController
@@ -141,11 +157,12 @@ extension SceneBuildManager: Buildable {
 		if processContentType == .image {
 			let processedImage = processedImage?.image(alpha: CGFloat(processedImageAlpha))
 			vc.addImage(
-				image: defaultImage,
-				processedImage: processedImage
+				defaultImage: defaultImage,
+				processedImage: processedImage,
+				alphaSetting: processedImageAlpha
 			)
 		}
-		vc.addVideo(url: videoURL, previewImage: previewImage)
+		vc.addVideo(videoURL: videoURL, previewImage: previewImage)
 		vc.imageMergeManager = imageMergeManager
 		return vc
 	}
