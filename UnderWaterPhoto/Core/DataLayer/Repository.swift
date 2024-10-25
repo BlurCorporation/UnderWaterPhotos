@@ -313,7 +313,7 @@ class Repository {
 			downloadid: contentID,
 			alphaSetting: alphaSetting
 		)
-		firestoreService.setContentID(
+		firestoreService.setContentModel(
 			contentModel: contentModel
 		) { result in
 			switch result {
@@ -376,7 +376,7 @@ extension Repository: RepositoryProtocol {
 	}
 	
 	func updateContent(completion: @escaping () -> Void) {
-		firestoreService.getContentID { [weak self] result in
+		firestoreService.getContentModel { [weak self] result in
 			guard let self = self else { return }
 			switch result {
 			case .success(let contentsModel):

@@ -15,20 +15,35 @@ struct ContentFirestoreModel: Codable {
 }
 
 protocol FirestoreServiceProtocol {
-	func setContentID(
+	/// Добавляет модель в FirebaseFirestore
+	/// - Parameters:
+	///   - contentModel: модель контента
+	///   - completion: возвращает `Bool`
+	///   с результатом true в сулчае успехи и `Error` в случае неудачи
+	func setContentModel(
 		contentModel: ContentFirestoreModel,
 		completion: @escaping (Result<Bool, Error>) -> Void
 	)
 	
-	func getContentID(
+	/// Получает модель из FirebaseFirestore
+	/// - Parameter completion: возвращает `[ContentFirestoreModel]`
+	///   в сулчае успехи и `Error` в случае неудачи
+	func getContentModel(
 		completion: @escaping (Result<[ContentFirestoreModel]?, Error>) -> Void
 	)
 	
-	func deleteContentID(
-		contentID: ContentFirestoreModel,
+	/// Удаляет модель в FirebaseFirestore
+	/// - Parameters:
+	///   - contentModel: модель контента
+	///   - completion: возвращает `Bool`
+	///   с результатом true в сулчае успехи и `Error` в случае неудачи
+	func deleteContentModel(
+		contentModel: ContentFirestoreModel,
 		completion: @escaping (Result<Bool, Error>) -> Void
 	)
 	
+	/// Сохраняет в ОЗУ id пользователя
+	/// - Parameter userID: id пользователя
 	func addUserID(userID: String)
 }
 
@@ -67,7 +82,7 @@ final class FirestoreService {
 }
 
 extension FirestoreService: FirestoreServiceProtocol {
-	func setContentID(
+	func setContentModel(
 		contentModel: ContentFirestoreModel,
 		completion: @escaping (Result<Bool, Error>) -> Void
 	) {
@@ -93,7 +108,7 @@ extension FirestoreService: FirestoreServiceProtocol {
 		}
 	}
 	
-	func getContentID(
+	func getContentModel(
 		completion: @escaping (Result<[ContentFirestoreModel]?, Error>) -> Void
 	) {
 		guard let uid = self.uid else {
@@ -118,8 +133,8 @@ extension FirestoreService: FirestoreServiceProtocol {
 		}
 	}
 	
-	func deleteContentID(
-		contentID: ContentFirestoreModel,
+	func deleteContentModel(
+		contentModel: ContentFirestoreModel,
 		completion: @escaping (Result<Bool, Error>) -> Void
 	) {
 		
