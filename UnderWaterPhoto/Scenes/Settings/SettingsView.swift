@@ -13,14 +13,16 @@ struct SettingsView: View {
 	var routeSubscriptionScreen: () -> Void
 	var logout: () -> Void
 	let defaultsManager: DefaultsManagerable
-	let repository: Repository
+	let repository: RepositoryProtocol
 	
 	var body: some View {
 		NavigationView {
 			List(vm.settings) { setting in
-				SettingRowView(setting: setting.settingName,
-							   additionalText: setting.additionalName,
-							   symbol: setting.symbol)
+				SettingRowView(
+					setting: setting.settingName,
+					additionalText: setting.additionalName,
+					symbol: setting.symbol
+				)
 				.onTapGesture {
 					switch setting.id {
 					case 0:

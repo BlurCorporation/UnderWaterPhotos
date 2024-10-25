@@ -22,7 +22,7 @@ struct MainView: View {
 	var logout: () -> Void
 	
 	let defaultsManager: DefaultsManagerable
-	let repository: Repository
+	let repository: RepositoryProtocol
 	
 	var body: some View {
 		ZStack {
@@ -157,7 +157,7 @@ final class MainViewController: UIViewController {
 	let viewModel: MainViewModel
 	private let sceneBuildManager: Buildable
 	private let defaultsManager: DefaultsManagerable
-	private let repository: Repository
+	private let repository: RepositoryProtocol
 	private let authService: AuthServicable
 	
 	override func viewDidLoad() {
@@ -174,7 +174,7 @@ final class MainViewController: UIViewController {
 		viewModel: MainViewModel,
 		sceneBuildManager: Buildable,
 		defaultsManager: DefaultsManagerable,
-		repository: Repository,
+		repository: RepositoryProtocol,
 		authService: AuthServicable
 	) {
 		self.viewModel = viewModel

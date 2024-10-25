@@ -22,11 +22,11 @@ class MainViewModel: ObservableObject {
 	@Published var toggle: Bool = false
 	@Published var isModalPresented: Bool = false
 	
-	let repository: Repository
+	let repository: RepositoryProtocol
 	let userDefaultsManager: DefaultsManagerable
 	
 	init(
-		repository: Repository,
+		repository: RepositoryProtocol,
 		userDefaultsManager: DefaultsManagerable
 	) {
 		self.repository = repository

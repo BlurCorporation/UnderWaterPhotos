@@ -29,7 +29,7 @@ protocol Buildable {
 
 final class SceneBuildManager {
 	private let imageMergeManager = ImageMergeManager()
-	private let repository: Repository
+	private let repository: RepositoryProtocol
 	private let userDefaultsManager: DefaultsManagerable
 	private let customTransitioningDelegate = BSTransitioningDelegate()
 	private let authState: AuthState

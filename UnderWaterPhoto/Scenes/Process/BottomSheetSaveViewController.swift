@@ -6,7 +6,7 @@ final class BottomSheetSaveViewController: UIViewController {
 	// MARK: - Dependencies
 	
 	var imageMergeManager: ImageMergeManager?
-	private var repository: Repository
+	private var repository: RepositoryProtocol
 	private let userDefaultsManager: DefaultsManagerable
 	
 	// MARK: - Private properties
@@ -73,7 +73,7 @@ final class BottomSheetSaveViewController: UIViewController {
 	init(
 		processContentType: ProcessContentType,
 		userDefaultsManager: DefaultsManagerable,
-		repository: Repository
+		repository: RepositoryProtocol
 	) {
 		self.processContentType = processContentType
 		self.userDefaultsManager = userDefaultsManager
@@ -127,7 +127,7 @@ final class BottomSheetSaveViewController: UIViewController {
 	private func saveInApp() {
 		switch processContentType {
 		case .image:
-			guard var defaultImage = defaultImage,
+			guard let defaultImage = defaultImage,
 				  let processedImage = processedImage else { return }
 			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
 			guard var finalImage = mergedImage else { return }
@@ -137,11 +137,17 @@ final class BottomSheetSaveViewController: UIViewController {
 			repository.addContent(
 				defaultImage: defaultImage,
 				processedImage: finalImage,
-				processedAlphaSetting: alphaSetting
+				processedAlphaSetting: alphaSetting,
+				processedVideoTempURL: nil
 			)
 		case .video:
 			guard let image = previewImage, let url = videoURL else { return }
-			repository.addContent(processedImage: image, processedVideoTempURL: url)
+			repository.addContent(
+				defaultImage: nil,
+				processedImage: image,
+				processedAlphaSetting: nil,
+				processedVideoTempURL: url
+			)
 		}
 	}
 	

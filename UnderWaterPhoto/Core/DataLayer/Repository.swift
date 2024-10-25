@@ -333,10 +333,10 @@ class Repository {
 
 extension Repository: RepositoryProtocol {
 	func addContent(
-		defaultImage: UIImage? = nil,
+		defaultImage: UIImage?,
 		processedImage: UIImage,
-		processedAlphaSetting: Float? = nil,
-		processedVideoTempURL: String? = nil
+		processedAlphaSetting: Float?,
+		processedVideoTempURL: String?
 	) {
 		let content = ContentEntity(context: coreDataManager.context)
 		let id = UUID().uuidString
