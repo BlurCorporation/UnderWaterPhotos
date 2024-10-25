@@ -61,76 +61,125 @@ class Repository {
 	
 	// MARK: - Private methods
 	
+	/// Скачиваем и сохраняем контент, если его ещё нет на устройстве.
+	/// - Parameters:
+	///   - contentIDs: Массив моделей обработанного контента
+	///   - completion: Возвращается после каждого сохранения
 	private func downloadAndSave(
-		contentIDs: [ContentFirestoreModel],
+		firestoreModels: [ContentFirestoreModel],
 		completion: @escaping () -> Void
 	) {
-		let contents = self.getContent().map { $0.id }
+		// Получаем массив id контента
+		let contentIDs = self.getContent().map { $0.id }
 		print("CONTENTIDS")
 		
-		for id in contentIDs {
-			guard !contents.contains(id.downloadid) else { continue }
-			self.firebaseStorageManager.downloadImage(id: id.downloadid) { [weak self] result in
+		for model in firestoreModels {
+			guard !contentIDs.contains(model.downloadid) else { continue }
+			// Скачиваем обработанное изображение из FirebaseStorage
+			self.firebaseStorageManager.downloadImage(id: model.downloadid) { [weak self] result in
 				guard let self = self else { return }
 				switch result {
-				case .success(let image):
-					self.firebaseStorageManager.downloadVideo(id: id.downloadid) { result in
-						switch result {
-						case .success(let videoUrl):
-							let content = ContentEntity(context: self.coreDataManager.context)
-							content.id = id.downloadid
-							content.defaultid = nil
-							content.alphaSetting = id.alphaSetting ?? .zero
-							
-							self.save()
-							self.fileManager.saveContent(
-								image: image,
-								contentName: id.downloadid,
-								url: videoUrl?.absoluteString,
-								folderName: "ContentFolder"
-							) { _ in
-								completion()
-							}
-						case .failure:
-							let content = ContentEntity(context: self.coreDataManager.context)
-							content.id = id.downloadid
-							content.defaultid = id.defaultid
-							content.alphaSetting = id.alphaSetting ?? .zero
-							
-							self.save()
-							self.fileManager.saveContent(
-								image: image,
-								contentName: id.downloadid,
-								url: nil,
-								folderName: "ContentFolder"
-							) { _ in
-								guard let defaultid = id.defaultid else {
-									completion()
-									return
-								}
-								self.firebaseStorageManager.downloadImage(
-									id: defaultid
-								) { result in
-									switch result {
-									case .success(let image):
-										self.fileManager.saveContent(
-											image: image,
-											contentName: defaultid,
-											url: nil,
-											folderName: "ContentFolder"
-										) { _ in
-											completion()
-										}
-									case .failure(let failure):
-										print("Фото не скачалось")
-									}
-								}
-							}
-						}
-					}
+				case .success(let processedImage):
+					self.downloadVideo(model: model, processedImage: processedImage, completion: completion)
 				case .failure:
 					print("Фото не скачалось")
 				}
+			}
+		}
+	}
+	
+	private func downloadVideo(
+		model: ContentFirestoreModel,
+		processedImage: UIImage,
+		completion: @escaping () -> Void
+	) {
+		// Пытаемся скачать видео из FirebaseStorage
+		self.firebaseStorageManager.downloadVideo(id: model.downloadid) { result in
+			switch result {
+			case .success(let videoUrl):
+				// Видео успешно скачалось, значит запускаем сценарий сохранения видео
+				self.localSaveVideo(model: model, processedImage: processedImage, videoUrl: videoUrl, completion: completion)
+			case .failure:
+				// Видео не скачалось, значит запускаем сценарий сохранения изображения
+				self.localSaveImage(model: model, processedImage: processedImage, completion: completion)
+			}
+		}
+	}
+	
+	private func localSaveVideo(
+		model: ContentFirestoreModel,
+		processedImage: UIImage,
+		videoUrl: URL?,
+		completion: @escaping () -> Void
+	) {
+		// Создаём сущность CoreData
+		let content = ContentEntity(context: self.coreDataManager.context)
+		content.id = model.downloadid
+		content.defaultid = nil
+		content.alphaSetting = model.alphaSetting ?? .zero
+		// Сохраняем сущность
+		self.save()
+		// Сохраняем видео в LocalFileManager
+		self.fileManager.saveContent(
+			image: processedImage,
+			contentName: model.downloadid,
+			url: videoUrl?.absoluteString,
+			folderName: "ContentFolder",
+			completion: completion
+		)
+	}
+	
+	private func localSaveImage(
+		model: ContentFirestoreModel,
+		processedImage: UIImage,
+		completion: @escaping () -> Void
+	) {
+		// Создаём сущность CoreData
+		let content = ContentEntity(context: self.coreDataManager.context)
+		content.id = model.downloadid
+		content.defaultid = model.defaultid
+		content.alphaSetting = model.alphaSetting ?? .zero
+		// Сохраняем сущность
+		self.save()
+		// Сохраняем обработанное изображение в LocalFileManager
+		self.fileManager.saveContent(
+			image: processedImage,
+			contentName: model.downloadid,
+			url: nil,
+			folderName: "ContentFolder"
+		) {
+			// Проверяем, есть id необработанного изображения
+			guard let defaultid = model.defaultid else {
+				// Вызываем callBack, обозначающий окончание флоу загрузки и сохранения
+				completion()
+				return
+			}
+			// Скачиваем необработанное изображение из FirebaseStorage
+			self.downloadDefaultImage(
+				id: defaultid,
+				completion: completion
+			)
+		}
+	}
+	
+	private func downloadDefaultImage(
+		id: String,
+		completion: @escaping () -> Void
+	) {
+		self.firebaseStorageManager.downloadImage(
+			id: id
+		) { result in
+			switch result {
+			case .success(let image):
+				self.fileManager.saveContent(
+					image: image,
+					contentName: id,
+					url: nil,
+					folderName: "ContentFolder",
+					completion: completion
+				)
+			case .failure(let failure):
+				print("Фото не скачалось")
 			}
 		}
 	}
@@ -301,7 +350,7 @@ extension Repository: RepositoryProtocol {
 			contentName: id,
 			url: processedVideoTempURL,
 			folderName: "ContentFolder"
-		) { [weak self] result in
+		) { [weak self] in
 			guard let self = self else { return }
 			guard let defaultImage = defaultImage else {
 				self.uploadContent(
@@ -315,13 +364,14 @@ extension Repository: RepositoryProtocol {
 				image: defaultImage,
 				contentName: id + "-default",
 				url: processedVideoTempURL,
-				folderName: "ContentFolder") { result in
-					self.uploadContent(
-						defaultContentID: id + "-default",
-						processedContentID: id,
-						alphaSetting: processedAlphaSetting
-					)
-				}
+				folderName: "ContentFolder"
+			) {
+				self.uploadContent(
+					defaultContentID: id + "-default",
+					processedContentID: id,
+					alphaSetting: processedAlphaSetting
+				)
+			}
 		}
 	}
 	
@@ -334,7 +384,7 @@ extension Repository: RepositoryProtocol {
 					print("нет данных")
 					return
 				}
-				self.downloadAndSave(contentIDs: contentsModel) {
+				self.downloadAndSave(firestoreModels: contentsModel) {
 					completion()
 				}
 			case .failure:

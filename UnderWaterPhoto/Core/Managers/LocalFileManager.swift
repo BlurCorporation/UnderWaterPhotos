@@ -18,7 +18,7 @@ class LocalFileManager {
 		contentName: String,
 		url: String?,
 		folderName: String,
-		completion: @escaping (Bool) -> Void
+		completion: @escaping () -> Void
 	) {
 		createFolderIfNeeded(folderName: folderName)
 		
@@ -47,7 +47,7 @@ class LocalFileManager {
 			} catch let error {
 				print("Error saving image. ImageName: \(contentName) \(error)")
 			}
-			completion(true)
+			completion()
 		}
 	}
 	
