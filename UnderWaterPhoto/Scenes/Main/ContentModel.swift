@@ -9,7 +9,10 @@ import Foundation
 import UIKit
 
 struct ContentModel: Identifiable, Equatable {
-	var id: UUID
+	var id: String
+	var defaultid: String?
+	var defaultImage: UIImage?
+	var alphaSetting: Float?
 	var image: UIImage
 	var url: String?
 }

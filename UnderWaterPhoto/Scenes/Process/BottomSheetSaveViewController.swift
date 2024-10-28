@@ -3,14 +3,22 @@ import Photos
 
 final class BottomSheetSaveViewController: UIViewController {
 	
-	private var image: UIImage?
+	// MARK: - Dependencies
+	
+	var imageMergeManager: ImageMergeManager?
+	private var repository: RepositoryProtocol
+	private let userDefaultsManager: DefaultsManagerable
+	
+	// MARK: - Private properties
+	
+	private var defaultImage: UIImage?
 	private var processedImage: UIImage?
 	private var videoURL: String?
 	private var previewImage: UIImage?
 	private var processContentType: ProcessContentType
-	var imageMergeManager: ImageMergeManager?
-	private var repository: Repository
-	private let userDefaultsManager: DefaultsManagerable
+	private var alphaSetting: Float?
+	
+	// MARK: - UI Elements
 	
 	private let saveInAppLabel: UILabel = {
 		let label = UILabel()
@@ -60,10 +68,12 @@ final class BottomSheetSaveViewController: UIViewController {
 		return uiswitch
 	}()
 	
+	// MARK: - Lifecycle
+	
 	init(
 		processContentType: ProcessContentType,
 		userDefaultsManager: DefaultsManagerable,
-		repository: Repository
+		repository: RepositoryProtocol
 	) {
 		self.processContentType = processContentType
 		self.userDefaultsManager = userDefaultsManager
@@ -112,15 +122,55 @@ final class BottomSheetSaveViewController: UIViewController {
 		])
 	}
 	
-	func addImage(image: UIImage?, processedImage: UIImage?) {
-		self.image = image
-		self.processedImage = processedImage
+	// MARK: - Private methods
+	
+	private func saveInApp() {
+		switch processContentType {
+		case .image:
+			guard let defaultImage = defaultImage,
+				  let processedImage = processedImage else { return }
+			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
+			guard var finalImage = mergedImage else { return }
+			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
+			}
+			repository.addContent(
+				defaultImage: defaultImage,
+				processedImage: finalImage,
+				processedAlphaSetting: alphaSetting,
+				processedVideoTempURL: nil
+			)
+		case .video:
+			guard let image = previewImage, let url = videoURL else { return }
+			repository.addContent(
+				defaultImage: nil,
+				processedImage: image,
+				processedAlphaSetting: nil,
+				processedVideoTempURL: url
+			)
+		}
 	}
 	
-	func addVideo(url: String?, previewImage: UIImage?) {
-		videoURL = url
-		self.previewImage = previewImage
+	private func saveOnPhone() {
+		switch processContentType {
+		case .image:
+			guard var defaultImage = defaultImage,
+				  let processedImage = processedImage else { return }
+			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
+			guard var finalImage = mergedImage else { return }
+			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
+			}
+			UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
+		case .video:
+			guard let url = videoURL else { print("error"); return }
+			PHPhotoLibrary.shared().performChanges {
+				PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
+			}
+		}
 	}
+	
+	// MARK: - Actions
 	
 	@objc func back() {
 		presentingViewController?.dismiss(animated: true)
@@ -128,51 +178,24 @@ final class BottomSheetSaveViewController: UIViewController {
 	
 	@objc func save() {
 		if inAppSwitch.isOn {
-			switch processContentType {
-			case .image:
-				guard var image = image else { return }
-				if let processedImage = processedImage {
-					guard var finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
-					if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
-						finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
-					}
-					repository.addContent(uiimage: finalImage)
-				} else {
-					if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
-						image = imageMergeManager?.mergeWatermark(image: image) ?? UIImage()
-					}
-					repository.addContent(uiimage: image)
-				}
-			case .video:
-				guard let image = previewImage, let url = videoURL else { return }
-				repository.addContent(uiimage: image, url: url)
-			}
+			self.saveInApp()
 		}
-		
 		if onPhoneSwitch.isOn {
-			switch processContentType {
-			case .image:
-				guard var image = image else { return }
-				if let processedImage = processedImage {
-					guard var finalImage = imageMergeManager?.mergeImages(bottomImage: image, topImage: processedImage) else { return }
-					if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
-						finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
-					}
-					UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
-				} else {
-					if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
-						image = imageMergeManager?.mergeWatermark(image: image) ?? UIImage()
-					}
-					UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-				}
-			case .video:
-				guard let url = videoURL else { print("error"); return }
-				PHPhotoLibrary.shared().performChanges {
-					PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
-				}
-			}
+			self.saveOnPhone()
 		}
-		
 		presentingViewController?.dismiss(animated: true)
+	}
+	
+	// MARK: - Internal Methods
+	
+	func addImage(defaultImage: UIImage?, processedImage: UIImage?, alphaSetting: Float) {
+		self.defaultImage = defaultImage
+		self.processedImage = processedImage
+		self.alphaSetting = alphaSetting
+	}
+	
+	func addVideo(videoURL: String?, previewImage: UIImage?) {
+		self.videoURL = videoURL
+		self.previewImage = previewImage
 	}
 }
