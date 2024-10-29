@@ -31,6 +31,8 @@ struct SettingsView: View {
 						repository.deleteEntities()
 					case 2:
 						routeSubscriptionScreen()
+					case 3:
+						break 
 					case 4:
 						defaultsManager.deleteObject(for: .isUserAuth)
 						repository.deleteEntities()
@@ -42,7 +44,7 @@ struct SettingsView: View {
 				.listRowBackground(Color("blue"))
 			}
 			.environment(\.defaultMinListRowHeight, 44)
-			.frame(height: 176)
+			.frame(height: 132)
 			.listStyle(.plain)
 		}
 	}

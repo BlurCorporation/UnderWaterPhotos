@@ -47,7 +47,7 @@ struct MainView: View {
 						defaultsManager: defaultsManager,
 						repository: repository
 					)
-					.frame(height: 176)
+					.frame(height: 132)
 					.padding([.top], -32)
 				case .main:
 					scrollContentView
