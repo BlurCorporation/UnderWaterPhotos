@@ -123,7 +123,6 @@ private extension HeaderView {
 			selection: $image,
 			matching: .any(of: [.images, .videos])
 		)
-		.presentationDetents([.fraction(0.99)])
 		.onChange(of: image) { content in
 			Task {
 				if let contentType = content?.supportedContentTypes.first {
@@ -152,14 +151,10 @@ private extension HeaderView {
 					} else {
 						print("Content doesnt conforms to image or movie")
 					}
+					image = nil
 				}
 			}
 		}
-//		.simultaneousGesture(TapGesture()
-//		   .onEnded({
-//			   vm.isModalPresented = true
-//		   })
-//		)
 	}
 }
 
