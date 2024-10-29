@@ -138,6 +138,7 @@ final class ProcessViewController: UIViewController {
 		button.tintColor = UIColor(named: "white")
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		button.addTarget(self, action: #selector(hideLogoButtonAction), for: .touchUpInside)
+		button.isHidden = true
 		return button
 	}()
 	
@@ -211,6 +212,7 @@ final class ProcessViewController: UIViewController {
 	private let watermarkImageView: UIImageView = {
 		let image = UIImage(named: "watermark")
 		let imageView = UIImageView(image: image)
+		imageView.isHidden = true
 		return imageView
 	}()
 	
@@ -234,9 +236,9 @@ final class ProcessViewController: UIViewController {
 			}
 		}
 		
-		hideLogoButton.isHidden = true
+//		hideLogoButton.isHidden = true
 		filterButton.isHidden = true
-		watermarkImageView.isHidden = true
+//		watermarkImageView.isHidden = true
 		processedImageView.alpha = CGFloat(self.processedImageAlpha)
 		presenter?.viewDidLoad()
 	}
@@ -411,10 +413,10 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 		switch contentType {
 		case .image:
 			processPhotoButton.setTitle(L10n.ProcessVC.ProcessPhotoButton.Edit.title, for: .normal)
+			filterButton.isHidden = false
 		case .video:
 			processPhotoButton.setTitle(L10n.ProcessVC.ProcessVideoButton.GoMainScene.title, for: .normal)
 		}
-		filterButton.isHidden = false
 		navigationItem.rightBarButtonItems = [saveBarButtonItem, shareBarButtonItem]
 	}
 	

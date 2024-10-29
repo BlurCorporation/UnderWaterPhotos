@@ -121,9 +121,9 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 			viewController?.makeConstraintsForWatermark(
 				processContentType: processContentType
 			)
-			if !isUserPremium {
-				viewController?.showWatermark()
-			}
+//			if !isUserPremium {
+//				viewController?.showWatermark()
+//			}
 			self.viewController?.disableProcessButton()
 			wasProcessed = true
 			Task {
