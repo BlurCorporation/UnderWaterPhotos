@@ -273,11 +273,22 @@ final class ProcessViewController: UIViewController {
 	}
 	
 	@objc func filterTouched() {
-		processedImageView.isHidden = true
+		let path = UIBezierPath(
+			rect: CGRect(
+				x: 0,
+				y: 0,
+				width: processedImageView.frame.width / 2,
+				height: processedImageView.frame.height
+			)
+		)
+		let mask = CAShapeLayer()
+		mask.path = path.cgPath
+		mask.fillRule = CAShapeLayerFillRule.evenOdd
+		processedImageView.layer.mask = mask
 	}
 	
 	@objc func filterDidntTouched() {
-		processedImageView.isHidden = false
+		processedImageView.layer.mask = nil
 	}
 	
 	@objc
