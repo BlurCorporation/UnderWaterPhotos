@@ -131,9 +131,9 @@ final class BottomSheetSaveViewController: UIViewController {
 				  let processedImage = processedImage else { return }
 			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
 			guard var finalImage = mergedImage else { return }
-			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
-				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
-			}
+//			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+//				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
+//			}
 			repository.addContent(
 				defaultImage: defaultImage,
 				processedImage: finalImage,
@@ -158,9 +158,9 @@ final class BottomSheetSaveViewController: UIViewController {
 				  let processedImage = processedImage else { return }
 			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
 			guard var finalImage = mergedImage else { return }
-			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
-				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
-			}
+//			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
+//				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
+//			}
 			UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
 		case .video:
 			guard let url = videoURL else { print("error"); return }
