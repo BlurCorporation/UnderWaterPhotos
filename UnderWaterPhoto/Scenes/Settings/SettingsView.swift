@@ -8,44 +8,68 @@
 import SwiftUI
 
 struct SettingsView: View {
-	@StateObject private var vm = SettingsViewModel()
+	@StateObject private var vm: SettingsViewModel
 	var routeLanguageScreen: () -> Void
 	var routeSubscriptionScreen: () -> Void
-	var logout: () -> Void
-	let defaultsManager: DefaultsManagerable
-	let repository: RepositoryProtocol
+	
+	@State var shouldDeleteAccount = false
+	
+	init(
+		vm: @escaping @autoclosure () -> SettingsViewModel,
+		routeLanguageScreen: @escaping () -> Void,
+		routeSubscriptionScreen: @escaping () -> Void
+	) {
+		_vm = .init(wrappedValue: vm())
+		self.routeLanguageScreen = routeLanguageScreen
+		self.routeSubscriptionScreen = routeSubscriptionScreen
+	}
 	
 	var body: some View {
-		NavigationView {
-			List(vm.settings) { setting in
+		List(vm.settings) { setting in
+			Button(action: {
+				switch setting.id {
+				case 0:
+					routeLanguageScreen()
+				case 1:
+					vm.deleteEntities()
+				case 2:
+					routeSubscriptionScreen()
+				case 3:
+					shouldDeleteAccount = true
+				case 4:
+					vm.logout()
+				default:
+					break
+				}
+			}, label: {
 				SettingRowView(
 					setting: setting.settingName,
 					additionalText: setting.additionalName,
 					symbol: setting.symbol
 				)
-				.onTapGesture {
-					switch setting.id {
-					case 0:
-						routeLanguageScreen()
-					case 1:
-						repository.deleteEntities()
-					case 2:
-						routeSubscriptionScreen()
-					case 3:
-						break 
-					case 4:
-						defaultsManager.deleteObject(for: .isUserAuth)
-						repository.deleteEntities()
-						logout()
-					default:
-						break
-					}
+			})
+			.listRowBackground(Color("blue"))
+			.alert(
+				"Удалить аккаунт?",
+				isPresented: $shouldDeleteAccount
+			) {
+				Button("Да", role: .destructive) {
+					vm.deleteAccount()
 				}
-				.listRowBackground(Color("blue"))
+				Button("Нет", role: .cancel) {}
 			}
-			.environment(\.defaultMinListRowHeight, 44)
-			.frame(height: 132)
-			.listStyle(.plain)
+			.alert(
+				"Не удалось удалить аккаунт",
+				isPresented: $vm.isErrorDeleteAccount
+			) {
+				Button("Повторить") {
+					vm.deleteAccount()
+				}
+				Button("Отмена", role: .cancel) {}
+			}
 		}
+		.environment(\.defaultMinListRowHeight, 44)
+		.frame(height: 176)
+		.listStyle(.plain)
 	}
 }

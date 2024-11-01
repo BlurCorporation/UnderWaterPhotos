@@ -24,13 +24,16 @@ class MainViewModel: ObservableObject {
 	
 	let repository: RepositoryProtocol
 	let userDefaultsManager: DefaultsManagerable
+	let authService: AuthServicable
 	
 	init(
 		repository: RepositoryProtocol,
-		userDefaultsManager: DefaultsManagerable
+		userDefaultsManager: DefaultsManagerable,
+		authService: AuthServicable
 	) {
 		self.repository = repository
 		self.userDefaultsManager = userDefaultsManager
+		self.authService = authService
 		if let userName = userDefaultsManager.fetchObject(type: String.self, for: .userName) {
 			self.userName = userName
 		}
@@ -68,5 +71,9 @@ class MainViewModel: ObservableObject {
 	
 	func ttoggle() {
 		toggle.toggle()
+	}
+	
+	func deleteAccount() {
+		
 	}
 }

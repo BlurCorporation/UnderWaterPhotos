@@ -119,7 +119,8 @@ extension SceneBuildManager: Buildable {
 	func buildMainView() -> MainViewController {
 		let viewModel = MainViewModel(
 			repository: self.repository,
-			userDefaultsManager: self.userDefaultsManager
+			userDefaultsManager: self.userDefaultsManager,
+			authService: self.authService
 		)
 		let viewController = MainViewController(
 			viewModel: viewModel,

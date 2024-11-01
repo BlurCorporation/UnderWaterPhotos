@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 import ScalingHeaderScrollView
 import PhotosUI
 
@@ -20,9 +19,6 @@ struct MainView: View {
 	var routeProcessScreen: (_ content: ContentModel) -> Void
 	var routeSubscriptionScreen: () -> Void
 	var logout: () -> Void
-	
-	let defaultsManager: DefaultsManagerable
-	let repository: RepositoryProtocol
 	
 	var body: some View {
 		ZStack {
@@ -41,13 +37,16 @@ struct MainView: View {
 				switch vm.state {
 				case .settings:
 					SettingsView(
+						vm: SettingsViewModel(
+							repository: vm.repository,
+							defaultsManager: vm.userDefaultsManager,
+							authService: vm.authService,
+							routeToAuthScreen: logout
+						),
 						routeLanguageScreen: languageSettingVC,
-						routeSubscriptionScreen: routeSubscriptionScreen,
-						logout: logout,
-						defaultsManager: defaultsManager,
-						repository: repository
+						routeSubscriptionScreen: routeSubscriptionScreen
 					)
-					.frame(height: 132)
+					.frame(height: 176)
 					.padding([.top], -32)
 				case .main:
 					scrollContentView
@@ -231,9 +230,7 @@ final class MainViewController: UIViewController {
 				languageSettingVC: goLanguageScreen,
 				routeProcessScreen: routeProcessScreen,
 				routeSubscriptionScreen: routeSubscriptionScreen,
-				logout: logout,
-				defaultsManager: defaultsManager,
-				repository: repository
+				logout: logout
 			)
 		)
 		self.addChild(swiftUIViewController)

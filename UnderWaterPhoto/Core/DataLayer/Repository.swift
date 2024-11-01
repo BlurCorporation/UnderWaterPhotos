@@ -12,26 +12,28 @@ import FirebaseFirestore
 
 protocol RepositoryProtocol {
 	/// Запрашивает данные со всех серверов, загружает и сохраняет,
-		/// если такого контента ещё не было в локальной базе данных.
-		/// - Parameter completion: возвращается после успешной загрузки каждой единицы контента.
-		func updateContent(completion: @escaping () -> Void)
-		/// Удаляет весь сохраненный контент из локальной базы данных.
-		func deleteEntities()
-		/// Осуществляет получение контента из локальной базы данных.
-		/// - Returns: Массив контента.
-		func getContent() -> [ContentModel]
-		/// Осуществляет загрузку контента на сервер и сохранение в локальную базу данных
-		/// - Parameters:
-		///   - defaultImage: дефолтное изображение до обработки
-		///   - processedImage: обработанное изображение
-		///   - processedAlphaSetting: настройка прозрачности между обработанным и необработанным изображением
-		///   - url: ссылка на обработанное видео из временного локального хранилища
-		func addContent(
-			defaultImage: UIImage?,
-			processedImage: UIImage,
-			processedAlphaSetting: Float?,
-			processedVideoTempURL: String?
-		)
+	/// если такого контента ещё не было в локальной базе данных.
+	/// - Parameter completion: возвращается после успешной загрузки каждой единицы контента.
+	func updateContent(completion: @escaping () -> Void)
+	/// Удаляет весь сохраненный контент из локальной базы данных.
+	func deleteLocalEntities()
+	/// Удаляет весь сохраненный контент из облачной базе данных
+	func deleteRemoteEntities()
+	/// Осуществляет получение контента из локальной базы данных.
+	/// - Returns: Массив контента.
+	func getContent() -> [ContentModel]
+	/// Осуществляет загрузку контента на сервер и сохранение в локальную базу данных
+	/// - Parameters:
+	///   - defaultImage: дефолтное изображение до обработки
+	///   - processedImage: обработанное изображение
+	///   - processedAlphaSetting: настройка прозрачности между обработанным и необработанным изображением
+	///   - url: ссылка на обработанное видео из временного локального хранилища
+	func addContent(
+		defaultImage: UIImage?,
+		processedImage: UIImage,
+		processedAlphaSetting: Float?,
+		processedVideoTempURL: String?
+	)
 }
 
 class Repository {
@@ -393,7 +395,7 @@ extension Repository: RepositoryProtocol {
 		}
 	}
 	
-	func deleteEntities() {
+	func deleteLocalEntities() {
 		let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ContentEntity")
 		let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
 		do {
@@ -403,6 +405,11 @@ extension Repository: RepositoryProtocol {
 		} catch {
 			print ("There was an error")
 		}
+	}
+	
+	func deleteRemoteEntities() {
+		self.firebaseStorageManager.deleteAllContent()
+		self.firestoreService.deleteCollection()
 	}
 	
 	func getContent() -> [ContentModel] {

@@ -37,6 +37,8 @@ protocol FirebaseStorageManagerProtocol {
 		id: String,
 		completion: @escaping (Result<URL?, Error>) -> Void
 	)
+	
+	func deleteAllContent()
 }
 
 final class FirebaseStorageManager {
@@ -143,6 +145,28 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 				completion(.failure(error))
 			} else {
 				completion(.success(url))
+			}
+		}
+	}
+	
+	func deleteAllContent() {
+		let folderID = authService.getUserName()
+		let ref = storageRef.child("\(folderID)")
+		ref.listAll { listResult, error in
+			if let error = error {
+				print(error.localizedDescription)
+				return
+			}
+			if let listResult = listResult {
+				for i in listResult.items {
+					i.delete { error in
+						if let error = error {
+							print(error.localizedDescription)
+						} else {
+							print("success")
+						}
+					}
+				}
 			}
 		}
 	}

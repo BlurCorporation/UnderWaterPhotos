@@ -42,6 +42,9 @@ protocol FirestoreServiceProtocol {
 		completion: @escaping (Result<Bool, Error>) -> Void
 	)
 	
+	/// Удаляет коллекцию в FirebaseFirestore
+	func deleteCollection()
+	
 	/// Сохраняет в ОЗУ id пользователя
 	/// - Parameter userID: id пользователя
 	func addUserID(userID: String)
@@ -127,6 +130,7 @@ extension FirestoreService: FirestoreServiceProtocol {
 				print("Error getting documents: \(error)")
 				completion(.failure(error))
 			} else {
+				
 				let model = querySnapshot.documents.map({self.oneCalculation(from: $0.data())})
 				completion(.success(model))
 			}
@@ -138,6 +142,29 @@ extension FirestoreService: FirestoreServiceProtocol {
 		completion: @escaping (Result<Bool, Error>) -> Void
 	) {
 		
+	}
+	
+	func deleteCollection() {
+		guard let uid = self.uid else {
+			print("FirestoreService: userid identify error")
+			return
+		}
+		let db = configureFB()
+		let contentRef = db.collection("users").document(uid).collection("content")
+		contentRef.getDocuments { querySnapshot, error in
+			guard let querySnapshot = querySnapshot else {
+				print("ERROR getAllCalculations querySnapshot")
+				return
+			}
+			if let error = error {
+				print("Error getting documents: \(error)")
+			} else {
+				for document in querySnapshot.documents {
+					db.collection("users").document(uid).collection("content").document(document.documentID).delete()
+				}
+			}
+		}
+		db.collection("users").document(uid).delete()
 	}
 	
 	func addUserID(userID: String) {
