@@ -136,8 +136,8 @@ private extension HeaderView {
 							self.routeProcessScreen(contentModel)
 						}
 					} else if contentType.conforms(to: .image) {
-						if let image = try? await content?.loadTransferable(type: Image.self) {
-							let uiimage = ImageRenderer(content: image).uiImage
+						if let image = try? await content?.loadTransferable(type: Data.self) {
+							let uiimage = UIImage(data: image)
 							if let uiimage = uiimage {
 								let contentModel = ContentModel(
 									id: UUID().uuidString,
