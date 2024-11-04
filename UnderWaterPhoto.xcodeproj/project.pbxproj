@@ -102,7 +102,6 @@
 		3AE95D822AD3EBD300166F23 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AE95D812AD3EBD300166F23 /* SnapKit */; };
 		FB0EEA582ABAEABD007BC62C /* ViewSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */; };
 		FB0EEA5A2ABAEACC007BC62C /* ViewModelSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */; };
-		FB3566692B38852B000F9B53 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3566682B38852B000F9B53 /* ImagePicker.swift */; };
 		FB40DA182B1C8D6A0007EA5F /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA172B1C8D6A0007EA5F /* ButtonView.swift */; };
 		FB40DA1A2B1C8DA50007EA5F /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA192B1C8DA50007EA5F /* PriceView.swift */; };
 		FB40DA1C2B1C8DF10007EA5F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40DA1B2B1C8DF10007EA5F /* TextView.swift */; };
@@ -186,7 +185,6 @@
 		3A9673A92ABB678900E624B2 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		FB0EEA572ABAEABD007BC62C /* ViewSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSubscription.swift; sourceTree = "<group>"; };
 		FB0EEA592ABAEACC007BC62C /* ViewModelSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSubscription.swift; sourceTree = "<group>"; };
-		FB3566682B38852B000F9B53 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FB40DA172B1C8D6A0007EA5F /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		FB40DA192B1C8DA50007EA5F /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
 		FB40DA1B2B1C8DF10007EA5F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 		1B27EB032AAD35A800DD4E30 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				FB3566682B38852B000F9B53 /* ImagePicker.swift */,
 				1B27EB042AAD35B800DD4E30 /* MainView.swift */,
 				1BA7ED992AEA8914004CC70A /* HeaderView.swift */,
 				1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */,
@@ -296,6 +293,31 @@
 				1B2759922AE1241800237167 /* MainViewModel.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		1B48C43B2CD8F473009E9969 /* UIElements */ = {
+			isa = PBXGroup;
+			children = (
+				1B48C43C2CD8F481009E9969 /* VideoPlayerView */,
+			);
+			path = UIElements;
+			sourceTree = "<group>";
+		};
+		1B48C43C2CD8F481009E9969 /* VideoPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				1B9763812BD039FB001BEB10 /* VideoLooperView.swift */,
+				1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */,
+			);
+			path = VideoPlayerView;
+			sourceTree = "<group>";
+		};
+		1B48C43D2CD8F492009E9969 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */,
+			);
+			path = BottomSheet;
 			sourceTree = "<group>";
 		};
 		1B4BD0662AE8F25500A56066 /* ImageProcessing */ = {
@@ -425,11 +447,10 @@
 		1BADC96C2AA4DDD6002C34A5 /* Process */ = {
 			isa = PBXGroup;
 			children = (
-				1B9763812BD039FB001BEB10 /* VideoLooperView.swift */,
-				1B2613E02B6CB104006EDD31 /* VideoPlayerView.swift */,
+				1B48C43D2CD8F492009E9969 /* BottomSheet */,
+				1B48C43B2CD8F473009E9969 /* UIElements */,
 				1B2613D72B69564B006EDD31 /* ProcessViewController.swift */,
 				1B2613D62B69564B006EDD31 /* ProcessPresenter.swift */,
-				1B0B51742B1E5DBC0037C534 /* BottomSheetSaveViewController.swift */,
 			);
 			path = Process;
 			sourceTree = "<group>";
@@ -642,7 +663,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B0B51782B1E5DBC0037C534 /* BSPresentationController.swift in Sources */,
-				FB3566692B38852B000F9B53 /* ImagePicker.swift in Sources */,
 				1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */,
 				1B9763822BD039FB001BEB10 /* VideoLooperView.swift in Sources */,
 				1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */,
