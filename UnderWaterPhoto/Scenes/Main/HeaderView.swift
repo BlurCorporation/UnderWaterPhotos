@@ -10,14 +10,15 @@ import PhotosUI
 import UniformTypeIdentifiers
 
 struct HeaderView: View {
-	@State private var showImagePicker: Bool = false
+	@State private var showImagePicker = false
 	@State private var selectedImage: ContentModel?
 	@ObservedObject var vm: MainViewModel
 	@State private var image: PhotosPickerItem?
-//	var progress: CGFloat
+	
 	var userName: String
+	@State private var isCross = false
+	@State private var isModalPresentedPicker =  false
 	var routeProcessScreen: (_ content: ContentModel) -> Void
-	@State private var isCross: Bool = false
 	
 	var headerBottomPadding: CGFloat {
 		switch vm.state {
@@ -82,10 +83,6 @@ struct HeaderView: View {
 				}
 			}
 		}
-		.onChange(of: selectedImage) { item in
-			guard let item = item else { return }
-			routeProcessScreen(item)
-		}
 	}
 }
 
@@ -100,7 +97,7 @@ private extension HeaderView {
 	
 	var addPhotoButtonView: some View {
 		Button(action: {
-			vm.isModalPresented = true
+			isModalPresentedPicker = true
 		}) {
 			HStack(spacing: 16) {
 				Image(systemName: "plus.circle.fill")
@@ -119,7 +116,7 @@ private extension HeaderView {
 			.shadow(color: .black, radius: 5)
 		}
 		.photosPicker(
-			isPresented: $vm.isModalPresented,
+			isPresented: $isModalPresentedPicker,
 			selection: $image,
 			matching: .any(of: [.images, .videos])
 		)

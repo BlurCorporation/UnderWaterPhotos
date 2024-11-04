@@ -12,7 +12,7 @@ import PhotosUI
 struct MainView: View {
 	@ObservedObject var vm: MainViewModel
 	@State private var progress: CGFloat = 0
-	@State private var isLoading: Bool = false
+	@State private var isLoading = false
 	@State private var height: CGFloat = 0
 	
 	var languageSettingVC: () -> Void
