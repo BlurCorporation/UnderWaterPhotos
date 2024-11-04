@@ -248,55 +248,20 @@ class VideoProcessingManager {
 extension VideoProcessingManager: VideoProcessingManagerProtocol {
 	func process(_ video: String, isWatermark: Bool, completion: @escaping (Result<ContentModel, Error>) -> ()) {
 		do {
-			guard let previewImage = self.thumbnailForVideoAtURL(url: URL(string: "file://\(video)")!) else { return }
-			print(previewImage.imageOrientation.rawValue)
 			let processedVideo = try CVWrapper.process(withVideos: video)
-			var contentModel = ContentModel(id: UUID().uuidString, image: previewImage, url: processedVideo.urlstring as String?)
-			completion(.success(contentModel))
-			/*
+			let videoUrl = URL(string: processedVideo.urlstring as String)!
+			guard let previewImage = self.thumbnailForVideoAtURL(url: videoUrl) else { return }
+			
 			extractAudio(videoURL: URL(string: "file://\(video)")!, completion: { [weak self] audiourl in
 				guard let self = self else { return }
-				// создаём временную директорию, потом удаляем в репозитории
-				guard let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-					return
-				}
-				
-				let videoUUID = UUID()
-				
-				guard let outputURL: URL = URL(string: String(url.appendingPathComponent("\(videoUUID).mp4").absoluteString)) else {
-					return
-				}
-				
-				let frameDuration = CMTime(value: 1, timescale: CMTimeScale(processedVideo.frames))
-				
-				guard let previewImage = self.thumbnailForVideoAtURL(url: URL(string: "file://\(video)")!) else { return }
-				
-				let uiimageArray: [UIImage] = processedVideo.images.compactMap { image in
-					var _image = image as! UIImage
-					if isWatermark {
-						_image = self.imageMergeManager.mergeWatermark(image: _image)
-					}
-					let newImage = UIImage(cgImage: _image.cgImage!)
-					return _image
-				}
-				
-				
-				var contentModel = ContentModel(id: videoUUID, image: uiimageArray.first ?? UIImage())
-				self.createVideo(from: uiimageArray, outputURL: outputURL, frameDuration: frameDuration) { success in
-					if success {
-						print("Видео успешно создано")
-						self.mergeVideoWithAudio(videoUrl: outputURL, audioUrl: audiourl, success: { url in
-							contentModel.url = url.absoluteString
-							completion(.success(contentModel))
-						}, failure: { error in
-							completion(.failure(error ?? CustomError(title: "123", description: "123", code: 2134124324523)))
-						})
-					} else {
-						print("Произошла ошибка при создании видео")
-					}
-				}
+				self.mergeVideoWithAudio(videoUrl: videoUrl, audioUrl: audiourl, success: { url in
+					var contentModel = ContentModel(id: UUID().uuidString, image: previewImage, url: url.absoluteString)
+					completion(.success(contentModel))
+				}, failure: { error in
+					completion(.failure(error ?? CustomError(title: "123", description: "123", code: 2134124324523)))
+				})
 			})
-			 */
+			
 		} catch {
 			print("error")
 		}

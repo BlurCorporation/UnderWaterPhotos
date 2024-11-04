@@ -41,7 +41,9 @@
     
     UIImageOrientation baseVideoOrientation = UIImageOrientationUp;
     
-    if (size.width == txf.tx && size.height == txf.ty) {
+	if (txf.a == 0 && txf.b == 1 && txf.c == -1 && txf.d == 0) {
+		baseVideoOrientation = UIImageOrientationRight;
+	} else if (size.width == txf.tx && size.height == txf.ty) {
         // UIInterfaceOrientationLandscapeRight
         baseVideoOrientation = UIImageOrientationDown;
     } else if (txf.tx == 0 && txf.ty == 0) {
@@ -104,8 +106,10 @@
 			break;
 	}
 	
-	
     cv::VideoWriter outt(urlStringCPP,cv::VideoWriter::fourcc('D', 'I', 'V', 'X'), FPS, cv::Size(width, height));
+	
+	
+	
 	NSLog(@"2");
     std::string ext_comp = "_comp.avi";
     std::string Comparison = InputFile.substr(0, filename);
@@ -153,6 +157,7 @@
 				default:
 					break;
 			}
+			
 //			cv::flip(image, image, 0);
 //			cv::rotate(image, image, cv::ROTATE_90_COUNTERCLOCKWISE);
 			image_out = colorcorrection(image);
