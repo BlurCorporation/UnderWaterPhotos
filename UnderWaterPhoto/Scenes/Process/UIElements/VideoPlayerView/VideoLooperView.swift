@@ -10,6 +10,13 @@ class VideoLooperView: UIView {
 	
 	private var token: NSKeyValueObservation?
 	
+	private var observer: NSKeyValueObservation? {
+		willSet {
+			guard let observer = observer else { return }
+			observer.invalidate()
+		}
+	}
+	
 	init() {
 		super.init(frame: .zero)
 	}
@@ -40,8 +47,15 @@ class VideoLooperView: UIView {
 		queuePlayer.pause()
 	}
 	
-	func play() {
-		queuePlayer.play()
+	func play(completion: @escaping () -> Void) {
+		let playerItem = self.queuePlayer.items().first
+		self.observer = playerItem?.observe(\.status, options: [.new, .old]) { [weak self] playerItem, change in
+			guard let self = self else { return }
+			if playerItem.status == .readyToPlay {
+				self.queuePlayer.play()
+				completion()
+			}
+		}
 	}
 	
 	private func addAllVideosToPlayer() {
@@ -52,6 +66,7 @@ class VideoLooperView: UIView {
 		
 		queuePlayer.insert(item, after: queuePlayer.items().last)
 		self.playerLooper = AVPlayerLooper(player: queuePlayer, templateItem: item)
+		
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

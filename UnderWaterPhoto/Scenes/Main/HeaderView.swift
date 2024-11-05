@@ -14,7 +14,7 @@ struct HeaderView: View {
 	@State private var selectedImage: ContentModel?
 	@ObservedObject var vm: MainViewModel
 	@State private var image: PhotosPickerItem?
-	
+	@Binding var isLoadingContentFromGallery: Bool
 	var userName: String
 	@State private var isCross = false
 	@State private var isModalPresentedPicker =  false
@@ -123,6 +123,7 @@ private extension HeaderView {
 		.onChange(of: image) { content in
 			Task {
 				if let contentType = content?.supportedContentTypes.first {
+					self.isLoadingContentFromGallery = true
 					if contentType.conforms(to: .movie) {
 						if let video = try? await content?.loadTransferable(type: VideoTransferable.self) {
 							let contentModel = ContentModel(
@@ -130,6 +131,7 @@ private extension HeaderView {
 								image: UIImage(),
 								url: video.url.absoluteString
 							)
+							self.isLoadingContentFromGallery = false
 							self.routeProcessScreen(contentModel)
 						}
 					} else if contentType.conforms(to: .image) {
@@ -140,6 +142,7 @@ private extension HeaderView {
 									id: UUID().uuidString,
 									image: uiimage
 								)
+								self.isLoadingContentFromGallery = false
 								self.routeProcessScreen(contentModel)
 							} else {
 								print("image is nil")

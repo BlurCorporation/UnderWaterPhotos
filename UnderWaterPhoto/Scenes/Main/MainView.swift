@@ -14,6 +14,7 @@ struct MainView: View {
 	@State private var progress: CGFloat = 0
 	@State private var isLoading = false
 	@State private var height: CGFloat = 0
+	@State private var isLoadingContentFromGallery = false
 	
 	var languageSettingVC: () -> Void
 	var routeProcessScreen: (_ content: ContentModel) -> Void
@@ -27,6 +28,7 @@ struct MainView: View {
 				ZStack {
 					HeaderView(
 						vm: vm,
+						isLoadingContentFromGallery: $isLoadingContentFromGallery,
 						userName: vm.userName,
 						routeProcessScreen: routeProcessScreen
 					)
@@ -94,6 +96,17 @@ struct MainView: View {
 					progress = 0
 				case .settings:
 					progress = 1
+				}
+			}
+			if isLoadingContentFromGallery {
+				ZStack {
+					Color(.black)
+						.opacity(0.3)
+						.disabled(true)
+					ProgressView()
+						.progressViewStyle(.circular)
+						.tint(.white)
+						.scaleEffect(1.7)
 				}
 			}
 		}

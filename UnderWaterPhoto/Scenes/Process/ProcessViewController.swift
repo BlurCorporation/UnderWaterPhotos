@@ -221,18 +221,21 @@ final class ProcessViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupViewController()
+		self.startIndicator()
 		processedImage = defaultImage
 		
 		if let defaultImage {
 			mainImageView.image = defaultImage
 		}
 		
+		
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
 			if let url = URL(string: self.defaultVideoURL ?? "") {
-				print("DEFAULT VIDEO URL: \(url)")
 				self.playerView.addVideo(video: url)
-				self.playerView.play()
+				self.playerView.play {
+					self.stopIndicator()
+				}
 			}
 		}
 		
@@ -348,6 +351,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 			self.bottomSheetBackButton.isEnabled = false
 			self.bottomSheetSaveButton.isEnabled = false
 			self.slider.isEnabled = false
+			print("start\n\(Date())")
 			self.activityIndicator.startAnimating()
 		}
 	}
@@ -363,6 +367,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 			self.bottomSheetBackButton.isEnabled = true
 			self.bottomSheetSaveButton.isEnabled = true
 			self.slider.isEnabled = true
+			print("stop\n\(Date())")
 			self.activityIndicator.stopAnimating()
 		}
 	}
@@ -396,7 +401,9 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 			guard let self = self else { return }
 			self.hideWatermark()
 			self.playerView.addVideo(video: url)
-			self.playerView.play()
+			self.playerView.play {
+				self.stopIndicator()
+			}
 		}
 	}
 	
