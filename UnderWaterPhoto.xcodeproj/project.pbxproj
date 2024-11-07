@@ -33,6 +33,7 @@
 		1B27EB052AAD35B800DD4E30 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27EB042AAD35B800DD4E30 /* MainView.swift */; };
 		1B3259242C46FABF001E5B44 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3259232C46FABF001E5B44 /* FirestoreService.swift */; };
 		1B418B7F2AF3A66F000FE17F /* SettingsNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */; };
+		1B48C43F2CDCFCC7009E9969 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C43E2CDCFCC7009E9969 /* AuthModel.swift */; };
 		1B4BD0722AE8F26500A56066 /* colorcorrection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06D2AE8F26500A56066 /* colorcorrection.cpp */; };
 		1B4BD0732AE8F26500A56066 /* contrastenhancement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD06E2AE8F26500A56066 /* contrastenhancement.cpp */; };
 		1B4BD0742AE8F26500A56066 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BD0702AE8F26500A56066 /* UIImage+OpenCV.mm */; };
@@ -141,6 +142,7 @@
 		1B3259232C46FABF001E5B44 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		1B40F3162C5C0B3600823BE0 /* UnderWaterPhoto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnderWaterPhoto.entitlements; sourceTree = "<group>"; };
 		1B418B7E2AF3A66F000FE17F /* SettingsNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavBarView.swift; sourceTree = "<group>"; };
+		1B48C43E2CDCFCC7009E9969 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		1B4BD0672AE8F26500A56066 /* UnderWaterPhoto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnderWaterPhoto-Bridging-Header.h"; sourceTree = "<group>"; };
 		1B4BD0692AE8F26500A56066 /* colorcorrection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorcorrection.h; sourceTree = "<group>"; };
 		1B4BD06A2AE8F26500A56066 /* contrastenhancement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contrastenhancement.h; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 			children = (
 				3A9673A72ABB675A00E624B2 /* AuthViewController.swift */,
 				3A9673A92ABB678900E624B2 /* AuthPresenter.swift */,
+				1B48C43E2CDCFCC7009E9969 /* AuthModel.swift */,
 				3A8B16F42B6184B800747ED1 /* AuthState.swift */,
 			);
 			path = AuthScreen;
@@ -727,6 +730,7 @@
 				3A9673AA2ABB678900E624B2 /* AuthPresenter.swift in Sources */,
 				1BAB87F92B2B7B7700841A93 /* LocalFileManager.swift in Sources */,
 				14E941172B02965F00582CF0 /* String.swift in Sources */,
+				1B48C43F2CDCFCC7009E9969 /* AuthModel.swift in Sources */,
 				3A1024A62B5D401E000ECBDC /* GoogleProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

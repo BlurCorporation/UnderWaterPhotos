@@ -10,6 +10,114 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum AuthVC {
+    /// Имя
+    internal static let nameTextField = L10n.tr("Localizable", "AuthVC.nameTextField", fallback: "Имя")
+    /// Пароль
+    internal static let passwordTextField = L10n.tr("Localizable", "AuthVC.passwordTextField", fallback: "Пароль")
+    /// Повторите пароль
+    internal static let repeatPasswordTextField = L10n.tr("Localizable", "AuthVC.repeatPasswordTextField", fallback: "Повторите пароль")
+    internal enum Else {
+      internal enum ExpandLoginButton {
+        internal enum HeadTitle {
+          /// Добро пожаловать
+          internal static let text = L10n.tr("Localizable", "AuthVC.else.expandLoginButton.headTitle.text", fallback: "Добро пожаловать")
+        }
+        internal enum LoginButton {
+          /// Регистрация
+          internal static let title = L10n.tr("Localizable", "AuthVC.else.expandLoginButton.loginButton.title", fallback: "Регистрация")
+        }
+        internal enum RegistrationButton {
+          /// Войти
+          internal static let title = L10n.tr("Localizable", "AuthVC.else.expandLoginButton.registrationButton.title", fallback: "Войти")
+        }
+        internal enum RestorePasswordButton {
+          /// Восстановить пароль
+          internal static let title = L10n.tr("Localizable", "AuthVC.else.expandLoginButton.restorePasswordButton.title", fallback: "Восстановить пароль")
+        }
+      }
+    }
+    internal enum Error {
+      internal enum EmailAlreadyInUse {
+        /// Аккаунт с такой почтой уже существует
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.emailAlreadyInUse.message", fallback: "Аккаунт с такой почтой уже существует")
+      }
+      internal enum InvalidCredential {
+        /// Неправильный Логин или Пароль
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.invalidCredential.message", fallback: "Неправильный Логин или Пароль")
+      }
+      internal enum InvalidEmail {
+        /// Неправильный E-mail
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.invalidEmail.message", fallback: "Неправильный E-mail")
+      }
+      internal enum RepeatPasswordInvalid {
+        /// Пароли не совпадают
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.repeatPasswordInvalid.message", fallback: "Пароли не совпадают")
+      }
+      internal enum SomethingWrong {
+        /// Аккаунт с такой почтой уже существует
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.somethingWrong.message", fallback: "Аккаунт с такой почтой уже существует")
+      }
+      internal enum TextFieldIsEmpty {
+        /// Заполните все поля ввода
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.textFieldIsEmpty.message", fallback: "Заполните все поля ввода")
+      }
+      internal enum UserDisabled {
+        /// Аккаунт отключен, свяжитесь с поддержкой
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.userDisabled.message", fallback: "Аккаунт отключен, свяжитесь с поддержкой")
+      }
+      internal enum WeakPassword {
+        /// Пароль слишком простой
+        internal static let message = L10n.tr("Localizable", "AuthVC.error.weakPassword.message", fallback: "Пароль слишком простой")
+      }
+    }
+    internal enum HeadTitle {
+      /// Создать аккаунт
+      internal static let text = L10n.tr("Localizable", "AuthVC.headTitle.text", fallback: "Создать аккаунт")
+    }
+    internal enum If {
+      internal enum ExpandLoginButton {
+        internal enum HeadTitle {
+          /// Создать аккаунт
+          internal static let text = L10n.tr("Localizable", "AuthVC.if.expandLoginButton.headTitle.text", fallback: "Создать аккаунт")
+        }
+        internal enum LoginButton {
+          /// Войти
+          internal static let title = L10n.tr("Localizable", "AuthVC.if.expandLoginButton.loginButton.title", fallback: "Войти")
+        }
+        internal enum RegistrationButton {
+          /// Зарегестрироваться
+          internal static let title = L10n.tr("Localizable", "AuthVC.if.expandLoginButton.registrationButton.title", fallback: "Зарегестрироваться")
+        }
+      }
+    }
+    internal enum LoginButton {
+      /// Войти
+      internal static let setTitle = L10n.tr("Localizable", "AuthVC.loginButton.setTitle", fallback: "Войти")
+    }
+    internal enum LoginUsinLabel {
+      /// Войти с помощью
+      internal static let text = L10n.tr("Localizable", "AuthVC.loginUsinLabel.text", fallback: "Войти с помощью")
+    }
+    internal enum RegistrationButton {
+      /// Зарегистрироваться
+      internal static let setTitle = L10n.tr("Localizable", "AuthVC.registrationButton.setTitle", fallback: "Зарегистрироваться")
+    }
+    internal enum RestorePasswordButton {
+      /// Восстановить пароль
+      internal static let setTitle = L10n.tr("Localizable", "AuthVC.restorePasswordButton.setTitle", fallback: "Восстановить пароль")
+    }
+    internal enum RestorePasswordExpand {
+      internal enum HeadTitle {
+        /// Восстановить пароль
+        internal static let text = L10n.tr("Localizable", "AuthVC.restorePasswordExpand.headTitle.text", fallback: "Восстановить пароль")
+      }
+      internal enum RegistrationButton {
+        /// Восстановить пароль
+        internal static let title = L10n.tr("Localizable", "AuthVC.restorePasswordExpand.registrationButton.title", fallback: "Восстановить пароль")
+      }
+    }
+  }
   internal enum ProcessVC {
     internal enum BottomSheetBackButton {
       internal enum Button {
@@ -55,80 +163,6 @@ internal enum L10n {
       internal enum Label {
         /// Изменение
         internal static let text = L10n.tr("Localizable", "ProcessVC.titleLabel.label.text", fallback: "Изменение")
-      }
-    }
-  }
-  internal enum AuthVC {
-    /// Имя
-    internal static let nameTextField = L10n.tr("Localizable", "authVC.nameTextField", fallback: "Имя")
-    /// Пароль
-    internal static let passwordTextField = L10n.tr("Localizable", "authVC.passwordTextField", fallback: "Пароль")
-    /// Повторите пароль
-    internal static let repeatPasswordTextField = L10n.tr("Localizable", "authVC.repeatPasswordTextField", fallback: "Повторите пароль")
-    internal enum Else {
-      internal enum ExpandLoginButton {
-        internal enum HeadTitle {
-          /// Добро пожаловать
-          internal static let text = L10n.tr("Localizable", "authVC.else.expandLoginButton.headTitle.text", fallback: "Добро пожаловать")
-        }
-        internal enum LoginButton {
-          /// Регистрация
-          internal static let title = L10n.tr("Localizable", "authVC.else.expandLoginButton.loginButton.title", fallback: "Регистрация")
-        }
-        internal enum RegistrationButton {
-          /// Войти
-          internal static let title = L10n.tr("Localizable", "authVC.else.expandLoginButton.registrationButton.title", fallback: "Войти")
-        }
-        internal enum RestorePasswordButton {
-          /// Восстановить пароль
-          internal static let title = L10n.tr("Localizable", "authVC.else.expandLoginButton.restorePasswordButton.title", fallback: "Восстановить пароль")
-        }
-      }
-    }
-    internal enum HeadTitle {
-      /// Создать аккаунт
-      internal static let text = L10n.tr("Localizable", "authVC.headTitle.text", fallback: "Создать аккаунт")
-    }
-    internal enum If {
-      internal enum ExpandLoginButton {
-        internal enum HeadTitle {
-          /// Создать аккаунт
-          internal static let text = L10n.tr("Localizable", "authVC.if.expandLoginButton.headTitle.text", fallback: "Создать аккаунт")
-        }
-        internal enum LoginButton {
-          /// Войти
-          internal static let title = L10n.tr("Localizable", "authVC.if.expandLoginButton.loginButton.title", fallback: "Войти")
-        }
-        internal enum RegistrationButton {
-          /// Зарегестрироваться
-          internal static let title = L10n.tr("Localizable", "authVC.if.expandLoginButton.registrationButton.title", fallback: "Зарегестрироваться")
-        }
-      }
-    }
-    internal enum LoginButton {
-      /// Войти
-      internal static let setTitle = L10n.tr("Localizable", "authVC.loginButton.setTitle", fallback: "Войти")
-    }
-    internal enum LoginUsinLabel {
-      /// Войти с помощью
-      internal static let text = L10n.tr("Localizable", "authVC.loginUsinLabel.text", fallback: "Войти с помощью")
-    }
-    internal enum RegistrationButton {
-      /// Зарегистрироваться
-      internal static let setTitle = L10n.tr("Localizable", "authVC.registrationButton.setTitle", fallback: "Зарегистрироваться")
-    }
-    internal enum RestorePasswordButton {
-      /// Восстановить пароль
-      internal static let setTitle = L10n.tr("Localizable", "authVC.restorePasswordButton.setTitle", fallback: "Восстановить пароль")
-    }
-    internal enum RestorePasswordExpand {
-      internal enum HeadTitle {
-        /// Восстановить пароль
-        internal static let text = L10n.tr("Localizable", "authVC.restorePasswordExpand.headTitle.text", fallback: "Восстановить пароль")
-      }
-      internal enum RegistrationButton {
-        /// Восстановить пароль
-        internal static let title = L10n.tr("Localizable", "authVC.restorePasswordExpand.registrationButton.title", fallback: "Восстановить пароль")
       }
     }
   }

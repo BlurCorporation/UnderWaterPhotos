@@ -50,24 +50,33 @@
 
 // MARK: AuthScreen
 // AuthVC
-"authVC.headTitle.text" = "Создать аккаунт";
-"authVC.nameTextField" = "Имя";
-"authVC.passwordTextField" = "Пароль";
-"authVC.repeatPasswordTextField" = "Повторите пароль";
-"authVC.loginButton.setTitle" = "Войти";
-"authVC.registrationButton.setTitle" = "Зарегистрироваться";
-"authVC.restorePasswordButton.setTitle" = "Восстановить пароль";
-"authVC.loginUsinLabel.text" = "Войти с помощью";
-"authVC.if.expandLoginButton.registrationButton.title" = "Зарегестрироваться";
-"authVC.if.expandLoginButton.headTitle.text" = "Создать аккаунт";
-"authVC.if.expandLoginButton.loginButton.title" = "Войти";
+"AuthVC.headTitle.text" = "Создать аккаунт";
+"AuthVC.nameTextField" = "Имя";
+"AuthVC.passwordTextField" = "Пароль";
+"AuthVC.repeatPasswordTextField" = "Повторите пароль";
+"AuthVC.loginButton.setTitle" = "Войти";
+"AuthVC.registrationButton.setTitle" = "Зарегистрироваться";
+"AuthVC.restorePasswordButton.setTitle" = "Восстановить пароль";
+"AuthVC.loginUsinLabel.text" = "Войти с помощью";
+"AuthVC.if.expandLoginButton.registrationButton.title" = "Зарегестрироваться";
+"AuthVC.if.expandLoginButton.headTitle.text" = "Создать аккаунт";
+"AuthVC.if.expandLoginButton.loginButton.title" = "Войти";
 
-"authVC.else.expandLoginButton.registrationButton.title" = "Войти";
-"authVC.else.expandLoginButton.headTitle.text" = "Добро пожаловать";
-"authVC.else.expandLoginButton.loginButton.title" = "Регистрация";
-"authVC.else.expandLoginButton.restorePasswordButton.title" = "Восстановить пароль";
-"authVC.restorePasswordExpand.registrationButton.title" = "Восстановить пароль";
-"authVC.restorePasswordExpand.headTitle.text" = "Восстановить пароль";
+"AuthVC.else.expandLoginButton.registrationButton.title" = "Войти";
+"AuthVC.else.expandLoginButton.headTitle.text" = "Добро пожаловать";
+"AuthVC.else.expandLoginButton.loginButton.title" = "Регистрация";
+"AuthVC.else.expandLoginButton.restorePasswordButton.title" = "Восстановить пароль";
+"AuthVC.restorePasswordExpand.registrationButton.title" = "Восстановить пароль";
+"AuthVC.restorePasswordExpand.headTitle.text" = "Восстановить пароль";
+"AuthVC.error.invalidEmail.message" = "Неправильный E-mail";
+"AuthVC.error.invalidCredential.message" = "Неправильный Логин или Пароль";
+"AuthVC.error.repeatPasswordInvalid.message" = "Пароли не совпадают";
+"AuthVC.error.textFieldIsEmpty.message" = "Заполните все поля ввода";
+"AuthVC.error.weakPassword.message" = "Пароль слишком простой";
+"AuthVC.error.userDisabled.message" = "Аккаунт отключен, свяжитесь с поддержкой";
+"AuthVC.error.emailAlreadyInUse.message" = "Аккаунт с такой почтой уже существует";
+"AuthVC.error.somethingWrong.message" = "Аккаунт с такой почтой уже существует";
+
 
 // MARK: Main
 // MARK: ViewModel

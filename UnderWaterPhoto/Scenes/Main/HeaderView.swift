@@ -10,15 +10,21 @@ import PhotosUI
 import UniformTypeIdentifiers
 
 struct HeaderView: View {
-	@State private var showImagePicker = false
-	@State private var selectedImage: ContentModel?
+	
+	// MARK: - Internal Properties
+	
 	@ObservedObject var vm: MainViewModel
-	@State private var image: PhotosPickerItem?
 	@Binding var isLoadingContentFromGallery: Bool
 	var userName: String
+	var routeProcessScreen: (_ content: ContentModel) -> Void
+	
+	// MARK: - Private Properties
+	
+	@State private var showImagePicker = false
+	@State private var selectedImage: ContentModel?
+	@State private var image: PhotosPickerItem?
 	@State private var isCross = false
 	@State private var isModalPresentedPicker =  false
-	var routeProcessScreen: (_ content: ContentModel) -> Void
 	
 	var headerBottomPadding: CGFloat {
 		switch vm.state {

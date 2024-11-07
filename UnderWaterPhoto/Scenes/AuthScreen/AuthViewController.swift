@@ -14,6 +14,7 @@ import Foundation
 protocol AuthViewControllerProtocol: UIViewController {
 	func expandLoginButton()
 	func restorePasswordExpand()
+	func showErrorAlert(with message: String)
 }
 
 // MARK: - AuthViewController
@@ -217,7 +218,7 @@ extension AuthViewController: AuthViewControllerProtocol {
 			self.logInButton.setTitle(L10n.AuthVC.If.ExpandLoginButton.RegistrationButton.title, for: .normal)
 			self.headTitle.text = L10n.AuthVC.If.ExpandLoginButton.HeadTitle.text
 			self.chageAuthTypeButton.setTitle(L10n.AuthVC.If.ExpandLoginButton.LoginButton.title, for: .normal)
-			self.presenter?.changeState(authState: .registration)
+			self.presenter?.changeAuthState(authState: .registration)
 		} else {
 			UIView.animate(withDuration: 0.5) { [weak self] in
 				guard let self = self else { return }
@@ -249,6 +250,25 @@ extension AuthViewController: AuthViewControllerProtocol {
 		}
 		self.logInButton.setTitle(L10n.AuthVC.RestorePasswordExpand.RegistrationButton.title, for: .normal)
 		self.headTitle.text = L10n.AuthVC.RestorePasswordExpand.HeadTitle.text
+	}
+	
+	func showErrorAlert(with message: String) {
+		let alertController = UIAlertController(
+			title: "Ошибка",
+			message: message,
+			preferredStyle: .alert
+		)
+		let okAction = UIAlertAction(
+			title: "OK",
+			style: .default,
+			handler: nil
+		)
+		alertController.addAction(okAction)
+		self.present(
+			alertController,
+			animated: true,
+			completion: nil
+		)
 	}
 }
 

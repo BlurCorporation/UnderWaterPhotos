@@ -5,6 +5,7 @@
 //  Created by Антон on 20.09.2023.
 //
 import UIKit
+import FirebaseAuth
 
 // MARK: - AuthPresenterProtocol
 
@@ -19,7 +20,7 @@ protocol AuthPresenterProtocol: AnyObject {
 	func restorePasswordButtonPressed()
 	func appleIdButtonPressed()
 	func googleIdButtonPressed()
-	func changeState(authState: AuthState)
+	func changeAuthState(authState: AuthState)
 }
 
 // MARK: - AuthPresenter
@@ -51,7 +52,7 @@ final class AuthPresenter {
 
 extension AuthPresenter: AuthPresenterProtocol {
 	
-	func changeState(authState: AuthState) {
+	func changeAuthState(authState: AuthState) {
 		self.authState = authState
 	}
 	
@@ -73,21 +74,34 @@ extension AuthPresenter: AuthPresenterProtocol {
 			guard !name.isEmpty,
 				  !email.isEmpty,
 				  !password.isEmpty,
-				  !repeatPassword.isEmpty,
-				  password == repeatPassword else { return }
+				  !repeatPassword.isEmpty
+			else {
+				showErrorAlert(error: .textFieldIsEmpty)
+				return
+			}
+			guard password == repeatPassword else {
+				showErrorAlert(error: .repeatPasswordInvalid)
+				return
+			}
 			self.makeRegistrationRequest(
 				name: name,
 				email: email,
 				password: password
 			)
 		case .login:
-			guard !email.isEmpty, !password.isEmpty else { return }
+			guard !email.isEmpty, !password.isEmpty else {
+				showErrorAlert(error: .textFieldIsEmpty)
+				return
+			}
 			self.makeLoginRequest(
 				email: email,
 				password: password
 			)
 		case .restore:
-			guard !email.isEmpty else { return }
+			guard !email.isEmpty else {
+				showErrorAlert(error: .textFieldIsEmpty)
+				return
+			}
 			self.makeRestoreRequest(email: email)
 		}
 	}
@@ -103,14 +117,14 @@ extension AuthPresenter: AuthPresenterProtocol {
 		)
 		self.authService.registerUser(with: newUser) { isSuccessRegister, error in
 			if let error = error {
-				self.showError(error: error)
+				self.showErrorAlert(error: .firebaseAuthError(error as! AuthErrorCode))
 			}
 			if isSuccessRegister {
 				self.defaultsManager.saveObject(isSuccessRegister,for: .isUserAuth)
 				let viewController = self.sceneBuildManager.buildMainView()
 				self.viewController?.navigationController?.pushViewController(viewController, animated: true)
 			} else {
-				// обработка ошибки если потребуется
+				self.showErrorAlert(error: .somethingWrong)
 			}
 		}
 	}
@@ -131,7 +145,7 @@ extension AuthPresenter: AuthPresenterProtocol {
 			viewController: nil
 		) { error in
 			if let error = error {
-				self.showError(error: error)
+				self.showErrorAlert(error: .firebaseAuthError(error as! AuthErrorCode))
 			}
 			self.defaultsManager.saveObject(true, for: .isUserAuth)
 			let viewController = self.sceneBuildManager.buildMainView()
@@ -142,24 +156,35 @@ extension AuthPresenter: AuthPresenterProtocol {
 	
 	private func makeRestoreRequest(email: String) {}
 	
-	private func showError(error: Error) {
-		print(error.localizedDescription)
-		let alertController = UIAlertController(
-			title: "Ошибка",
-			message: error.localizedDescription,
-			preferredStyle: .alert
-		)
-		let okAction = UIAlertAction(
-			title: "OK",
-			style: .default,
-			handler: nil
-		)
-		alertController.addAction(okAction)
-		self.viewController?.present(
-			alertController,
-			animated: true,
-			completion: nil
-		)
+	private func showErrorAlert(error: AuthModel.Error) {
+		
+		let message: String = {
+			switch error {
+			case .firebaseAuthError(let authErrorCode):
+				switch authErrorCode.code {
+				case .invalidCredential:
+					return L10n.AuthVC.Error.InvalidCredential.message
+				case .userDisabled:
+					return L10n.AuthVC.Error.UserDisabled.message
+				case .emailAlreadyInUse:
+					return L10n.AuthVC.Error.EmailAlreadyInUse.message
+				case .invalidEmail:
+					return L10n.AuthVC.Error.InvalidEmail.message
+				case .weakPassword:
+					return L10n.AuthVC.Error.WeakPassword.message
+				default:
+					return L10n.AuthVC.Error.SomethingWrong.message
+				}
+			case .repeatPasswordInvalid:
+				return L10n.AuthVC.Error.RepeatPasswordInvalid.message
+			case .textFieldIsEmpty:
+				return L10n.AuthVC.Error.TextFieldIsEmpty.message
+			case .somethingWrong:
+				return L10n.AuthVC.Error.SomethingWrong.message
+			}
+		}()
+		
+		self.viewController?.showErrorAlert(with: message)
 	}
 	
 	func restorePasswordButtonPressed() {
