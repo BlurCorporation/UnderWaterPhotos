@@ -15,4 +15,5 @@ struct ContentModel: Identifiable, Equatable {
 	var alphaSetting: Float?
 	var image: UIImage?
 	var url: String?
+	var selected: Bool = false
 }

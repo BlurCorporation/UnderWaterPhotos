@@ -148,19 +148,45 @@ private extension MainView {
 	var scrollContentView: some View {
 		LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
 			let _ = print(vm.images.count)
-			ForEach(vm.images, id: \.id) { item in
-				Image(uiImage: item.image ?? UIImage())
-					.renderingMode(.original)
-					.resizable()
-					.aspectRatio(contentMode: .fill)
-					.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
-					.clipped()
-					.clipShape(.rect(cornerRadius: 24))
-					.shadow(radius: 5)
-					.onTapGesture {
-						routeProcessScreen(item)
+			ForEach($vm.images, id: \.id) { $item in
+				ZStack {
+					Image(uiImage: item.image)
+						.renderingMode(.original)
+						.resizable()
+						.aspectRatio(contentMode: .fill)
+					Image(systemName: "checkmark.circle.fill")
+						.frame(width: 20, height: 20)
+						.padding([.trailing, .bottom], 15)
+						.opacity(item.selected ? 1 : 0)
+				}
+				.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
+				.clipped()
+				.clipShape(.rect(cornerRadius: 24))
+				.shadow(radius: 5)
+				.onTapGesture {
+					if vm.selectionState == .delete {
+						item.selected.toggle()
+					} else {
+						self.routeProcessScreen(item)
 					}
-			}.id(UUID())
+				}
+				.onLongPressGesture(minimumDuration: 0.2) {
+					if vm.selectionState == .open {
+						vm.selectionState = .delete
+						print(vm.selectionState)
+//						vm.images = vm.images.compactMap {
+//							ContentModel(
+//								id: $0.id,
+//								defaultid: $0.defaultid,
+//								defaultImage: $0.defaultImage,
+//								alphaSetting: $0.alphaSetting,
+//								image: $0.image,
+//								url: $0.url
+//							)
+//						}
+					}
+				}
+			}
 		}
 	}
 }

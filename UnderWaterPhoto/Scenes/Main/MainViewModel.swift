@@ -13,14 +13,20 @@ enum States {
 	case clear
 }
 
+enum ContentSelectionState {
+	case delete
+	case open
+}
+
 class MainViewModel: ObservableObject {
 	@Published var userName: String = L10n.MainViewModel.userName
-	@Published var images: [ContentModel] = []
+	@Published var images: [ContentModel]
 	@Published var state: States = .clear
 	@Published var avatarImage: String = "photo"
 	@Published var mail: String = "under@water.ru"
 	@Published var toggle: Bool = false
 	@Published var isModalPresented: Bool = false
+	@Published var selectionState: ContentSelectionState = .open
 	
 	let repository: RepositoryProtocol
 	let userDefaultsManager: DefaultsManagerable
@@ -34,6 +40,7 @@ class MainViewModel: ObservableObject {
 		self.repository = repository
 		self.userDefaultsManager = userDefaultsManager
 		self.authService = authService
+		self.images = []
 		if let userName = userDefaultsManager.fetchObject(type: String.self, for: .userName) {
 			self.userName = userName
 		}
