@@ -16,6 +16,8 @@ struct MainView: View {
 	@State private var height: CGFloat = 0
 	@State private var isLoadingContentFromGallery = false
 	
+	@State var isToggle = true
+	
 	var languageSettingVC: () -> Void
 	var routeProcessScreen: (_ content: ContentModel) -> Void
 	var routeSubscriptionScreen: () -> Void
@@ -147,43 +149,55 @@ private extension MainView {
 	
 	var scrollContentView: some View {
 		LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
-			let _ = print(vm.images.count)
 			ForEach($vm.images, id: \.id) { $item in
 				ZStack {
 					Image(uiImage: item.image)
 						.renderingMode(.original)
 						.resizable()
 						.aspectRatio(contentMode: .fill)
-					Image(systemName: "checkmark.circle.fill")
-						.frame(width: 20, height: 20)
-						.padding([.trailing, .bottom], 15)
-						.opacity(item.selected ? 1 : 0)
-				}
-				.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
-				.clipped()
-				.clipShape(.rect(cornerRadius: 24))
-				.shadow(radius: 5)
-				.onTapGesture {
-					if vm.selectionState == .delete {
-						item.selected.toggle()
-					} else {
-						self.routeProcessScreen(item)
-					}
-				}
-				.onLongPressGesture(minimumDuration: 0.2) {
-					if vm.selectionState == .open {
-						vm.selectionState = .delete
-						print(vm.selectionState)
-//						vm.images = vm.images.compactMap {
-//							ContentModel(
-//								id: $0.id,
-//								defaultid: $0.defaultid,
-//								defaultImage: $0.defaultImage,
-//								alphaSetting: $0.alphaSetting,
-//								image: $0.image,
-//								url: $0.url
-//							)
-//						}
+					
+						.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
+						.clipped()
+						.clipShape(.rect(cornerRadius: 24))
+						.shadow(radius: 5)
+						.onTapGesture {
+							if vm.selectionState == .delete {
+								item.selected.toggle()
+							} else {
+								self.routeProcessScreen(item)
+							}
+						}
+						.onLongPressGesture(minimumDuration: 0.2) {
+							if vm.selectionState == .open {
+								vm.selectionState = .delete
+								print(vm.selectionState)
+								//						vm.images = vm.images.compactMap {
+								//							ContentModel(
+								//								id: $0.id,
+								//								defaultid: $0.defaultid,
+								//								defaultImage: $0.defaultImage,
+								//								alphaSetting: $0.alphaSetting,
+								//								image: $0.image,
+								//								url: $0.url
+								//							)
+								//						}
+							}
+						}
+					if item.selected {
+						VStack {
+							Spacer()
+							HStack {
+								Spacer()
+								ZStack {
+									Image(systemName: "checkmark.circle.fill")
+										.foregroundStyle(.white, .blue)
+									Image(systemName: "circle")
+										.foregroundStyle(.white)
+								}
+								.frame(width: 20, height: 20)
+								.padding(16)
+							}
+						}
 					}
 				}
 			}
@@ -281,10 +295,10 @@ final class MainViewController: UIViewController {
 			swiftUIViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			swiftUIViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			swiftUIViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//			swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-//			swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
-//			swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//			swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			//			swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+			//			swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
+			//			swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			//			swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
 		])
 	}
 }
