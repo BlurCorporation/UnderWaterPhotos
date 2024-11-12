@@ -198,6 +198,12 @@ internal enum L10n {
   }
   internal enum Extension {
     internal enum HeaderView {
+      internal enum ActionButton {
+        /// Отменить выбор
+        internal static let cancelSelection = L10n.tr("Localizable", "extension.headerView.actionButton.cancelSelection", fallback: "Отменить выбор")
+        /// Удалить выбранное
+        internal static let deleteSelected = L10n.tr("Localizable", "extension.headerView.actionButton.deleteSelected", fallback: "Удалить выбранное")
+      }
       internal enum AddPhotoButtonView {
         /// Редактировать Фото и Видео
         internal static let text = L10n.tr("Localizable", "extension.headerView.addPhotoButtonView.text", fallback: "Редактировать Фото и Видео")

@@ -19,6 +19,10 @@ enum ContentSelectionState {
 }
 
 class MainViewModel: ObservableObject {
+	let repository: RepositoryProtocol
+	let userDefaultsManager: DefaultsManagerable
+	let authService: AuthServicable
+
 	@Published var userName: String = L10n.MainViewModel.userName
 	@Published var images: [ContentModel]
 	@Published var state: States = .clear
@@ -28,9 +32,22 @@ class MainViewModel: ObservableObject {
 	@Published var isModalPresented: Bool = false
 	@Published var selectionState: ContentSelectionState = .open
 	
-	let repository: RepositoryProtocol
-	let userDefaultsManager: DefaultsManagerable
-	let authService: AuthServicable
+	var headerActionButtonText: String {
+		switch selectionState {
+		case .delete:
+			if isAnyContentSelected {
+				return L10n.Extension.HeaderView.ActionButton.deleteSelected
+			} else {
+				return L10n.Extension.HeaderView.ActionButton.cancelSelection
+			}
+		case .open:
+			return L10n.Extension.HeaderView.AddPhotoButtonView.text
+		}
+	}
+	
+	var isAnyContentSelected: Bool {
+		return !self.images.filter({ $0.selected }).isEmpty
+	}
 	
 	init(
 		repository: RepositoryProtocol,
@@ -83,4 +100,9 @@ class MainViewModel: ObservableObject {
 	func deleteAccount() {
 		
 	}
+	
+	func deleteSelectedContent() {
+		print("delete selected")
+	}
+	
 }

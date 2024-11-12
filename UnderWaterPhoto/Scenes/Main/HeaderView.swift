@@ -103,15 +103,28 @@ private extension HeaderView {
 	
 	var addPhotoButtonView: some View {
 		Button(action: {
-			isModalPresentedPicker = true
+			if vm.selectionState == .open {
+				isModalPresentedPicker = true
+			} else {
+				if vm.isAnyContentSelected {
+					vm.deleteSelectedContent()
+				} else {
+					vm.selectionState = .open
+				}
+			}
 		}) {
-			HStack(spacing: 16) {
-				Image(systemName: "plus.circle.fill")
+			HStack {
+				Image(
+					systemName: vm.selectionState == .open 
+					? "plus.circle.fill"
+					: "minus.circle.fill"
+				)
 					.font(.system(size: 40))
 					.padding([.leading], 20)
-				Text(L10n.Extension.HeaderView.AddPhotoButtonView.text)
+				Text(vm.headerActionButtonText)
 					.font(.system(size: 17, weight: .semibold))
 					.padding([.trailing], 20)
+				Spacer()
 			}
 			.foregroundColor(Color("white"))
 			.frame(height: 80)
@@ -127,37 +140,41 @@ private extension HeaderView {
 			matching: .any(of: [.images, .videos])
 		)
 		.onChange(of: image) { content in
-			Task {
-				if let contentType = content?.supportedContentTypes.first {
-					self.isLoadingContentFromGallery = true
-					if contentType.conforms(to: .movie) {
-						if let video = try? await content?.loadTransferable(type: VideoTransferable.self) {
+			self.mapContentAndOpenProcessScreen(content: content)
+		}
+	}
+	
+	private func mapContentAndOpenProcessScreen(content: PhotosPickerItem?) {
+		Task {
+			if let contentType = content?.supportedContentTypes.first {
+				self.isLoadingContentFromGallery = true
+				if contentType.conforms(to: .movie) {
+					if let video = try? await content?.loadTransferable(type: VideoTransferable.self) {
+						let contentModel = ContentModel(
+							id: UUID().uuidString,
+							url: video.url.absoluteString
+						)
+						self.isLoadingContentFromGallery = false
+						self.routeProcessScreen(contentModel)
+					}
+				} else if contentType.conforms(to: .image) {
+					if let image = try? await content?.loadTransferable(type: Data.self) {
+						let uiimage = UIImage(data: image)
+						if let uiimage = uiimage {
 							let contentModel = ContentModel(
 								id: UUID().uuidString,
-								url: video.url.absoluteString
+								image: uiimage
 							)
 							self.isLoadingContentFromGallery = false
 							self.routeProcessScreen(contentModel)
+						} else {
+							print("image is nil")
 						}
-					} else if contentType.conforms(to: .image) {
-						if let image = try? await content?.loadTransferable(type: Data.self) {
-							let uiimage = UIImage(data: image)
-							if let uiimage = uiimage {
-								let contentModel = ContentModel(
-									id: UUID().uuidString,
-									image: uiimage
-								)
-								self.isLoadingContentFromGallery = false
-								self.routeProcessScreen(contentModel)
-							} else {
-								print("image is nil")
-							}
-						}
-					} else {
-						print("Content doesnt conforms to image or movie")
 					}
-					image = nil
+				} else {
+					print("Content doesnt conforms to image or movie")
 				}
+				image = nil
 			}
 		}
 	}

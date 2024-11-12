@@ -150,56 +150,60 @@ private extension MainView {
 	var scrollContentView: some View {
 		LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
 			ForEach($vm.images, id: \.id) { $item in
-				ZStack {
-					Image(uiImage: item.image)
-						.renderingMode(.original)
-						.resizable()
-						.aspectRatio(contentMode: .fill)
-					
-						.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
-						.clipped()
-						.clipShape(.rect(cornerRadius: 24))
-						.shadow(radius: 5)
-						.onTapGesture {
-							if vm.selectionState == .delete {
-								item.selected.toggle()
-							} else {
-								self.routeProcessScreen(item)
-							}
-						}
-						.onLongPressGesture(minimumDuration: 0.2) {
-							if vm.selectionState == .open {
-								vm.selectionState = .delete
-								print(vm.selectionState)
-								//						vm.images = vm.images.compactMap {
-								//							ContentModel(
-								//								id: $0.id,
-								//								defaultid: $0.defaultid,
-								//								defaultImage: $0.defaultImage,
-								//								alphaSetting: $0.alphaSetting,
-								//								image: $0.image,
-								//								url: $0.url
-								//							)
-								//						}
-							}
-						}
-					if item.selected {
-						VStack {
-							Spacer()
-							HStack {
-								Spacer()
-								ZStack {
-									Image(systemName: "checkmark.circle.fill")
-										.foregroundStyle(.white, .blue)
-									Image(systemName: "circle")
-										.foregroundStyle(.white)
-								}
-								.frame(width: 20, height: 20)
-								.padding(16)
-							}
-						}
+				ContentImage(contentData: $item)
+				.onTapGesture {
+					if vm.selectionState == .delete {
+						item.selected.toggle()
+					} else {
+						self.routeProcessScreen(item)
 					}
 				}
+				.onLongPressGesture(minimumDuration: 0.2) {
+					if vm.selectionState == .open {
+						vm.selectionState = .delete
+						print(vm.selectionState)
+					}
+				}
+			}
+		}
+	}
+}
+
+struct ContentImage: View {
+	@Binding var contentData: ContentModel
+	
+	var body: some View {
+		ZStack {
+			Image(uiImage: contentData.image)
+				.renderingMode(.original)
+				.resizable()
+				.aspectRatio(contentMode: .fill)
+				.frame(
+					width: UIScreen.main.bounds.size.width / 2 - 24,
+					height: 210, alignment: .center
+				)
+				.clipped()
+				.clipShape(.rect(cornerRadius: 24))
+				.shadow(radius: 5)
+			if contentData.selected {
+				checkmark
+			}
+		}
+	}
+	
+	var checkmark: some View {
+		VStack {
+			Spacer()
+			HStack {
+				Spacer()
+				ZStack {
+					Image(systemName: "checkmark.circle.fill")
+						.foregroundStyle(.white, .blue)
+					Image(systemName: "circle")
+						.foregroundStyle(.white)
+				}
+				.frame(width: 20, height: 20)
+				.padding(16)
 			}
 		}
 	}
