@@ -13,6 +13,6 @@ struct ContentModel: Identifiable, Equatable {
 	var defaultid: String?
 	var defaultImage: UIImage?
 	var alphaSetting: Float?
-	var image: UIImage
+	var image: UIImage?
 	var url: String?
 }

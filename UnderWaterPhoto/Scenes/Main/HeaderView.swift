@@ -134,7 +134,6 @@ private extension HeaderView {
 						if let video = try? await content?.loadTransferable(type: VideoTransferable.self) {
 							let contentModel = ContentModel(
 								id: UUID().uuidString,
-								image: UIImage(),
 								url: video.url.absoluteString
 							)
 							self.isLoadingContentFromGallery = false

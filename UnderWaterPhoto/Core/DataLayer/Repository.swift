@@ -201,15 +201,20 @@ class Repository {
 			return
 		}
 		
+		guard let image = content.image else {
+			print("content.image is nil in Repository")
+			return
+		}
+		
 		if let url = content.url {
 			self.uploadVideo(
 				url: url,
-				image: content.image,
+				image: image,
 				processedContentID: processedContentID
 			)
 		} else {
 			self.uploadImage(
-				processedImage: content.image,
+				processedImage: image,
 				processedImageID: processedContentID,
 				defaultImage: content.defaultImage,
 				defaultImageID: defaultContentID,

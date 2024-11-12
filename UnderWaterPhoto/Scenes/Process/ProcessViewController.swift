@@ -226,13 +226,14 @@ final class ProcessViewController: UIViewController {
 		
 		if let defaultImage {
 			mainImageView.image = defaultImage
+			self.stopIndicator()
 		}
 		
 		
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else { return }
-			if let url = URL(string: self.defaultVideoURL ?? "") {
-				self.playerView.addVideo(video: url)
+		if let url = URL(string: self.defaultVideoURL ?? "") {
+			self.playerView.addVideo(video: url)
+			DispatchQueue.main.async { [weak self] in
+				guard let self = self else { return }
 				self.playerView.play {
 					self.stopIndicator()
 				}

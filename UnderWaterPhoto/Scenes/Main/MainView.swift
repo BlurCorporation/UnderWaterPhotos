@@ -149,7 +149,7 @@ private extension MainView {
 		LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
 			let _ = print(vm.images.count)
 			ForEach(vm.images, id: \.id) { item in
-				Image(uiImage: item.image)
+				Image(uiImage: item.image ?? UIImage())
 					.renderingMode(.original)
 					.resizable()
 					.aspectRatio(contentMode: .fill)

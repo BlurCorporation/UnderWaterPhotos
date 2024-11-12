@@ -52,8 +52,8 @@ class VideoLooperView: UIView {
 		self.observer = playerItem?.observe(\.status, options: [.new, .old]) { [weak self] playerItem, change in
 			guard let self = self else { return }
 			if playerItem.status == .readyToPlay {
-				self.queuePlayer.play()
 				completion()
+				self.queuePlayer.play()
 			}
 		}
 	}
