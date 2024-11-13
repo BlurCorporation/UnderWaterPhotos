@@ -70,27 +70,49 @@ class MainViewModel: ObservableObject {
 		if self.state != .settings {
 			self.images = self.repository.getContent()
 			self.state = self.images.isEmpty ? .clear : .main
-			self.repository.updateContent {
-				DispatchQueue.main.async { [weak self] in
-					guard let self = self else { return }
-					self.updateImages()
+			self.repository.updateContent { contentModels in
+				for model in contentModels {
+					var isExist = false
+					for savedModel in self.images {
+						if savedModel.id == model.downloadid {
+							isExist = true
+							continue
+						}
+					}
+					if !isExist {
+						self.images.append(
+							ContentModel(
+								id: model.downloadid,
+								image: UIImage(named: "emptyImage1") ?? UIImage()
+							)
+						)
+					}
+				}
+				
+				self.state = self.images.isEmpty ? .clear : .main
+				self.state = .main
+				self.repository.downloadAndSave(
+					firestoreModels: contentModels
+				) { model in
+					for (index, contentModel) in self.images.enumerated() {
+						if contentModel.id == model.id {
+							DispatchQueue.main.async {
+								self.images[index].defaultid = model.defaultid
+								self.images[index].defaultImage = model.defaultImage
+								self.images[index].alphaSetting = model.alphaSetting
+								self.images[index].image = model.image
+								self.images[index].url = model.url
+							}
+							continue
+						}
+					}
 				}
 			}
 		}
 	}
 	
-	func updateImages() {
-		self.images = self.repository.getContent()
-		if self.images.isEmpty {
-			self.state = .clear
-		} else {
-			self.state = .main
-		}
-	}
-	
 	func isEmpty() -> Bool {
-		self.images = self.repository.getContent()
-		return images.isEmpty
+		return self.repository.getIsCacheEmpty()
 	}
 	
 	func ttoggle() {

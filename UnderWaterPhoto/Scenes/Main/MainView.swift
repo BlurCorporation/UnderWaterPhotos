@@ -174,7 +174,7 @@ struct ContentImage: View {
 	
 	var body: some View {
 		ZStack {
-			Image(uiImage: contentData.image)
+			Image(uiImage: contentData.image ?? UIImage())
 				.renderingMode(.original)
 				.resizable()
 				.aspectRatio(contentMode: .fill)

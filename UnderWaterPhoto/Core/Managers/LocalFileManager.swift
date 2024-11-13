@@ -18,7 +18,7 @@ class LocalFileManager {
 		contentName: String,
 		url: String?,
 		folderName: String,
-		completion: @escaping () -> Void
+		completion: @escaping ((imageURL: URL, videoURL: URL)) -> Void
 	) {
 		createFolderIfNeeded(folderName: folderName)
 		
@@ -47,7 +47,7 @@ class LocalFileManager {
 			} catch let error {
 				print("Error saving image. ImageName: \(contentName) \(error)")
 			}
-			completion()
+			completion((imageURL, getURLForVideo(videoName: contentName, folderName: "ContentFolder")!))
 		}
 	}
 	

@@ -14,7 +14,9 @@ protocol RepositoryProtocol {
 	/// Запрашивает данные со всех серверов, загружает и сохраняет,
 	/// если такого контента ещё не было в локальной базе данных.
 	/// - Parameter completion: возвращается после успешной загрузки каждой единицы контента.
-	func updateContent(completion: @escaping () -> Void)
+	func updateContent(
+		completion: @escaping ([ContentFirestoreModel]) -> Void
+	)
 	/// Удаляет весь сохраненный контент из локальной базы данных.
 	func deleteLocalEntities()
 	/// Удаляет весь сохраненный контент из облачной базе данных
@@ -34,6 +36,11 @@ protocol RepositoryProtocol {
 		processedAlphaSetting: Float?,
 		processedVideoTempURL: String?
 	)
+	func downloadAndSave(
+		firestoreModels: [ContentFirestoreModel],
+		completion: @escaping (ContentModel) -> Void
+	)
+	func getIsCacheEmpty() -> Bool
 }
 
 class Repository {
@@ -48,6 +55,7 @@ class Repository {
 	// MARK: - Private properties
 	
 	private var contentCoreData = [ContentEntity]()
+	private var isCacheEmpty = false
 	
 	// MARK: - Lifecycle
 	
@@ -67,9 +75,9 @@ class Repository {
 	/// - Parameters:
 	///   - contentIDs: Массив моделей обработанного контента
 	///   - completion: Возвращается после каждого сохранения
-	private func downloadAndSave(
+	func downloadAndSave(
 		firestoreModels: [ContentFirestoreModel],
-		completion: @escaping () -> Void
+		completion: @escaping (ContentModel) -> Void
 	) {
 		// Получаем массив id контента
 		let contentIDs = self.getContent().map { $0.id }
@@ -93,7 +101,7 @@ class Repository {
 	private func downloadVideo(
 		model: ContentFirestoreModel,
 		processedImage: UIImage,
-		completion: @escaping () -> Void
+		completion: @escaping (ContentModel) -> Void
 	) {
 		// Пытаемся скачать видео из FirebaseStorage
 		self.firebaseStorageManager.downloadVideo(id: model.downloadid) { result in
@@ -104,6 +112,7 @@ class Repository {
 			case .failure:
 				// Видео не скачалось, значит запускаем сценарий сохранения изображения
 				self.localSaveImage(model: model, processedImage: processedImage, completion: completion)
+				break
 			}
 		}
 	}
@@ -112,7 +121,7 @@ class Repository {
 		model: ContentFirestoreModel,
 		processedImage: UIImage,
 		videoUrl: URL?,
-		completion: @escaping () -> Void
+		completion: @escaping (ContentModel) -> Void
 	) {
 		// Создаём сущность CoreData
 		let content = ContentEntity(context: self.coreDataManager.context)
@@ -126,15 +135,22 @@ class Repository {
 			image: processedImage,
 			contentName: model.downloadid,
 			url: videoUrl?.absoluteString,
-			folderName: "ContentFolder",
-			completion: completion
-		)
+			folderName: "ContentFolder"
+		) { imageURL, videoURL in
+			let contentModel = ContentModel(
+				id: model.downloadid,
+				defaultid: model.defaultid,
+				image: processedImage,
+				url: videoURL.absoluteString
+			)
+			completion(contentModel)
+		}
 	}
 	
 	private func localSaveImage(
 		model: ContentFirestoreModel,
 		processedImage: UIImage,
-		completion: @escaping () -> Void
+		completion: @escaping (ContentModel) -> Void
 	) {
 		// Создаём сущность CoreData
 		let content = ContentEntity(context: self.coreDataManager.context)
@@ -149,16 +165,24 @@ class Repository {
 			contentName: model.downloadid,
 			url: nil,
 			folderName: "ContentFolder"
-		) {
+		) { _ in
 			// Проверяем, есть id необработанного изображения
 			guard let defaultid = model.defaultid else {
 				// Вызываем callBack, обозначающий окончание флоу загрузки и сохранения
-				completion()
+				completion(
+					ContentModel(
+						id: model.downloadid,
+						defaultid: model.defaultid,
+						alphaSetting: model.alphaSetting,
+						image: processedImage
+					)
+				)
 				return
 			}
 			// Скачиваем необработанное изображение из FirebaseStorage
 			self.downloadDefaultImage(
-				id: defaultid,
+				id: model.downloadid,
+				defaultid: defaultid,
 				completion: completion
 			)
 		}
@@ -166,20 +190,28 @@ class Repository {
 	
 	private func downloadDefaultImage(
 		id: String,
-		completion: @escaping () -> Void
+		defaultid: String,
+		completion: @escaping (ContentModel) -> Void
 	) {
 		self.firebaseStorageManager.downloadImage(
-			id: id
+			id: defaultid
 		) { result in
 			switch result {
 			case .success(let image):
 				self.fileManager.saveContent(
 					image: image,
-					contentName: id,
+					contentName: defaultid,
 					url: nil,
-					folderName: "ContentFolder",
-					completion: completion
-				)
+					folderName: "ContentFolder"
+					) { _ in
+						completion(
+							ContentModel(
+								id: id,
+								defaultid: defaultid,
+								image: image
+							)
+						)
+					}
 			case .failure(let failure):
 				print("Фото не скачалось")
 			}
@@ -357,7 +389,7 @@ extension Repository: RepositoryProtocol {
 			contentName: id,
 			url: processedVideoTempURL,
 			folderName: "ContentFolder"
-		) { [weak self] in
+		) { [weak self] _ in
 			guard let self = self else { return }
 			guard let defaultImage = defaultImage else {
 				self.uploadContent(
@@ -372,7 +404,7 @@ extension Repository: RepositoryProtocol {
 				contentName: id + "-default",
 				url: processedVideoTempURL,
 				folderName: "ContentFolder"
-			) {
+			) { _ in
 				self.uploadContent(
 					defaultContentID: id + "-default",
 					processedContentID: id,
@@ -382,18 +414,17 @@ extension Repository: RepositoryProtocol {
 		}
 	}
 	
-	func updateContent(completion: @escaping () -> Void) {
+	func updateContent(completion: @escaping ([ContentFirestoreModel]) -> Void) {
 		firestoreService.getContentModel { [weak self] result in
 			guard let self = self else { return }
 			switch result {
 			case .success(let contentsModel):
 				guard let contentsModel = contentsModel else {
 					print("нет данных")
+					completion([])
 					return
 				}
-				self.downloadAndSave(firestoreModels: contentsModel) {
-					completion()
-				}
+				completion(contentsModel)
 			case .failure:
 				print("Ничего не скачалось с Firestore")
 			}
@@ -401,6 +432,7 @@ extension Repository: RepositoryProtocol {
 	}
 	
 	func deleteLocalEntities() {
+		self.isCacheEmpty = true
 		let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ContentEntity")
 		let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
 		do {
@@ -430,7 +462,6 @@ extension Repository: RepositoryProtocol {
 				folderName: "ContentFolder"
 			) {
 				if !images.contains(where: { model in
-					
 					model == savedContent
 				}) {
 					images.append(savedContent)
@@ -439,5 +470,13 @@ extension Repository: RepositoryProtocol {
 		}
 		
 		return images
+	}
+	
+	func getIsCacheEmpty() -> Bool {
+		if self.isCacheEmpty {
+			return true
+		} else {
+			return self.getContent().isEmpty
+		}
 	}
 }
