@@ -182,6 +182,7 @@ struct ContentImage: View {
 					width: UIScreen.main.bounds.size.width / 2 - 24,
 					height: 210, alignment: .center
 				)
+				.contentShape(.containerRelative)
 				.clipped()
 				.clipShape(.rect(cornerRadius: 24))
 				.shadow(radius: 5)

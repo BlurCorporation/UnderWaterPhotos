@@ -19,17 +19,22 @@ enum ContentSelectionState {
 }
 
 class MainViewModel: ObservableObject {
+	
+	// MARK: - Dependencies
+	
 	let repository: RepositoryProtocol
 	let userDefaultsManager: DefaultsManagerable
 	let authService: AuthServicable
-
-	@Published var userName: String = L10n.MainViewModel.userName
+	
+	// MARK: - Internal Properties
+	
+	@Published var userName = L10n.MainViewModel.userName
 	@Published var images: [ContentModel]
 	@Published var state: States = .clear
-	@Published var avatarImage: String = "photo"
-	@Published var mail: String = "under@water.ru"
-	@Published var toggle: Bool = false
-	@Published var isModalPresented: Bool = false
+	@Published var avatarImage = "photo"
+	@Published var mail = "under@water.ru"
+	@Published var toggle = false
+	@Published var isModalPresented = false
 	@Published var selectionState: ContentSelectionState = .open
 	
 	var headerActionButtonText: String {
@@ -49,6 +54,8 @@ class MainViewModel: ObservableObject {
 		return !self.images.filter({ $0.selected }).isEmpty
 	}
 	
+	// MARK: - Lifecycle
+	
 	init(
 		repository: RepositoryProtocol,
 		userDefaultsManager: DefaultsManagerable,
@@ -66,47 +73,56 @@ class MainViewModel: ObservableObject {
 		}
 	}
 	
+	// MARK: - Private Methods
+	
+	private func showPreloadedContent(_ contentModels: [ContentFirestoreModel]) {
+		for model in contentModels {
+			var isExist = false
+			for savedModel in self.images {
+				if savedModel.id == model.downloadid {
+					isExist = true
+					continue
+				}
+			}
+			if !isExist {
+				self.images.append(
+					ContentModel(
+						id: model.downloadid,
+						image: UIImage(named: "emptyImage1") ?? UIImage()
+					)
+				)
+			}
+		}
+		self.state = self.images.isEmpty ? .clear : .main
+	}
+	
+	private func downloadAndShowContent(_ contentModels: [ContentFirestoreModel]) {
+		self.repository.downloadAndSave(
+			firestoreModels: contentModels
+		) { model in
+			for (index, contentModel) in self.images.enumerated() {
+				if contentModel.id == model.id {
+					DispatchQueue.main.async {
+						self.images[index].defaultid = model.defaultid
+						self.images[index].defaultImage = model.defaultImage
+						self.images[index].alphaSetting = model.alphaSetting
+						self.images[index].image = model.image
+						self.images[index].url = model.url
+					}
+					continue
+				}
+			}
+		}
+	}
+	
+	// MARK: - Internal Methods
+	
 	func fetch() {
 		if self.state != .settings {
 			self.images = self.repository.getContent()
-			self.state = self.images.isEmpty ? .clear : .main
 			self.repository.updateContent { contentModels in
-				for model in contentModels {
-					var isExist = false
-					for savedModel in self.images {
-						if savedModel.id == model.downloadid {
-							isExist = true
-							continue
-						}
-					}
-					if !isExist {
-						self.images.append(
-							ContentModel(
-								id: model.downloadid,
-								image: UIImage(named: "emptyImage1") ?? UIImage()
-							)
-						)
-					}
-				}
-				
-				self.state = self.images.isEmpty ? .clear : .main
-				self.state = .main
-				self.repository.downloadAndSave(
-					firestoreModels: contentModels
-				) { model in
-					for (index, contentModel) in self.images.enumerated() {
-						if contentModel.id == model.id {
-							DispatchQueue.main.async {
-								self.images[index].defaultid = model.defaultid
-								self.images[index].defaultImage = model.defaultImage
-								self.images[index].alphaSetting = model.alphaSetting
-								self.images[index].image = model.image
-								self.images[index].url = model.url
-							}
-							continue
-						}
-					}
-				}
+				self.showPreloadedContent(contentModels)
+				self.downloadAndShowContent(contentModels)
 			}
 		}
 	}
