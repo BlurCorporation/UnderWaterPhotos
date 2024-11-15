@@ -41,6 +41,7 @@ protocol RepositoryProtocol {
 		completion: @escaping (ContentModel) -> Void
 	)
 	func getIsCacheEmpty() -> Bool
+	func deleteContent(contentModel: ContentModel)
 }
 
 class Repository {
@@ -478,5 +479,36 @@ extension Repository: RepositoryProtocol {
 		} else {
 			return self.getContent().isEmpty
 		}
+	}
+	
+	func deleteContent(contentModel: ContentModel) {
+		// Удаление из локального хранилища
+		self.fileManager.deleteImage(id: contentModel.id)
+		if let defaultID = contentModel.defaultid {
+			self.fileManager.deleteImage(id: defaultID)
+		}
+		if let _ = contentModel.url {
+			self.fileManager.deleteVideo(id: contentModel.id)
+		}
+		// Удаление локальной базы данных
+		self.getContentEntity()
+		for content in contentCoreData {
+			if content.id == contentModel.id {
+				self.coreDataManager.delete(content)
+				continue
+			}
+		}
+		// Удаление из облачного хранилища
+		self.firebaseStorageManager.deleteImage(id: contentModel.id)
+		if let defaultID = contentModel.defaultid {
+			self.firebaseStorageManager.deleteImage(id: defaultID)
+		}
+		if let _ = contentModel.url {
+			self.firebaseStorageManager.deleteVideo(id: contentModel.id)
+		}
+		// Удаление из облачной базы данных
+		self.firestoreService.deleteContentModel(
+			id: contentModel.id
+		) { _ in }
 	}
 }

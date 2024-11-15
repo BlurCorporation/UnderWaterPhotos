@@ -140,7 +140,21 @@ class MainViewModel: ObservableObject {
 	}
 	
 	func deleteSelectedContent() {
-		print("delete selected")
+		var newContentModels: [ContentModel] = []
+		for content in self.images {
+			if content.selected {
+				self.repository.deleteContent(contentModel: content)
+			} else {
+				newContentModels.append(content)
+			}
+		}
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return }
+			self.images = newContentModels
+			self.state = self.images.isEmpty ? .clear : .main
+			if self.state == .clear {
+				self.selectionState = .open
+			}
+		}
 	}
-	
 }
