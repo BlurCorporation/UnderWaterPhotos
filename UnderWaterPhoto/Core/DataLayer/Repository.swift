@@ -19,7 +19,7 @@ protocol RepositoryProtocol {
 	)
 	/// Удаляет весь сохраненный контент из локальной базы данных.
 	func deleteLocalEntities()
-	/// Удаляет весь сохраненный контент из облачной базе данных
+	/// Удаляет весь сохраненный контент из облачной базы данных
 	func deleteRemoteEntities()
 	/// Осуществляет получение контента из локальной базы данных.
 	/// - Returns: Массив контента.
@@ -29,18 +29,26 @@ protocol RepositoryProtocol {
 	///   - defaultImage: дефолтное изображение до обработки
 	///   - processedImage: обработанное изображение
 	///   - processedAlphaSetting: настройка прозрачности между обработанным и необработанным изображением
-	///   - url: ссылка на обработанное видео из временного локального хранилища
+	///   - processedVideoTempURL: ссылка на обработанное видео из временного локального хранилища
 	func addContent(
 		defaultImage: UIImage?,
 		processedImage: UIImage,
 		processedAlphaSetting: Float?,
 		processedVideoTempURL: String?
 	)
+	/// Скачиваем и сохраняем контент, если его ещё нет на устройстве.
+	/// - Parameters:
+	///   - firestoreModels: Массив моделей контента типа `ContentFirestoreModel`
+	///   - completion: Возвращае модель типа `ContentFirestoreModel` после каждого сохранения
 	func downloadAndSave(
 		firestoreModels: [ContentFirestoreModel],
 		completion: @escaping (ContentModel) -> Void
 	)
+	/// Проверяет, пуст ли кэш
+	/// - Returns: булевое значение `true` если пуст и `false` если кэш есть
 	func getIsCacheEmpty() -> Bool
+	/// Удаляет контент из всех баз данных
+	/// - Parameter contentModel: модель контента по которой берутся данные для удаления
 	func deleteContent(contentModel: ContentModel)
 }
 
@@ -72,41 +80,14 @@ class Repository {
 	
 	// MARK: - Private methods
 	
-	/// Скачиваем и сохраняем контент, если его ещё нет на устройстве.
-	/// - Parameters:
-	///   - contentIDs: Массив моделей обработанного контента
-	///   - completion: Возвращается после каждого сохранения
-	func downloadAndSave(
-		firestoreModels: [ContentFirestoreModel],
-		completion: @escaping (ContentModel) -> Void
-	) {
-		// Получаем массив id контента
-		let contentIDs = self.getContent().map { $0.id }
-		
-		self.isCacheEmpty = firestoreModels.isEmpty
-		
-		for model in firestoreModels {
-			guard !contentIDs.contains(model.downloadid) else { continue }
-			// Скачиваем обработанное изображение из FirebaseStorage
-			self.firebaseStorageManager.downloadImage(id: model.downloadid) { [weak self] result in
-				guard let self = self else { return }
-				switch result {
-				case .success(let processedImage):
-					self.downloadVideo(model: model, processedImage: processedImage, completion: completion)
-				case .failure:
-					print("Фото не скачалось")
-				}
-			}
-		}
-	}
-	
-	private func downloadVideo(
+	private func tryDownloadVideo(
 		model: ContentFirestoreModel,
 		processedImage: UIImage,
 		completion: @escaping (ContentModel) -> Void
 	) {
 		// Пытаемся скачать видео из FirebaseStorage
-		self.firebaseStorageManager.downloadVideo(id: model.downloadid) { result in
+		self.firebaseStorageManager.downloadVideo(id: model.downloadid) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let videoUrl):
 				// Видео успешно скачалось, значит запускаем сценарий сохранения видео
@@ -138,7 +119,8 @@ class Repository {
 			contentName: model.downloadid,
 			url: videoUrl?.absoluteString,
 			folderName: "ContentFolder"
-		) { imageURL, videoURL in
+		) { [weak self] imageURL, videoURL in
+			guard let _ = self else { return }
 			let contentModel = ContentModel(
 				id: model.downloadid,
 				defaultid: model.defaultid,
@@ -167,7 +149,8 @@ class Repository {
 			contentName: model.downloadid,
 			url: nil,
 			folderName: "ContentFolder"
-		) { _ in
+		) { [weak self] _ in
+			guard let self = self else { return }
 			// Проверяем, есть id необработанного изображения
 			guard let defaultid = model.defaultid else {
 				// Вызываем callBack, обозначающий окончание флоу загрузки и сохранения
@@ -197,7 +180,8 @@ class Repository {
 	) {
 		self.firebaseStorageManager.downloadImage(
 			id: defaultid
-		) { result in
+		) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let image):
 				self.fileManager.saveContent(
@@ -214,8 +198,8 @@ class Repository {
 							)
 						)
 					}
-			case .failure(let failure):
-				print("Фото не скачалось")
+			case .failure(let error):
+				print("Фото не скачалось \(error.localizedDescription)")
 			}
 		}
 	}
@@ -356,7 +340,8 @@ class Repository {
 		)
 		firestoreService.setContentModel(
 			contentModel: contentModel
-		) { result in
+		) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let success):
 				print(success)
@@ -406,7 +391,8 @@ extension Repository: RepositoryProtocol {
 				contentName: id + "-default",
 				url: processedVideoTempURL,
 				folderName: "ContentFolder"
-			) { _ in
+			) { [weak self] _ in
+				guard let self = self else { return }
 				self.uploadContent(
 					defaultContentID: id + "-default",
 					processedContentID: id,
@@ -505,7 +491,32 @@ extension Repository: RepositoryProtocol {
 		}
 		// Удаление из облачной базы данных
 		self.firestoreService.deleteContentModel(
-			id: contentModel.id
-		) { _ in }
+			id: contentModel.id,
+			completion: { _ in }
+		)
+	}
+	
+	func downloadAndSave(
+		firestoreModels: [ContentFirestoreModel],
+		completion: @escaping (ContentModel) -> Void
+	) {
+		// Получаем массив id контента
+		let contentIDs = self.getContent().map { $0.id }
+		
+		self.isCacheEmpty = firestoreModels.isEmpty
+		
+		for model in firestoreModels {
+			guard !contentIDs.contains(model.downloadid) else { continue }
+			// Скачиваем обработанное изображение из FirebaseStorage
+			self.firebaseStorageManager.downloadImage(id: model.downloadid) { [weak self] result in
+				guard let self = self else { return }
+				switch result {
+				case .success(let processedImage):
+					self.tryDownloadVideo(model: model, processedImage: processedImage, completion: completion)
+				case .failure:
+					print("Фото не скачалось")
+				}
+			}
+		}
 	}
 }

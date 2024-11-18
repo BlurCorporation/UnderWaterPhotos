@@ -27,26 +27,26 @@ protocol FirestoreServiceProtocol {
 	
 	/// Получает модель из FirebaseFirestore
 	/// - Parameter completion: возвращает `[ContentFirestoreModel]`
-	///   в сулчае успехи и `Error` в случае неудачи
+	///   в сулчае успехи и `Error` в случае неудачи.
 	func getContentModel(
 		completion: @escaping (Result<[ContentFirestoreModel]?, Error>) -> Void
 	)
 	
-	/// Удаляет модель в FirebaseFirestore
+	/// Удаляет модель в FirebaseFirestore.
 	/// - Parameters:
-	///   - contentModel: модель контента
-	///   - completion: возвращает `Bool`
-	///   с результатом true в сулчае успехи и `Error` в случае неудачи
+	///   - id: идентификатор контента
+	///   - completion: возвращает `Void`
+	///   в сулчае успехи и `Error` в случае неудачи.
 	func deleteContentModel(
 		id: String,
 		completion: @escaping (Result<Void, Error>) -> Void
 	)
 	
-	/// Удаляет коллекцию в FirebaseFirestore
+	/// Удаляет коллекцию в FirebaseFirestore.
 	func deleteCollection()
 	
 	/// Сохраняет в ОЗУ id пользователя
-	/// - Parameter userID: id пользователя
+	/// - Parameter userID: id пользователя.
 	func addUserID(userID: String)
 }
 
