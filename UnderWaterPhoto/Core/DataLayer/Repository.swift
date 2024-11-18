@@ -82,7 +82,8 @@ class Repository {
 	) {
 		// Получаем массив id контента
 		let contentIDs = self.getContent().map { $0.id }
-		print("CONTENTIDS")
+		
+		self.isCacheEmpty = firestoreModels.isEmpty
 		
 		for model in firestoreModels {
 			guard !contentIDs.contains(model.downloadid) else { continue }
@@ -474,11 +475,7 @@ extension Repository: RepositoryProtocol {
 	}
 	
 	func getIsCacheEmpty() -> Bool {
-		if self.isCacheEmpty {
-			return true
-		} else {
-			return self.getContent().isEmpty
-		}
+		return self.isCacheEmpty
 	}
 	
 	func deleteContent(contentModel: ContentModel) {
