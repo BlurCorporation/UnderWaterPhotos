@@ -299,11 +299,7 @@ final class MainViewController: UIViewController {
 			swiftUIViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
 			swiftUIViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			swiftUIViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			swiftUIViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-			//			swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-			//			swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
-			//			swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			//			swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			swiftUIViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
 	}
 }

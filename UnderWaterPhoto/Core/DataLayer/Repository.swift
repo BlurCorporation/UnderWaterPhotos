@@ -465,6 +465,11 @@ extension Repository: RepositoryProtocol {
 	}
 	
 	func deleteContent(contentModel: ContentModel) {
+		// Удаление из облачной базы данных
+		self.firestoreService.deleteContentModel(
+			id: contentModel.id,
+			completion: { _ in }
+		)
 		// Удаление из локального хранилища
 		self.fileManager.deleteImage(id: contentModel.id)
 		if let defaultID = contentModel.defaultid {
@@ -489,11 +494,6 @@ extension Repository: RepositoryProtocol {
 		if let _ = contentModel.url {
 			self.firebaseStorageManager.deleteVideo(id: contentModel.id)
 		}
-		// Удаление из облачной базы данных
-		self.firestoreService.deleteContentModel(
-			id: contentModel.id,
-			completion: { _ in }
-		)
 	}
 	
 	func downloadAndSave(
