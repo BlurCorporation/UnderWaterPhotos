@@ -130,7 +130,7 @@ final class BottomSheetSaveViewController: UIViewController {
 			guard let defaultImage = defaultImage,
 				  let processedImage = processedImage else { return }
 			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
-			guard var finalImage = mergedImage else { return }
+            guard let finalImage = mergedImage else { return }
 //			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
 //				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
 //			}
@@ -154,13 +154,10 @@ final class BottomSheetSaveViewController: UIViewController {
 	private func saveOnPhone() {
 		switch processContentType {
 		case .image:
-			guard var defaultImage = defaultImage,
+            guard let defaultImage = defaultImage,
 				  let processedImage = processedImage else { return }
 			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
-			guard var finalImage = mergedImage else { return }
-//			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
-//				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
-//			}
+            guard let finalImage = mergedImage else { return }
 			UIImageWriteToSavedPhotosAlbum(finalImage, nil, nil, nil)
 		case .video:
 			guard let url = videoURL else { print("error"); return }

@@ -14,8 +14,11 @@ struct SettingsNavBarView: View {
 	
 	var body: some View {
 		HStack(spacing: 12) {
-			Image(systemName: avatarImage)
-				.frame(width: 40, height: 40)
+            Image(avatarImage)
+                .resizable()  // Позволяет изменять размер изображения
+                .scaledToFill()  // Масштабирует изображение с заполнением
+                .frame(width: 40, height: 40)  // Ограничение размеров
+                
 			VStack(alignment: .leading) {
 				Text(name)
 					.foregroundColor(Color("white"))
@@ -26,6 +29,7 @@ struct SettingsNavBarView: View {
 			}
 			Spacer()
 		}
-		.padding([.top], 10)
+        .padding([.top], 10)
+        .padding([.leading], 20)
 	}
 }

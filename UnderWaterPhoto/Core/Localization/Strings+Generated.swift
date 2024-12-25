@@ -187,8 +187,8 @@ internal enum L10n {
     }
     internal enum SaveOnPhoneLabel {
       internal enum Label {
-        /// Сохранить на устрйоство
-        internal static let text = L10n.tr("Localizable", "bottomSheetSaveVC.saveOnPhoneLabel.label.text", fallback: "Сохранить на устрйоство")
+        /// Сохранить на устройство
+        internal static let text = L10n.tr("Localizable", "bottomSheetSaveVC.saveOnPhoneLabel.label.text", fallback: "Сохранить на устройство")
       }
     }
   }
@@ -205,7 +205,7 @@ internal enum L10n {
       internal enum NavBar {
         /// Привет, %@!
         internal static func text(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "extension.headerView.navBar.text", String(describing: p1), fallback: "Привет, %@!")
+          return L10n.tr("Localizable", "extension.headerView.navBar.text", String(describing: p1), fallback: "%@")
         }
       }
     }

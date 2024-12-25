@@ -90,13 +90,13 @@
 "extension.mainView.emptyView.text" = "Здесь будут загруженные тобой фото и видео";
 
 // HeaderView
-"extension.headerView.navBar.text" = "Привет, %@!";
+"extension.headerView.navBar.text" = "%@";
 "extension.headerView.addPhotoButtonView.text" = "Редактировать Фото и Видео";
 
 // MARK: Process
 // BottomSheetSaveVC
 "bottomSheetSaveVC.saveInAppLabel.label.text" = "Сохранить в приложении";
-"bottomSheetSaveVC.saveOnPhoneLabel.label.text" = "Сохранить на устрйоство";
+"bottomSheetSaveVC.saveOnPhoneLabel.label.text" = "Сохранить на устройство";
 "bottomSheetSaveVC.bottomSheetBackButton.button.setTitle" = "Назад";
 "bottomSheetSaveVC.bottomSheetSaveButton.button.setTitle" = "Сохранить";
 

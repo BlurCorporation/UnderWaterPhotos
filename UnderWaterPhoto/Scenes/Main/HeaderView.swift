@@ -46,9 +46,9 @@ struct HeaderView: View {
 				switch vm.state {
 				case .settings:
 					SettingsNavBarView(
-						avatarImage: vm.avatarImage,
-						name: vm.userName,
-						mail: vm.mail
+						avatarImage: "divePixLogo",
+						name: "",
+						mail: ""
 					)
 				default:
 					navBar
