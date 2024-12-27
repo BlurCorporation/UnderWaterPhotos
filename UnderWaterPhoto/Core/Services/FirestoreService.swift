@@ -27,26 +27,26 @@ protocol FirestoreServiceProtocol {
 	
 	/// Получает модель из FirebaseFirestore
 	/// - Parameter completion: возвращает `[ContentFirestoreModel]`
-	///   в сулчае успехи и `Error` в случае неудачи
+	///   в сулчае успехи и `Error` в случае неудачи.
 	func getContentModel(
 		completion: @escaping (Result<[ContentFirestoreModel]?, Error>) -> Void
 	)
 	
-	/// Удаляет модель в FirebaseFirestore
+	/// Удаляет модель в FirebaseFirestore.
 	/// - Parameters:
-	///   - contentModel: модель контента
-	///   - completion: возвращает `Bool`
-	///   с результатом true в сулчае успехи и `Error` в случае неудачи
+	///   - id: идентификатор контента
+	///   - completion: возвращает `Void`
+	///   в сулчае успехи и `Error` в случае неудачи.
 	func deleteContentModel(
-		contentModel: ContentFirestoreModel,
-		completion: @escaping (Result<Bool, Error>) -> Void
+		id: String,
+		completion: @escaping (Result<Void, Error>) -> Void
 	)
 	
-	/// Удаляет коллекцию в FirebaseFirestore
+	/// Удаляет коллекцию в FirebaseFirestore.
 	func deleteCollection()
 	
 	/// Сохраняет в ОЗУ id пользователя
-	/// - Parameter userID: id пользователя
+	/// - Parameter userID: id пользователя.
 	func addUserID(userID: String)
 }
 
@@ -63,14 +63,14 @@ final class FirestoreService {
 	
 	// MARK: - Private Properties
 	
-	private func oneCalculation(from calcDict: [String: Any]) -> ContentFirestoreModel {
+	private func mapContentFirestoreModelFromFirestoreJSON(from contentModelJSON: [String: Any]) -> ContentFirestoreModel {
 		let decoder = JSONDecoder()
 		
 		var model = ContentFirestoreModel(defaultid: nil, downloadid: "", alphaSetting: nil)
 		
 		do {
 			let jsonData = try JSONSerialization.data(
-				withJSONObject: calcDict,
+				withJSONObject: contentModelJSON,
 				options: JSONSerialization.WritingOptions.prettyPrinted
 			)
 			model = try decoder.decode(
@@ -130,18 +130,41 @@ extension FirestoreService: FirestoreServiceProtocol {
 				print("Error getting documents: \(error)")
 				completion(.failure(error))
 			} else {
-				
-				let model = querySnapshot.documents.map({self.oneCalculation(from: $0.data())})
+				let model = querySnapshot.documents.map({self.mapContentFirestoreModelFromFirestoreJSON(from: $0.data())})
 				completion(.success(model))
 			}
 		}
 	}
 	
 	func deleteContentModel(
-		contentModel: ContentFirestoreModel,
-		completion: @escaping (Result<Bool, Error>) -> Void
+		id: String,
+		completion: @escaping (Result<Void, Error>) -> Void
 	) {
-		
+		guard let uid = self.uid else {
+			print("FirestoreService: userid identify error")
+			return
+		}
+		let db = configureFB()
+		let contentRef = db.collection("users").document(uid).collection("content")
+		contentRef.getDocuments { querySnapshot, error in
+			guard let querySnapshot = querySnapshot else {
+				print("ERROR deleteContentModel querySnapshot")
+				return
+			}
+			if let error = error {
+				print("Error getting documents: \(error)")
+				completion(.failure(error))
+			} else {
+				let model = querySnapshot.documents.map({self.mapContentFirestoreModelFromFirestoreJSON(from: $0.data())})
+				for document in querySnapshot.documents {
+					if self.mapContentFirestoreModelFromFirestoreJSON(from: document.data()).downloadid == id {
+						db.collection("users").document(uid).collection("content").document(document.documentID).delete()
+						completion(.success(()))
+						return
+					}
+				}
+			}
+		}
 	}
 	
 	func deleteCollection() {
@@ -153,7 +176,7 @@ extension FirestoreService: FirestoreServiceProtocol {
 		let contentRef = db.collection("users").document(uid).collection("content")
 		contentRef.getDocuments { querySnapshot, error in
 			guard let querySnapshot = querySnapshot else {
-				print("ERROR getAllCalculations querySnapshot")
+				print("ERROR deleteCollection querySnapshot")
 				return
 			}
 			if let error = error {

@@ -39,6 +39,9 @@ protocol FirebaseStorageManagerProtocol {
 	)
 	
 	func deleteAllContent()
+	
+	func deleteImage(id: String)
+	func deleteVideo(id: String)
 }
 
 final class FirebaseStorageManager {
@@ -121,7 +124,8 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 		id: String,
 		completion: @escaping (Result<UIImage, Error>) -> Void
 	) {
-		let ref = storageRef.child(id + ".png")
+		let folderID = authService.getUserName()
+		let ref = storageRef.child("\(folderID)").child(id + ".png")
 		let _ = ref.getData(maxSize: Int64.max) { data, error in
 			if let error = error {
 				completion(.failure(error))
@@ -136,7 +140,8 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 		id: String,
 		completion: @escaping (Result<URL?, Error>) -> Void
 	) {
-		let ref = storageRef.child(id + ".m4v")
+		let folderID = authService.getUserName()
+		let ref = storageRef.child("\(folderID)").child(id + ".m4v")
 		let directory = NSTemporaryDirectory()
 		let fileName = NSUUID().uuidString
 		let fullURL = NSURL.fileURL(withPathComponents: [directory, fileName])
@@ -167,6 +172,30 @@ extension FirebaseStorageManager: FirebaseStorageManagerProtocol {
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	func deleteImage(id: String) {
+		let folderID = authService.getUserName()
+		let ref = storageRef.child("\(folderID)")
+		ref.child(id + ".png").delete { error in
+			if let error = error {
+				print(error.localizedDescription)
+			} else {
+				print("success delete image id: \(id)")
+			}
+		}
+	}
+	
+	func deleteVideo(id: String) {
+		let folderID = authService.getUserName()
+		let ref = storageRef.child("\(folderID)")
+		ref.child(id + ".m4v").delete { error in
+			if let error = error {
+				print(error.localizedDescription)
+			} else {
+				print("success delete image id: \(id)")
 			}
 		}
 	}

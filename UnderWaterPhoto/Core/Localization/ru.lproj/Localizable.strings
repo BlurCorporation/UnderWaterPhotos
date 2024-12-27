@@ -92,6 +92,8 @@
 // HeaderView
 "extension.headerView.navBar.text" = "%@";
 "extension.headerView.addPhotoButtonView.text" = "Редактировать Фото и Видео";
+"extension.headerView.actionButton.deleteSelected" = "Удалить выбранное";
+"extension.headerView.actionButton.cancelSelection" = "Отменить выбор";
 
 // MARK: Process
 // BottomSheetSaveVC

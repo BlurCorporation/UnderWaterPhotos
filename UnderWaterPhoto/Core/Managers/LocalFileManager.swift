@@ -18,7 +18,7 @@ class LocalFileManager {
 		contentName: String,
 		url: String?,
 		folderName: String,
-		completion: @escaping () -> Void
+		completion: @escaping ((imageURL: URL, videoURL: URL)) -> Void
 	) {
 		createFolderIfNeeded(folderName: folderName)
 		
@@ -47,7 +47,7 @@ class LocalFileManager {
 			} catch let error {
 				print("Error saving image. ImageName: \(contentName) \(error)")
 			}
-			completion()
+			completion((imageURL, getURLForVideo(videoName: contentName, folderName: "ContentFolder")!))
 		}
 	}
 	
@@ -94,6 +94,35 @@ class LocalFileManager {
 		}
 		
 		return ContentModel(id: imageName, image: image, url: videoURL?.absoluteString)
+	}
+	
+	func deleteImage(id: String) {
+		guard let imageURL = getURLForImage(imageName: id, folderName: "ContentFolder"),
+			  FileManager.default.fileExists(atPath: imageURL.path)
+		else {
+			print("Ошибка чтения фото при удалении\nid: \(id)")
+			return
+		}
+		
+		do {
+			try FileManager.default.removeItem(at: imageURL)
+		} catch {
+			print("Ошибка удаления фото\nid: \(id)")
+		}
+	}
+	
+	func deleteVideo(id: String) {
+		guard let videoURL = getURLForVideo(videoName: id, folderName: "ContentFolder"),
+			  FileManager.default.fileExists(atPath: videoURL.path)
+		else {
+			print("Ошибка чтения видео при удалении\nid: \(id)")
+			return
+		}
+		do {
+			try FileManager.default.removeItem(at: videoURL)
+		} catch {
+			print("Ошибка удаления видео\nid: \(id)")
+		}
 	}
 	
 	func getVideo(videoId: String) -> ContentModel? {

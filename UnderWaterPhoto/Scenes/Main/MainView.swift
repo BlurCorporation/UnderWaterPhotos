@@ -16,6 +16,8 @@ struct MainView: View {
 	@State private var height: CGFloat = 0
 	@State private var isLoadingContentFromGallery = false
 	
+	@State var isToggle = true
+	
 	var languageSettingVC: () -> Void
 	var routeProcessScreen: (_ content: ContentModel) -> Void
 	var routeSubscriptionScreen: () -> Void
@@ -148,20 +150,63 @@ private extension MainView {
 	
 	var scrollContentView: some View {
 		LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
-			let _ = print(vm.images.count)
-			ForEach(vm.images, id: \.id) { item in
-				Image(uiImage: item.image ?? UIImage())
-					.renderingMode(.original)
-					.resizable()
-					.aspectRatio(contentMode: .fill)
-					.frame(width: UIScreen.main.bounds.size.width / 2 - 24, height: 210, alignment: .center)
-					.clipped()
-					.clipShape(.rect(cornerRadius: 24))
-					.shadow(radius: 5)
-					.onTapGesture {
-						routeProcessScreen(item)
+			ForEach($vm.images, id: \.id) { $item in
+				ContentImage(contentData: $item)
+				.onTapGesture {
+					if vm.selectionState == .delete {
+						item.selected.toggle()
+					} else {
+						self.routeProcessScreen(item)
 					}
-			}.id(UUID())
+				}
+				.onLongPressGesture(minimumDuration: 0.2) {
+					if vm.selectionState == .open {
+						vm.selectionState = .delete
+						print(vm.selectionState)
+					}
+				}
+			}
+		}
+	}
+}
+
+struct ContentImage: View {
+	@Binding var contentData: ContentModel
+	
+	var body: some View {
+		ZStack {
+			Image(uiImage: contentData.image ?? UIImage())
+				.renderingMode(.original)
+				.resizable()
+				.aspectRatio(contentMode: .fill)
+				.frame(
+					width: UIScreen.main.bounds.size.width / 2 - 24,
+					height: 210, alignment: .center
+				)
+				.contentShape(.containerRelative)
+				.clipped()
+				.clipShape(.rect(cornerRadius: 24))
+				.shadow(radius: 5)
+			if contentData.selected {
+				checkmark
+			}
+		}
+	}
+	
+	var checkmark: some View {
+		VStack {
+			Spacer()
+			HStack {
+				Spacer()
+				ZStack {
+					Image(systemName: "checkmark.circle.fill")
+						.foregroundStyle(.white, .blue)
+					Image(systemName: "circle")
+						.foregroundStyle(.white)
+				}
+				.frame(width: 20, height: 20)
+				.padding(16)
+			}
 		}
 	}
 }
@@ -255,11 +300,7 @@ final class MainViewController: UIViewController {
 			swiftUIViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
 			swiftUIViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			swiftUIViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			swiftUIViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//			swiftUIViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-//			swiftUIViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1),
-//			swiftUIViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//			swiftUIViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			swiftUIViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
 	}
 }
