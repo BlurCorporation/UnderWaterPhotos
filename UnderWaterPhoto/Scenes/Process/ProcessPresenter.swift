@@ -122,16 +122,20 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 				processContentType: processContentType
 			)
 //			if !isUserPremium {
-//				viewController?.showWatermark()
-//			}
+			//				viewController?.showWatermark()
+			//			}
 			self.viewController?.disableProcessButton()
 			wasProcessed = true
-			Task {
-				switch processContentType {
-				case .image:
+			
+			switch processContentType {
+			case .image:
+				Task {
 					try await process(image: image)
-				case .video:
-					let isWatermark = !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false)
+				}
+			case .video:
+				let isWatermark = !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false)
+				viewController?.startIndicator()
+				Task {
 					try await process(
 						video: String(url.dropFirst(7)),
 						isWatermark: isWatermark
@@ -178,7 +182,6 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 	}
 	
 	private func process(video: String, isWatermark: Bool) async throws {
-		viewController?.startIndicator()
 		videoProcessingManager.process(video, isWatermark: isWatermark) { [weak self] result in
 			guard let self = self else { return }
 			switch result {

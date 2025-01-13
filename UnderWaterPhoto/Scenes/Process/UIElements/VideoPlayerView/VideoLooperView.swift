@@ -26,7 +26,10 @@ class VideoLooperView: UIView {
 		videoPlayerView.frame = bounds
 	}
 	
-	func addVideo(video: URL?) {
+	func addVideo(
+		video: URL?,
+		completion: () -> Void
+	) {
 		if let oldVideo = self.video {
 			let asset = AVURLAsset(url: oldVideo)
 			let item = AVPlayerItem(asset: asset)
@@ -34,13 +37,14 @@ class VideoLooperView: UIView {
 		}
 		
 		self.video = video
-		initilizePlayer()
+		initilizePlayer(completion: completion)
 	}
 	
-	private func initilizePlayer() {
+	private func initilizePlayer(completion: () -> Void) {
 		videoPlayerView.player = queuePlayer
 		addAllVideosToPlayer()
 		queuePlayer.play()
+		completion()
 	}
 	
 	func pause() {
@@ -48,9 +52,11 @@ class VideoLooperView: UIView {
 	}
 	
 	func play(completion: @escaping () -> Void) {
+		print("play")
 		let playerItem = self.queuePlayer.items().first
 		self.observer = playerItem?.observe(\.status, options: [.new, .old]) { [weak self] playerItem, change in
 			guard let self = self else { return }
+			print("status: ", playerItem.status)
 			if playerItem.status == .readyToPlay {
 				completion()
 				self.queuePlayer.play()
@@ -66,7 +72,6 @@ class VideoLooperView: UIView {
 		
 		queuePlayer.insert(item, after: queuePlayer.items().last)
 		self.playerLooper = AVPlayerLooper(player: queuePlayer, templateItem: item)
-		
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

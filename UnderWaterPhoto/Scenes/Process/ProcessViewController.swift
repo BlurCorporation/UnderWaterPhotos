@@ -231,12 +231,8 @@ final class ProcessViewController: UIViewController {
 		
 		
 		if let url = URL(string: self.defaultVideoURL ?? "") {
-			self.playerView.addVideo(video: url)
-			DispatchQueue.main.async { [weak self] in
-				guard let self = self else { return }
-				self.playerView.play {
+			self.playerView.addVideo(video: url) {
 					self.stopIndicator()
-				}
 			}
 		}
 		
@@ -342,8 +338,8 @@ final class ProcessViewController: UIViewController {
 
 extension ProcessViewController: ProcessViewControllerProtocol {
 	func startIndicator() {
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else { return }
+//		DispatchQueue.main.async { [weak self] in
+//			guard let self = self else { return }
 			self.saveBarButtonItem.isEnabled = false
 			self.shareBarButtonItem.isEnabled = false
 			self.processPhotoButton.isEnabled = false
@@ -354,7 +350,7 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 			self.slider.isEnabled = false
 			print("start\n\(Date())")
 			self.activityIndicator.startAnimating()
-		}
+//		}
 	}
 	
 	func stopIndicator() {
@@ -401,9 +397,10 @@ extension ProcessViewController: ProcessViewControllerProtocol {
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
 			self.hideWatermark()
-			self.playerView.addVideo(video: url)
-			self.playerView.play {
-				self.stopIndicator()
+			self.playerView.addVideo(video: url) {
+//				self.playerView.play {
+					self.stopIndicator()
+//				}
 			}
 		}
 	}
