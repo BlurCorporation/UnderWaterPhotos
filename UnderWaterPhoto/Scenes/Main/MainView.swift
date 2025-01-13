@@ -64,25 +64,25 @@ struct MainView: View {
 			.headerIsClipped(true)
 			.hideScrollIndicators()
 			.height(min: 188, max: vm.state == .settings ? 188 : 318)
-			.allowsHeaderCollapse()
+			.allowsHeaderCollapse(vm.state != .settings)
 			.collapseProgress($progress)
-            // TODO: - In next version
-//			.pullToRefresh(
-//				isLoading: $isLoading,
-//				color: Color.white
-//			) {
-//				switch vm.state {
-//				case .main, .clear:
-//					DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//						vm.fetch()
-//						progress = 0
-//						isLoading = false
-//					}
-//				case .settings:
-//					print(".setting")
-//					isLoading = false
-//				}
-//			}
+            // TODO: In next version
+			.pullToRefresh(
+				isLoading: $isLoading,
+				color: Color.white
+			) {
+				switch vm.state {
+				case .main, .clear:
+					DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+						vm.fetch()
+						progress = 0
+						isLoading = false
+					}
+				case .settings:
+					print(".setting")
+					isLoading = false
+				}
+			}
 			.onChange(of: vm.state) { newValue in
 				if newValue == .settings {
 					progress = 1
@@ -126,7 +126,7 @@ private extension MainView {
 		Text(L10n.Extension.MainView.MainHeaderTextView.text)
 			.foregroundColor(.white)
 			.font(.system(size: 28, weight: .semibold))
-			.opacity(3.0 - progress * 5)
+			.opacity(vm.state == .settings ? 0 : 3.0 - progress * 5)
 	}
 	
 	var emptyView: some View {

@@ -131,6 +131,7 @@ final class BottomSheetSaveViewController: UIViewController {
 				  let processedImage = processedImage else { return }
 			let mergedImage = imageMergeManager?.mergeImages(bottomImage: defaultImage, topImage: processedImage)
             guard let finalImage = mergedImage else { return }
+			// TODO: - In next version
 //			if !(userDefaultsManager.fetchObject(type: Bool.self, for: .isUserPremium) ?? false) {
 //				finalImage = imageMergeManager?.mergeWatermark(image: finalImage) ?? UIImage()
 //			}

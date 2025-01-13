@@ -379,11 +379,12 @@ extension Repository: RepositoryProtocol {
 		) { [weak self] _ in
 			guard let self = self else { return }
 			guard let defaultImage = defaultImage else {
-				self.uploadContent(
-					defaultContentID: nil,
-					processedContentID: id,
-					alphaSetting: nil
-				)
+				// TODO: - In next version
+//				self.uploadContent(
+//					defaultContentID: nil,
+//					processedContentID: id,
+//					alphaSetting: nil
+//				)
 				return
 			}
 			fileManager.saveContent(
@@ -393,11 +394,12 @@ extension Repository: RepositoryProtocol {
 				folderName: "ContentFolder"
 			) { [weak self] _ in
 				guard let self = self else { return }
-				self.uploadContent(
-					defaultContentID: id + "-default",
-					processedContentID: id,
-					alphaSetting: processedAlphaSetting
-				)
+				// TODO: - In next version
+//				self.uploadContent(
+//					defaultContentID: id + "-default",
+//					processedContentID: id,
+//					alphaSetting: processedAlphaSetting
+//				)
 			}
 		}
 	}

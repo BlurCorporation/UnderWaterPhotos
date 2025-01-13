@@ -120,10 +120,12 @@ class MainViewModel: ObservableObject {
 	func fetch() {
 		if self.state != .settings {
 			self.images = self.repository.getContent()
-			self.repository.updateContent { contentModels in
-				self.showPreloadedContent(contentModels)
-				self.downloadAndShowContent(contentModels)
-			}
+			self.state = .main
+			// TODO: In next version
+//			self.repository.updateContent { contentModels in
+//				self.showPreloadedContent(contentModels)
+//				self.downloadAndShowContent(contentModels)
+//			}
 		}
 	}
 	
