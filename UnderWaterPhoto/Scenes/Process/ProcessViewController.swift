@@ -221,6 +221,10 @@ final class ProcessViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupViewController()
+		
+		self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+		self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+		
 		self.startIndicator()
 		processedImage = defaultImage
 		
@@ -611,5 +615,16 @@ extension ProcessViewController {
 		
 		topConstraint = processBottomSheetView.topAnchor.constraint(equalTo: view.bottomAnchor)
 		topConstraint.isActive = true
+	}
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension ProcessViewController: UIGestureRecognizerDelegate {
+	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer {
+			return self.navigationController?.viewControllers.count ?? 0 > 1
+		}
+		return true
 	}
 }

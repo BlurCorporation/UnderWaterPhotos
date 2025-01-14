@@ -19,7 +19,7 @@ struct MainView: View {
 	@State var isToggle = true
 	
 	var languageSettingVC: () -> Void
-	var routeProcessScreen: (_ content: ContentModel) -> Void
+	var routeProcessScreen: (_ content: ContentModel, _ isProcessedVideo: Bool) -> Void
 	var routeSubscriptionScreen: () -> Void
 	var logout: () -> Void
 	
@@ -156,7 +156,7 @@ private extension MainView {
 					if vm.selectionState == .delete {
 						item.selected.toggle()
 					} else {
-						self.routeProcessScreen(item)
+						self.routeProcessScreen(item, true)
 					}
 				}
 				.onLongPressGesture(minimumDuration: 0.2) {
@@ -254,14 +254,15 @@ final class MainViewController: UIViewController {
 			self.navigationController?.pushViewController(secondViewController, animated: true)
 		}
 		
-		let routeProcessScreen: (_ content: ContentModel) -> Void = { [weak self] item in
+		let routeProcessScreen: (_ content: ContentModel, _ isProcessedVideo: Bool) -> Void = { [weak self] item, isProcessedVideo  in
 			guard let self = self else { return }
 			let secondViewController = self.sceneBuildManager.buildProcessViewController(
 				defaultImage: item.defaultImage,
 				image: item.image,
 				alphaSetting: item.alphaSetting,
 				url: item.url,
-				processContenType: item.url == nil ? .image : .video
+				processContenType: item.url == nil ? .image : .video,
+				isProcessedVideo: isProcessedVideo
 			)
 			self.navigationController?.pushViewController(secondViewController, animated: true)
 		}

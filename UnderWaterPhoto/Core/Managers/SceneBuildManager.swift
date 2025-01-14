@@ -11,7 +11,8 @@ protocol Buildable {
 		image: UIImage?,
 		alphaSetting: Float?,
 		url: String?,
-		processContenType: ProcessContentType
+		processContenType: ProcessContentType,
+		isProcessedVideo: Bool
 	) -> ProcessViewController
 	func buildMainView() -> MainViewController
 	func buildSubscriptionView() -> SubscriptionViewController
@@ -82,7 +83,8 @@ extension SceneBuildManager: Buildable {
 		image: UIImage?,
 		alphaSetting: Float?,
 		url: String?,
-		processContenType: ProcessContentType
+		processContenType: ProcessContentType,
+		isProcessedVideo: Bool
 	) -> ProcessViewController {
 		let videoProcessingManager = VideoProcessingManager(imageMergeManager: imageMergeManager)
 		let viewController = ProcessViewController()
@@ -93,7 +95,8 @@ extension SceneBuildManager: Buildable {
 			videoProcessingManager: videoProcessingManager,
 			userDefaultsManager: userDefaultsManager,
 			isUserPremium: isUserPremium, 
-			shouldProcessAfterViewDidLoad: defaultImage != nil
+			shouldProcessAfterViewDidLoad: defaultImage != nil,
+			isProcessedVideo: isProcessedVideo
 		)
 		
 		viewController.defaultVideoURL = url

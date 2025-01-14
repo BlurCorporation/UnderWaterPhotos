@@ -142,6 +142,8 @@ final class BottomSheetSaveViewController: UIViewController {
 				processedVideoTempURL: nil
 			)
 		case .video:
+			print("previewImage: ", previewImage)
+			print("videoURL: ", videoURL)
 			guard let image = previewImage, let url = videoURL else { return }
 			repository.addContent(
 				defaultImage: nil,
@@ -164,6 +166,11 @@ final class BottomSheetSaveViewController: UIViewController {
 			guard let url = videoURL else { print("error"); return }
 			PHPhotoLibrary.shared().performChanges {
 				PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
+			} completionHandler: { isSaved, error in
+				if let error = error {
+					print(error)
+				}
+				print(isSaved)
 			}
 		}
 	}

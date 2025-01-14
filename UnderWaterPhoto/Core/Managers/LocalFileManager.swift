@@ -79,17 +79,14 @@ class LocalFileManager {
 		
 		if let defaultImageID = defaultImageID,
 		   let defaultImageURL = getURLForImage(imageName: defaultImageID, folderName: folderName) {
-			guard
-				let defaultImage = UIImage(contentsOfFile: defaultImageURL.path)
-			else {
-				return nil
-			}
+			let defaultImage = UIImage(contentsOfFile: defaultImageURL.path)
 			return ContentModel(
 				id: imageName,
 				defaultid: defaultImageID,
 				defaultImage: defaultImage,
 				alphaSetting: alphaSetting,
-				image: image
+				image: image,
+				url: videoURL?.absoluteString
 			)
 		}
 		

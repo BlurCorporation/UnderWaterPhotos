@@ -55,6 +55,7 @@ class ProcessPresenter {
 	private var wasProcessed: Bool = false
 	private let isUserPremium: Bool
 	private let shouldProcessAfterViewDidLoad: Bool
+	private let isProcessedVideo: Bool
 	
 	//MARK: - Initialize
 	
@@ -64,7 +65,8 @@ class ProcessPresenter {
 		videoProcessingManager: VideoProcessingManagerProtocol,
 		userDefaultsManager: DefaultsManagerable,
 		isUserPremium: Bool,
-		shouldProcessAfterViewDidLoad: Bool
+		shouldProcessAfterViewDidLoad: Bool,
+		isProcessedVideo: Bool
 	) {
 		self.sceneBuildManager = sceneBuildManager
 		self.processContentType = processContentType
@@ -72,6 +74,7 @@ class ProcessPresenter {
 		self.userDefaultsManager = userDefaultsManager
 		self.isUserPremium = isUserPremium
 		self.shouldProcessAfterViewDidLoad = shouldProcessAfterViewDidLoad
+		self.isProcessedVideo = isProcessedVideo
 	}
 }
 
@@ -86,6 +89,10 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 			}
 		case .video:
 			viewController?.setupVideoProcessing()
+			if self.isProcessedVideo{
+				processButtonType = .process
+				viewController?.changeToProcess(with: processContentType)
+			}
 		}
 	}
 	

@@ -255,7 +255,7 @@ extension VideoProcessingManager: VideoProcessingManagerProtocol {
 			extractAudio(videoURL: URL(string: "file://\(video)")!, completion: { [weak self] audiourl in
 				guard let self = self else { return }
 				self.mergeVideoWithAudio(videoUrl: videoUrl, audioUrl: audiourl, success: { url in
-					var contentModel = ContentModel(id: UUID().uuidString, image: previewImage, url: url.absoluteString)
+					let contentModel = ContentModel(id: UUID().uuidString, image: previewImage, url: url.absoluteString)
 					completion(.success(contentModel))
 				}, failure: { error in
 					completion(.failure(error ?? CustomError(title: "123", description: "123", code: 2134124324523)))

@@ -16,7 +16,7 @@ struct HeaderView: View {
 	@ObservedObject var vm: MainViewModel
 	@Binding var isLoadingContentFromGallery: Bool
 	var userName: String
-	var routeProcessScreen: (_ content: ContentModel) -> Void
+	var routeProcessScreen: (_ content: ContentModel, _ isProcessedVideo: Bool) -> Void
 	
 	// MARK: - Private Properties
 	
@@ -155,7 +155,7 @@ private extension HeaderView {
 							url: video.url.absoluteString
 						)
 						self.isLoadingContentFromGallery = false
-						self.routeProcessScreen(contentModel)
+						self.routeProcessScreen(contentModel, false)
 					}
 				} else if contentType.conforms(to: .image) {
 					if let image = try? await content?.loadTransferable(type: Data.self) {
@@ -166,7 +166,7 @@ private extension HeaderView {
 								image: uiimage
 							)
 							self.isLoadingContentFromGallery = false
-							self.routeProcessScreen(contentModel)
+							self.routeProcessScreen(contentModel, false)
 						} else {
 							print("image is nil")
 						}
