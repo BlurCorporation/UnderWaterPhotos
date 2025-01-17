@@ -56,6 +56,7 @@ class ProcessPresenter {
 	private let isUserPremium: Bool
 	private let shouldProcessAfterViewDidLoad: Bool
 	private let isProcessedVideo: Bool
+	private let defaultURL: String?
 	
 	//MARK: - Initialize
 	
@@ -66,7 +67,8 @@ class ProcessPresenter {
 		userDefaultsManager: DefaultsManagerable,
 		isUserPremium: Bool,
 		shouldProcessAfterViewDidLoad: Bool,
-		isProcessedVideo: Bool
+		isProcessedVideo: Bool,
+		defaultURL: String?
 	) {
 		self.sceneBuildManager = sceneBuildManager
 		self.processContentType = processContentType
@@ -75,6 +77,7 @@ class ProcessPresenter {
 		self.isUserPremium = isUserPremium
 		self.shouldProcessAfterViewDidLoad = shouldProcessAfterViewDidLoad
 		self.isProcessedVideo = isProcessedVideo
+		self.defaultURL = defaultURL
 	}
 }
 
@@ -116,7 +119,12 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 		case .image:
 			viewController?.presentBottomSheet(processContentType: processContentType, videoURL: nil, previewImage: previewImage)
 		case .video:
-			viewController?.presentBottomSheet(processContentType: processContentType, videoURL: videoURL, previewImage: previewImage)
+			if self.isProcessedVideo {
+				viewController?.presentBottomSheet(processContentType: processContentType, videoURL: defaultURL, previewImage: previewImage)
+			} else {
+				viewController?.presentBottomSheet(processContentType: processContentType, videoURL: videoURL, previewImage: previewImage)
+				
+			}
 		}
 	}
 	
@@ -172,7 +180,8 @@ extension ProcessPresenter: ProcessPresenterProtocol {
 			previewImage: previewImage,
 			defaultImage: defaultImage,
 			processedImage: processedImage,
-			processedImageAlpha: processedImageAlpha
+			processedImageAlpha: processedImageAlpha,
+			isProcessedVideo: self.isProcessedVideo
 		)
 		
 		self.viewController?.present(viewController, animated: true)

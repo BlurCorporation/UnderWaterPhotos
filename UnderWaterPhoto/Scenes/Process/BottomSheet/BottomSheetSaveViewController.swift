@@ -17,6 +17,7 @@ final class BottomSheetSaveViewController: UIViewController {
 	private var previewImage: UIImage?
 	private var processContentType: ProcessContentType
 	private var alphaSetting: Float?
+	private var isProcessedVideo: Bool
 	
 	// MARK: - UI Elements
 	
@@ -73,11 +74,13 @@ final class BottomSheetSaveViewController: UIViewController {
 	init(
 		processContentType: ProcessContentType,
 		userDefaultsManager: DefaultsManagerable,
-		repository: RepositoryProtocol
+		repository: RepositoryProtocol,
+		isProcessedVideo: Bool
 	) {
 		self.processContentType = processContentType
 		self.userDefaultsManager = userDefaultsManager
 		self.repository = repository
+		self.isProcessedVideo = isProcessedVideo
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -100,6 +103,12 @@ final class BottomSheetSaveViewController: UIViewController {
 			onPhoneSwitch,
 			inAppSwitch
 		)
+		
+		if self.isProcessedVideo {
+			self.inAppSwitch.isOn = false
+			self.inAppSwitch.isEnabled = false
+		}
+		
 		NSLayoutConstraint.activate([
 			bottomSheetBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			bottomSheetBackButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 27),
@@ -142,8 +151,6 @@ final class BottomSheetSaveViewController: UIViewController {
 				processedVideoTempURL: nil
 			)
 		case .video:
-			print("previewImage: ", previewImage)
-			print("videoURL: ", videoURL)
 			guard let image = previewImage, let url = videoURL else { return }
 			repository.addContent(
 				defaultImage: nil,
@@ -165,7 +172,8 @@ final class BottomSheetSaveViewController: UIViewController {
 		case .video:
 			guard let url = videoURL else { print("error"); return }
 			PHPhotoLibrary.shared().performChanges {
-				PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
+				let request = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(string: url)!)
+				request?.creationDate = Date()
 			} completionHandler: { isSaved, error in
 				if let error = error {
 					print(error)

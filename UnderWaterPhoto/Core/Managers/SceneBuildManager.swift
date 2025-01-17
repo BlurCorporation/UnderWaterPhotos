@@ -24,7 +24,8 @@ protocol Buildable {
 		previewImage: UIImage?,
 		defaultImage: UIImage?,
 		processedImage: UIImage?,
-		processedImageAlpha: Float
+		processedImageAlpha: Float,
+		isProcessedVideo: Bool
 	) -> BottomSheetSaveViewController
 }
 
@@ -96,7 +97,8 @@ extension SceneBuildManager: Buildable {
 			userDefaultsManager: userDefaultsManager,
 			isUserPremium: isUserPremium, 
 			shouldProcessAfterViewDidLoad: defaultImage != nil,
-			isProcessedVideo: isProcessedVideo
+			isProcessedVideo: isProcessedVideo,
+			defaultURL: url
 		)
 		
 		viewController.defaultVideoURL = url
@@ -148,12 +150,14 @@ extension SceneBuildManager: Buildable {
 		previewImage: UIImage?,
 		defaultImage: UIImage?,
 		processedImage: UIImage?,
-		processedImageAlpha: Float
+		processedImageAlpha: Float,
+		isProcessedVideo: Bool
 	) -> BottomSheetSaveViewController {
 		let vc = BottomSheetSaveViewController(
 			processContentType: processContentType,
 			userDefaultsManager: userDefaultsManager,
-			repository: repository
+			repository: repository,
+			isProcessedVideo: isProcessedVideo
 		)
 		vc.transitioningDelegate = customTransitioningDelegate
 		vc.modalPresentationStyle = .custom
