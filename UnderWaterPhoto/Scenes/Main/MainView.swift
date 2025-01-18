@@ -66,7 +66,6 @@ struct MainView: View {
 			.height(min: 188, max: vm.state == .settings ? 188 : 318)
 			.allowsHeaderCollapse(vm.state != .settings)
 			.collapseProgress($progress)
-            // TODO: In next version
 			.pullToRefresh(
 				isLoading: $isLoading,
 				color: Color.white
@@ -94,12 +93,6 @@ struct MainView: View {
 			}
 			.onAppear {
 				vm.fetch()
-				switch vm.state {
-				case .main, .clear:
-					progress = 0
-				case .settings:
-					progress = 1
-				}
 			}
 			if isLoadingContentFromGallery {
 				ZStack {
@@ -156,7 +149,8 @@ private extension MainView {
 					if vm.selectionState == .delete {
 						item.selected.toggle()
 					} else {
-						self.routeProcessScreen(item, true)
+						let isVideoProcessed = item.url != nil
+						self.routeProcessScreen(item, isVideoProcessed)
 					}
 				}
 				.onLongPressGesture(minimumDuration: 0.2) {
