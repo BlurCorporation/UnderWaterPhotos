@@ -255,14 +255,6 @@ final class ProcessViewController: UIViewController {
 		navigationController?.isNavigationBarHidden = false
 	}
 	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else { return }
-			self.playerView.pause()
-		}
-	}
-	
 	// MARK: Action
 	
 	@objc
