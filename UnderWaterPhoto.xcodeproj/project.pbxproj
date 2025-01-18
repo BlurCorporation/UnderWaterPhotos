@@ -894,7 +894,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DivePix;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Нужна камера очень";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Это необходимо для выбора контента для обработки";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Для загрузки и скачивания фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -934,7 +934,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnderWaterPhoto/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DivePix;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Нужна камера очень";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Это необходимо для выбора контента для обработки";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Для загрузки и скачивания фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
