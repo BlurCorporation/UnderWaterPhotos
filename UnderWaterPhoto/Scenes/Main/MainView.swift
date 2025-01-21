@@ -50,8 +50,7 @@ struct MainView: View {
 						routeLanguageScreen: languageSettingVC,
 						routeSubscriptionScreen: routeSubscriptionScreen
 					)
-					.frame(height: 176)
-					.padding([.top], -32)
+					.frame(height: 44)
 				case .main:
 					scrollContentView
 						.padding()
@@ -78,7 +77,6 @@ struct MainView: View {
 						isLoading = false
 					}
 				case .settings:
-					print(".setting")
 					isLoading = false
 				}
 			}

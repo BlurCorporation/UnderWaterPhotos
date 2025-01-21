@@ -75,10 +75,13 @@ struct HeaderView: View {
 			.padding([.leading, .trailing], 16)
 			Spacer()
 			ZStack {
-				addPhotoButtonView
-					.frame(alignment: .bottom)
-					.ignoresSafeArea()
-					.opacity(vm.state == .settings ? 0 : 1)
+				if vm.state != .settings {
+					
+					addPhotoButtonView
+						.frame(alignment: .bottom)
+						.ignoresSafeArea()
+//						.opacity(vm.state == .settings ? 0 : 1)
+				}
 			}
 			.onAppear {
 				switch vm.state {

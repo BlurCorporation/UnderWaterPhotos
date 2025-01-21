@@ -25,51 +25,59 @@ struct SettingsView: View {
 	}
 	
 	var body: some View {
-		List(vm.settings) { setting in
-			Button(action: {
-				switch setting.id {
-				case 0:
-					routeLanguageScreen()
-				case 1:
-					vm.deleteEntities()
-				case 2:
-					routeSubscriptionScreen()
-				case 3:
-					shouldDeleteAccount = true
-				case 4:
-					vm.logout()
-				default:
-					break
-				}
-			}, label: {
-				SettingRowView(
-					setting: setting.settingName,
-					additionalText: setting.additionalName,
-					symbol: setting.symbol
-				)
-			})
+		List {
+			ForEach(vm.settings) { setting in
+				Button(action: {
+					switch setting.id {
+					case 0:
+						routeLanguageScreen()
+					case 1:
+						vm.deleteEntities()
+					case 2:
+						routeSubscriptionScreen()
+					case 3:
+						shouldDeleteAccount = true
+					case 4:
+						vm.logout()
+					default:
+						break
+					}
+				}, label: {
+					SettingRowView(
+						setting: setting.settingName,
+						additionalText: setting.additionalName,
+						symbol: setting.symbol
+					)
+				})
+			}
 			.listRowBackground(Color("blue"))
-			.alert(
-				"Удалить аккаунт?",
-				isPresented: $shouldDeleteAccount
-			) {
-				Button("Да", role: .destructive) {
-					vm.deleteAccount()
-				}
-				Button("Нет", role: .cancel) {}
-			}
-			.alert(
-				"Не удалось удалить аккаунт",
-				isPresented: $vm.isErrorDeleteAccount
-			) {
-				Button("Повторить") {
-					vm.deleteAccount()
-				}
-				Button("Отмена", role: .cancel) {}
-			}
 		}
-		.environment(\.defaultMinListRowHeight, 44)
-		.frame(height: 176)
 		.listStyle(.plain)
+		.alert(
+			"Удалить аккаунт?",
+			isPresented: $shouldDeleteAccount
+		) {
+			Button("Да", role: .destructive) {
+				vm.deleteAccount()
+			}
+			Button("Нет", role: .cancel) {}
+		}
+		.alert(
+			"Не удалось удалить аккаунт",
+			isPresented: $vm.isErrorDeleteAccount
+		) {
+			Button("Повторить") {
+				vm.deleteAccount()
+			}
+			Button("Отмена", role: .cancel) {}
+		}
 	}
+}
+
+#Preview {
+	SettingRowView(
+		setting: "text",
+		additionalText: nil,
+		symbol: nil
+	)
 }
