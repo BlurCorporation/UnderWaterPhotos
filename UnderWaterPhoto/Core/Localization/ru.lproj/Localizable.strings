@@ -1,0 +1,113 @@
+/* 
+  Localizable.strings
+  UnderWaterPhoto
+
+  Created by Андрей Барсуков on 25.01.2024.
+  
+*/
+// MARK: - Scenes
+// LanguageSetting
+"languageSettingVC.titleLabel" = "Язык приложения";
+
+// LanguageSettingViewModel
+"languageSettingViewModel.Languages.title.rus" = "Русский";
+"languageSettingViewModel.Languages.title.en" = "Английсикий";
+
+// MARK: Settings
+// SettingsViewModel
+"settingsViewModel.settings.id.0.settingName" = "Язык приложения";
+"settingsViewModel.settings.id.0.additionalName" = "Русский";
+"settingsViewModel.settings.id.1.settingName" = "Очистить кэш";
+"settingsViewModel.settings.id.2.settingName" = "Подписка";
+"settingsViewModel.settings.id.3.settingName" = "Удалить аккаунт";
+"settingsViewModel.settings.id.4.settingName" = "Выйти из аккаунта";
+
+// MARK: SubscriptionScreen
+// MARK: Model
+"subscriptionModel.priceData.firstElement.title" = "Первая подписка";
+"subscriptionModel.priceData.firstElement.price" = "9 миллинов";
+"subscriptionModel.priceData.firstElement.priceForDay" = "9 миллинов";
+"subscriptionModel.priceData.secondElement.title" = "Вторая подписка";
+"subscriptionModel.priceData.secondElement.price" = "16 рублей";
+"subscriptionModel.priceData.secondElement.priceForDay" = "3 копейки";
+"subscriptionModel.priceData.thirdElement.title" = "Третья крутая подписка";
+"subscriptionModel.priceData.thirdElement.price" = "3 конфетки";
+"subscriptionModel.priceData.thirdElement.priceForDay" = "4 нюдса";
+"subscriptionModel.priceData.fourthElement.title" = "Четвертая подписка";
+"subscriptionModel.priceData.fourthElement.price" = "какая-нибудь цена";
+"subscriptionModel.priceData.fourthElement.priceForDay" = "не смотреть рилсы";
+
+// MARK: ViewController
+// ViewSubscription
+"subscriptionVC.titleLabel" = "Подписка";
+
+// ButtonView
+"buttonView.title" = "Оформить";
+
+// TextView
+"textView.rulesText" = "Oформляя подписку вы соглашаетесь на Условия использования и Политику конфиденциальности";
+"textView.attributedString.range" = "Условия использования и Политику конфиденциальности";
+
+// MARK: AuthScreen
+// AuthVC
+"AuthVC.headTitle.text" = "Создать аккаунт";
+"AuthVC.nameTextField" = "Имя";
+"AuthVC.passwordTextField" = "Пароль";
+"AuthVC.repeatPasswordTextField" = "Повторите пароль";
+"AuthVC.loginButton.setTitle" = "Войти";
+"AuthVC.registrationButton.setTitle" = "Зарегистрироваться";
+"AuthVC.restorePasswordButton.setTitle" = "Восстановить пароль";
+"AuthVC.loginUsinLabel.text" = "Войти с помощью";
+"AuthVC.if.expandLoginButton.registrationButton.title" = "Зарегестрироваться";
+"AuthVC.if.expandLoginButton.headTitle.text" = "Создать аккаунт";
+"AuthVC.if.expandLoginButton.loginButton.title" = "Войти";
+
+"AuthVC.else.expandLoginButton.registrationButton.title" = "Войти";
+"AuthVC.else.expandLoginButton.headTitle.text" = "Добро пожаловать";
+"AuthVC.else.expandLoginButton.loginButton.title" = "Регистрация";
+"AuthVC.else.expandLoginButton.restorePasswordButton.title" = "Восстановить пароль";
+"AuthVC.restorePasswordExpand.registrationButton.title" = "Восстановить пароль";
+"AuthVC.restorePasswordExpand.headTitle.text" = "Восстановить пароль";
+"AuthVC.error.invalidEmail.message" = "Неправильный E-mail";
+"AuthVC.error.invalidCredential.message" = "Неправильный Логин или Пароль";
+"AuthVC.error.repeatPasswordInvalid.message" = "Пароли не совпадают";
+"AuthVC.error.textFieldIsEmpty.message" = "Заполните все поля ввода";
+"AuthVC.error.weakPassword.message" = "Пароль слишком простой";
+"AuthVC.error.userDisabled.message" = "Аккаунт отключен, свяжитесь с поддержкой";
+"AuthVC.error.emailAlreadyInUse.message" = "Аккаунт с такой почтой уже существует";
+"AuthVC.error.somethingWrong.message" = "Аккаунт с такой почтой уже существует";
+
+
+// MARK: Main
+// MARK: ViewModel
+
+// MainViewModel
+"mainViewModel.userName" = "Александр";
+
+// MARK: View
+// MainView
+"extension.mainView.mainHeaderTextView.text" = "Cделай свои подводные фотографии лучше вместе с нами!";
+"extension.mainView.emptyView.text" = "Здесь будут загруженные тобой фото и видео";
+
+// HeaderView
+"extension.headerView.navBar.text" = "%@";
+"extension.headerView.addPhotoButtonView.text" = "Редактировать Фото и Видео";
+"extension.headerView.actionButton.deleteSelected" = "Удалить выбранное";
+"extension.headerView.actionButton.cancelSelection" = "Отменить выбор";
+
+// MARK: Process
+// BottomSheetSaveVC
+"bottomSheetSaveVC.saveInAppLabel.label.text" = "Сохранить в приложении";
+"bottomSheetSaveVC.saveOnPhoneLabel.label.text" = "Сохранить на устройство";
+"bottomSheetSaveVC.bottomSheetBackButton.button.setTitle" = "Назад";
+"bottomSheetSaveVC.bottomSheetSaveButton.button.setTitle" = "Сохранить";
+
+// ProcessVC
+"ProcessVC.titleLabel.label.text" = "Изменение";
+"ProcessVC.hideLogoButton.button.title" = "Убрать логотип";
+"ProcessVC.processPhotoButton.button.title" = "Обработать";
+"ProcessVC.bottomSheetBackButton.button.title" = "Назад";
+"ProcessVC.bottomSheetSaveButton.button.title" = "Сохранить";
+"ProcessVC.changeToProcess.titleLabel.text" = "Редактирование";
+"ProcessVC.processPhotoButton.edit.title" = "Редактировать";
+"ProcessVC.processVideoButton.goMainScene.title" = "Вернуться в галерею";
